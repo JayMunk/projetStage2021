@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @MappedSuperclass
 @Data
-public class User implements Serializable {
+public class 5User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

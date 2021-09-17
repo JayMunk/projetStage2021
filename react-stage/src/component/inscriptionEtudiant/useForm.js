@@ -3,10 +3,12 @@ import validateInfo from "./validateInfo";
 
 const useForm = (callback,validateInfo) => {
     const [values,setValues] = useState({
-        username: "",
-        email: "",
+        prenom: "",
+        nom: "",
+        courriel: "",
         password: "",
         password2: "",
+        numTelephone: "",
     })
     const [errors,setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)

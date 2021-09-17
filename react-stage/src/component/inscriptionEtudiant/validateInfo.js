@@ -15,14 +15,14 @@ export default function validateInfo(values) {
 
     if(!values.password) {
         errors.password = "Mot de passe requis"
-    } else if (values.password.length < 6) {
-        errors.password = "Le mot de passe est requiert"
+    } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/i.test(values.password)) {
+        errors.password = "Le mot de passe requiert au moins 6 charactères, une majuscule, une minuscule et un chiffre "
     }
 
     if(!values.password2){
         errors.password2 = "Mot de passe requis"
     } else if (values.password2 !== values.password){
-        errors.password2 = "Le mot de passe de correspondent pas"
+        errors.password2 = "Les mots de passe de correspondent pas"
     }
 
     if(!values.numTelephone) {

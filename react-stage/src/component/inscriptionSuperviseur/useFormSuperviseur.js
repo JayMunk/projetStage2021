@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
-import validateInfo from "./validateInfo";
+import validateInfo from "./validateInfoSuperviseur";
+import Axios from 'axios'
 
-const useForm = (callback,validateInfo) => {
+
+
+const useFormSuperviseur = (callback,validateInfo) => {
+    const url = ""
     const [values,setValues] = useState({
         prenom: "",
         nom: "",
@@ -9,6 +13,8 @@ const useForm = (callback,validateInfo) => {
         password: "",
         password2: "",
         numTelephone: "",
+        departement: "",
+        specialite: "",
     })
     const [errors,setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -17,8 +23,13 @@ const useForm = (callback,validateInfo) => {
         const {name, value} = e.target
         setValues({
             ...values,
-            [name]: value
+            [name]: value,
         })
+
+        var request = new XMLHttpRequest();
+        request.open('POST', 'localhost:9191/stage/etudiant', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send(values)
     }
 
     const handleSubmit = e =>{
@@ -26,7 +37,9 @@ const useForm = (callback,validateInfo) => {
 
         setErrors(validateInfo(values))
         setIsSubmitting(true)
+        console.log(values)
     }
+
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting) {
@@ -39,4 +52,4 @@ const useForm = (callback,validateInfo) => {
     return {handleChange, values, handleSubmit, errors}
 };
 
-export default useForm;
+export default useFormSuperviseur;

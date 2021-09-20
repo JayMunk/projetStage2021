@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react/cjs/react.development'
-import FormSignup from './FormSignup'
-import FormSuccess from './FormSuccess'
-import './Form.css'
+import FormSignup from './FormSuperviseurHTML'
+import FormSuccess from './FormSuperviseurSuccess'
+import './FormSuperviseurCSS.css'
 
-const Form = () => {
+const FormSuperviseur = () => {
     const [isSbubmitted,setIsSubmitted] = useState(false)
 
     function submitForm(){
@@ -25,4 +25,4 @@ const Form = () => {
     )
 }
 
-export default Form
+export default FormSuperviseur

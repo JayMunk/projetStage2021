@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FormSuccess = () => {
+const FormSuperviseurSuccess = () => {
     return (
         <div className="form-content-right">
             <div className="form-success">We have received your request</div>
@@ -9,4 +9,4 @@ const FormSuccess = () => {
     )
 }
 
-export default FormSuccess
+export default FormSuperviseurSuccess

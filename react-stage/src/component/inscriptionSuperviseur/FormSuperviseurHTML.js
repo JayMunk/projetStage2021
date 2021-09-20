@@ -1,9 +1,11 @@
 import React from 'react'
-import useForm from './useForm'
-import validateInfo from './validateInfo';
-import './Form.css';
+import useForm from './useFormSuperviseur'
+import validateInfo from './validateInfoSuperviseur';
+import './FormSuperviseur';
 
-const FormSignup = ({submitForm}) => {
+
+
+const FormSuperviseurHTML = ({submitForm}) => {
     const {handleChange,values, handleSubmit, errors} = useForm(submitForm,validateInfo);
     return (
         <div className="form-content-right">
@@ -65,48 +67,21 @@ const FormSignup = ({submitForm}) => {
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="programme"
+                    <label htmlFor="departement"
                     className="form-label">
-                       Programme
+                       Departement
                     </label>
-                    <input id="programme" type="text" name="programme" className="form-input" placeholder="Entrez le nom de votre programme" value={values.programme} onChange={handleChange}></input>
-                    {errors.programme && <p>{errors.programme}</p>}
+                    <input id="departement" type="text" name="departement" className="form-input" placeholder="Entrez le nom de votre departement" value={values.departement} onChange={handleChange}></input>
+                    {errors.departement && <p>{errors.departement}</p>}
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="adresse"
+                    <label htmlFor="specialite"
                     className="form-label">
-                       Adresse
+                       Specialite
                     </label>
-                    <input id="adresse" type="text" name="adresse" className="form-input" placeholder="Entrez votre adresse" value={values.adresse} onChange={handleChange}></input>
-                    {errors.adresse && <p>{errors.adresse}</p>}
-                </div>
-
-                <div className="form-inputs">
-                    <label htmlFor="numMatricule"
-                    className="form-label">
-                       Numero de matricule
-                    </label>
-                    <input id="numMatricule" type="text" name="numMatricule" className="form-input" placeholder="Entrez votre numero de matricule" value={values.numMatricule} onChange={handleChange}></input>
-                    {errors.numMatricule && <p>{errors.numMatricule}</p>}
-                </div>
-
-                <div className="form-inputs">
-                    <label htmlFor="hasLicense"
-                    className="form-label">
-                        Cochez si vous avez votre permis de conduite
-                    </label>
-                    <input id="hasLicense" type="checkbox" name="hasLicense" className="form-input" placeholder="" value={values.hasLicense} onChange={handleChange}></input>
-                    {errors.hasLicense && <p>{errors.hasLicense}</p>}
-                </div>
-
-                <div className="form-inputs">
-                    <label htmlFor="hasVoiture"
-                    className="form-label">
-                       Cochez si vous avez une voiture
-                    </label>
-                    <input id="hasVoiture" type="checkbox" name="hasVoiture" className="form-input" placeholder="Cochez si vous avez une voiture" value={values.hasLicense} onChange={handleChange}></input>
-                    {errors.hasVoiture && <p>{errors.hasVoiture}</p>}
+                    <input id="specialite" type="text" name="specialite" className="form-input" placeholder="Entrez votre specialite" value={values.specialite} onChange={handleChange}></input>
+                    {errors.specialite && <p>{errors.specialite}</p>}
                 </div>
 
                 <button className="form-input-btn" type="submit">S'inscrire</button>
@@ -116,4 +91,5 @@ const FormSignup = ({submitForm}) => {
     )
 }
 
-export default FormSignup
+export default FormSuperviseurHTML
+

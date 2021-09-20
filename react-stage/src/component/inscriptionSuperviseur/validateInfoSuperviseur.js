@@ -1,4 +1,4 @@
-export default function validateInfo(values) {
+export default function validateInfoSuperviseur(values) {
     let errors = {}
 
     if(!values.prenom) {
@@ -29,18 +29,13 @@ export default function validateInfo(values) {
         errors.numTelephone = "Numero de telephone requis"
     }
 
-    if(!values.programme) {
-        errors.programme = "Nom du programme requis"
+    if(!values.departement) {
+        errors.departement = "Nom du departement requis"
     }
 
-    if(!values.adresse) {
-        errors.adresse = "Adresse requise"
+    if(!values.specialite) {
+        errors.specialite = "Specialite requise"
     }
-
-    if(!values.numMatricule) {
-        errors.numMatricule = "Numero de matricule requis"
-    }
-
-
+    
     return errors;
 }

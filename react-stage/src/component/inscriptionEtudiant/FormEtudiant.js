@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react/cjs/react.development'
-import FormSignup from './FormEtudiantHTML'
-import FormSuccess from './FormEtudiantSuccess'
+import FormEtudiantHTML from './FormEtudiantHTML'
+import FormEtudiantSuccess from './FormEtudiantSuccess'
 import './FormEtudiantCSS.css'
 
 const FormEtudiant = () => {
@@ -18,7 +18,7 @@ const FormEtudiant = () => {
                 <div className="form-content-left">
                     <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
                 </div>
-                {!isSbubmitted ? (<FormSignup submitForm={submitForm} /> ) : (<FormSuccess />)  }
+                {!isSbubmitted ? (<FormEtudiantHTML submitForm={submitForm} /> ) : (<FormEtudiantSuccess />)  }
             </div>
             
         </>

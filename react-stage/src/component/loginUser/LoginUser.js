@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react/cjs/react.development'
-import FormSuperviseurHTML from './FormSuperviseurHTML'
-import FormSuperviseurSuccess from './FormSuperviseurSuccess'
-import './FormSuperviseurCSS.css'
+import LoginUserHTML from './LoginUserHTML'
+import LoginUserSuccess from './LoginUserSuccess'
+import './LoginUserCss.css'
 
-const FormSuperviseur = () => {
+const LoginUser = () => {
     const [isSbubmitted,setIsSubmitted] = useState(false)
 
     function submitForm(){
@@ -18,11 +18,11 @@ const FormSuperviseur = () => {
                 <div className="form-content-left">
                     <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
                 </div>
-                {!isSbubmitted ? (<FormSuperviseurHTML submitForm={submitForm} /> ) : (<FormSuperviseurSuccess />)  }
+                {!isSbubmitted ? (<LoginUserHTML submitForm={submitForm} /> ) : (<LoginUserSuccess />)  }
             </div>
             
         </>
     )
 }
 
-export default FormSuperviseur
+export default LoginUser

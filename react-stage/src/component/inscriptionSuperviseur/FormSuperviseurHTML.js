@@ -1,12 +1,12 @@
 import React from 'react'
-import useForm from './useFormSuperviseur'
-import validateInfo from './validateInfoSuperviseur';
+import useFormSuperviseur from './useFormSuperviseur'
+import validateInfoSuperviseur from './validateInfoSuperviseur';
 import './FormSuperviseur';
 
 
 
 const FormSuperviseurHTML = ({submitForm}) => {
-    const {handleChange,values, handleSubmit, errors} = useForm(submitForm,validateInfo);
+    const {handleChange,values, handleSubmit, errors} = useFormSuperviseur(submitForm,validateInfoSuperviseur);
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>

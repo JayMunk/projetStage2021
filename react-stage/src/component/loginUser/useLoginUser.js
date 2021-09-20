@@ -1,23 +1,14 @@
 import { useState, useEffect } from "react";
-import validateInfoEtudiant from "./validateInfoEtudiant";
+import validateInfoLogin from "./validateInfoLogin";
 import Axios from 'axios'
 
 
 
-const useFormEtudiant = (callback,validateInfoEtudiant) => {
+const useLoginUser = (callback,validateInfoLogin) => {
     const url = ""
     const [values,setValues] = useState({
-        prenom: "",
-        nom: "",
         courriel: "",
         password: "",
-        password2: "",
-        numTelephone: "",
-        programme: "",
-        adresse: "",
-        numMatricule: "",
-        hasLicense: "",
-        hasVoiture: "",
     })
     const [errors,setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -29,16 +20,16 @@ const useFormEtudiant = (callback,validateInfoEtudiant) => {
             [name]: value,
         })
 
-        var request = new XMLHttpRequest();
-        request.open('POST', 'localhost:9191/stage/etudiant', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send(values)
+        // var request = new XMLHttpRequest();
+        // request.open('POST', 'localhost:9191/stage/etudiant', true);
+        // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        // request.send(values)
     }
 
     const handleSubmit = e =>{
         e.preventDefault();
 
-        setErrors(validateInfoEtudiant(values))
+        setErrors(validateInfoLogin(values))
         setIsSubmitting(true)
         console.log(values)
     }
@@ -55,4 +46,4 @@ const useFormEtudiant = (callback,validateInfoEtudiant) => {
     return {handleChange, values, handleSubmit, errors}
 };
 
-export default useFormEtudiant;
+export default useLoginUser;

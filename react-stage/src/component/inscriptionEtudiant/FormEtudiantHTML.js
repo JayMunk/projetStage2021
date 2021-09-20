@@ -1,12 +1,12 @@
 import React from 'react'
-import useForm from './useFormEtudiant'
-import validateInfo from './validateInfoEtudiant';
+import useFormEtudiant from './useFormEtudiant'
+import validateInfoEtudiant from './validateInfoEtudiant';
 import './FormEtudiant';
 
 
 
 const FormEtudiantHTML = ({submitForm}) => {
-    const {handleChange,values, handleSubmit, errors} = useForm(submitForm,validateInfo);
+    const {handleChange,values, handleSubmit, errors} = useFormEtudiant(submitForm,validateInfoEtudiant);
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>

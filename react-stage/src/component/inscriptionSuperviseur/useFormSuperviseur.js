@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import validateInfo from "./validateInfoSuperviseur";
+import validateInfoSuperviseur from "./validateInfoSuperviseur";
 import Axios from 'axios'
 
 
 
-const useFormSuperviseur = (callback,validateInfo) => {
+const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
     const url = ""
     const [values,setValues] = useState({
         prenom: "",
@@ -35,7 +35,7 @@ const useFormSuperviseur = (callback,validateInfo) => {
     const handleSubmit = e =>{
         e.preventDefault();
 
-        setErrors(validateInfo(values))
+        setErrors(validateInfoSuperviseur(values))
         setIsSubmitting(true)
         console.log(values)
     }

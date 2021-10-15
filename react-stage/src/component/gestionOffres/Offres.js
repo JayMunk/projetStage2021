@@ -1,7 +1,8 @@
 import { PickList } from "primereact/picklist"
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClose } from 'react-icons/ai'
+import { UserInfoContext } from '../../contexts/UserInfo'
 import ReactModal from 'react-modal';
 
 
@@ -18,6 +19,9 @@ const Offres = () => {
     const [listAllEtudiant, setListAllEtudiant] = useState([])
 
     const [listWhitelisted, setListWhitelisted] = useState([]);
+
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+
 
     useEffect(() => {
         const getOffres = async () => {

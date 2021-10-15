@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from 'react'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClose } from 'react-icons/ai'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import ReactModal from 'react-modal';
+import OffreService from "../../services/OffreService.js"
+import UserService from "../../services/UserService.js"
 
 
 const Offres = () => {
@@ -25,33 +27,22 @@ const Offres = () => {
 
     useEffect(() => {
         const getOffres = async () => {
-            const dbOffres = await fetchOffres()
-            console.log(JSON.stringify(dbOffres))
+            const dbOffres = loggedUser.role === "ETUDIANT" ? 
+                await OffreService.getEtudiantOffres(loggedUser.courriel) : 
+                await OffreService.getAllOffres()
             setOffres(dbOffres)
         }
         getOffres();
-    }, [])
+    }, [loggedUser])
 
     useEffect(() => {
         const getListAllEtudiants = async () => {
-            const allEtudiants = await fetchAllEtudiants()
+            const allEtudiants = await UserService.getListAllEtudiants()
             console.log(JSON.stringify(allEtudiants))
             setListAllEtudiant(allEtudiants)
         }
         getListAllEtudiants()
     }, [])
-
-    const fetchOffres = async () => {
-        const res = await fetch('http://localhost:9191/stage/offres');
-        const data = await res.json()
-        return data
-    }
-
-    const fetchAllEtudiants = async () => {
-        const res = await fetch('http://localhost:9191/stage/etudiants')
-        const data = await res.json()
-        return data
-    }
 
     const onClickOffre = (offre) => {
         setCurrentOffre(offre)
@@ -94,7 +85,9 @@ const Offres = () => {
     }
 
     const updateOffres = async () => {
-        const dbOffres = await fetchOffres();
+        const dbOffres = loggedUser.role === "ETUDIANT" ? 
+                OffreService.getEtudiantOffres(loggedUser.courriel) : 
+                OffreService.getAllOffres()
         setOffres(dbOffres)
     }
 

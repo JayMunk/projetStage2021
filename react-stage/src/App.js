@@ -5,12 +5,10 @@ import FormMoniteur from './component/inscriptionMoniteur/FormMoniteur'
 import LoginUser from './component/loginUser/LoginUser';
 import Navbar from './component/navbar/NavbarHTML'
 import Home from './component/Home/Home';
-import Offres from './component/gestionOffres/Offres';
+import Offres from './component/Offres/Offres';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
-import Offre from './component/gestionOffres/Offre';
-
 
 
 function App() {

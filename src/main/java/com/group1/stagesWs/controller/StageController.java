@@ -24,9 +24,9 @@ public class StageController {
         return new ResponseEntity<>(service.getAllOffres(), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/stage/offres/etudiant")
-    public ResponseEntity<List<Offre>> getEtudiantOffres(@RequestBody Etudiant etudiant) {
-        return new ResponseEntity<>(service.getEtudiantOffres(etudiant), HttpStatus.OK);
+    @GetMapping(path = "/stage/offres/{courriel}")
+    public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String courriel) {
+        return new ResponseEntity<>(service.getEtudiantOffres(courriel), HttpStatus.OK);
     }
 
     @PostMapping(path = "/stage/offre")

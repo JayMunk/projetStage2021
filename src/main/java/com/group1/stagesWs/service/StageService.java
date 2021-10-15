@@ -2,6 +2,7 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.model.User;
 import com.group1.stagesWs.model.Whitelist;
 import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.repositories.WhitelistRepository;
@@ -21,12 +22,19 @@ public class StageService {
     @Autowired
     private WhitelistRepository whitelistRepository;
 
+    @Autowired
+    private UserService userService;
+
     public List<Offre> getAllOffres() {
         return offreRepository.findAll();
     }
 
-    public List<Offre> getEtudiantOffres(Etudiant etudiant) {
-        List<Whitelist> whitelists = whitelistRepository.findAllByWhitelistedEtudiant(etudiant);
+    public List<Offre> getEtudiantOffres(String courriel) {
+        Optional<User> opUser = userService.findUserByCourriel(courriel);
+        if (opUser.isEmpty()) return List.of();
+        User user = opUser.get();
+        if (!(user instanceof Etudiant)) return List.of();
+        List<Whitelist> whitelists = whitelistRepository.findAllByWhitelistedEtudiant((Etudiant)user);
         return offreRepository.findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(whitelists);
     }
 

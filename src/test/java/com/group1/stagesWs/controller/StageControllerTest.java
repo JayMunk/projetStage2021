@@ -61,10 +61,10 @@ public class StageControllerTest {
     void testGetEtudiantOffres() throws Exception {
         //Arrange
         List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
-        when(service.getEtudiantOffres(any(Etudiant.class))).thenReturn(expected);
+        when(service.getEtudiantOffres(any(String.class))).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/offres/etudiant")
+        MvcResult result = mockMvc.perform(get("/stage/offres/etudiant@example.com")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(new Etudiant()))).andReturn();
 

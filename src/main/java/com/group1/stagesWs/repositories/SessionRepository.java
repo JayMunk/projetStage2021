@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SessionRepository extends JpaRepository<Session, Integer> {
 
-    Session findByNomSession(String nomSession);
+  Session findByNomSession(String nomSession);
 }

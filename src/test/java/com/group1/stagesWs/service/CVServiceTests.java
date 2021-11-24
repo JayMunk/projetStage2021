@@ -1,13 +1,18 @@
 package com.group1.stagesWs.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 import com.group1.stagesWs.enums.Status;
-
-
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Notification;
 import com.group1.stagesWs.repositories.CVRepository;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,177 +20,166 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 public class CVServiceTests {
 
-    @Mock
-    private CVRepository cvRepository;
+  @Mock private CVRepository cvRepository;
 
-    @Mock
-    private EmailService emailService;
+  @Mock private EmailService emailService;
 
-    @Mock
-    private NotificationService notificationService;
+  @Mock private NotificationService notificationService;
 
-    @InjectMocks
-    private CVService cvService;
+  @InjectMocks private CVService cvService;
 
-    @Test
-    void testAcceptCV() {
-        //Arrange
-        CV expected = getCV();
-        expected.setEtudiant(new Etudiant());
-        when(cvRepository.save(any())).thenReturn(expected);
-        doNothing().when(emailService).sendEtudiantEmailCVAccepted(expected);
-        when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt())).thenReturn(true);
+  @Test
+  void testAcceptCV() {
+    // Arrange
+    CV expected = getCV();
+    expected.setEtudiant(new Etudiant());
+    when(cvRepository.save(any())).thenReturn(expected);
+    doNothing().when(emailService).sendEtudiantEmailCVAccepted(expected);
+    when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt()))
+        .thenReturn(true);
 
-        //Act
-        Optional<CV> returned = cvService.acceptCV(expected);
+    // Act
+    Optional<CV> returned = cvService.acceptCV(expected);
 
+    // Assert
+    assertThat(returned).isEqualTo(Optional.of(expected));
+    assertThat(returned.isPresent()).isTrue();
+    assertThat(returned.get().getStatus()).isEqualTo(Status.ACCEPTED);
+  }
 
-        //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected));
-        assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getStatus()).isEqualTo(Status.ACCEPTED);
-    }
+  @Test
+  void testRejectCV() {
+    // Arrange
+    CV expected = getCV();
+    expected.setEtudiant(new Etudiant());
+    when(cvRepository.save(any())).thenReturn(expected);
+    doNothing().when(emailService).sendEtudiantEmailCVRejected(expected);
+    when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt()))
+        .thenReturn(true);
 
-    @Test
-    void testRejectCV() {
-        //Arrange
-        CV expected = getCV();
-        expected.setEtudiant(new Etudiant());
-        when(cvRepository.save(any())).thenReturn(expected);
-        doNothing().when(emailService).sendEtudiantEmailCVRejected(expected);
-        when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt())).thenReturn(true);
+    // Act
+    Optional<CV> returned = cvService.rejectCV(expected);
 
-        //Act
-        Optional<CV> returned = cvService.rejectCV(expected);
+    // Assert
+    assertThat(returned).isEqualTo(Optional.of(expected));
+    assertThat(returned.isPresent()).isTrue();
+    assertThat(returned.get().getStatus()).isEqualTo(Status.REJECTED);
+  }
 
+  @Test
+  void testGetAllCVs() {
+    // Arrange
+    CV cv1 = getCV(); // Constructeur met leur session par defaut a la session actuelle
+    CV cv2 = getCV(); // Constructeur met leur session par defaut a la session actuelle
 
-        //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected));
-        assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getStatus()).isEqualTo(Status.REJECTED);
-    }
+    CV cv3 = getCV();
+    cv3.setSession(
+        "AUT-2021"); // La session de ce cv est change de la valeur par defaut qui est la session
+                     // actuelle
+    List<CV> listCV = List.of(cv1, cv2, cv3);
+    when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
 
-    @Test
-    void testGetAllCVs() {
-        //Arrange
-        CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
-        CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
+    // Act
+    List<CV> returned = cvService.getAllCVs();
 
-        CV cv3 = getCV();
-        cv3.setSession("AUT-2021"); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
-        List<CV> listCV = List.of(cv1, cv2, cv3);
-        when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
+    // Assert
+    assertThat(returned.size())
+        .isEqualTo(3 - 1); // Retout des CV de la session actuelle seulement donc 2/3
+  }
 
-        //Act
-        List<CV> returned = cvService.getAllCVs();
+  @Test
+  void testGetAllCVsToutSession() {
+    // Arrange
+    CV cv1 = getCV(); // Constructeur met leur session par defaut a la session actuelle
+    CV cv2 = getCV(); // Constructeur met leur session par defaut a la session actuelle
+    CV cv3 = getCV();
+    cv3.setSession(
+        "HIVER-2021"); // La session de ce cv est change de la valeur par defaut qui est la session
+                       // actuelle
+    List<CV> expected = List.of(cv1, cv2, cv3);
+    when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
 
-        //Assert
-        assertThat(returned.size()).isEqualTo(3 - 1); //Retout des CV de la session actuelle seulement donc 2/3
-    }
+    // Act
+    List<CV> returned = cvService.getAllCVsAllSession();
 
-    @Test
-    void testGetAllCVsToutSession() {
-        //Arrange
-        CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
-        CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
-        CV cv3 = getCV();
-        cv3.setSession("HIVER-2021"); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
-        List<CV> expected = List.of(cv1, cv2, cv3);
-        when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
+    // Assert
+    assertThat(returned.size()).isEqualTo(3); // Retour des CV de tous les sessions donc 3/3
+  }
 
-        //Act
-        List<CV> returned = cvService.getAllCVsAllSession();
+  @Test
+  void testGetCVById() {
+    // Arrange
+    CV expected = getCV();
+    expected.setId(1);
+    when(cvRepository.findById(1)).thenReturn(Optional.of(expected));
 
-        //Assert
-        assertThat(returned.size()).isEqualTo(3); //Retour des CV de tous les sessions donc 3/3
-    }
+    // Act
+    Optional<CV> returned = cvService.getCVById(expected.getId());
 
-    @Test
-    void testGetCVById() {
-        //Arrange
-        CV expected = getCV();
-        expected.setId(1);
-        when(cvRepository.findById(1)).thenReturn(Optional.of(expected));
+    // Assert
+    assertThat(returned).isEqualTo(Optional.of(expected));
+  }
 
-        //Act
-        Optional<CV> returned = cvService.getCVById(expected.getId());
+  @Test
+  void testSaveCV() {
+    // Arrange
+    CV expected = getCV();
+    expected.setEtudiant(new Etudiant());
+    when(cvRepository.save(any(CV.class))).thenReturn(expected);
+    when(notificationService.saveNotificationGestionnaire(any(Notification.class)))
+        .thenReturn(true);
 
-        //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected));
-    }
+    // Act
+    Optional<CV> returned = cvService.saveCV(expected);
 
-    @Test
-    void testSaveCV(){
-        //Arrange
-        CV expected = getCV();
-        expected.setEtudiant(new Etudiant());
-        when(cvRepository.save(any(CV.class))).thenReturn(expected);
-        when(notificationService.saveNotificationGestionnaire(any(Notification.class))).thenReturn(true);
+    // Assert
+    assertThat(returned).isEqualTo(Optional.of(expected));
+  }
 
+  @Test
+  void testDeleteCV() {
+    // Arrange
+    CV expected = getCV();
+    expected.setId(1);
+    when(cvRepository.deleteCVById(any(Integer.class))).thenReturn(true);
 
-        //Act
-        Optional<CV> returned = cvService.saveCV(expected);
+    // Act
+    boolean result = cvService.deleteCV(expected.getId());
 
-        //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected));
-    }
+    // Assert
+    assertThat(result).isTrue();
+  }
 
-    @Test
-    void testDeleteCV(){
-        //Arrange
-        CV expected = getCV();
-        expected.setId(1);
-        when(cvRepository.deleteCVById(any(Integer.class))).thenReturn(true);
+  @Test
+  void testGetAllCVEtudiant() {
+    // Arrange
+    Etudiant expectedEtudiant = new Etudiant();
+    expectedEtudiant.setId(1);
+    CV expected = getCV();
+    expected.setEtudiant(expectedEtudiant);
+    CV expected2 = getCV();
+    expected2.setEtudiant(expectedEtudiant);
+    CV expected3 = getCV();
+    expected3.setEtudiant(expectedEtudiant);
+    expected3.setSession(
+        "HIVER-2021"); // Pour tester qu'on retourne juste les CV a l'etudiant pour la session
+                       // actuelle
+    when(cvRepository.findCVByEtudiantId(any(Integer.class)))
+        .thenReturn(List.of(expected, expected2));
 
-        //Act
-        boolean result = cvService.deleteCV(expected.getId());
+    // Act
+    List<CV> returnedList = cvService.getAllCVEtudiant(expectedEtudiant.getId());
 
-        //Assert
-        assertThat(result).isTrue();
-    }
+    // Arrange
+    assertThat(returnedList).hasSize(2);
+  }
 
-    @Test
-    void testGetAllCVEtudiant(){
-        //Arrange
-        Etudiant expectedEtudiant = new Etudiant();
-        expectedEtudiant.setId(1);
-        CV expected = getCV();
-        expected.setEtudiant(expectedEtudiant);
-        CV expected2 = getCV();
-        expected2.setEtudiant(expectedEtudiant);
-        CV expected3 = getCV();
-        expected3.setEtudiant(expectedEtudiant);
-        expected3.setSession("HIVER-2021"); //Pour tester qu'on retourne juste les CV a l'etudiant pour la session actuelle
-        when(cvRepository.findCVByEtudiantId(any(Integer.class))).thenReturn(List.of(expected, expected2));
-
-        //Act
-        List<CV> returnedList = cvService.getAllCVEtudiant(expectedEtudiant.getId());
-
-        //Arrange
-        assertThat(returnedList).hasSize(2);
-    }
-
-    private CV getCV() {
-        CV cv =  new CV();
-        cv.setNom("cvTest.pdf");
-        return cv;
-    }
-
-
-
-
-
-
+  private CV getCV() {
+    CV cv = new CV();
+    cv.setNom("cvTest.pdf");
+    return cv;
+  }
 }

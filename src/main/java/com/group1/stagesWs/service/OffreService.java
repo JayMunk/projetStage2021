@@ -2,20 +2,16 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.NotifStatus;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Gestionnaire;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Notification;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.springframework.stereotype.Service;
 
 @Service
 public class OffreService extends SessionManager<Offre> {
@@ -67,13 +63,6 @@ public class OffreService extends SessionManager<Offre> {
 
     return Optional.of(offreRepository.save(offre));
   }
-
-  //    public Optional<Offre> updateOffre(int id, Offre offre) {
-  //        var offreOptional = offreRepository.findById(id);
-  //        if (offreOptional.isEmpty()) return offreOptional;
-  //        if (offre.getId() != id) offre.setId(id);
-  //        return Optional.of(offreRepository.save(offre));
-  //    }
 
   public Optional<Offre> applyForOffre(int id, String email) {
     Optional<Offre> offreOptional = offreRepository.findById(id);

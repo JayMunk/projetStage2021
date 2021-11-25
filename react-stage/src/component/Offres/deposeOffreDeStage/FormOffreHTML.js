@@ -77,12 +77,21 @@ const FormOffreHTML = ({ submitForm }) => {
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="horaire"
+                    <label htmlFor="horaireDebut"
                         className="form-label">
-                        L'horaire
+                        Horaire début
                     </label>
-                    <input id="horaire" type="text" name="horaire" className="form-input" placeholder="9:00 à 17:00" value={values.horaire} onChange={handleChange}></input>
-                    {errors.horaire && <p>{errors.horaire}</p>}
+                    <input value={values.horaireDebut} onChange={handleChange} id="horaireDebut" className="form-field" type="time" name="horaireDebut" />
+                    {errors.horaireDebut && <p>{errors.horaireDebut}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="horaireFin"
+                        className="form-label">
+                        Horaire fin
+                    </label>
+                    <input value={values.horaireFin} onChange={handleChange} id="horaireFin" className="form-field" type="time" name="horaireFin" />
+                    {errors.horaireFin && <p>{errors.horaireFin}</p>}
                 </div>
 
                 <div className="form-inputs">

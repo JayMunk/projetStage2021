@@ -15,7 +15,8 @@ const useFormOffre = (callback, validateInfoOffre) => {
         dateDebut: "",
         dateFin: "",
         nbTotalSemaine: 0,
-        horaire: "",
+        horaireDebut: "",
+        horaireFin: "",
         nbTotalHeuresParSemaine: 0,
         tauxHoraire: 0
     })

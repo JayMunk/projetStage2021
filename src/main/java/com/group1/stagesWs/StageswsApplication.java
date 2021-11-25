@@ -3,36 +3,18 @@ package com.group1.stagesWs;
 import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.UserType;
-import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Contrat;
-import com.group1.stagesWs.model.Entrevue;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Gestionnaire;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Notification;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Session;
-import com.group1.stagesWs.model.Superviseur;
-import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.ContratRepository;
-import com.group1.stagesWs.repositories.EntrevueRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.EvaluationEntrepriseRepository;
-import com.group1.stagesWs.repositories.EvaluationEtudiantRepository;
-import com.group1.stagesWs.repositories.GestionnaireRepository;
-import com.group1.stagesWs.repositories.MoniteurRepository;
-import com.group1.stagesWs.repositories.NotificationRepository;
-import com.group1.stagesWs.repositories.OffreRepository;
-import com.group1.stagesWs.repositories.SuperviseurRepository;
+import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.service.RapportService;
 import com.group1.stagesWs.service.SessionService;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
@@ -350,7 +332,8 @@ public class StageswsApplication implements CommandLineRunner {
             "2021-12-05",
             "2022-3-05",
             13,
-            "9:00 à 5:00",
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
             40,
             21);
     Offre offre2 =
@@ -363,7 +346,8 @@ public class StageswsApplication implements CommandLineRunner {
             "2021-12-05",
             "2022-3-05",
             13,
-            "9:00 à 5:00",
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
             40,
             20);
     Offre offre3 =
@@ -376,7 +360,8 @@ public class StageswsApplication implements CommandLineRunner {
             "2022-1-05",
             "2022-4-05",
             13,
-            "9:00 à 5:00",
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
             40,
             17.50);
     Offre offre4 =
@@ -389,7 +374,8 @@ public class StageswsApplication implements CommandLineRunner {
             "2021-12-05",
             "2022-3-05",
             13,
-            "9:00 à 5:00",
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
             40,
             25);
     Offre offre5 =
@@ -402,7 +388,8 @@ public class StageswsApplication implements CommandLineRunner {
             "2021-12-05",
             "2022-3-05",
             13,
-            "9:00 à 5:00",
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
             40,
             18.75);
     offre1.setMoniteur(moniteur);
@@ -423,7 +410,8 @@ public class StageswsApplication implements CommandLineRunner {
             "2022-12-05",
             "2023-3-05",
             13,
-            "9:00 à 5:00",
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
             40,
             20.75);
     offre6.setSession(sessionAlternative.getNomSession());

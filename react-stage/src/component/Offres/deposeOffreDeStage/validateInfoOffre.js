@@ -29,8 +29,12 @@ export default function validateInfoOffre(values) {
         errors.nbTotalSemaine = "Nombre total de semaine requis"
     }
 
-    if (!values.horaire) {
-        errors.horaire = "Horaire requis"
+    if (!values.horaireDebut) {
+        errors.horaireDebut = "L'horaire de début est requis"
+    }
+
+    if (!values.horaireFin) {
+        errors.horaireFin = "L'horaire de fin est requis"
     }
 
     if (!values.nbTotalHeuresParSemaine) {

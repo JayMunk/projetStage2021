@@ -28,23 +28,16 @@ const SuperviseurDashboard = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
-                    getEtudiants(data.id)
-                    setFullUser(data)
-                })
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                getEtudiants(data.id)
+                setFullUser(data)
+            })
 
         }
     }, []);
 
     const getEtudiants = async (id) => {
-        const dbEtudiants =
-            await UserService.getListEtudiantSuperviseur(id)
-        console.log(dbEtudiants, "dbEtudiants")
+        const dbEtudiants = await UserService.getListEtudiantSuperviseur(id)
         setListEtudiants(dbEtudiants)
     }
 
@@ -72,7 +65,7 @@ const SuperviseurDashboard = () => {
                     </table>
                 </div>
                 :
-                null
+                <p style={{ textAlign: "center" }}>Vous etes responsable d'aucun étudiant pour l'instant</p>
             }
         </>
     )

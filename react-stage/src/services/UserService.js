@@ -55,12 +55,6 @@ const UserService = {
         return data
     },
 
-    getMoniteur: async (id) => {
-    //     //const res = await fetch(urlBase + '/moniteur/' + id)
-    //     //const data = await res.json()
-    //     //return data
-    },
-
     getGestionnaires: async () => {
         const res = await fetch(urlBase + '/gestionnaires')
         const data = await res.json()

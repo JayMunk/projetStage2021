@@ -32,19 +32,12 @@ const MoniteurDashboard = () => {
         setReloadList(reloadList + 1)
     }
 
-
-
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
-                    setFullUser(data)
-                    getGestionnaires()
-                })
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                setFullUser(data)
+                getGestionnaires()
+            })
 
         }
     }, []);

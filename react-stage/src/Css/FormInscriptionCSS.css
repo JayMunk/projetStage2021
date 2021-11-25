@@ -1,28 +1,33 @@
+#body,form{ 
+  background-color: #161616;
+}
 form {
     max-width: 500px;
     margin: 30px auto;
-    background: white;
+    background-color: #161616;
     text-align: left;
     padding: 40px;
     border-radius: 10px;
   }
   label {
-    color: #aaa;
+    color: #EDEDED;
     display: inline-block;
     margin: 25px 0 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
   }
+
   input,
   select {
+    background-color: #161616;
     display: block;
     padding: 10px 6px;
     width: 100%;
     box-sizing: border-box;
     border: none;
-    border-bottom: 1px solid #ddd;
-    color: #555555;
+    border-bottom: 1px solid #EDEDED;
+    color : #EDEDED
   }
   input[type="checkbox"] {
     display: inline-block;
@@ -45,11 +50,11 @@ form {
   }
   
   .button {
-    background: #0b6dff;
+    background: #EDEDED;
     border: 0;
     padding: 10px 20px;
     margin-top: 20px;
-    color: white;
+    color: #161616;
     border-radius: 20px;
     font-size: 16px;
   }
@@ -67,5 +72,5 @@ form {
   h2 {
     text-align: center;
     padding-top: 25px;
-    color: #aaa;
+    color: #EDEDED;
   }

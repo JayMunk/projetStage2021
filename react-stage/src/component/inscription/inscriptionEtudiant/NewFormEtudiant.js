@@ -117,7 +117,7 @@ const NewFormEtudiant = () => {
     }
 
     return (
-        <div>
+        <body id="body">
             <h2>Créer un compte de type étudiant</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -191,7 +191,7 @@ const NewFormEtudiant = () => {
                 </div>
                 <button type="submit" className="button">S'inscrire</button>
             </form >
-        </div >
+        </body>
     );
 }
 

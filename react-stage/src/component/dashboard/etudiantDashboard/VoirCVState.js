@@ -1,7 +1,10 @@
 import { React, useState, useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo';
 import { saveAs } from 'file-saver'
+import { Link } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
+import CVService from '../../../services/CVService';
+import UserService from '../../../services/UserService';
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
@@ -9,7 +12,8 @@ const VoirCVState = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191cv/etudiant/${etudiant.id}`)
+        //await CVService.updateCVsEtudiant(etudiant.id).then(data => { setCvs(data)  })
+        fetch(`http://localhost:9191/cv/etudiant/${etudiant.id}`)
             .then(res => {
                 return res.json()
             })
@@ -19,6 +23,7 @@ const VoirCVState = () => {
     }
 
     const deleteCV = async (cv) => {
+        //await CVService.deleteCV(cv).then(updateCvs())
         const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
         await res.json().then(updateCvs())
     }
@@ -39,15 +44,13 @@ const VoirCVState = () => {
                 return;
         }
     }
-    
+
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
+            UserService.getUserByEmail(loggedUser.courriel)
                 .then(data => {
                     setEtudiant(data)
+                    //await CVService.updateCVsEtudiant(data.id).then(data => { setCvs(data)  })
                     fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
                         .then(res => {
                             return res.json()
@@ -71,16 +74,20 @@ const VoirCVState = () => {
 
     return (
         <div>
-            {cvs.length > 0 ? <table>
-                <tr>
-                    <th>nom du fichier</th>
-                    <th>Date de soumission</th>
-                    <th>effacer</th>
-                    <th>télécarger</th>
-                    <th>Statut du CV</th>
-                </tr>
-                {cvList}
-            </table> : null}
+            {cvs.length > 0 ?
+                <table>
+                    <tr>
+                        <th>nom du fichier</th>
+                        <th>Date de soumission</th>
+                        <th>effacer</th>
+                        <th>télécarger</th>
+                        <th>Statut du CV</th>
+                    </tr>
+                    {cvList}
+                </table>
+                :
+                <p style={{ textAlign: "center" }}>Déposez votre cv <Link to="/dropCv" style={{ color: "blue" }}>ici</Link></p>
+            }
         </div>
     )
 }

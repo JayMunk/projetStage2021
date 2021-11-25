@@ -1,27 +1,43 @@
 const urlBase = 'http://localhost:9191/cv'
 const CVService = {
+    updateCVsEtudiant: async (etudiantId) => {
+        const res = await fetch(`http://localhost:9191/cv/etudiant/${etudiantId}`)
+        const data = await res.json()
+        return data
+    },
+
+    deleteCV: async (cv) => {
+        console.log(cv,"cv")
+        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`,
+            {
+                method: 'DELETE'
+            })
+        const data = await res.json()
+        return data
+    },
+
     acceptCV: async (cv) => {
         const res = await fetch(urlBase + '/accept',
-        {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(cv)
-        })
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(cv)
+            })
         const data = await res.json()
         return data
     },
 
     rejectCV: async (cv) => {
         const res = await fetch(urlBase + '/reject',
-        {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(cv)
-        })
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(cv)
+            })
         const data = await res.json()
         return data
     },

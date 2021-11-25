@@ -95,10 +95,6 @@ td {
   width: 50%;
 }
 
-.button {
-  height: 100%;
-  width: 100%;
-}
 
 .hoverButton:hover {
   background-color: lightgray;

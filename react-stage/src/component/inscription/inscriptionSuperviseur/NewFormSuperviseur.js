@@ -108,7 +108,7 @@ const NewFormSuperviseur = () => {
     }
 
     return (
-        <div>
+        <body id="body">
             <h2>Créer un compte de type superviseur</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -166,7 +166,7 @@ const NewFormSuperviseur = () => {
 
                 <button type="submit" className="button">S'inscrire</button>
             </form >
-        </div >
+        </body >
     );
 }
 

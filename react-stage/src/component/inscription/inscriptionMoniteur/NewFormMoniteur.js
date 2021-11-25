@@ -108,7 +108,7 @@ const NewFormMoniteur = () => {
     }
 
     return (
-        <div>
+        <body id="body">
             <h2>Créer un compte de type moniteur</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -166,7 +166,7 @@ const NewFormMoniteur = () => {
 
                 <button type="submit" className="button">S'inscrire</button>
             </form >
-        </div >
+        </body >
     );
 }
 

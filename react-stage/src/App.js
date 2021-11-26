@@ -1,4 +1,5 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
 import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";
 import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
@@ -39,6 +40,7 @@ import NotificationViewer from "./component/Notification/NotificationViewer";
 import EvaluationEtudiant from "./component/evaluations/EvaluationEtudiant";
 import AfficherContrat from "./component/contrat/demarrerContrat/AfficherContrat"
 import EvaluationEntreprise from "./component/evaluations/EvaluationEntreprise";
+
 
 
 function App() {

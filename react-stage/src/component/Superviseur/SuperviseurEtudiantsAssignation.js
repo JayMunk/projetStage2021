@@ -38,15 +38,7 @@ const SuperviseurEtudiantsAssignation = () => {
     }, [])
 
     const saveSuperviseur = async (selectedEtudiants, idSuperviseur) => {
-        const res = await fetch(`http://localhost:9191/user/superviseur/${idSuperviseur}/etudiants`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(selectedEtudiants)
-            })
-        await res.json()
+        UserService.saveSuperviseurEtudiants(selectedEtudiants, idSuperviseur)
         updateSuperviseurs()
     }
 
@@ -188,7 +180,7 @@ const SuperviseurEtudiantsAssignation = () => {
                             <div className="mt-4">
                                 <Row>
                                     <Col sm="12" lg="6">
-                                        <h1>Select Etudiants</h1>
+                                        <h1>Sélectionnez les étudiants</h1>
                                         <MultiSelect
                                             options={listAllEtudiant}
                                             value={listSelectedEtudiant}
@@ -213,7 +205,7 @@ const SuperviseurEtudiantsAssignation = () => {
                                 <Row>
                                     <Col sm="1" lg="5"></Col>
                                     <Col sm="10" lg="2">
-                                        <button className="btn btn-info btn-lg mt-4" onClick={onClickSave}>SAVE</button>
+                                        <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
                                     </Col>
                                     <Col sm="1" lg="5"></Col>
                                 </Row>

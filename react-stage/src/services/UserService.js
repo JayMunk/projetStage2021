@@ -1,5 +1,6 @@
-const urlBase = 'http://localhost:9191/user'
+import Swal from "sweetalert2";
 
+const urlBase = 'http://localhost:9191/user'
 const UserService = {
     getUserByEmail: async (email) => {
         const res = await fetch(urlBase + '/' + email)
@@ -55,10 +56,28 @@ const UserService = {
         return data
     },
 
+    saveSuperviseurEtudiants: async (etudiants, idSuperviseur) => {
+        const res = await fetch(`http://localhost:9191/user/superviseur/${idSuperviseur}/etudiants`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(etudiants)
+            })
+        if (!res.ok) {
+            errorAlert("Incapable de sauver la liste d'etudiants sélectionnés")
+            return
+        }
+        const data = await res.json()
+        return data
+
+    },
+
     getMoniteur: async (id) => {
-    //     //const res = await fetch(urlBase + '/moniteur/' + id)
-    //     //const data = await res.json()
-    //     //return data
+        //     //const res = await fetch(urlBase + '/moniteur/' + id)
+        //     //const data = await res.json()
+        //     //return data
     },
 
     getGestionnaires: async () => {
@@ -66,7 +85,30 @@ const UserService = {
         const data = await res.json()
         return data
     },
+}
+const errorAlert = (errorMessage) => {
+    Swal.fire(
+        'Cancelled',
+        errorMessage,
+        'error'
+    )
+}
 
+const toastError = (errorMessage) => {
+    Swal.fire({
+        toast: true,
+        icon: 'error',
+        title: errorMessage,
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 }
 
 export default UserService

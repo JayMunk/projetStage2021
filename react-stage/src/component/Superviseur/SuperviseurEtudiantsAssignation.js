@@ -160,25 +160,58 @@ const SuperviseurEtudiantsAssignation = () => {
 
                 </tbody>
             </table>
-            <ReactModal isOpen={showModal} ariaHideApp={false}>
+            <ReactModal isOpen={showModal} ariaHideApp={false} style={{
+                overlay: {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+                },
+                content: {
+                    position: 'absolute',
+                    top: '40px',
+                    left: '40px',
+                    right: '40px',
+                    bottom: '40px',
+                    border: '1px solid #ccc',
+                    background: 'lightgrey',
+                    overflow: 'auto',
+                    WebkitOverflowScrolling: 'touch',
+                    borderRadius: '4px',
+                    outline: 'none',
+                    padding: '20px'
+                }
+            }} >
                 <div className="container text-center">
-                    <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
-                    <div className="row">
-                        <div className="col-2" >Prenom/Nom</div>
-                        <div className="col-2" >Departement</div>
-                        <div className="col-2" ># Telephone</div>
-                        <div className="col-2" >Courriel</div>
-                        <div className="col-2" >Specialite</div>
-                        <div className="col-2"></div>
-                    </div>
-
+                    <AiOutlineClose color='red' size='24px' onClick={onClickClose} className="align-right" />
                     <div className="row mt-4">
-                        <div className="col-2">{currentSuperviseur.prenom} {currentSuperviseur.nom}</div>
-                        <div className="col-2">{currentSuperviseur.departement}</div>
-                        <div className="col-2">{currentSuperviseur.numTelephone}</div>
-                        <div className="col-2">{currentSuperviseur.courriel}</div>
-                        <div className="col-2">{currentSuperviseur.specialite}</div>
-                        <div className="col-2"></div>
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <th className="bg-secondary">Prenom/Nom</th>
+                                    <td className="bg-light">{currentSuperviseur.prenom}</td>
+                                </tr>
+                                <tr>
+                                    <th className="bg-secondary">Departement</th>
+                                    <td className="bg-light">{currentSuperviseur.departement}</td>
+                                </tr>
+                                <tr>
+                                    <th className="bg-secondary"># Telephone</th>
+                                    <td className="bg-light">{currentSuperviseur.numTelephone}</td>
+                                </tr>
+                                <tr>
+                                    <th className="bg-secondary">Courriel</th>
+                                    <td className="bg-light">{currentSuperviseur.courriel}</td>
+                                </tr>
+                                <tr>
+                                    <th className="bg-secondary">Specialite</th>
+                                    <td className="bg-light">{currentSuperviseur.specialite}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                     <br />
                     <br />
@@ -200,10 +233,10 @@ const SuperviseurEtudiantsAssignation = () => {
                                 <div className="col-6">
                                     {listSelectedEtudiant.length === 0 ?
                                         <h1>Aucun Etudiant Sélectionné</h1> :
-                                            listSelectedEtudiant.length < 2 ?
-                                                <h1>Etudiant Sélectionné</h1>
-                                                :
-                                                <h1>Etudiants Sélectionnés</h1>
+                                        listSelectedEtudiant.length < 2 ?
+                                            <h1>Etudiant Sélectionné</h1>
+                                            :
+                                            <h1>Etudiants Sélectionnés</h1>
                                     }
                                     {listSelectedEtudiant.map((etudiant, index) =>
                                         <li key={index}>{etudiant.label}</li>
@@ -211,8 +244,10 @@ const SuperviseurEtudiantsAssignation = () => {
                                 </div>
 
                             </div>
-                            <div className="row text-center">
-                                <input type='button' value='Save' onClick={onClickSave}></input>
+                            <div className="row">
+                                <div className="col-5"></div>
+                                <button className="btn btn-info btn-lg mt-4 col-2" onClick={onClickSave}>SAVE</button>
+                                <div className="col-5"></div>
                             </div>
                         </div>
                     }

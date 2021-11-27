@@ -1,5 +1,7 @@
 import { React, useState } from 'react'
 import { useHistory } from "react-router-dom";
+import UserService from '../../../services/UserService';
+
 
 import '../../../Css/FormInscriptionCSS.css'
 
@@ -86,7 +88,8 @@ const NewFormMoniteur = () => {
 
 
 
-            saveMoniteur()
+
+            UserService.saveMoniteur(values);
             history.push("/login");
 
         }

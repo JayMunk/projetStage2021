@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { useHistory } from "react-router-dom";
+import UserService from '../../../services/UserService';
 
 import '../../../Css/FormInscriptionCSS.css'
 
@@ -93,7 +94,7 @@ const NewFormEtudiant = () => {
 
             values.hasLicense = hasLicense
             values.hasVoiture = hasVoiture
-            saveEtudiant()
+            UserService.saveEtudiant(values);
             history.push("/login");
 
         }
@@ -105,16 +106,6 @@ const NewFormEtudiant = () => {
 
     const handleClickLicense = () => setHasLicense(!hasLicense)
 
-    const saveEtudiant = async () => {
-        var request = new XMLHttpRequest();
-        request.open('POST', 'http://localhost:9191/user/etudiant', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-
-        const etudiant = JSON.stringify(values);
-
-        request.send(etudiant)
-    }
 
     return (
         <body id="body">

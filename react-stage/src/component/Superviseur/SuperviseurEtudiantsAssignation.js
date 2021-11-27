@@ -160,8 +160,8 @@ const SuperviseurEtudiantsAssignation = () => {
 
                 </tbody>
             </table>
-            <ReactModal isOpen={showModal} ariaHideApp={false}>
-                <div className="container text-center">
+            <ReactModal isOpen={showModal} ariaHideApp={false} >
+                <div className="container text-center" >
                     <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
                     <div className="row">
                         <div className="col-2" >Prenom/Nom</div>
@@ -200,10 +200,10 @@ const SuperviseurEtudiantsAssignation = () => {
                                 <div className="col-6">
                                     {listSelectedEtudiant.length === 0 ?
                                         <h1>Aucun Etudiant Sélectionné</h1> :
-                                            listSelectedEtudiant.length < 2 ?
-                                                <h1>Etudiant Sélectionné</h1>
-                                                :
-                                                <h1>Etudiants Sélectionnés</h1>
+                                        listSelectedEtudiant.length < 2 ?
+                                            <h1>Etudiant Sélectionné</h1>
+                                            :
+                                            <h1>Etudiants Sélectionnés</h1>
                                     }
                                     {listSelectedEtudiant.map((etudiant, index) =>
                                         <li key={index}>{etudiant.label}</li>
@@ -219,7 +219,7 @@ const SuperviseurEtudiantsAssignation = () => {
 
                 </div>
             </ReactModal>
-        </div>
+        </div >
     )
 }
 

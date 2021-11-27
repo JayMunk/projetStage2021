@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, Redirect, useRef } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { UserInfoContext } from "../../contexts/UserInfo";
 import '../../Css/FormInscriptionCSS.css'

@@ -12,6 +12,8 @@ import "./PickList.css";
 import OffreService from "../../services/OffreService.js";
 import UserService from "../../services/UserService.js";
 import { MultiSelect } from "react-multi-select-component";
+import { Col, Row } from 'react-bootstrap'
+
 
 const Offres = () => {
   const history = useHistory();
@@ -199,133 +201,160 @@ const Offres = () => {
   return (
     <div className="container" style={{ textAlign: "center" }}>
       <h1>Offres</h1>
-      <table className="table border">
-        <thead>
-          <tr>
-            <th colSpan="3" style={{ color: "black" }}>
-              Titre
-            </th>
-            <th colSpan="3" style={{ color: "black" }}>
-              Entreprise
-            </th>
-            {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {loggedUser.role === "ETUDIANT"
-            ? listOffres.map((offre) => (
-              <tr key={offre.id.toString()}>
-                <td colSpan="3">{offre.titre}</td>
-                <td colSpan="3">{offre.entreprise}</td>
-                <td colSpan="1">
-                  <input
-                    type="button"
-                    onClick={() => onClickOffre(offre)}
-                    value="Détails"
-                    className="p-1 btn-secondary"
-                  />
-                </td>
+      <Row>
+        <Col sm='12' lg='8' className="mx-auto">
+          <table className="table border table-dark">
+            <thead>
+              <tr>
+                <th colSpan="3">
+                  Titre
+                </th>
+                <th colSpan="3">
+                  Entreprise
+                </th>
+                {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
+                <th></th>
               </tr>
-            ))
-            : listOffres.map((offre) => (
-              <tr key={offre.id.toString()}>
-                <td colSpan="3">{offre.titre}</td>
-                <td colSpan="3">{offre.entreprise}</td>
-                <td colSpan="1">
-                  {offre.valid ? (
-                    <AiOutlineCheckCircle color="green" />
-                  ) : (
-                    <AiOutlineCloseCircle color="red" />
-                  )}
-                </td>
-                <td colSpan="1">
-                  <input
-                    type="button"
-                    onClick={() => onClickOffre(offre)}
-                    value="Détails"
-                    className="p-1 btn-secondary"
-                  />
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <ReactModal isOpen={showModal} ariaHideApp={false}>
+            </thead>
+            <tbody>
+              {loggedUser.role === "ETUDIANT"
+                ? listOffres.map((offre) => (
+                  <tr className="text-white" key={offre.id.toString()}>
+                    <td colSpan="3">{offre.titre}</td>
+                    <td colSpan="3">{offre.entreprise}</td>
+                    <td colSpan="1">
+                      <input
+                        type="button"
+                        onClick={() => onClickOffre(offre)}
+                        value="Détails"
+                        className="p-1 btn-secondary"
+                      />
+                    </td>
+                  </tr>
+                ))
+                : listOffres.map((offre) => (
+                  <tr className="text-white" key={offre.id.toString()}>
+                    <td colSpan="3">{offre.titre}</td>
+                    <td colSpan="3">{offre.entreprise}</td>
+                    <td colSpan="1">
+                      {offre.valid ? (
+                        <AiOutlineCheckCircle color="green" />
+                      ) : (
+                        <AiOutlineCloseCircle color="red" />
+                      )}
+                    </td>
+                    <td colSpan="1">
+                      <input
+                        type="button"
+                        onClick={() => onClickOffre(offre)}
+                        value="Détails"
+                        className="p-1 btn-secondary"
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </Col>
+      </Row>
+      <ReactModal isOpen={showModal} ariaHideApp={false} style={{
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(255, 255, 255, 0.75)'
+        },
+        content: {
+          position: 'absolute',
+          top: '40px',
+          left: '40px',
+          right: '40px',
+          bottom: '40px',
+          border: '1px solid #ccc',
+          background: 'lightgrey',
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          borderRadius: '4px',
+          outline: 'none',
+          padding: '20px'
+        }
+      }}>
         <div className="container text-center">
           <AiOutlineClose color="red" size="24px" onClick={onClickClose} />
-          <div className="row">
-            <h3 className="col-2">Titre</h3>
-            <h3 className="col-4">Description</h3>
-            <h3 className="col-2">Entreprise</h3>
-            <h3 className="col-2">Adresse</h3>
-            {loggedUser.role !== "ETUDIANT" && (
-              <h3 className="col-2">Validity</h3>
-            )}
+          <div className="row mt-4">
+            <table className="table">
+              <tbody>
+                <tr>
+                  <th className="bg-secondary">Titre</th>
+                  <td className="bg-light">{currentOffre.titre}</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Entreprise</th>
+                  <td className="bg-light">{currentOffre.entreprise}</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Adresse</th>
+                  <td className="bg-light">{currentOffre.adresse}</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Date Debut</th>
+                  <td className="bg-light">{currentOffre.dateDebut}</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Date Fin</th>
+                  <td className="bg-light">{currentOffre.dateFin}</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Durée Totale</th>
+                  <td className="bg-light">{currentOffre.nbTotalSemaine} semaines</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Horaire</th>
+                  <td className="bg-light">{currentOffre.horaire}</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Totales Heures/Semaine</th>
+                  <td className="bg-light">{currentOffre.nbTotalHeuresParSemaine} heures</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary">Taux Horaires</th>
+                  <td className="bg-light">{currentOffre.tauxHoraire}$/h</td>
+                </tr>
+                <tr>
+                  <th className="bg-secondary" colspan='2'>Description</th>
+                </tr>
+                <tr>
+                  <td className="bg-light" colspan='2'>{currentOffre.description}</td>
+                </tr>
+              </tbody>
+            </table>
+
           </div>
 
           {currentOffre &&
-            <div>
-              <div className="row mt-4">
-                <div className="col-2">{currentOffre.titre}</div>
-                <div className="col-4">{currentOffre.description}</div>
-                <div className="col-2">{currentOffre.entreprise}</div>
-                <div className="col-2">{currentOffre.adresse}</div>
-                {loggedUser.role !== "ETUDIANT" && (
-                  <div className="col-2 form-check ">
-                    <label className="form-check-label" htmlFor="valid">
-                      {" "}
-                      <input
-                        type="checkbox"
-                        name="valid"
-                        className="form-check-input"
-                        checked={currentOffre.valid}
-                        onChange={onToggleValid}
-                      />
-                      Valid{" "}
-                    </label>
-                  </div>
-                )}
+            [loggedUser.role !== "ETUDIANT" &&
+              <div className="col-2 form-check ">
+                <label className="form-check-label" htmlFor="valid">
+                  {" "}
+                  <input
+                    type="checkbox"
+                    name="valid"
+                    className="form-check-input"
+                    checked={currentOffre.valid}
+                    onChange={onToggleValid}
+                  />
+                  Valid{" "}
+                </label>
               </div>
-              <br />
-              <br />
-              <br />
-
-              <div className="row text-center">
-                <h3 className="col-2">Date Debut</h3>
-                <h3 className="col-2">Date Fin</h3>
-                <h3 className="col-2">Duree Total</h3>
-                <h3 className="col-2">Horaire</h3>
-                <h3 className="col-2">Total Heure Semaine</h3>
-                <h3 className="col-2">Taux Horaire</h3>
-              </div>
-              <div className="row mt-4 text-center">
-                <div className="col-2">{currentOffre.dateDebut}</div>
-                <div className="col-2">{currentOffre.dateFin}</div>
-                <div className="col-2">{currentOffre.nbTotalSemaine} semaines</div>
-                <div className="col-2">{currentOffre.horaire}</div>
-                <div className="col-2">
-                  {currentOffre.nbTotalHeuresParSemaine} heures
-                </div>
-                <div className="col-2">{currentOffre.tauxHoraire} $/h</div>
-                {loggedUser.role === "ETUDIANT" && (
-                  <div className="row">
-                    <input
-                      type="button"
-                      onClick={() => appliquerOffre(currentOffre)}
-                      value="Appliquer à l offre"
-                      className="p-1 btn-primary"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
+            ]
           }
 
           {loggedUser.role === "GESTIONNAIRE" && (
             <div className="mt-4">
-              <div className="row">
-                <div className="col-6">
+              <Row>
+                <Col sm="12" lg="6">
                   <h1>Select Etudiants</h1>
                   <MultiSelect
                     options={getOptionsList()}
@@ -333,17 +362,21 @@ const Offres = () => {
                     onChange={setListWhitelistedEtudiant}
                     labelledBy="Select"
                   />
-                </div>
-                <div className="col-6">
+                </Col>
+                <Col sm="12" lg="6">
                   <h1>Whitelisted Etudiants</h1>
                   {listWhitelistedEtudiant.map((etudiant, index) => (
                     <li key={index}>{etudiant.label}</li>
                   ))}
-                </div>
-              </div>
-              <div className="row text-center">
-                <input type="button" value="Save" onClick={onClickSave}></input>
-              </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="1" lg="5"></Col>
+                <Col sm="10" lg="2">
+                  <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
+                </Col>
+                <Col sm="1" lg="5"></Col>
+              </Row>
             </div>
           )}
 
@@ -376,8 +409,8 @@ const Offres = () => {
             </div>
           }
         </div>
-      </ReactModal>
-    </div>
+      </ReactModal >
+    </div >
   );
 };
 

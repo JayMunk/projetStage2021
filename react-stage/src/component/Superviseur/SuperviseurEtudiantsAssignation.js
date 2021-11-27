@@ -176,12 +176,10 @@ const SuperviseurEtudiantsAssignation = () => {
 
                             </div>
 
-
-
                             {loggedUser.role == "GESTIONNAIRE" &&
                                 [listSelectedEtudiant.length == 0 && listAllEtudiant.length == 0 ?
                                     <div>
-                                        <h3 className="text-center text-muted mt-4">Il n'y aucun étudiants sans superviseur</h3>
+                                        <h3 className="text-center text-muted mt-4">Il n'y a aucun étudiants sans superviseur</h3>
                                     </div>
                                     :
                                     <div className="mt-4">

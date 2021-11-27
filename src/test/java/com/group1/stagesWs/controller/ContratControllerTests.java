@@ -33,9 +33,11 @@ import org.springframework.test.web.servlet.MvcResult;
 @WebMvcTest(ContratController.class)
 public class ContratControllerTests {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private ContratService contratService;
+  @MockBean
+  private ContratService contratService;
 
   private static ObjectMapper mapper;
 

@@ -23,13 +23,17 @@ import org.springframework.data.domain.Sort;
 @ExtendWith(MockitoExtension.class)
 public class CVServiceTests {
 
-  @Mock private CVRepository cvRepository;
+  @Mock
+  private CVRepository cvRepository;
 
-  @Mock private EmailService emailService;
+  @Mock
+  private EmailService emailService;
 
-  @Mock private NotificationService notificationService;
+  @Mock
+  private NotificationService notificationService;
 
-  @InjectMocks private CVService cvService;
+  @InjectMocks
+  private CVService cvService;
 
   @Test
   void testAcceptCV() {
@@ -78,7 +82,7 @@ public class CVServiceTests {
     CV cv3 = getCV();
     cv3.setSession(
         "AUT-2021"); // La session de ce cv est change de la valeur par defaut qui est la session
-                     // actuelle
+    // actuelle
     List<CV> listCV = List.of(cv1, cv2, cv3);
     when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
 
@@ -98,7 +102,7 @@ public class CVServiceTests {
     CV cv3 = getCV();
     cv3.setSession(
         "HIVER-2021"); // La session de ce cv est change de la valeur par defaut qui est la session
-                       // actuelle
+    // actuelle
     List<CV> expected = List.of(cv1, cv2, cv3);
     when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
 
@@ -166,7 +170,7 @@ public class CVServiceTests {
     expected3.setEtudiant(expectedEtudiant);
     expected3.setSession(
         "HIVER-2021"); // Pour tester qu'on retourne juste les CV a l'etudiant pour la session
-                       // actuelle
+    // actuelle
     when(cvRepository.findCVByEtudiantId(any(Integer.class)))
         .thenReturn(List.of(expected, expected2));
 

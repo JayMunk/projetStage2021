@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CVRepository extends JpaRepository<CV, Integer> {
+
   List<CV> findCVByEtudiantId(int id);
 
   CV findCvById(int id);

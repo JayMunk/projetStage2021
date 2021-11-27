@@ -30,9 +30,12 @@ import org.springframework.test.web.servlet.MvcResult;
     initializers = ConfigFileApplicationContextInitializer.class)
 @WebMvcTest(EvaluationController.class)
 public class EvaluationControllerTests {
-  @Autowired private MockMvc mockMvc;
 
-  @MockBean private EvaluationService service;
+  @Autowired
+  private MockMvc mockMvc;
+
+  @MockBean
+  private EvaluationService service;
 
   private static ObjectMapper mapper;
 

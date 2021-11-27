@@ -13,6 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 public class EvaluationEtudiant implements Serializable {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -31,7 +32,8 @@ public class EvaluationEtudiant implements Serializable {
   private LocalDate dateCreation;
   private String session;
 
-  @OneToOne private Contrat contrat;
+  @OneToOne
+  private Contrat contrat;
 
   public EvaluationEtudiant() {
     this.dateCreation = LocalDate.now();

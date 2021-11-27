@@ -26,9 +26,11 @@ public class CV implements Serializable {
   private Status status;
   private String session;
 
-  @Lob private byte[] data;
+  @Lob
+  private byte[] data;
 
-  @ManyToOne private Etudiant etudiant;
+  @ManyToOne
+  private Etudiant etudiant;
 
   public CV() {
     this.dateSoumission = LocalDate.now();

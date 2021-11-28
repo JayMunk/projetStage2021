@@ -1,6 +1,62 @@
+
+
+import Swal from 'sweetalert2'
+import '@sweetalert2/theme-dark/dark.css'
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>
 const urlBase = 'http://localhost:9191/user'
 
 const UserService = {
+
+
+
+    saveEtudiant: async (values) => {
+        const res = await fetch(urlBase + '/etudiant',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+        const data = await res.json()
+        if (!res.ok) {
+            errorAlert("Il y a un problème, veuillez réessayer plus tard.")
+        }
+        return data
+    },
+
+    saveSuperviseur: async (values) => {
+        const res = await fetch(urlBase + '/superviseur',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+        const data = await res.json()
+        if (!res.ok) {
+            errorAlert("Il y a un problème, veuillez réessayer plus tard.")
+        }
+        return data
+    },
+
+    saveMoniteur: async (values) => {
+        const res = await fetch(urlBase + '/moniteur',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+        const data = await res.json()
+        if (!res.ok) {
+            errorAlert("Il y a un problème, veuillez réessayer plus tard.")
+        }
+        return data
+    },
+
     getUserByEmail: async (email) => {
         const res = await fetch(urlBase + '/' + email)
         const data = await res.json()
@@ -56,9 +112,9 @@ const UserService = {
     },
 
     getMoniteur: async (id) => {
-    //     //const res = await fetch(urlBase + '/moniteur/' + id)
-    //     //const data = await res.json()
-    //     //return data
+        //     //const res = await fetch(urlBase + '/moniteur/' + id)
+        //     //const data = await res.json()
+        //     //return data
     },
 
     getGestionnaires: async () => {
@@ -67,6 +123,17 @@ const UserService = {
         return data
     },
 
+
+
+
+}
+
+const errorAlert = (errorMessage) => {
+    Swal.fire(
+        'Erreur',
+        errorMessage,
+        'error'
+    )
 }
 
 export default UserService

@@ -1,5 +1,7 @@
 import { React, useState } from 'react'
 import { useHistory } from "react-router-dom";
+import UserService from '../../../services/UserService';
+
 
 import '../../../Css/FormInscriptionCSS.css'
 
@@ -84,9 +86,7 @@ const NewFormSuperviseur = () => {
         setSubmitted(true)
         if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
 
-
-
-            saveSuperviseur()
+            UserService.saveSuperviseur(values);
             history.push("/login");
 
         }
@@ -96,19 +96,19 @@ const NewFormSuperviseur = () => {
 
 
 
-    const saveSuperviseur = async () => {
-        var request = new XMLHttpRequest();
-        request.open('POST', 'http://localhost:9191/user/superviseur', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    // const saveSuperviseur = async () => {
+    //     var request = new XMLHttpRequest();
+    //     request.open('POST', 'http://localhost:9191/user/superviseur', true);
+    //     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
-        const superviseur = JSON.stringify(values);
+    //     const superviseur = JSON.stringify(values);
 
-        request.send(superviseur)
-    }
+    //     request.send(superviseur)
+    // }
 
     return (
-        <div>
+        <body id="body">
             <h2>Créer un compte de type superviseur</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -166,7 +166,7 @@ const NewFormSuperviseur = () => {
 
                 <button type="submit" className="button">S'inscrire</button>
             </form >
-        </div >
+        </body >
     );
 }
 

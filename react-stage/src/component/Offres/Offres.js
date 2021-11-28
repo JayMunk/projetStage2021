@@ -13,6 +13,7 @@ import OffreService from "../../services/OffreService.js";
 import UserService from "../../services/UserService.js";
 import { MultiSelect } from "react-multi-select-component";
 import { Col, Row } from 'react-bootstrap'
+import Swal from "sweetalert2";
 
 
 const Offres = () => {
@@ -110,7 +111,11 @@ const Offres = () => {
       loggedUser.courriel
     );
     if (offreApplied != null) {
-      alert("Application recu");
+      Swal.fire(
+        'Application Reçu',
+        `Vous avez appliqué à l'offre ${currentOffre.titre} de l'entreprise ${currentOffre.entreprise}`,
+        'success'
+      )
     }
   };
 
@@ -318,112 +323,118 @@ const Offres = () => {
             </Row>
 
 
-            {loggedUser.role !== "ETUDIANT" &&
+            {loggedUser.role === "ETUDIANT" &&
               <Row>
-                <Col lg='4' sm='12' className="mx-auto">
-                  <table className="table">
-                    <tbody>
-                      <tr>
-                        <th className="bg-secondary">Validity</th>
-                      </tr>
-                      <tr>
-                        <td className="bg-light">
-                          <label className="form-check-label" htmlFor="valid">
-                            {" "}
-                            <input
-                              type="checkbox"
-                              name="valid"
-                              className="form-check-input"
-                              checked={currentOffre.valid}
-                              onChange={onToggleValid}
-                            />
-                            Valid{" "}
-                          </label>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <Col sm="1" lg="5"></Col>
+                <Col sm="10" lg="2">
+                  <button className="btn btn-success btn-lg mt-4" onClick={() => appliquerOffre(currentOffre)}>Appliquer à l'offre</button>
                 </Col>
+                <Col sm="1" lg="5"></Col>
               </Row>
-              // <div className="col-2 form-check ">
-              //   <label className="form-check-label" htmlFor="valid">
-              //     {" "}
-              //     <input
-              //       type="checkbox"
-              //       name="valid"
-              //       className="form-check-input"
-              //       checked={currentOffre.valid}
-              //       onChange={onToggleValid}
-              //     />
-              //     Valid{" "}
-              //   </label>
-              // </div>
             }
 
 
             {loggedUser.role === "GESTIONNAIRE" && (
-              <div className="mt-4">
-                <Row className="mx-auto">
-                  <Col sm="12" lg="6">
-                    <h1>Select Etudiants</h1>
-                    <MultiSelect
-                      options={getOptionsList()}
-                      value={listWhitelistedEtudiant}
-                      onChange={setListWhitelistedEtudiant}
-                      labelledBy="Select"
-                    />
-                  </Col>
-                  <Col sm="12" lg="6">
+              <div>
+                <Row>
+                  <Col lg='4' sm='12' className="mx-auto">
                     <table className="table">
                       <tbody>
                         <tr>
-                          <th className="bg-secondary">Whitelisted Etudiants</th>
+                          <th className="bg-secondary">Validity</th>
                         </tr>
-                        {listWhitelistedEtudiant.map((etudiant, index) => (
-                          <tr>
-                            <td className="bg-light" key={index}>{etudiant.label}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td className="bg-light">
+                            <label className="form-check-label" htmlFor="valid">
+                              {" "}
+                              <input
+                                type="checkbox"
+                                name="valid"
+                                checked={currentOffre.valid}
+                                onChange={onToggleValid}
+                              />
+                              Valid{" "}
+                            </label>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </Col>
                 </Row>
-                <Row>
-                  <Col sm="1" lg="5"></Col>
-                  <Col sm="10" lg="2">
-                    <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
-                  </Col>
-                  <Col sm="1" lg="5"></Col>
-                </Row>
+                <div className="mt-4">
+                  <Row className="mx-auto">
+                    <Col sm="12" lg="6">
+                      <h1>Select Etudiants</h1>
+                      <Row>
+                        <Col className="mx-auto" lg="8" sm="10">
+                          <MultiSelect
+                            options={getOptionsList()}
+                            value={listWhitelistedEtudiant}
+                            onChange={setListWhitelistedEtudiant}
+                            labelledBy="Select"
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col sm="12" lg="6" className="mt-4">
+                      <table className="table mt-4">
+                        <tbody>
+                          <tr>
+                            <th className="bg-secondary">Whitelisted Étudiants</th>
+                          </tr>
+                          {listWhitelistedEtudiant.map((etudiant, index) => (
+                            <tr>
+                              <td className="bg-light" key={index}>{etudiant.label}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm="1" lg="5"></Col>
+                    <Col sm="10" lg="2">
+                      <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
+                    </Col>
+                    <Col sm="1" lg="5"></Col>
+                  </Row>
+                </div>
               </div>
             )}
 
+
+
             {(loggedUser.role === "MONITEUR" && currentOffre) &&
               <div>
+
                 <h2 className="text-center text-muted mt-4">Candidats</h2>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="text-secondary">Nom d'étudiant</th>
-                      <th scope="col" className="text-secondary">Courriel</th>
-                      <th scope="col" className="text-secondary">Permis</th>
-                      <th scope="col" className="text-secondary">Voiture</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {showModal &&
-                      currentOffre.applicants.map((etudiant) => (
-                        <tr key={etudiant.id}>
-                          <td>
-                            {etudiant.prenom} {etudiant.nom}
-                          </td>
-                          <td>{etudiant.courriel}</td>
-                          <td>{getBoolIcon(etudiant.hasLicense)}</td>
-                          <td>{getBoolIcon(etudiant.hasVoiture)}</td>
+                <Row>
+                  <Col lg='6' sm='12' className="mx-auto">
+                    <table className="table border table-dark">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nom d'étudiant</th>
+                          <th scope="col">Courriel</th>
+                          <th scope="col">Permis</th>
+                          <th scope="col">Voiture</th>
                         </tr>
-                      ))}
-                  </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                        {showModal &&
+                          currentOffre.applicants.map((etudiant) => (
+                            <tr key={etudiant.id}>
+                              <td className="text-white">
+                                {etudiant.prenom} {etudiant.nom}
+                              </td>
+                              <td className="text-white">{etudiant.courriel}</td>
+                              <td>{getBoolIcon(etudiant.hasLicense)}</td>
+                              <td>{getBoolIcon(etudiant.hasVoiture)}</td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </Col>
+                </Row>
               </div>
             }
           </div>

@@ -109,7 +109,7 @@ const FormOffre = () => {
                         Titre
                     </label>
                     <input id="titre" type="text" name="titre" className="form-input" placeholder="Entrez le titre" value={values.titre} onChange={handleChange}></input>
-                    {errors.titre && <p>{errors.titre}</p>}
+                    {errors.titre && <p className="error">{errors.titre}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -118,7 +118,7 @@ const FormOffre = () => {
                         Description
                     </label>
                     <input id="description" type="text" name="description" className="form-input" placeholder="Entrez la description" value={values.description} onChange={handleChange}></input>
-                    {errors.description && <p>{errors.description}</p>}
+                    {errors.description && <p className="error">{errors.description}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -127,7 +127,7 @@ const FormOffre = () => {
                         Entreprise
                     </label>
                     <input id="entreprise" type="text" name="entreprise" className="form-input" placeholder="Entrez votre entreprise" value={values.entreprise} onChange={handleChange}></input>
-                    {errors.entreprise && <p>{errors.entreprise}</p>}
+                    {errors.entreprise && <p className="error">{errors.entreprise}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -136,7 +136,7 @@ const FormOffre = () => {
                         Adresse
                     </label>
                     <input id="adresse" type="text" name="adresse" className="form-input" placeholder="Entrez l'adresse de votre entreprise" value={values.adresse} onChange={handleChange}></input>
-                    {errors.adresse && <p>{errors.adresse}</p>}
+                    {errors.adresse && <p className="error">{errors.adresse}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -145,7 +145,7 @@ const FormOffre = () => {
                         Date début
                     </label>
                     <input id="dateDebut" type="date" name="dateDebut" className="form-input" placeholder="Entrez la date de début" value={values.dateDebut} onChange={handleChange}></input>
-                    {errors.dateDebut && <p>{errors.dateDebut}</p>}
+                    {errors.dateDebut && <p className="error">{errors.dateDebut}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -154,7 +154,7 @@ const FormOffre = () => {
                         Date fin
                     </label>
                     <input id="dateFin" type="date" name="dateFin" className="form-input" placeholder="Entrez la date de fin" value={values.dateFin} onChange={handleChange}></input>
-                    {errors.dateFin && <p>{errors.dateFin}</p>}
+                    {errors.dateFin && <p className="error">{errors.dateFin}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -163,7 +163,7 @@ const FormOffre = () => {
                         Nombre total de semaine
                     </label>
                     <input id="nbTotalSemaine" type="number" name="nbTotalSemaine" className="form-input" placeholder="Entrez le nombre total de semaine" value={values.nbTotalSemaine} onChange={handleChange}></input>
-                    {errors.nbTotalSemaine && <p>{errors.nbTotalSemaine}</p>}
+                    {errors.nbTotalSemaine && <p className="error">{errors.nbTotalSemaine}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -172,7 +172,7 @@ const FormOffre = () => {
                         Horaire début
                     </label>
                     <input value={values.horaireDebut} onChange={handleChange} id="horaireDebut" className="form-field" type="time" name="horaireDebut" />
-                    {errors.horaireDebut && <p>{errors.horaireDebut}</p>}
+                    {errors.horaireDebut && <p className="error">{errors.horaireDebut}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -181,7 +181,7 @@ const FormOffre = () => {
                         Horaire fin
                     </label>
                     <input value={values.horaireFin} onChange={handleChange} id="horaireFin" className="form-field" type="time" name="horaireFin" />
-                    {errors.horaireFin && <p>{errors.horaireFin}</p>}
+                    {errors.horaireFin && <p className="error">{errors.horaireFin}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -190,7 +190,7 @@ const FormOffre = () => {
                         Nombre total d'heure par semaine
                     </label>
                     <input id="nbTotalHeuresParSemaine" type="number" name="nbTotalHeuresParSemaine" className="form-input" placeholder="Entrez le nombre total d'heure par semaine" value={values.nbTotalHeuresParSemaine} onChange={handleChange}></input>
-                    {errors.nbTotalHeuresParSemaine && <p>{errors.nbTotalHeuresParSemaine}</p>}
+                    {errors.nbTotalHeuresParSemaine && <p className="error">{errors.nbTotalHeuresParSemaine}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -199,7 +199,7 @@ const FormOffre = () => {
                         Taux horaire
                     </label>
                     <input id="tauxHoraire" type="number" name="tauxHoraire" className="form-input" placeholder="Entrez le taux horaire" value={values.tauxHoraire} onChange={handleChange}></input>
-                    {errors.tauxHoraire && <p>{errors.tauxHoraire}</p>}
+                    {errors.tauxHoraire && <p className="error">{errors.tauxHoraire}</p>}
                 </div>
 
                 <button className="button" type="submit">Soumettre l'offre</button>

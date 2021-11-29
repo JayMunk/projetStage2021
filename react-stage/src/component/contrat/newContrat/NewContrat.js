@@ -163,7 +163,7 @@ const NewContrat = () => {
                             <option value={JSON.stringify(offre)}>{offre.titre}</option>
                         ))}
                     </select>
-                    {errors.offre && <p>{errors.offre}</p>}
+                    {errors.offre && <p className="error">{errors.offre}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -176,7 +176,7 @@ const NewContrat = () => {
                             <option value={JSON.stringify(etudiant)}>{etudiant.prenom} {etudiant.nom}</option>
                         ))}
                     </select>
-                    {errors.etudiant && <p>{errors.etudiant}</p>}
+                    {errors.etudiant && <p className="error">{errors.etudiant}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -187,7 +187,7 @@ const NewContrat = () => {
 
                     <input id="collegeEngagement" type="text" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" value={values.collegeEngagement} onChange={handleChange}></input>
 
-                    {errors.collegeEngagement && <p>{errors.collegeEngagement}</p>}
+                    {errors.collegeEngagement && <p className="error">{errors.collegeEngagement}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -198,7 +198,7 @@ const NewContrat = () => {
 
                     <input id="entrepriseEngagement" type="text" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" value={values.entrepriseEngagement} onChange={handleChange}></input>
 
-                    {errors.entrepriseEngagement && <p>{errors.entrepriseEngagement}</p>}
+                    {errors.entrepriseEngagement && <p className="error">{errors.entrepriseEngagement}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -207,7 +207,7 @@ const NewContrat = () => {
                         L’étudiant s’engage à :
                     </label>
                     <input id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" value={values.etudiantEngagement} onChange={handleChange}></input>
-                    {errors.etudiantEngagement && <p>{errors.etudiantEngagement}</p>}
+                    {errors.etudiantEngagement && <p className="error">{errors.etudiantEngagement}</p>}
                 </div>
 
 

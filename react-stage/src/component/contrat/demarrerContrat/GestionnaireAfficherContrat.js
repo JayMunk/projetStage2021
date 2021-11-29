@@ -166,7 +166,7 @@ const GestionnaireAfficherContrat = () => {
                     </label>
                     <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
                 </div>
-                {errors.moniteurConfirmed && <p>{errors.moniteurConfirmed}</p>}
+                {errors.moniteurConfirmed && <p className="error">{errors.moniteurConfirmed}</p>}
 
                 <div className="form-inputs">
                     <label htmlFor="etudiantConfirmed" className="form-label">
@@ -174,7 +174,7 @@ const GestionnaireAfficherContrat = () => {
                     </label>
                     <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
                 </div>
-                {errors.etudiantConfirmed && <p>{errors.etudiantConfirmed}</p>}
+                {errors.etudiantConfirmed && <p className="error">{errors.etudiantConfirmed}</p>}
 
                 <div className="form-inputs">
                     <label htmlFor="gestionnaireConfirmed" className="form-label">

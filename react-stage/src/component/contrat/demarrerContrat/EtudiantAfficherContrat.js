@@ -23,9 +23,8 @@ const EtudiantAfficherContrat = () => {
     }
 
     return (
-        <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Démarrer contrat</h1>
+                <h2>Démarrer contrat</h2>
 
                 <div className="form-inputs">
                     <label htmlFor="collegeEngagement"
@@ -73,10 +72,9 @@ const EtudiantAfficherContrat = () => {
                 </div>
 
 
-                <button className="form-input-btn" type="submit">Signer le contrat</button>
+                <button className="button" type="submit">Signer le contrat</button>
 
             </form>
-        </div>
     )
 }
 

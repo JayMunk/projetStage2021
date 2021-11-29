@@ -109,9 +109,8 @@ const GestionnaireAfficherContrat = () => {
     }
 
     return (
-        <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Démarrer contrat</h1>
+                <h2>Démarrer contrat</h2>
 
                 <div className="form-inputs">
                     <label htmlFor="offre"
@@ -185,10 +184,9 @@ const GestionnaireAfficherContrat = () => {
                 </div>
 
 
-                <button className="form-input-btn" type="submit">Signer et démarrer le contrat</button>
+                <button className="button" type="submit">Signer et démarrer le contrat</button>
 
             </form>
-        </div>
     )
 }
 

@@ -8,7 +8,7 @@ const AfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
 
     return (
-        <>
+        <body id="body">
             {loggedUser.role === "ETUDIANT"?
                 <EtudiantAfficherContrat />
                 :
@@ -24,7 +24,7 @@ const AfficherContrat = () => {
                 :
                 null
             }
-        </>
+        </body>
 
     )
 }

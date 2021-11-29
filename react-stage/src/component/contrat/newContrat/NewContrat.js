@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import './NewContratCSS.css'
 import ContratService from '../../../services/ContratService'
 import OffreService from '../../../services/OffreService'
 import { useHistory } from "react-router-dom";
@@ -149,9 +148,9 @@ const NewContrat = () => {
 
 
     return (
-        <div className="form-content-right">
+        <body id="body">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Créez un nouveau contrat</h1>
+                <h2>Créez un nouveau contrat</h2>
 
 
                 <div className="form-inputs">
@@ -212,10 +211,10 @@ const NewContrat = () => {
                 </div>
 
 
-                <button className="form-input-btn" type="submit">Créer le contrat</button>
+                <button className="button" type="submit">Créer le contrat</button>
 
             </form>
-        </div>
+        </body>
     )
 }
 

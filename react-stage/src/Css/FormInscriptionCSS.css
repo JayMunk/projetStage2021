@@ -1,8 +1,8 @@
-#body,form{ 
+body,form{ 
   background-color: #121212;
 }
 
-#body {
+body {
   min-height: 100vh;
 }
 #formLogin {

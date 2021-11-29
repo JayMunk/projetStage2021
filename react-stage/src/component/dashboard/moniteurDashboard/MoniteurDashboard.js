@@ -7,7 +7,7 @@ import FormEntrevue from './FormEntrevue'
 import './MoniteurDashboard.css'
 
 const MoniteurDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,

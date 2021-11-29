@@ -4,7 +4,7 @@ import UserService from '../../../services/UserService'
 import './SuperviseurDashboard.css'
 
 const SuperviseurDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,

@@ -6,7 +6,7 @@ import OffreService from '../../../services/OffreService';
 
 const FormOffre = () => {
     const history = useHistory();
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [values, setValues] = useState({
         titre: "",
         description: "",

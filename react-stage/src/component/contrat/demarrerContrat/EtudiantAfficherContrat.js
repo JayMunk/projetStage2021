@@ -3,15 +3,13 @@ import { UserInfoContext } from '../../../contexts/UserInfo';
 import ContratService from '../../../services/ContratService';
 
 const EtudiantAfficherContrat = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [contrat, setContrat] = useState({})
 
     useEffect(async () => {
         let contrat
         contrat = await ContratService.getContratsByEtudiantEmail(loggedUser.courriel)
         setContrat(contrat)
-
-
     }, [])
 
 
@@ -22,7 +20,6 @@ const EtudiantAfficherContrat = () => {
         contrat.etudiantConfirmed = true
         const newContrat = await ContratService.saveContrat(contrat)
         setContrat(newContrat)
-
     }
 
     return (

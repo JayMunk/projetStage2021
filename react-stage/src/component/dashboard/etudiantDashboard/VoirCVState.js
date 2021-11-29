@@ -9,7 +9,7 @@ import UserService from '../../../services/UserService';
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
     const [cvs, setCvs] = useState([]);
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
 
     const updateCvs = async () => {
         //await CVService.updateCVsEtudiant(etudiant.id).then(data => { setCvs(data)  })

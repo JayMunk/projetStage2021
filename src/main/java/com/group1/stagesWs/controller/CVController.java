@@ -48,8 +48,9 @@ public class CVController {
   }
 
   @DeleteMapping(path = "/delete/{id}")
-  public ResponseEntity<Boolean> deleteCV(@PathVariable int id) {
-    return new ResponseEntity<>(cvService.deleteCV(id), HttpStatus.OK);
+  public ResponseEntity deleteCV(@PathVariable int id) {
+    cvService.deleteCV(id);
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping(path = "/pdf/{id}")

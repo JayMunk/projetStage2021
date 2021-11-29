@@ -39,6 +39,7 @@ import NotificationViewer from "./component/Notification/NotificationViewer";
 import EvaluationEtudiant from "./component/evaluations/EvaluationEtudiant";
 import AfficherContrat from "./component/contrat/demarrerContrat/AfficherContrat"
 import EvaluationEntreprise from "./component/evaluations/EvaluationEntreprise";
+import NotFound from "./component/notFound/NotFound";
 
 
 
@@ -85,6 +86,7 @@ function App() {
               <Route exact path="/evaluation/etudiant"><EvaluationEtudiant /></Route>
               <Route exact path="/evaluation/entreprise"><EvaluationEntreprise /></Route>
               <Route exact path="/gestion/demarrerContrat"><AfficherContrat /></Route>
+              <Route><NotFound /></Route>
             </Switch>
           </div>
         </UserInfo>

@@ -1,11 +1,18 @@
-import { useState, useEffect, useContext, Redirect, useRef } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { UserInfoContext } from "../../contexts/UserInfo";
 import '../../Css/FormInscriptionCSS.css'
 import Swal from 'sweetalert2'
+import '@sweetalert2/theme-dark/dark.css'
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+
 
 
 const NewLoginUser = () => {
+
+
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
     const history = useHistory();
 
     const [values, setValues] = useState({
@@ -115,9 +122,12 @@ const NewLoginUser = () => {
 
     }, [loggedUser])
 
+
+
     return (
-        <body>
-            <form onSubmit={handleSubmit}>
+        <body id="body">
+            <h2>Vous pouvez vous connecter ici</h2>
+            <form onSubmit={handleSubmit} id="formLogin">
 
                 <label>
                     Courriel:

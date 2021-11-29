@@ -169,12 +169,6 @@ const FormEntrevue = ({ handleReloadList }) => {
                             </button>
                         </td>
                     </tr>
-
-                    {/* 
-                
-                
-               
-                 */}
                 </table>
             </form>
 

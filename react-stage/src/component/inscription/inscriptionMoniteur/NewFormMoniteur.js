@@ -1,5 +1,7 @@
 import { React, useState } from 'react'
 import { useHistory } from "react-router-dom";
+import UserService from '../../../services/UserService';
+
 
 import '../../../Css/FormInscriptionCSS.css'
 
@@ -86,7 +88,8 @@ const NewFormMoniteur = () => {
 
 
 
-            saveMoniteur()
+
+            UserService.saveMoniteur(values);
             history.push("/login");
 
         }
@@ -108,7 +111,7 @@ const NewFormMoniteur = () => {
     }
 
     return (
-        <div>
+        <body id="body">
             <h2>Créer un compte de type moniteur</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -166,7 +169,7 @@ const NewFormMoniteur = () => {
 
                 <button type="submit" className="button">S'inscrire</button>
             </form >
-        </div >
+        </body >
     );
 }
 

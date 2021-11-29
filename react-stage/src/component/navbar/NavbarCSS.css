@@ -1,9 +1,9 @@
 .nav-item .dropdown-menu {
-  background: white;
+  background: #212529;
 }
 
 .nav-item .dropdown-item {
-  color: black;
+  color: #EDEDED;
 }
 
 .nav-item .dropdown-item:hover {
@@ -11,11 +11,11 @@
 }
 
 .dropdown-divider {
-  color: black;
+  color: #EDEDED;
 }
 
 .nav-item .dropdown-item {
-  color: #ffffff;
+  color: #EDEDED;
 }
 
 .nav-item .dropdown-item:hover {
@@ -23,7 +23,7 @@
 }
 
 .dropdown-divider {
-  color: #ffffff;
+  color: #EDEDED;
 }
 
 .App-logo {
@@ -40,7 +40,7 @@ button {
 
 a {
   text-decoration: none;
-  color: black;
+  color: #EDEDED;
 }
 
 a:hover {

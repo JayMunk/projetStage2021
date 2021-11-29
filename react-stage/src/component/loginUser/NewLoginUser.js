@@ -4,7 +4,6 @@ import { UserInfoContext } from "../../contexts/UserInfo";
 import '../../Css/FormInscriptionCSS.css'
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
 
 
 
@@ -77,7 +76,6 @@ const NewLoginUser = () => {
             firstUpdate.current = false
         } else {
             if (Object.keys(errors).length === 0 && isSubmitted) {
-                // callback();
                 fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
                     .then(res => {
                         console.log(res, "resultat res")
@@ -127,7 +125,7 @@ const NewLoginUser = () => {
     return (
         <body id="body">
             <h2>Vous pouvez vous connecter ici</h2>
-            <form onSubmit={handleSubmit} id="formLogin">
+            <form onSubmit={handleSubmit} id="formLogin" className="formInscription">
 
                 <label>
                     Courriel:

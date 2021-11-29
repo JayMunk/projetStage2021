@@ -93,24 +93,10 @@ const NewFormSuperviseur = () => {
     }
 
 
-
-
-
-    // const saveSuperviseur = async () => {
-    //     var request = new XMLHttpRequest();
-    //     request.open('POST', 'http://localhost:9191/user/superviseur', true);
-    //     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-
-    //     const superviseur = JSON.stringify(values);
-
-    //     request.send(superviseur)
-    // }
-
     return (
         <body id="body">
             <h2>Créer un compte de type superviseur</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="formInscription">
                 <label>
                     Prenom:
                 </label>

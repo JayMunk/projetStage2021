@@ -110,7 +110,7 @@ const NewFormEtudiant = () => {
     return (
         <body id="body">
             <h2>Créer un compte de type étudiant</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="formInscription">
                 <label>
                     Prenom:
                 </label>

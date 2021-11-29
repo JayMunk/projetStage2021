@@ -3,7 +3,7 @@ import { UserInfoContext } from '../../../contexts/UserInfo'
 import ContratService from '../../../services/ContratService'
 
 const MoniteurAfficherContrat = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [listContrats, setListContrats] = useState([])
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
@@ -12,8 +12,6 @@ const MoniteurAfficherContrat = () => {
     useEffect(async () => {
         let dbContrats
         dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
-
-        console.log(dbContrats, "dbContrats")
         getOffres(dbContrats)
         setListContrats(dbContrats)
     }, [])
@@ -21,10 +19,19 @@ const MoniteurAfficherContrat = () => {
     const getOffres = (listContrats) => {
         let tempListOffres = []
         listContrats.forEach(contrat => {
-            tempListOffres = [...tempListOffres, contrat.offre]
+            if (offreIsNotInList(tempListOffres, contrat)) {
+                tempListOffres = [...tempListOffres, contrat.offre]
+            }
         });
         setListOffres(tempListOffres)
         setValuesOnLoad(listContrats, tempListOffres)
+    }
+
+    const offreIsNotInList = (tempListOffres, contratToCheck) => {
+        if (tempListOffres.some(offre => offre.id === contratToCheck.offre.id)) {
+            return false
+        }
+        return true
     }
 
     const setValuesOnLoad = (listContrats, listOffres) => {
@@ -54,20 +61,18 @@ const MoniteurAfficherContrat = () => {
 
     }
 
-    const onChangeEtudiant = async (e) => {
+    const onChangeEtudiant = (e) => {
         let etudiant = JSON.parse(e.target.value)
 
-        await setContratValues(listContrats, etudiant)
+        setContratValues(listContrats, etudiant)
     }
 
-    const setContratValues = async (listContrats, etudiant) => {
-        let tempContrat = {}
+    const setContratValues = (listContrats, etudiant) => {
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
-                tempContrat = contrat
+                setContrat(contrat)
             }
         });
-        setContrat(tempContrat)
     }
 
     const handleSubmit = async e => {

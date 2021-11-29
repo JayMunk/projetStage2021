@@ -5,7 +5,7 @@ import EtudiantAfficherContrat from './EtudiantAfficherContrat';
 import MoniteurAfficherContrat from './MoniteurAfficherContrat';
 
 const AfficherContrat = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
 
     return (
         <>

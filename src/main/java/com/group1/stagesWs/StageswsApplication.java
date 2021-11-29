@@ -416,8 +416,17 @@ public class StageswsApplication implements CommandLineRunner {
             20.75);
     offre6.setSession(sessionAlternative.getNomSession());
 
-    offre1.setWhitelist(Set.of(etudiant));
+    offre1.setWhitelist(Set.of(etudiant, etudiant2));
     offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
+
+    Contrat contrat1 =
+        new Contrat(
+            "fournir à l’entreprise tous les renseignements concernant les conditions spécifiques du programme d’études et du programme d’alternance travail-études",
+            "embaucher l’élève stagiaire aux conditions précisées dans la présente entente",
+            "assumer de façon responsable et sécuritaire, les tâches qui lui sont confiées",
+            offre1,
+            etudiant,
+            moniteur);
 
     Contrat contrat2 =
         new Contrat(
@@ -428,8 +437,20 @@ public class StageswsApplication implements CommandLineRunner {
             etudiant5,
             moniteur);
     contrat2.setEtudiantConfirmed(true);
+    contrat2.setDateSignatureEtudiant(LocalDate.now());
     contrat2.setMoniteurConfirmed(true);
-    contratRepository.save(contrat2);
+    contrat2.setDateSignatureMoniteur(LocalDate.now());
+
+    Contrat contrat3 =
+        new Contrat(
+            "fournir à l’entreprise le formulaire d’attestation de participation à un stage de formation admissible après réception du formulaire « Déclaration relative au crédit d’impôt remboursable pour les stages »",
+            "retourner le formulaire « Déclaration des heures travaillées » dûment rempli",
+            "référer rapidement au responsable des stages au cégep toute situation problématique affectant le bon déroulement du stage",
+            offre1,
+            etudiant2,
+            moniteur);
+
+    contratRepository.saveAll(List.of(contrat1, contrat2, contrat3));
     Entrevue entrevue = new Entrevue();
     entrevue.setId(1);
     entrevue.setTitre("test1");

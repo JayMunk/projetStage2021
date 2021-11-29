@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { UserInfoContext } from '../../../contexts/UserInfo'
+import React, { useState, useEffect} from 'react'
 import ContratService from '../../../services/ContratService'
-import validateInfoDemarrerContrat from './validateInfoDemarrerContrat'
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -20,10 +18,19 @@ const GestionnaireAfficherContrat = () => {
     const getOffres = (listContrats) => {
         let tempListOffres = []
         listContrats.forEach(contrat => {
-            tempListOffres = [...tempListOffres, contrat.offre]
+            if (offreIsNotInList(tempListOffres, contrat)) {
+                tempListOffres = [...tempListOffres, contrat.offre]
+            }
         });
         setListOffres(tempListOffres)
         setValuesOnLoad(listContrats, tempListOffres)
+    }
+
+    const offreIsNotInList = (tempListOffres, contratToCheck) => {
+        if (tempListOffres.some(offre => offre.id === contratToCheck.offre.id)) {
+            return false
+        }
+        return true
     }
 
     const setValuesOnLoad = (listContrats, listOffres) => {
@@ -54,20 +61,18 @@ const GestionnaireAfficherContrat = () => {
 
     }
 
-    const onChangeEtudiant = async (e) => {
+    const onChangeEtudiant = (e) => {
         let etudiant = JSON.parse(e.target.value)
         setErrors({})
-        await setContratValues(listContrats, etudiant)
+        setContratValues(listContrats, etudiant)
     }
 
-    const setContratValues = async (listContrats, etudiant) => {
-        let tempContrat = {}
+    const setContratValues = (listContrats, etudiant) => {
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
-                tempContrat = contrat
+                setContrat(contrat)
             }
         });
-        setContrat(tempContrat)
     }
 
     const isAlreadyStarted = (contrat) => {
@@ -78,15 +83,28 @@ const GestionnaireAfficherContrat = () => {
         }
     }
 
-    const handleSubmit = e => {
+    function checkError(values) {
+        let errors = {}
+
+        if (!values.etudiantConfirmed) {
+            errors.etudiantConfirmed = "La signature de l'étudiant est requise"
+        }
+
+        if (!values.moniteurConfirmed) {
+            errors.moniteurConfirmed = "La signature du moniteur est requise"
+        }
+
+        return errors
+    }
+
+    const handleSubmit = async e => {
         e.preventDefault()
-        let errorValidation = validateInfoDemarrerContrat(contrat)
-        setErrors(errorValidation)
-        if (Object.keys(errorValidation).length === 0 && !isAlreadyStarted(contrat)) {
+        setErrors(checkError(contrat))
+        if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
             const date = new Date()
             contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0];
             contrat.gestionnaireConfirmed = true
-            ContratService.saveContrat(contrat)
+            await ContratService.saveContrat(contrat)
         }
     }
 

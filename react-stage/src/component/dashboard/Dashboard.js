@@ -7,8 +7,7 @@ import MoniteurDashboard from './moniteurDashboard/MoniteurDashboard'
 
 
 const Dashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
-    console.log(loggedUser)
+    const [loggedUser] = useContext(UserInfoContext)
     return (
         <>
             {

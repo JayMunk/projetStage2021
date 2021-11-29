@@ -22,7 +22,7 @@ const MoniteurAfficherContrat = () => {
             if (offreIsNotInList(tempListOffres, contrat)) {
                 tempListOffres = [...tempListOffres, contrat.offre]
             }
-        });
+        })
         setListOffres(tempListOffres)
         setValuesOnLoad(listContrats, tempListOffres)
     }
@@ -51,7 +51,7 @@ const MoniteurAfficherContrat = () => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
                 tempListEtudiantsContratOffre = [...tempListEtudiantsContratOffre, contrat.etudiant]
             }
-        });
+        })
         return tempListEtudiantsContratOffre
     }
 
@@ -72,7 +72,7 @@ const MoniteurAfficherContrat = () => {
             if (contrat.etudiant.id === etudiant.id) {
                 setContrat(contrat)
             }
-        });
+        })
     }
 
     const handleSubmit = async e => {

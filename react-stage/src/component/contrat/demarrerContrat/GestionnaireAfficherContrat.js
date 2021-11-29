@@ -21,7 +21,7 @@ const GestionnaireAfficherContrat = () => {
             if (offreIsNotInList(tempListOffres, contrat)) {
                 tempListOffres = [...tempListOffres, contrat.offre]
             }
-        });
+        })
         setListOffres(tempListOffres)
         setValuesOnLoad(listContrats, tempListOffres)
     }
@@ -50,7 +50,7 @@ const GestionnaireAfficherContrat = () => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
                 tempListEtudiantsContratOffre = [...tempListEtudiantsContratOffre, contrat.etudiant]
             }
-        });
+        })
         return tempListEtudiantsContratOffre
     }
 
@@ -72,7 +72,7 @@ const GestionnaireAfficherContrat = () => {
             if (contrat.etudiant.id === etudiant.id) {
                 setContrat(contrat)
             }
-        });
+        })
     }
 
     const isAlreadyStarted = (contrat) => {

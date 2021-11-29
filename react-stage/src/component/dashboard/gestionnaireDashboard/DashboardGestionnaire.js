@@ -8,21 +8,11 @@ import "./DashboardGestionnaireCSS.css";
 const DashboardGestionnaire = () => {
   return (
     <body>
-      <div className="topLeft">
-        <Etudiants />
-      </div>
-      <div className="topRight">
-        <Cvs />
-      </div>
-      <div className="center">
-        <Offres />
-      </div>
-      <div className="bottomLeft">
-        <Moniteurs />
-      </div>
-      <div className="bottomRight">
-        <Superviseurs />
-      </div>
+      <Etudiants />
+      <Cvs />
+      <Offres />
+      <Moniteurs />
+      <Superviseurs />
     </body>
   );
 };

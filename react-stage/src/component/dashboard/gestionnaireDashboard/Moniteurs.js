@@ -47,7 +47,7 @@ const Moniteurs = () => {
   ));
   return (
     <>
-      <table>
+      <table className="tableDashboardGestionnaire">
         <tr>
           <th colSpan="2">Moniteurs</th>
         </tr>

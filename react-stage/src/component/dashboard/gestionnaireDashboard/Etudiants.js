@@ -48,7 +48,7 @@ const Etudiants = () => {
 
   return (
     <>
-      <table>
+      <table className="tableDashboardGestionnaire">
         <tr>
           <th colSpan="2">Étudiants</th>
         </tr>

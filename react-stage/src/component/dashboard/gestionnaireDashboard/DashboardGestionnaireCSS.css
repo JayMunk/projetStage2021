@@ -1,101 +1,70 @@
-table {
+.tableDashboardGestionnaire {
   margin-top: 20px;
   margin-bottom: 20px;
-  text-align: center;
+  /* text-align: center; */
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
 }
 
-.topLeft {
-  width: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin-top: 70px;
+.tableDashboardGestionnaire  .button {
+  margin-top: 30px; 
+  background: #DBB2FF;
+  color: #161616;
+  padding: 0.75rem 1.25rem;
+  width: 250px;
+  cursor: pointer;
+  border-radius: 5px;
+  align-items: center;
 }
 
-.topLeft table {
-  width: 50%;
-}
 
-.topRight {
-  width: 50%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin-top: 70px;
-}
 
-.topRight table {
-  width: 50%;
-}
 
-.center {
-  width: 1000px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-}
-
-.bottomLeft {
-  width: 1100px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  margin-right: 10px;
-  margin-bottom: 50px;
-}
-
-.bottomLeft table {
-  width: 50%;
-}
-
-.bottomRight {
-  width: 1100px;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin-right: 10px;
-  margin-bottom: 50px;
-}
-
-.bottomRight table {
-  width: 50%;
-}
-
-table td,
-table th {
+/* .tableDashboardGestionnaire td,
+.tableDashboardGestionnaire th {
   border: 1px solid #ddd;
   padding: 4px;
 }
 
-table tr:nth-child(odd) {
+.tableDashboardGestionnaire tr:nth-child(odd) {
   background-color: #ffffff;
   color: black;
 }
-table tr:nth-child(even) {
+.tableDashboardGestionnaire tr:nth-child(even) {
   background-color: #eeeeee;
   color: black;
 }
 
-table tbody tr:hover {
+.tableDashboardGestionnaire tbody tr:hover {
   background-color: #23b6fd;
 }
 
-table th {
-  text-align: center;
+.tableDashboardGestionnaire th {
   background-color: #000000;
   color: white;
-}
+} */
 
-
-td {
-  width: 50%;
-}
 
 
 .hoverButton:hover {
   background-color: lightgray;
+}
+
+
+.tableDashboardGestionnaire tr:nth-child(even)  {
+  background-color: #DBB2FF;
+}
+
+.tableDashboardGestionnaire tr:nth-child(odd) {
+  background-color: lightgray;
+}
+
+.tableDashboardGestionnaire tr:nth-child(even) .tableCvButton {
+  background-color: #DBB2FF;
+  border: none;
+}
+
+.tableDashboardGestionnaire tr:nth-child(odd) .tableCvButton{
+  background-color: lightgray;
+  border: none;
 }

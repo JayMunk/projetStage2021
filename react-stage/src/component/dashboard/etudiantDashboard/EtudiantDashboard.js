@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import Offres from '../../Offres/Offres'
 import VoirCVState from './VoirCVState'
-import './EtudiantDashboard.css'
 import ContratService from '../../../services/ContratService'
 import Entrevue from './Entrevue'
 import UserService from '../../../services/UserService'
@@ -60,15 +59,15 @@ const EtudiantDashboard = () => {
     return (
         <>
             <div>
-                <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
+                <h2>Bonjour {fullUser.prenom} {fullUser.nom}</h2>
             </div>
             <div>
-                <h1>État de vos CV</h1>
+                <h2>État de vos CV</h2>
                 <VoirCVState />
             </div>
             {superviseur != null || contrat != null ?
                 <div>
-                    <h1>Contact</h1>
+                    <h2>Contact</h2>
                     <table>
                         <tr>
                             <th>Role</th>

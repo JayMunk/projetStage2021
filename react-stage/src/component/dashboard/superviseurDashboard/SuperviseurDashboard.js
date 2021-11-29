@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
-import './SuperviseurDashboard.css'
 
 const SuperviseurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -50,11 +49,11 @@ const SuperviseurDashboard = () => {
     return (
         <>
             <div>
-                <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
+                <h2>Bonjour {fullUser.prenom} {fullUser.nom}</h2>
             </div>
             {listEtudiants.length > 0 ?
                 <div>
-                    <h1>Liste étudiants</h1>
+                    <h2>Liste étudiants</h2>
                     <table>
                         <tr>
                             <th>Nom</th>
@@ -65,7 +64,7 @@ const SuperviseurDashboard = () => {
                     </table>
                 </div>
                 :
-                <p style={{ textAlign: "center" }}>Vous etes responsable d'aucun étudiant pour l'instant</p>
+                <p className="superviseurDashboard_P">Vous etes responsable d'aucun étudiant pour l'instant</p>
             }
         </>
     )

@@ -4,7 +4,6 @@ import UserService from '../../../services/UserService'
 import Offres from '../../Offres/Offres'
 import Entrevue from './Entrevue'
 import FormEntrevue from './FormEntrevue'
-import './MoniteurDashboard.css'
 
 const MoniteurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -56,11 +55,11 @@ const MoniteurDashboard = () => {
     return (
         <>
             <div>
-                <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
+                <h2>Bonjour {fullUser.prenom} {fullUser.nom}</h2>
             </div>
 
             <div>
-                <h1>Contact Gestionnaire</h1>
+                <h2>Contact Gestionnaire</h2>
                 <table>
                     <tr>
                         <th>Nom</th>

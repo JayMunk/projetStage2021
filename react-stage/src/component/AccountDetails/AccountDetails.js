@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../contexts/UserInfo";
-import "./AccountDetailsCSS.css";
 
 const AccountDetails = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);

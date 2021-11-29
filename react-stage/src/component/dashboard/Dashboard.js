@@ -9,7 +9,7 @@ import MoniteurDashboard from './moniteurDashboard/MoniteurDashboard'
 const Dashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
     return (
-        <>
+        <body id="body">
             {
                 loggedUser.role === "ETUDIANT" ?
                     < EtudiantDashboard />
@@ -34,7 +34,7 @@ const Dashboard = () => {
                     :
                     null
             }
-        </>
+        </body>
     )
 }
 

@@ -1,4 +1,5 @@
 import "./App.css";
+import "./Css/Table.css";
 import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
 import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";
 import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";

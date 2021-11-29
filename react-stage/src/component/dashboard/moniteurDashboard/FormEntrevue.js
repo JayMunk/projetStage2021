@@ -106,7 +106,7 @@ const FormEntrevue = ({ handleReloadList }) => {
 
     return (
         <div>
-            <h1>Créer une entrevue</h1>
+            <h2>Créer une entrevue</h2>
             <form className="register-form" onSubmit={handleSubmit}>
                 <table>
                     <tr>
@@ -164,7 +164,7 @@ const FormEntrevue = ({ handleReloadList }) => {
                             </select>
                         </td>
                         <td>
-                            <button class="form-field" type="submit">
+                            <button className="button" class="form-field" type="submit">
                                 Créer
                             </button>
                         </td>

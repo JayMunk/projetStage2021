@@ -1,4 +1,3 @@
-import './FormOffre';
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import { useHistory } from "react-router-dom";
@@ -100,9 +99,9 @@ const FormOffre = () => {
 
 
     return (
-        <div className="form-content-right" style={{ marginTop: "25%" }}>
+        <body id="body">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Créez votre offre de stage dès maintenant!</h1>
+                <h2>Créez votre offre de stage dès maintenant!</h2>
 
                 <div className="form-inputs">
                     <label htmlFor="titre"
@@ -203,9 +202,9 @@ const FormOffre = () => {
                     {errors.tauxHoraire && <p>{errors.tauxHoraire}</p>}
                 </div>
 
-                <button className="form-input-btn" type="submit">Soumettre l'offre</button>
+                <button className="button" type="submit">Soumettre l'offre</button>
             </form>
-        </div>
+        </body>
     )
 }
 

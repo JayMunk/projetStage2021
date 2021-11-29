@@ -43,7 +43,8 @@ const FormOffre = () => {
         setErrors(checkError(values))
         setSubmitted(true)
         if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
-            await OffreService.saveOffre(values, loggedUser.courriel).then(history.push("/offres"))
+            await OffreService.saveOffre(values, loggedUser.courriel)
+            history.push("/offres")
         }
     }
 

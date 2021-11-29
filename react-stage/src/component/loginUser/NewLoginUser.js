@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { UserInfoContext } from "../../contexts/UserInfo";
-import '../../Css/FormInscriptionCSS.css'
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
+import { Link } from 'react-router-dom';
 
+import '../../Css/FormInscriptionCSS.css'
+import '../../Css/lienInscription.css'
 
 
 
@@ -123,7 +125,13 @@ const NewLoginUser = () => {
 
 
     return (
-        <body id="body">
+        <body id="body" className="mx-auto">
+            <ul className="lienInscription">
+                <li><Link to="/etudiant">Compete étudiant</Link></li>
+                <li><Link to="/superviseur">Compete superviseur</Link></li>
+                <li><Link to="/moniteur">Compete moniteur</Link></li>
+            </ul>
+
             <h2>Vous pouvez vous connecter ici</h2>
             <form onSubmit={handleSubmit} id="formLogin" className="formInscription">
 

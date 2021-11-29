@@ -14,17 +14,6 @@
   color: #EDEDED;
 }
 
-.nav-item .dropdown-item {
-  color: #EDEDED;
-}
-
-.nav-item .dropdown-item:hover {
-  background: #23b6fd;
-}
-
-.dropdown-divider {
-  color: #EDEDED;
-}
 
 .App-logo {
   height: 4vmin;
@@ -35,6 +24,10 @@
 a {
   text-decoration: none;
   color: #EDEDED;
+}
+
+a.dropdown-item {
+  width: 100%;
 }
 
 a:hover {

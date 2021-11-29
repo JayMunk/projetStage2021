@@ -23,6 +23,11 @@ const FormOffre = () => {
     const [errors, setErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
 
+    useEffect(() => {
+        console.log(!loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR"))
+        if (!loggedUser.isLoggedIn && !(loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR")) history.push("/login")
+    }, [values])
+
     const handleChange = e => {
         const { name, value } = e.target
         if (loggedUser.role == "GESTIONNAIRE") {
@@ -34,8 +39,6 @@ const FormOffre = () => {
             })
         }
     }
-    useEffect(() => {
-    }, [values])
 
     const handleSubmit = async e => {
         e.preventDefault();

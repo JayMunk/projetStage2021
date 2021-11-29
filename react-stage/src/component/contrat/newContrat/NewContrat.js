@@ -1,16 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { UserInfoContext } from './../../../contexts/UserInfo';
 import ContratService from '../../../services/ContratService'
 import OffreService from '../../../services/OffreService'
 import { useHistory } from "react-router-dom";
 
 const NewContrat = () => {
     const history = useHistory();
+    const [loggedUser] = useContext(UserInfoContext)
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
 
     const [values, setValues] = useState({})
 
     const [errors, setErrors] = useState({})
+
+    useEffect(() => {
+
+        if (!loggedUser.isLoggedIn && loggedUser.role != "GESTIONNAIRE") history.push("/login")
+
+        const getOffres = async () => {
+            let dbOffres
+            dbOffres = await OffreService.getAllOffres()
+
+            setListOffres(dbOffres)
+            setValuesOnLoad(dbOffres)
+        }
+        getOffres()
+    }, [])
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -29,18 +45,6 @@ const NewContrat = () => {
             history.push("/gestion/demarrerContrat")
         }
     }
-
-
-    useEffect(() => {
-        const getOffres = async () => {
-            let dbOffres
-            dbOffres = await OffreService.getAllOffres()
-
-            setListOffres(dbOffres)
-            setValuesOnLoad(dbOffres)
-        }
-        getOffres()
-    }, [])
 
     const setValuesOnLoad = (listOffres) => {
         setValueOffre(listOffres[0])

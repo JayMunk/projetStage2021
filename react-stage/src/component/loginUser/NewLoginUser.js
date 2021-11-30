@@ -127,9 +127,9 @@ const NewLoginUser = () => {
     return (
         <body id="body" className="mx-auto">
             <ul className="lienInscription">
-                <li><Link to="/etudiant">Compete étudiant</Link></li>
-                <li><Link to="/superviseur">Compete superviseur</Link></li>
-                <li><Link to="/moniteur">Compete moniteur</Link></li>
+                <li><Link to="/etudiant">Créer un compte étudiant</Link></li>
+                <li><Link to="/superviseur">Créer un compte superviseur</Link></li>
+                <li><Link to="/moniteur">Créer un compte moniteur</Link></li>
             </ul>
 
             <h2>Vous pouvez vous connecter ici</h2>

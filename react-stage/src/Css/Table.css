@@ -1,8 +1,16 @@
+table {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 table th {
+    padding: auto;
     background-color: #DBB2FF;
 }
 
 table td {
+    padding: 15px;
     background-color: #494949;
     color: #EDEDED;
 }

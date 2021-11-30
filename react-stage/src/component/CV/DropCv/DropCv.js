@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
+import CVService from '../../../services/CVService';
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
@@ -107,7 +108,8 @@ const DropCv = () => {
     }
 
     const deleteCV = async (cv) => {
-        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
+        // const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
+        const res = CVService.deleteCV(cv)
         await res.json().then(updateCvs())
     }
 
@@ -185,16 +187,18 @@ const DropCv = () => {
                     <button type="submit" id="buttonCv">Submit</button>
                 </form>
             </div>
-            {cvs.length > 0 ? <table id="tableCv">
-                <tr>
-                    <th>nom du fichier</th>
-                    <th>Date de soumission</th>
-                    <th>effacer</th>
-                    <th>télécarger</th>
-                    <th>Statut du CV</th>
-                </tr>
-                {cvList}
-            </table> : null}
+            {cvs.length > 0 ?
+                <table id="tableCv">
+                    <tr>
+                        <th>nom du fichier</th>
+                        <th>Date de soumission</th>
+                        <th>effacer</th>
+                        <th>télécarger</th>
+                        <th>Statut du CV</th>
+                    </tr>
+                    {cvList}
+                </table>
+                : null}
         </body>
     )
 }

@@ -6,7 +6,6 @@ import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/N
 import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
 import NewLoginUser from "./component/loginUser/NewLoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
-import Home from "./component/Home/Home";
 import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre";
 import Offres from "./component/Offres/Offres";
 import {
@@ -52,7 +51,7 @@ function App() {
           <Navbar />
           <div>
             <Switch>
-              <Route exact path="/"><Home /></Route>
+              <Route exact path="/"><NewLoginUser /></Route>
               <Route exact path="/etudiant"><NewFormEtudiant /></Route>
               <Route exact path="/superviseur"><NewFormSuperviseur /></Route>
               <Route exact path="/moniteur"><NewFormMoniteur /></Route>

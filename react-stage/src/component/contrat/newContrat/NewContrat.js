@@ -153,7 +153,7 @@ const NewContrat = () => {
 
     return (
         <body id="body">
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" id="txtform" onSubmit={handleSubmit}>
                 <h2>Créez un nouveau contrat</h2>
 
 
@@ -188,9 +188,7 @@ const NewContrat = () => {
                         className="form-label">
                         Le Collège s’engage à :
                     </label>
-
-                    <input id="collegeEngagement" type="text" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" value={values.collegeEngagement} onChange={handleChange}></input>
-
+                    <textarea form="txtform" rows="3" cols="50" id="collegeEngagement" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" value={values.collegeEngagement} onChange={handleChange}></textarea>
                     {errors.collegeEngagement && <p className="error">{errors.collegeEngagement}</p>}
                 </div>
 
@@ -199,9 +197,7 @@ const NewContrat = () => {
                         className="form-label">
                         L’entreprise s’engage à :
                     </label>
-
-                    <input id="entrepriseEngagement" type="text" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" value={values.entrepriseEngagement} onChange={handleChange}></input>
-
+                    <textarea form="txtform" rows="3" cols="50" id="entrepriseEngagement" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" value={values.entrepriseEngagement} onChange={handleChange}></textarea>
                     {errors.entrepriseEngagement && <p className="error">{errors.entrepriseEngagement}</p>}
                 </div>
 
@@ -210,7 +206,7 @@ const NewContrat = () => {
                         className="form-label">
                         L’étudiant s’engage à :
                     </label>
-                    <input id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" value={values.etudiantEngagement} onChange={handleChange}></input>
+                    <textarea form="txtform" rows="3" cols="50" id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" value={values.etudiantEngagement} onChange={handleChange}></textarea>
                     {errors.etudiantEngagement && <p className="error">{errors.etudiantEngagement}</p>}
                 </div>
 

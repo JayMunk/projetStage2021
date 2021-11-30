@@ -23,58 +23,58 @@ const EtudiantAfficherContrat = () => {
     }
 
     return (
-            <form className="form" onSubmit={handleSubmit}>
-                <h2>Démarrer contrat</h2>
+        <form className="form" id="txtform" onSubmit={handleSubmit}>
+            <h2>Démarrer contrat</h2>
 
-                <div className="form-inputs">
-                    <label htmlFor="collegeEngagement"
-                        className="form-label">
-                        Le Collège s’engage à :
-                    </label>
-                    <input id="collegeEngagement" type="text" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" defaultValue={contrat.collegeEngagement} readOnly></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="collegeEngagement"
+                    className="form-label">
+                    Le Collège s’engage à :
+                </label>
+                <textarea form="txtform" rows="3" cols="50" id="collegeEngagement" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" defaultValue={contrat.collegeEngagement} readOnly></textarea>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="entrepriseEngagement"
-                        className="form-label">
-                        L’entreprise s’engage à :
-                    </label>
-                    <input id="entrepriseEngagement" type="text" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" defaultValue={contrat.entrepriseEngagement} readOnly></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="entrepriseEngagement"
+                    className="form-label">
+                    L’entreprise s’engage à :
+                </label>
+                <textarea form="txtform" rows="3" cols="50" id="entrepriseEngagement" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" defaultValue={contrat.entrepriseEngagement} readOnly></textarea>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="etudiantEngagement"
-                        className="form-label">
-                        L’étudiant s’engage à :
-                    </label>
-                    <input id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" defaultValue={contrat.etudiantEngagement} readOnly></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="etudiantEngagement"
+                    className="form-label">
+                    L’étudiant s’engage à :
+                </label>
+                <textarea form="txtform" rows="3" cols="50" id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" defaultValue={contrat.etudiantEngagement} readOnly></textarea>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="moniteurConfirmed" className="form-label">
-                        Signature moniteur
-                    </label>
-                    <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="moniteurConfirmed" className="form-label">
+                    Signature moniteur
+                </label>
+                <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="etudiantConfirmed" className="form-label">
-                        Signature étudiant
-                    </label>
-                    <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="etudiantConfirmed" className="form-label">
+                    Signature étudiant
+                </label>
+                <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="gestionnaireConfirmed" className="form-label">
-                        Signature gestionnaire
-                    </label>
-                    <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="gestionnaireConfirmed" className="form-label">
+                    Signature gestionnaire
+                </label>
+                <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
+            </div>
 
 
-                <button className="button" type="submit">Signer le contrat</button>
+            <button className="button" type="submit">Signer le contrat</button>
 
-            </form>
+        </form>
     )
 }
 

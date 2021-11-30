@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 import "./App.css";
 import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
 import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";

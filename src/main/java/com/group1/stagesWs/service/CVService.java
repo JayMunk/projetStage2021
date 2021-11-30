@@ -50,8 +50,8 @@ public class CVService extends SessionManager<CV> {
     return getListForCurrentSession(listCVEtudiantCurrentSession);
   }
 
-  public Boolean deleteCV(int id) {
-    return cvRepository.deleteCVById(id);
+  public void deleteCV(int id) {
+    cvRepository.deleteById(id);
   }
 
   public byte[] generateCVPDF(byte[] bArray, String fileName) {

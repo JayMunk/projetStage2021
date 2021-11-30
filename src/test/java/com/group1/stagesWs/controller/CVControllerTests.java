@@ -2,6 +2,8 @@ package com.group1.stagesWs.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -165,8 +167,7 @@ public class CVControllerTests {
     // Arrange
     CV expected = new CV();
     expected.setId(1);
-    when(cvService.deleteCV(any(Integer.class))).thenReturn(true);
-
+    doNothing().when(cvService).deleteCV(anyInt());
     // Act
     MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
 
@@ -175,6 +176,8 @@ public class CVControllerTests {
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
     assertThat(actual).isTrue();
   }
+
+
 
   @Test
   void testGetAllCVsAllSession() throws Exception {

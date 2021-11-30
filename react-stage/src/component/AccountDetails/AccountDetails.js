@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../contexts/UserInfo";
 
+import '../../Css/FormInscriptionCSS.css'
 const AccountDetails = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [fullUser, setFullUser] = useState({
@@ -42,261 +43,185 @@ const AccountDetails = () => {
   }, [fullUser]);
 
   return (
-    <div className="form-container">
-      <div className="form-content-left">
-        <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
-      </div>
-      <div className="form-content-right">
-        <form className="form">
-          <h1>Voici vos infos de compte</h1>
+    <body>
+      <form className="formInscription">
+        <h2>Votre compte</h2>
 
-          <div className="form-inputs">
-            <label htmlFor="prenom" className="form-label">
-              Prenom
+        <label htmlFor="prenom">
+          Prenom
+        </label>
+        <input
+          id="prenom"
+          type="text"
+          name="prenom"
+          defaultValue={fullUser.prenom}
+          readOnly
+        ></input>
+
+        <label htmlFor="nom">
+          Nom
+        </label>
+        <input
+          id="nom"
+          type="text"
+          name="nom"
+          defaultValue={fullUser.nom}
+          readOnly
+        ></input>
+
+
+        <label htmlFor="courriel" >
+          Courriel
+        </label>
+        <input
+          id="courriel"
+          type="email"
+          name="courriel"
+          defaultValue={fullUser.courriel}
+          readOnly
+        ></input>
+
+
+        <label htmlFor="password" >
+          Mot de passe
+        </label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          defaultValue={fullUser.password}
+          readOnly
+        ></input>
+
+
+        <label htmlFor="numTelephone" >
+          Numero de telephone
+        </label>
+        <input
+          id="numTelephone"
+          type="text"
+          name="numTelephone"
+          defaultValue={fullUser.numTelephone}
+          readOnly
+        ></input>{" "}
+
+        {fullUser.role == "ETUDIANT" && (
+          <>
+
+            <label htmlFor="programme" >
+              Programme
             </label>
             <input
-              id="prenom"
+              id="programme"
               type="text"
-              name="prenom"
-              className="form-input"
-              placeholder="Entrez votre prenom"
-              defaultValue={fullUser.prenom}
-              readOnly
-            ></input>
-          </div>
+              name="programme"
+              defaultValue={fullUser.programme}
+              readOnly>
+            </input>
 
-          <div className="form-inputs">
-            <label htmlFor="nom" className="form-label">
-              Nom
+
+            <label htmlFor="adresse" >
+              Adresse
             </label>
             <input
-              id="nom"
+              id="adresse"
               type="text"
-              name="nom"
-              className="form-input"
-              placeholder="Entrez votre nom"
-              defaultValue={fullUser.nom}
-              readOnly
-            ></input>
-          </div>
+              name="adresse"
+              defaultValue={fullUser.adresse}
+              readOnly>
+            </input>
 
-          <div className="form-inputs">
-            <label htmlFor="courriel" className="form-label">
-              Courriel
+
+            <label htmlFor="numMatricule" >
+              Numero de matricule
             </label>
             <input
-              id="courriel"
-              type="email"
-              name="courriel"
-              className="form-input"
-              placeholder="Entrez votre courriel"
-              defaultValue={fullUser.courriel}
-              readOnly
-            ></input>
-          </div>
-
-          {/* <div className="form-inputs">
-                <label htmlFor="password"
-                className="form-label">
-                   Mot de passe
-                </label>
-                <input id="password" type="password" name="password" className="form-input" placeholder="Entrez votre mot de passe" value={fullUser.password} onChange={handleChange}></input>
-                {errors.password && <p>{errors.password}</p>}
-            </div> */}
-
-          <div className="form-inputs">
-            <label htmlFor="password" className="form-label">
-              Mot de passe
-            </label>
-            <input
-              id="password"
+              id="numMatricule"
               type="text"
-              name="password"
-              className="form-input"
-              placeholder="Confirmez votre mot de passe"
-              defaultValue={fullUser.password}
-              readOnly
-            ></input>
-          </div>
+              name="numMatricule"
+              defaultValue={fullUser.numMatricule}
+              readOnly>
+            </input>
 
-          <div className="form-inputs">
-            <label htmlFor="numTelephone" className="form-label">
-              Numero de telephone
+            <div>
+              <input id="hasLicense" type="checkbox" name="hasLicense" checked={fullUser.hasLicense} readOnly></input>
+              <label>Permis de conduite:</label>
+            </div>
+
+            <div>
+              <input id="hasVoiture" type="checkbox" name="hasVoiture" checked={fullUser.hasVoiture} readOnly></input>
+              <label>Possède/conduit une voiture</label>
+            </div>
+          </>
+        )}
+        {fullUser.role == "MONITEUR" && (
+          <>
+
+            <label htmlFor="nomEntreprise" >
+              Nom de l'entreprise
             </label>
             <input
-              id="numTelephone"
+              id="nomEntreprise"
               type="text"
-              name="numTelephone"
-              className="form-input"
-              placeholder="Entrez votre numero de telephone"
-              defaultValue={fullUser.numTelephone}
-              readOnly
-            ></input>{" "}
-          </div>
+              name="nomEntreprise"
+              defaultValue={fullUser.nomEntreprise}
+            ></input>
 
-          {fullUser.role == "ETUDIANT" && (
-            <>
-              <div className="form-inputs">
-                <label htmlFor="programme" className="form-label">
-                  Programme
-                </label>
-                <input
-                  id="programme"
-                  type="text"
-                  name="programme"
-                  className="form-input"
-                  placeholder="Entrez le nom de votre programme"
-                  defaultValue={fullUser.programme}
-                  readOnly
-                ></input>
-              </div>
 
-              <div className="form-inputs">
-                <label htmlFor="adresse" className="form-label">
-                  Adresse
-                </label>
-                <input
-                  id="adresse"
-                  type="text"
-                  name="adresse"
-                  className="form-input"
-                  placeholder="Entrez votre adresse"
-                  defaultValue={fullUser.adresse}
-                  readOnly
-                ></input>
-              </div>
+            <label htmlFor="adresseEntreprise" >
+              Adresse de l'entreprise
+            </label>
+            <input
+              id="adresseEntreprise"
+              type="text"
+              name="adresseEntreprise"
+              defaultValue={fullUser.adresseEntreprise}
+            ></input>
+          </>
+        )}
+        {fullUser.role == "SUPERVISEUR" && (
+          <>
 
-              <div className="form-inputs">
-                <label htmlFor="numMatricule" className="form-label">
-                  Numero de matricule
-                </label>
-                <input
-                  id="numMatricule"
-                  type="text"
-                  name="numMatricule"
-                  className="form-input"
-                  placeholder="Entrez votre numero de matricule"
-                  defaultValue={fullUser.numMatricule}
-                  readOnly
-                ></input>
-              </div>
+            <label htmlFor="departement" >
+              Departement
+            </label>
+            <input
+              id="departement"
+              type="text"
+              name="departement"
+              defaultValue={fullUser.departement}
+            ></input>
 
-              <div className="form-inputs">
-                <label htmlFor="hasLicense" className="form-label">
-                  Cochez si vous avez votre permis de conduite
-                </label>
-                <input
-                  id="hasLicense"
-                  type="checkbox"
-                  name="hasLicense"
-                  className="form-input"
-                  placeholder=""
-                  checked={fullUser.hasLicense}
-                  readOnly
-                ></input>
-              </div>
 
-              <div className="form-inputs">
-                <label htmlFor="hasVoiture" className="form-label">
-                  Cochez si vous avez une voiture
-                </label>
-                <input
-                  id="hasVoiture"
-                  type="checkbox"
-                  name="hasVoiture"
-                  className="form-input"
-                  placeholder=""
-                  checked={fullUser.hasVoiture}
-                  readOnly
-                ></input>
-              </div>
-            </>
-          )}
-          {fullUser.role == "MONITEUR" && (
-            <>
-              <div className="form-inputs">
-                <label htmlFor="nomEntreprise" className="form-label">
-                  Nom de l'entreprise
-                </label>
-                <input
-                  id="nomEntreprise"
-                  type="text"
-                  name="nomEntreprise"
-                  className="form-input"
-                  placeholder="Entrez le nom de votre entreprise"
-                  defaultValue={fullUser.nomEntreprise}
-                ></input>
-              </div>
+            <label htmlFor="specialite" >
+              Specialite
+            </label>
+            <input
+              id="specialite"
+              type="text"
+              name="specialite"
+              defaultValue={fullUser.specialite}
+            ></input>
+          </>
+        )}
 
-              <div className="form-inputs">
-                <label htmlFor="adresseEntreprise" className="form-label">
-                  Adresse de l'entreprise
-                </label>
-                <input
-                  id="adresseEntreprise"
-                  type="text"
-                  name="adresseEntreprise"
-                  className="form-input"
-                  placeholder="Entrez l'adresse de votre entreprise"
-                  defaultValue={fullUser.adresseEntreprise}
-                ></input>
-              </div>
-            </>
-          )}
-          {fullUser.role == "SUPERVISEUR" && (
-            <>
-              <div className="form-inputs">
-                <label htmlFor="departement" className="form-label">
-                  Departement
-                </label>
-                <input
-                  id="departement"
-                  type="text"
-                  name="departement"
-                  className="form-input"
-                  placeholder="Entrez le nom de votre departement"
-                  defaultValue={fullUser.departement}
-                ></input>
-              </div>
+        {fullUser.role == "GESTIONNAIRE" && (
+          <>
 
-              <div className="form-inputs">
-                <label htmlFor="specialite" className="form-label">
-                  Specialite
-                </label>
-                <input
-                  id="specialite"
-                  type="text"
-                  name="specialite"
-                  className="form-input"
-                  placeholder="Entrez votre specialite"
-                  defaultValue={fullUser.specialite}
-                ></input>
-              </div>
-            </>
-          )}
+            <label htmlFor="departement" >
+              Departement
+            </label>
+            <input
+              id="departement"
+              type="text"
+              name="departement"
+              defaultValue={fullUser.departement}
+            ></input>
+          </>
+        )}
 
-          {fullUser.role == "GESTIONNAIRE" && (
-            <>
-              <div className="form-inputs">
-                <label htmlFor="departement" className="form-label">
-                  Departement
-                </label>
-                <input
-                  id="departement"
-                  type="text"
-                  name="departement"
-                  className="form-input"
-                  placeholder="Entrez le nom de votre departement"
-                  defaultValue={fullUser.departement}
-                ></input>
-              </div>
-            </>
-          )}
-          {/* <button className="form-input-btn" type="submit">S'inscrire</button>
-            <span className="form-input-login">Déjà un compte? Login <Link to="/login">ici</Link></span> */}
-        </form>
-      </div>
-    </div>
+      </form>
+    </body>
   );
 };
 

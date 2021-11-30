@@ -29,14 +29,6 @@ const NavbarHTML = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto ">
 
-          <NavDropdown title="Form" id="basic-nav-dropdown">
-            <NavDropdown.Item><Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
-            <NavDropdown.Item><Link to="/superviseur">Form Superviseur</Link></NavDropdown.Item>
-            <NavDropdown.Item><Link to="/moniteur">Form Moniteur</Link></NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
-          </NavDropdown>
-
           {loggedUser.isLoggedIn ?
             <Nav.Item>
               <Nav.Link as={Link} to="/account">Account details</Nav.Link>

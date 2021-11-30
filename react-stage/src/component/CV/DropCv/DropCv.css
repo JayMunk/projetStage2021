@@ -1,62 +1,70 @@
-.files input {
-    outline: 2px dashed #92b0b3;
+#formCv {
+    margin:auto;
+  }
+
+#formCv .files  {
+    outline: 2px dashed white;
     outline-offset: -10px;
-    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    padding: 120px 0px 85px 35%;
+    padding: 50px;
     text-align: center !important;
-    margin: 0;
-    width: 100% !important;
+    background-color: green;
 }
-.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
-    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
- }
-.files{ position:relative}
-.files:after {  pointer-events: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 50px;
-    right: 0;
-    height: 56px;
-    content: "";
-    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
-    display: block;
-    margin: 0 auto;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-.color input{ background-color:#f1f1f1;}
-.files:before {
-    position: absolute;
-    bottom: 10px;
-    left: 0;  pointer-events: none;
-    width: 100%;
-    right: 0;
-    height: 57px;
-    content: " or drag it here. ";
-    display: block;
-    margin: 0 auto;
-    color: #2ea591;
-    font-weight: 600;
-    text-transform: capitalize;
-    text-align: center;
+
+#formCv input[type="file"] {
+    display: none;
 }
 
 
-
-button {
-    color:black
-}
-
-table, th, td {
+#tableCv, th, td {
     border: 1px solid black;
     text-align: center;
   }
 
-table{
-    width: 60%;
+#tableCv{
+    margin-top: 50px;
+    width: 50%;
     margin-right: auto;
     margin-left: auto;
 }
+
+#tableCv th {
+    background: gray;
+}
+
+#formContainer {
+    margin:auto;
+    padding-top: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#formCv  #buttonCv {
+    margin-top: 30px; 
+    background: #DBB2FF;
+    color: #161616;
+    padding: 0.75rem 1.25rem;
+    width: 250px;
+    cursor: pointer;
+    border-radius: 5px;
+    align-items: center;
+  }
+
+
+#tableCv tr:nth-child(even)  {
+    background-color: #DBB2FF;
+}
+
+#tableCv tr:nth-child(odd) {
+    background-color: lightgray;
+}
+
+#tableCv tr:nth-child(even) .tableCvButton {
+    background-color: #DBB2FF;
+    border: none;
+}
+
+#tableCv tr:nth-child(odd) .tableCvButton{
+    background-color: lightgray;
+    border: none;
+}
+

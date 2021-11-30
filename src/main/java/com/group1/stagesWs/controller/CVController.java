@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

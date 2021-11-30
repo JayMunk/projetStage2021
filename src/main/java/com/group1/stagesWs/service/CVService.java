@@ -9,7 +9,6 @@ import com.group1.stagesWs.repositories.CVRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

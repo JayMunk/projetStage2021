@@ -7,7 +7,7 @@ import Superviseurs from "./Superviseurs";
 import "./DashboardGestionnaireCSS.css";
 const DashboardGestionnaire = () => {
   return (
-    <body>
+    <body id="body">
       <Etudiants />
       <Cvs />
       <Offres />

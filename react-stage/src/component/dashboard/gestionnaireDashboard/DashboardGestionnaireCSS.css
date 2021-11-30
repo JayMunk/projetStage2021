@@ -1,12 +1,10 @@
 .tableDashboardGestionnaire {
-  margin-top: 20px;
   margin-bottom: 20px;
-  /* text-align: center; */
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
 }
 
-.tableDashboardGestionnaire  .button {
+/* .tableDashboardGestionnaire  .button {
   margin-top: 30px; 
   background: #DBB2FF;
   color: #161616;
@@ -15,43 +13,45 @@
   cursor: pointer;
   border-radius: 5px;
   align-items: center;
+} */
+
+.tableDashboardGestionnaire th {
+  background: gray;
 }
 
 
-
-
-/* .tableDashboardGestionnaire td,
+ .tableDashboardGestionnaire td,
 .tableDashboardGestionnaire th {
-  border: 1px solid #ddd;
+  border: 1px solid gray;
   padding: 4px;
 }
 
 .tableDashboardGestionnaire tr:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: lightgray;
   color: black;
 }
 .tableDashboardGestionnaire tr:nth-child(even) {
-  background-color: #eeeeee;
+  background-color: #DBB2FF;
   color: black;
-}
+} 
 
-.tableDashboardGestionnaire tbody tr:hover {
+/* .tableDashboardGestionnaire tbody tr:hover {
   background-color: #23b6fd;
-}
+} 
 
 .tableDashboardGestionnaire th {
   background-color: #000000;
   color: white;
+}  */
+
+
+
+/* .hoverButton:hover {
+  background-color: lightgray;
 } */
 
 
-
-.hoverButton:hover {
-  background-color: lightgray;
-}
-
-
-.tableDashboardGestionnaire tr:nth-child(even)  {
+/* .tableDashboardGestionnaire tr:nth-child(even)  {
   background-color: #DBB2FF;
 }
 
@@ -67,4 +67,4 @@
 .tableDashboardGestionnaire tr:nth-child(odd) .tableCvButton{
   background-color: lightgray;
   border: none;
-}
+} */

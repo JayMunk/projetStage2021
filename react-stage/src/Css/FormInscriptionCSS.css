@@ -1,14 +1,14 @@
-#body,form{ 
+body,form{ 
   background-color: #121212;
 }
 
-#body {
+body {
   min-height: 100vh;
 }
 #formLogin {
   margin-top: 50px;
 }
-form {
+.formInscription {
     max-width: 500px;
     margin: 0 auto;
     background-color: #121212;
@@ -16,7 +16,7 @@ form {
     padding: 40px;
     border-radius: 10px;
   }
-  label {
+  .formInscription label {
     color: #EDEDED;
     display: inline-block;
     margin: 25px 0 15px;
@@ -25,8 +25,8 @@ form {
     font-weight: bold;
   }
 
-  input,
-  select {
+  .formInscription input,
+  .formInscription select {
     background-color: #121212;
     display: block;
     padding: 10px 6px;
@@ -37,35 +37,24 @@ form {
     color : #EDEDED
   }
 
-  input:hover,input:focus {
+  .formInscription input:hover,input:focus {
     outline: none !important;
     border-bottom: 1px solid #DBB2FF;
     box-shadow: 0 0 10px #EDEDED;
   }
 
-  input[type="checkbox"] {
+  .formInscription  input[type="checkbox"] {
     display: inline-block;
     width: 12px;
     margin: 0 10px 0 0;
     position: relative;
     top: 2px;
   }
-  /* .pill {
-    display: inline-block;
-    margin: 20px 10px 0 0;
-    padding: 6px 12px;
-    background: #DBB2FF;
-    border-radius: 20px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    font-weight: bold;
-    color: #777;
-    cursor: pointer;
-  } */
+
   
 
 
-  .submit {
+  .formInscription  .submit {
     text-align: center;
   }
   
@@ -95,7 +84,7 @@ form {
     }
   }
   
-  .button {
+  .formInscription  .button {
     margin-left: 20%;
     font-size: 16px;
     letter-spacing: 2px;
@@ -112,11 +101,11 @@ form {
     transition: all 100ms linear;
   }
   
-  .button:hover {
+  .formInscription .button:hover {
     transform: scale(1.05) rotate(-2.5deg);
   }
   
-  .button:hover::after {
+  .formInscription  .button:hover::after {
     content: '';
     display: block;
     width: 75px;

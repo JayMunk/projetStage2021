@@ -80,8 +80,8 @@ const VerificationCV = () => {
                     <div className="container">
                         <div className="row center">
                             <button className="btn btn-secondary col ml-0 mr-auto" onClick={onCancel}>Annuler</button>{renderControls}
-                            </div>
                         </div>
+                    </div>
                     <Document file={`data:application/pdf;base64,${cv.data}`} onLoadSuccess={onDocumentLoad}>
                         <Page pageNumber={page} scale={pdfScale} renderAnnotationLayer={false} />
                     </Document>

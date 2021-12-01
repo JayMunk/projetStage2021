@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.group1.stagesWs.enums.Status;
@@ -144,14 +145,14 @@ public class CVServiceTests {
     // Arrange
     CV expected = getCV();
     expected.setId(1);
-    when(cvRepository.deleteCVById(any(Integer.class))).thenReturn(true);
+    doNothing().when(cvRepository).deleteById(anyInt());
 
     // Act
-    boolean result = cvService.deleteCV(expected.getId());
+    cvService.deleteCV(expected.getId());
 
     // Assert
-    assertThat(result).isTrue();
-  }
+    verify(cvRepository).deleteById(anyInt());
+        }
 
   @Test
   void testGetAllCVEtudiant() {

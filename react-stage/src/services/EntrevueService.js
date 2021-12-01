@@ -11,7 +11,13 @@ const EntrevueService = {
             })
         const data = await res.json()
         return data
-    }
+    },
+
+    getAllEntrevues: async () => {
+        const res = await fetch(urlBase)
+        const data = await res.json()
+        return data
+    },
 }
 
 export default EntrevueService

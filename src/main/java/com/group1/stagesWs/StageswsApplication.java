@@ -7,6 +7,7 @@ import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Entrevue;
 import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.EvaluationEntreprise;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Notification;

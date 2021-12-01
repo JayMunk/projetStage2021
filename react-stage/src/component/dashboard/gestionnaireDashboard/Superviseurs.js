@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
+import UserService from "../../../services/UserService"
+
 
 const Superviseurs = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
@@ -8,16 +10,11 @@ const Superviseurs = () => {
   const [superviseursVisible, setMoniteursVisible] = useState([]);
   const superviseursPerPage = 3;
 
-  useEffect(() => {
+  useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/user/superviseurs`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((superviseurs) => {
-          setSuperviseurs(superviseurs);
-          setMoniteursVisible(superviseurs.slice(0, superviseursPerPage));
-        });
+      const superviseursList = await UserService.getListAllSuperviseurs()
+      setSuperviseurs(superviseursList)
+      setMoniteursVisible(superviseursList.slice(0, superviseursPerPage))
     }
   }, []);
 
@@ -43,8 +40,8 @@ const Superviseurs = () => {
 
   const superviseursList = superviseursVisible.map((superviseur) => (
     <tr key={superviseur.id.toString()}>
-      <td>{superviseur.prenom}</td>
-      <td>{superviseur.nom}</td>
+      <td>{superviseur.prenom} {superviseur.nom}</td>
+      <td>{superviseur.courriel}</td>
     </tr>
   ));
 
@@ -54,13 +51,13 @@ const Superviseurs = () => {
         <tr>
           <th colSpan="2">Superviseurs</th>
         </tr>
-        <tr>
-          <td>Le nombres de superviseur inscrient</td>
+        <tr className="totalTr">
+          <td >Le nombres de superviseur inscrient</td>
           <td>{superviseurs.length}</td>
         </tr>
         <tr>
-          <th>Prénom</th>
           <th>Nom</th>
+          <th>Courriel</th>
         </tr>
         <tbody>{superviseursList}</tbody>
         <tr>

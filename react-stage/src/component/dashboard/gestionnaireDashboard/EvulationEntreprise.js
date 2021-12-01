@@ -1,30 +1,30 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
-import UserService from "../../../services/UserService"
+import EvaluationService from "../../../services/EvaluationService"
 
-const Etudiants = () => {
+const EvulationEntreprise = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
-  const [etudiants, setEtudiants] = useState([]);
+  const [evaluationsEntrepreprise, setEvaluationsEntrepreprise] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  const [etudiantsVisible, setEtudiantsVisible] = useState([]);
-  const etudiantsPerPage = 3;
+  const [evaluationsEntreprepriseVisible, setEvaluationsEntreprepriseVisible] = useState([]);
+  const evaluationsEntrepreprisePerPage = 3;
 
   useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      const etudiantsList = await UserService.getListAllEtudiants()
-      setEtudiants(etudiantsList)
-      setEtudiantsVisible(etudiantsList.slice(0, etudiantsPerPage))
+      const evaluationsEntrepriseList = await EvaluationService.getAllEvaluationsEntreprise()
+      setEvaluationsEntrepreprise(evaluationsEntrepriseList)
+      setEvaluationsEntreprepriseVisible(evaluationsEntrepriseList.slice(0, evaluationsEntrepreprisePerPage))
     }
   }, []);
 
   const updateListeEtudiants = (pageNumber) => {
-    let offset = etudiantsPerPage * pageNumber;
+    let offset = evaluationsEntrepreprisePerPage * pageNumber;
 
-    setEtudiantsVisible(etudiants.slice(0 + offset, etudiantsPerPage + offset));
+    setEvaluationsEntreprepriseVisible(evaluationsEntrepreprise.slice(0 + offset, evaluationsEntrepreprisePerPage + offset));
   };
 
   const nextPage = () => {
-    if (etudiantsPerPage * (pageNumber + 1) >= etudiants.length) return;
+    if (evaluationsEntrepreprisePerPage * (pageNumber + 1) >= evaluationsEntrepreprise.length) return;
     updateListeEtudiants(pageNumber + 1);
     setPageNumber(pageNumber + 1);
   };
@@ -35,10 +35,10 @@ const Etudiants = () => {
     setPageNumber(pageNumber - 1);
   };
 
-  const etudiantsList = etudiantsVisible.map((etudiant) => (
+  const etudiantsList = evaluationsEntreprepriseVisible.map((etudiant) => (
     <tr key={etudiant.id.toString()}>
-      <td>{etudiant.prenom} {etudiant.nom}</td>
-      <td>{etudiant.courriel}</td>
+      <td>{etudiant.prenom}</td>
+      <td>{etudiant.nom}</td>
     </tr>
   ));
 
@@ -46,15 +46,15 @@ const Etudiants = () => {
     <>
       <table className="tableDashboardGestionnaire">
         <tr>
-          <th colSpan="2">Étudiants</th>
+          <th colSpan="2">Évaluations Entreprise</th>
         </tr>
         <tr className="totalTr">
-          <td>Le nombre d'étudiants inscrient</td>
-          <td>{etudiants.length}</td>
+          <td >Le nombre d'étudiants inscrient</td>
+          <td>{evaluationsEntrepreprise.length}</td>
         </tr>
         <tr>
+          <th>Prénom</th>
           <th>Nom</th>
-          <th>Courriel</th>
         </tr>
         <tbody>{etudiantsList}</tbody>
         <tr>
@@ -74,4 +74,4 @@ const Etudiants = () => {
   );
 };
 
-export default Etudiants;
+export default EvulationEntreprise;

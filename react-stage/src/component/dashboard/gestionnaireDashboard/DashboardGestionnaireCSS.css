@@ -1,28 +1,19 @@
 .tableDashboardGestionnaire {
+  margin-left: auto; 
+  margin-right: auto;
   margin-bottom: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+  width: 800px;
 }
 
-/* .tableDashboardGestionnaire  .button {
-  margin-top: 30px; 
-  background: #DBB2FF;
-  color: #161616;
-  padding: 0.75rem 1.25rem;
-  width: 250px;
-  cursor: pointer;
-  border-radius: 5px;
-  align-items: center;
-} */
 
 .tableDashboardGestionnaire th {
   background: gray;
 }
 
-
- .tableDashboardGestionnaire td,
+.tableDashboardGestionnaire,
+.tableDashboardGestionnaire td,
 .tableDashboardGestionnaire th {
-  border: 1px solid gray;
+  border: 1px solid black;
   padding: 4px;
 }
 
@@ -35,36 +26,27 @@
   color: black;
 } 
 
-/* .tableDashboardGestionnaire tbody tr:hover {
+.tableDashboardGestionnaire tbody tr:hover {
   background-color: #23b6fd;
 } 
 
-.tableDashboardGestionnaire th {
-  background-color: #000000;
+
+.tableDashboardGestionnaire .button{
+  background-color: white;
+  width: 100%;
+}
+
+.tableDashboardGestionnaire td {
+  width: 20%;
+}
+
+.hoverButton .button:hover {
+  background-color: black;
   color: white;
-}  */
-
-
-
-/* .hoverButton:hover {
-  background-color: lightgray;
-} */
-
-
-/* .tableDashboardGestionnaire tr:nth-child(even)  {
-  background-color: #DBB2FF;
 }
 
-.tableDashboardGestionnaire tr:nth-child(odd) {
-  background-color: lightgray;
+.tableDashboardGestionnaire .totalTr {
+  background-color: #A4ADE9 !important;
 }
 
-.tableDashboardGestionnaire tr:nth-child(even) .tableCvButton {
-  background-color: #DBB2FF;
-  border: none;
-}
 
-.tableDashboardGestionnaire tr:nth-child(odd) .tableCvButton{
-  background-color: lightgray;
-  border: none;
-} */

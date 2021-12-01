@@ -97,7 +97,7 @@ public class RapportService<T> {
     file.delete();
     return bytes;
   }
-
+  
   public byte[] getOffresValidPDF() throws Exception {
     return generatePDF(offreService.getOffreValide(), "Liste des offres valides");
   }
@@ -194,4 +194,7 @@ public class RapportService<T> {
     return generatePDF(
         listStream, "List des étudiants dont le superviseur n'as pas encore évalué l'entreprise");
   }
+
+
+
 }

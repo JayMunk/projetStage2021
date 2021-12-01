@@ -8,6 +8,7 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.EvaluationEntreprise;
 import com.group1.stagesWs.model.EvaluationEtudiant;
 import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.model.User;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -61,9 +62,11 @@ public class RapportService<T> {
 
     for (int i = 0; i < listGeneric.size(); i++) {
       if (listGeneric.get(i) instanceof User) {
-        User genericItemEtudiant = (User) listGeneric.get(i);
+        Etudiant genericItemEtudiant = (Etudiant) listGeneric.get(i);
         String string =
-            i + 1 + ". " + genericItemEtudiant.getPrenom() + " " + genericItemEtudiant.getNom();
+            i + 1 + ". " + genericItemEtudiant.getPrenom() + " " + genericItemEtudiant.getNom()
+                + " " + genericItemEtudiant.getCourriel() + " "
+                + genericItemEtudiant.getNumMatricule() + " " +  genericItemEtudiant.getDateCreation();
         paraList.add(string + "\n");
       }
       if (listGeneric.get(i) instanceof Offre) {
@@ -97,7 +100,7 @@ public class RapportService<T> {
     file.delete();
     return bytes;
   }
-  
+
   public byte[] getOffresValidPDF() throws Exception {
     return generatePDF(offreService.getOffreValide(), "Liste des offres valides");
   }
@@ -114,7 +117,7 @@ public class RapportService<T> {
     return generatePDF(cvService.getCVPendingEtRejected(), "Listes des cvs pending et rejected");
   }
 
-  public byte[] getEtudiantsNoCv() throws Exception {
+  public List<Etudiant> getListEtudiantsPasCv() {
     List<Etudiant> listEtudiant = userService.getAllEtudiants();
     List<CV> listCv = cvService.getAllCVs();
     Set<Etudiant> listEtudiantCv = new HashSet<>();
@@ -123,18 +126,28 @@ public class RapportService<T> {
       listEtudiantCv.add(cv.getEtudiant());
     }
     listEtudiant.removeAll(listEtudiantCv);
-
-    return generatePDF(listEtudiant, "List des étudiants n'ayant pas de cv");
+    return listEtudiant;
   }
 
-  public byte[] getEtudiantEnAttenteEntrevue() throws Exception {
+
+  public byte[] getEtudiantsNoCv() throws Exception {
+
+    return generatePDF(getListEtudiantsPasCv(), "List des étudiants n'ayant pas de cv");
+  }
+
+  public List<Etudiant> getListEtudiantEnAttenteEntrevue() {
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevuesQuiArrive();
     List<Etudiant> listEtudiantNoEntrevue =
         listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
-    return generatePDF(listEtudiantNoEntrevue, "List d'étudiants qui attendent pour leur entrevue");
+    return listEtudiantNoEntrevue;
   }
 
-  public byte[] getEtudiantsSansEntrevue() throws Exception {
+  public byte[] getEtudiantEnAttenteEntrevue() throws Exception {
+    return generatePDF(getListEtudiantEnAttenteEntrevue(),
+        "List d'étudiants qui attendent pour leur entrevue");
+  }
+
+  public List<Etudiant> getListEtudiantSansEtrenvue() {
     List<Etudiant> listEtudiant = userService.getAllEtudiants();
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevues();
     Set<Etudiant> listEtudiantAvecEntrevue = new HashSet<>();
@@ -143,30 +156,45 @@ public class RapportService<T> {
       listEtudiantAvecEntrevue.add(entrevue.getEtudiant());
     }
     listEtudiant.removeAll(listEtudiantAvecEntrevue);
-
-    return generatePDF(listEtudiant, "List des étudiants n'ayant pas d'entrevue");
+    return listEtudiant;
   }
 
-  public byte[] getEtudiantEnAttenteReponse() throws Exception {
+  public byte[] getEtudiantsSansEntrevue() throws Exception {
+
+    return generatePDF(getListEtudiantSansEtrenvue(), "List des étudiants n'ayant pas d'entrevue");
+  }
+
+  public List<Etudiant> getListEtudiantEnAttenteDeReponse() {
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevuesPasse();
     List<Etudiant> listEtudiantAttenteReponse =
         listEntrevue.stream()
             .filter(entrevue -> entrevue.getStatus().equals(Status.PENDING))
             .map(Entrevue::getEtudiant)
             .collect(Collectors.toList());
-    return generatePDF(
-        listEtudiantAttenteReponse, "List d'étudiants qui attendent une reponse du moniteur");
+    return listEtudiantAttenteReponse;
   }
 
-  public byte[] getEtudiantTrouveStage() throws Exception {
+  public byte[] getEtudiantEnAttenteReponse() throws Exception {
+
+    return generatePDF(
+        getListEtudiantEnAttenteDeReponse(),
+        "List d'étudiants qui attendent une reponse du moniteur");
+  }
+
+  public List<Etudiant> getListEtudiantTrouveStage() {
     List<Entrevue> listEntrevue = entrevueService.getEntrevuesAccepted();
     List<Etudiant> listEtudiantTrouveStage =
         listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
-    return generatePDF(
-        listEtudiantTrouveStage, "List d'étudiants qui ont été accepté pour un stage");
+    return listEtudiantTrouveStage;
   }
 
-  public byte[] getEtudiantsNoEvaluationMoniteur() throws Exception {
+  public byte[] getEtudiantTrouveStage() throws Exception {
+
+    return generatePDF(
+        getListEtudiantTrouveStage(), "List d'étudiants qui ont été accepté pour un stage");
+  }
+
+  public List<Etudiant> getListEtudiantPasEvaluationMoniteur() {
     List<Etudiant> listEtudiant = userService.getAllEtudiants();
     List<Etudiant> listEtudiantEvaluer =
         evaluationService.getAllCurrentEtudiantEvals().stream()
@@ -177,10 +205,17 @@ public class RapportService<T> {
         listEtudiant.stream()
             .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
             .collect(Collectors.toList());
-    return generatePDF(listStream, "List des étudiants n'ayant pas d'évalution du moniteur");
+    return listStream;
   }
 
-  public byte[] getEtudiantsNoEntrepriseEvalueSuperviseur() throws Exception {
+
+  public byte[] getEtudiantsNoEvaluationMoniteur() throws Exception {
+
+    return generatePDF(getListEtudiantPasEvaluationMoniteur(),
+        "List des étudiants n'ayant pas d'évalution du moniteur");
+  }
+
+  public List<Etudiant> getEtudiantsPasEntreprisEvaluationSuperviseur() {
     List<Etudiant> listEtudiant = userService.getAllEtudiants();
     List<Etudiant> listEtudiantEvaluer =
         evaluationService.getAllCurrentEntrepriseEvals().stream()
@@ -191,10 +226,14 @@ public class RapportService<T> {
         listEtudiant.stream()
             .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
             .collect(Collectors.toList());
-    return generatePDF(
-        listStream, "List des étudiants dont le superviseur n'as pas encore évalué l'entreprise");
+    return listStream;
   }
 
+  public byte[] getEtudiantsNoEntrepriseEvalueSuperviseur() throws Exception {
 
+    return generatePDF(
+        getEtudiantsPasEntreprisEvaluationSuperviseur(),
+        "List des étudiants dont le superviseur n'as pas encore évalué l'entreprise");
+  }
 
 }

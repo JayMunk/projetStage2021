@@ -38,6 +38,12 @@ const CVService = {
         return data
     },
 
+    getCvEtudiant: async (id) => {
+        const res = await fetch(urlBase + '/etudiant/' + id)
+        const data = await res.json()
+        return data;
+    }
+
 }
 
 export default CVService

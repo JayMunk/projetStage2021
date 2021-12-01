@@ -8,12 +8,14 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
 import CVService from '../../../services/CVService';
+import { useHistory } from 'react-router-dom'
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
     const [cvs, setCvs] = useState([]);
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [files, setFile] = useState(null)
+    const history = useHistory()
 
 
 
@@ -98,13 +100,8 @@ const DropCv = () => {
 
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191/cv/etudiant/${etudiant.id}`)
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                setCvs(data)
-            })
+        const fetchCv = await CVService.getCvEtudiant(etudiant.id);
+        setCvs(fetchCv)
     }
 
     const deleteCV = async (cv) => {
@@ -199,6 +196,9 @@ const DropCv = () => {
                     {cvList}
                 </table>
                 : null}
+
+            {loggedUser.isLoggedIn ? null : history.push("/login")}
+
         </body>
     )
 }

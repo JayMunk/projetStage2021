@@ -526,7 +526,7 @@ public class StageswsApplication implements CommandLineRunner {
     contratRepository.save(contrat);
 
     EvaluationEtudiant evaluationEtudiant = new EvaluationEtudiant();
-    evaluationEtudiant.setEvaluationGrid(new char[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2});
+    evaluationEtudiant.setEvaluationGrid(new int[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2});
     evaluationEtudiant.setMoniteurFonction("Aider la stagiaire avec ses travails.");
     evaluationEtudiant.setCommentairesProductivite("Pas beaucoup de productivité avec cet stagiaire.");
     evaluationEtudiant.setCommentairesTravail("Le travail que cet stagiaire fais est adéquat.");
@@ -542,7 +542,7 @@ public class StageswsApplication implements CommandLineRunner {
 
     EvaluationEntreprise evaluationEntreprise = new EvaluationEntreprise();
     evaluationEntreprise.setNumeroStage(1);
-    evaluationEntreprise.setEvaluationGrid(new char[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1});
+    evaluationEntreprise.setEvaluationGrid(new int[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1});
     evaluationEntreprise.setCommentaires("L'entreprise n'accorde pas assez d'attention au stagiaire. Aucune formation n'a été effectuée une fois que le stagiaire a commencé. ");
     evaluationEntreprise.setStagePrefere(2);
     evaluationEntreprise.setNombreStagiaires(2);

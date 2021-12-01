@@ -26,7 +26,7 @@ public class EvaluationEtudiant implements Serializable {
   private String commentairesGlobale;
   private boolean communiqueAuStagiaire;
   private double heuresEncadrementParSemaine;
-  private String garderStagiaire;
+  private boolean garderStagiaire;
   private String commentairesFormation;
   private LocalDate dateCreation;
   private String session;

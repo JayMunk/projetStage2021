@@ -27,8 +27,6 @@ const DashboardGestionnaire = () => {
         <Offres />
         <Entrevues />
         <Contrats />
-        <EvulationEntreprise />
-        <EvluationEtudiant />
       </div>
     </body>
   );

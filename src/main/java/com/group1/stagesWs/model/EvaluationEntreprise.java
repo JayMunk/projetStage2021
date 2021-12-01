@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class EvaluationEntreprise implements Serializable {
   private int id;
 
   private int numeroStage;
-  private char[] evaluationGrid;
+  private int[] evaluationGrid;
   private String commentaires;
   private int stagePrefere;
   private int nombreStagiaires;
@@ -37,7 +38,7 @@ public class EvaluationEntreprise implements Serializable {
 
   public EvaluationEntreprise() {
     this.dateCreation = LocalDate.now();
-    this.evaluationGrid = new char[10];
+    this.evaluationGrid = new int[10];
     this.session = SessionManager.CURRENT_SESSION.getNomSession();
   }
 }

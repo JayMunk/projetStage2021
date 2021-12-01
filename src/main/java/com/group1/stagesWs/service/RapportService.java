@@ -61,12 +61,13 @@ public class RapportService<T> {
     Paragraph paraList = new Paragraph();
 
     for (int i = 0; i < listGeneric.size(); i++) {
-      if (listGeneric.get(i) instanceof User) {
+      if (listGeneric.get(i) instanceof Etudiant) {
         Etudiant genericItemEtudiant = (Etudiant) listGeneric.get(i);
         String string =
             i + 1 + ". " + genericItemEtudiant.getPrenom() + " " + genericItemEtudiant.getNom()
                 + " " + genericItemEtudiant.getCourriel() + " "
-                + genericItemEtudiant.getNumMatricule() + " " +  genericItemEtudiant.getDateCreation();
+                + genericItemEtudiant.getNumMatricule() + " "
+                + genericItemEtudiant.getDateCreation();
         paraList.add(string + "\n");
       }
       if (listGeneric.get(i) instanceof Offre) {
@@ -102,15 +103,15 @@ public class RapportService<T> {
   }
 
   public byte[] getOffresValidPDF() throws Exception {
-    return generatePDF(offreService.getOffreValide(), "Liste des offres valides");
+    return generatePDF(offreService.getOffreValide(), "Liste des offres valides"); //tester
   }
 
   public byte[] getOffresInvalidPDF() throws Exception {
-    return generatePDF(offreService.getOffreInvalide(), "Liste des offres invalide");
+    return generatePDF(offreService.getOffreInvalide(), "Liste des offres invalide"); //tester
   }
 
   public byte[] getEtudiantsInscrientPDF() throws Exception {
-    return generatePDF(userService.getAllEtudiants(), "Liste des étudiants inscrient");
+    return generatePDF(userService.getAllEtudiants(), "Liste des étudiants inscrient"); //tester
   }
 
   public byte[] getCvPendingEtRejectedPDF() throws Exception {

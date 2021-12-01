@@ -14,6 +14,7 @@ import EtudiantsEnAttenteReponseEntrevue from './List/EtudiantsEnAttenteReponseE
 import EtudiantsTrouveStage from './List/EtudiantsTrouveStage'
 import EtudiantsPasEvaluationMoniteur from './List/EtudiantsPasEvaluationMoniteur'
 import EtudiantsPasEntrepreriseEvaluationSuperviseur from './List/EtudiantsPasEntrepreriseEvaluationSuperviseur'
+import { Col, Row } from 'react-bootstrap'
 
 
 const Rapports = () => {
@@ -22,17 +23,41 @@ const Rapports = () => {
 
     return (
         <div>
-            <OffresValides />
-            <OffresInvalides />
-            <EtudiantsInscrient />
-            <CvsPendingEtRejected />
-            <EtudiantsPasDeCv />
-            <EtudiantsPasEntrevue />
-            <EtudiantsEnAttenteEntrevue />
-            <EtudiantsEnAttenteReponseEntrevue />
-            <EtudiantsTrouveStage />
-            <EtudiantsPasEvaluationMoniteur />
-            <EtudiantsPasEntrepreriseEvaluationSuperviseur />
+            <Row>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <OffresValides />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <OffresInvalides />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsInscrient />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <CvsPendingEtRejected />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsPasDeCv />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsPasEntrevue />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsEnAttenteEntrevue />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsEnAttenteReponseEntrevue />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsTrouveStage />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsPasEvaluationMoniteur />
+                </Col>
+                <Col lg="6" sm="10" className="mx-auto">
+                    <EtudiantsPasEntrepreriseEvaluationSuperviseur />
+                </Col>
+            </Row>
 
 
             {loggedUser.isLoggedIn ? null : history.push("/login")}

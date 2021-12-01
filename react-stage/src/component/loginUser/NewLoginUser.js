@@ -1,11 +1,19 @@
-import { useState, useEffect, useContext, Redirect, useRef } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { UserInfoContext } from "../../contexts/UserInfo";
-import '../../Css/FormInscriptionCSS.css'
 import Swal from 'sweetalert2'
+import '@sweetalert2/theme-dark/dark.css'
+import { Link } from 'react-router-dom';
+
+import '../../Css/FormInscriptionCSS.css'
+import '../../Css/lienInscription.css'
+
 
 
 const NewLoginUser = () => {
+
+
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
     const history = useHistory();
 
     const [values, setValues] = useState({
@@ -70,7 +78,6 @@ const NewLoginUser = () => {
             firstUpdate.current = false
         } else {
             if (Object.keys(errors).length === 0 && isSubmitted) {
-                // callback();
                 fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
                     .then(res => {
                         console.log(res, "resultat res")
@@ -115,9 +122,18 @@ const NewLoginUser = () => {
 
     }, [loggedUser])
 
+
+
     return (
-        <body>
-            <form onSubmit={handleSubmit}>
+        <body id="body" className="mx-auto">
+            <ul className="lienInscription">
+                <li><Link to="/etudiant">Créer un compte étudiant</Link></li>
+                <li><Link to="/superviseur">Créer un compte superviseur</Link></li>
+                <li><Link to="/moniteur">Créer un compte moniteur</Link></li>
+            </ul>
+
+            <h2>Vous pouvez vous connecter ici</h2>
+            <form onSubmit={handleSubmit} id="formLogin" className="formInscription">
 
                 <label>
                     Courriel:

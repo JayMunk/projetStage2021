@@ -1,0 +1,21 @@
+.lienInscription {
+    text-align: center;
+    list-style-type: none;
+    
+}
+
+.lienInscription a {
+    color: black;
+}
+
+.lienInscription li {
+    margin-right: 10px;
+    display: inline-flex;
+    margin-top: 30px; 
+    background: #DBB2FF;
+    color: #161616;
+    padding: 0.36rem 1.25rem;
+    cursor: pointer;
+    border-radius: 5px;
+    align-items: center;
+}

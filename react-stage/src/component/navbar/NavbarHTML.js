@@ -23,19 +23,11 @@ const NavbarHTML = () => {
 
 
   return (
-    <Navbar bg="light" variant="light" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand as={Link} to="/dashboard"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto ">
-
-          <NavDropdown title="Form" id="basic-nav-dropdown">
-            <NavDropdown.Item><Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
-            <NavDropdown.Item><Link to="/superviseur">Form Superviseur</Link></NavDropdown.Item>
-            <NavDropdown.Item><Link to="/moniteur">Form Moniteur</Link></NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
-          </NavDropdown>
 
           {loggedUser.isLoggedIn ?
             <Nav.Item>
@@ -84,8 +76,8 @@ const NavbarHTML = () => {
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
           }
-          {loggedUser.isLoggedIn && loggedUser.role === "MONITEUR" && <Nav.Link as={Link} to="/evaluation/etudiant">Evaluation Étudiant</Nav.Link> }
-          {loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" && <Nav.Link as={Link} to="/evaluation/entreprise">Evaluation Entreprise</Nav.Link> }
+          {loggedUser.isLoggedIn && loggedUser.role === "MONITEUR" && <Nav.Link as={Link} to="/evaluation/etudiant">Evaluation Étudiant</Nav.Link>}
+          {loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" && <Nav.Link as={Link} to="/evaluation/entreprise">Evaluation Entreprise</Nav.Link>}
 
 
 

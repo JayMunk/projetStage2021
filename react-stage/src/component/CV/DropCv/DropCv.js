@@ -3,6 +3,10 @@ import { UserInfoContext } from '../../../contexts/UserInfo';
 import './DropCv.css'
 import { saveAs } from 'file-saver'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUpload } from '@fortawesome/free-solid-svg-icons'
+import Swal from 'sweetalert2'
+import '@sweetalert2/theme-dark/dark.css'
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
@@ -14,12 +18,24 @@ const DropCv = () => {
 
     const OnInputChange = (e) => {
         setFile(e.target.files[0])
+        if (e.target.files[0] != undefined) {
+            document.querySelector("#test").textContent = e.target.files[0].name;
+        }
+        else {
+            document.querySelector("#test").textContent = ""
+        }
+
+
 
     }
 
     const fileToBase64 = (file, cb) => {
         if (file == null) {
-            window.alert("Veuillez choisir un fichier s'il-vous-plaît")
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur!',
+                text: 'Veuillez choisir un fichier s`il-vous-plaît.',
+            })
         }
         else if (file != null) {
             const reader = new FileReader()
@@ -41,6 +57,8 @@ const DropCv = () => {
             if (result) {
                 result = result.substring(28)
 
+
+
                 if (loggedUser.isLoggedIn) {
                     fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
                         .then(res => {
@@ -60,7 +78,16 @@ const DropCv = () => {
                                 },
                                 body: JSON.stringify(cv)
                             })
+                            if (res.ok) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Succès!',
+                                    text: 'Votre cv vient d`être ajouté à la liste ci-dessous.'
+                                })
+                            }
                             await res.json()
+                            setFile(null)
+                            document.querySelector("#test").textContent = ""
                             updateCvs()
                         })
                 }
@@ -91,12 +118,15 @@ const DropCv = () => {
                 if (res.ok) {
                     saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
                 }
-                throw res
+                if (!res.ok) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur!',
+                        text: 'Le fichier est invalide ou indisponible pour l`instant.',
+                    })
+                    throw res
+                }
             })
-            .catch(error => {
-                alert("Le fichier n'est pas disponible")
-            })
-
     }
 
     const getStatusIcon = (status) => {
@@ -116,8 +146,8 @@ const DropCv = () => {
         <tr key={cv.id.toString()}>
             <td>{cv.nom}</td>
             <td>{cv.dateSoumission}</td>
-            <td><button onClick={() => deleteCV(cv)}>effacer</button></td>
-            <td><button onClick={() => download(cv)}>télécharger</button></td>
+            <td><button onClick={() => deleteCV(cv)} className="tableCvButton">effacer</button></td>
+            <td><button onClick={() => download(cv)} className="tableCvButton">télécharger</button></td>
             <td>{getStatusIcon(cv.status)}</td>
         </tr>);
 
@@ -141,15 +171,21 @@ const DropCv = () => {
     }, [])
 
     return (
-        <div>
-            <form method="post" action="#" id="#" onSubmit={OnSubmit}>
+        <body id="body">
+            <div id="formContainer" className="mx-auto text-center">
+                <form method="post" action="#" id="formCv" onSubmit={OnSubmit}>
 
-                <div class="form-group files">
-                    <input type="file" onChange={OnInputChange} class="form-control" id="fileName" name="fileName" multiple="" />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            {cvs.length > 0 ? <table>
+                    <div class="form-group files">
+
+                        <label for="fileName" className="btn" ><FontAwesomeIcon icon={faUpload} size="2x" /></label>
+                        <h4 id="fileName" id="test"></h4>
+                        <input type="file" onChange={OnInputChange} id="fileName" name="fileName" multiple="" />
+
+                    </div>
+                    <button type="submit" id="buttonCv">Submit</button>
+                </form>
+            </div>
+            {cvs.length > 0 ? <table id="tableCv">
                 <tr>
                     <th>nom du fichier</th>
                     <th>Date de soumission</th>
@@ -159,7 +195,7 @@ const DropCv = () => {
                 </tr>
                 {cvList}
             </table> : null}
-        </div>
+        </body>
     )
 }
 

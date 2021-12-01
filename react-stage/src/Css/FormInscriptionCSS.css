@@ -1,71 +1,123 @@
-form {
+body,form{ 
+  background-color: #121212;
+}
+
+body {
+  min-height: 100vh;
+}
+#formLogin {
+  margin-top: 50px;
+}
+.formInscription {
     max-width: 500px;
-    margin: 30px auto;
-    background: white;
+    margin: 0 auto;
+    background-color: #121212;
     text-align: left;
     padding: 40px;
     border-radius: 10px;
   }
-  label {
-    color: #aaa;
+  .formInscription label {
+    color: #EDEDED;
     display: inline-block;
     margin: 25px 0 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
   }
-  input,
-  select {
+
+  .formInscription input,
+  .formInscription select {
+    background-color: #121212;
     display: block;
     padding: 10px 6px;
     width: 100%;
     box-sizing: border-box;
     border: none;
-    border-bottom: 1px solid #ddd;
-    color: #555555;
+    border-bottom: 1px solid #DBB2FF;
+    color : #EDEDED
   }
-  input[type="checkbox"] {
+
+  .formInscription input:hover,input:focus {
+    outline: none !important;
+    border-bottom: 1px solid #DBB2FF;
+    box-shadow: 0 0 10px #EDEDED;
+  }
+
+  .formInscription  input[type="checkbox"] {
     display: inline-block;
     width: 12px;
     margin: 0 10px 0 0;
     position: relative;
     top: 2px;
   }
-  .pill {
-    display: inline-block;
-    margin: 20px 10px 0 0;
-    padding: 6px 12px;
-    background: #eee;
-    border-radius: 20px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    font-weight: bold;
-    color: #777;
-    cursor: pointer;
-  }
+
   
-  .button {
-    background: #0b6dff;
-    border: 0;
-    padding: 10px 20px;
-    margin-top: 20px;
-    color: white;
-    border-radius: 20px;
-    font-size: 16px;
-  }
-  .submit {
+
+
+  .formInscription  .submit {
     text-align: center;
   }
   
   .error {
-    color: #ff0062;
+    color: #F08080;
     margin-top: 10px;
     font-size: 0.8em;
     font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 70%;
   }
 
   h2 {
     text-align: center;
     padding-top: 25px;
-    color: #aaa;
+    color: #DBB2FF;
   }
+
+
+  @keyframes shine {
+    0% {
+      transform: translateX(-30px) rotate(-25deg);
+    }
+    
+    100% {
+      transform: translateX(250px) rotate(-25deg);
+    }
+  }
+  
+  .formInscription  .button {
+    margin-left: 20%;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-top: 20px; 
+    background: #DBB2FF;
+    color: #161616;
+    padding: 0.75rem 1.25rem;
+    width: 250px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 100ms linear;
+  }
+  
+  .formInscription .button:hover {
+    transform: scale(1.05) rotate(-2.5deg);
+  }
+  
+  .formInscription  .button:hover::after {
+    content: '';
+    display: block;
+    width: 75px;
+    height: 175%;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+    opacity: 0.5;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    animation: shine 200ms linear;
+    transform: translateX(250px) rotate(-25deg);
+  }
+
+  

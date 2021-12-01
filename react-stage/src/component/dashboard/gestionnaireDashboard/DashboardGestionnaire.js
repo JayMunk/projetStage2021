@@ -6,8 +6,6 @@ import Offres from "./Offres";
 import Superviseurs from "./Superviseurs";
 import Entrevues from "./Entrevues";
 import Contrats from "./Contrats";
-import EvulationEntreprise from "./EvulationEntreprise";
-import EvluationEtudiant from "./EvluationEtudiant";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 
 import "./DashboardGestionnaireCSS.css";

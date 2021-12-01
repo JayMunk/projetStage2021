@@ -39,11 +39,11 @@ const Entrevues = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case "PENDING":
-        return <AiOutlineClockCircle color="gold" size="48px" />
+        return "En attente"
       case "ACCEPTED":
-        return <AiOutlineCheckCircle color="green" size="48px" />
+        return "Refusé"
       case "REJECTED":
-        return <AiOutlineCloseCircle color="red" size="48px" />
+        return "Trouvé stage"
       default:
         return;
     }

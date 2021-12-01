@@ -3,16 +3,7 @@ package com.group1.stagesWs;
 import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.UserType;
-import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Contrat;
-import com.group1.stagesWs.model.Entrevue;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Gestionnaire;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Notification;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Session;
-import com.group1.stagesWs.model.Superviseur;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EntrevueRepository;
@@ -463,5 +454,105 @@ public class StageswsApplication implements CommandLineRunner {
     entrevue2.setStatus(Status.ACCEPTED);
 
     entrevueRepository.saveAll(List.of(entrevue, entrevue2));
+
+    createEvaluationDemoEntities(gestionnaire); // passing gestionnaire as parameter as there is only one gestionnaire
+  }
+
+  private void createEvaluationDemoEntities(Gestionnaire gestionnaire) {
+    Superviseur superviseur = new Superviseur();
+    superviseur.setPrenom("Lonzo");
+    superviseur.setNom("Dagonzo");
+    superviseur.setCourriel("londagon@example.com");
+    superviseur.setPassword("Password1");
+    superviseur.setNumTelephone("3333333333");
+    superviseur.setDepartement("Informatique");
+    superviseur.setSpecialite("Réseautage");
+    superviseurRepository.save(superviseur);
+
+    Etudiant etudiant = new Etudiant();
+    etudiant.setPrenom("Aurelie");
+    etudiant.setNom("Jackson");
+    etudiant.setCourriel("aujack@example.com");
+    etudiant.setPassword("Password1");
+    etudiant.setNumTelephone("1111111111");
+    etudiant.setProgramme("Informatique");
+    etudiant.setAdresse("1299 Rue Sherbrooke");
+    etudiant.setNumMatricule("1675732");
+    etudiant.setHasLicense(true);
+    etudiant.setSuperviseur(superviseur);
+    etudiantRepository.save(etudiant);
+
+    Moniteur moniteur = new Moniteur();
+    moniteur.setPrenom("Jordan");
+    moniteur.setNom("Orange");
+    moniteur.setCourriel("jorange@example.com");
+    moniteur.setPassword("Password1");
+    moniteur.setNumTelephone("2222222222");
+    moniteur.setNomEntreprise("ByteCreationLabs");
+    moniteur.setAdresseEntreprise("222 Montée de Liesse");
+    moniteurRepository.save(moniteur);
+
+    Offre offre = new Offre();
+    offre.setTitre("Programmeur");
+    offre.setDescription("Besoin du programmeur fullstack de java et js");
+    offre.setEntreprise("ByteCreationLabs");
+    offre.setValid(true);
+    offre.setAdresse("222 Montée de Liesse");
+    offre.setDateDebut("2022-01-11");
+    offre.setDateFin("2022-02-22");
+    offre.setNbTotalSemaine(6);
+    offre.setHoraire("9 à 5, Lundi à Vendredi");
+    offre.setNbTotalHeuresParSemaine(40);
+    offre.setTauxHoraire(23);
+    offre.setGestionnaire(gestionnaire);
+    offre.setMoniteur(moniteur);
+    offre.setWhitelist(Set.of(etudiant));
+    offre.setApplicants(Set.of(etudiant));
+    offreRepository.save(offre);
+
+    Contrat contrat = new Contrat();
+    contrat.setMoniteurConfirmed(true);
+    contrat.setEtudiantConfirmed(true);
+    contrat.setGestionnaireConfirmed(true);
+    contrat.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
+    contrat.setDateSignatureEtudiant(LocalDate.of(2021, 12, 20));
+    contrat.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
+    contrat.setCollegeEngagement("Verifier que la stage marche bien");
+    contrat.setEntrepriseEngagement("Assurer la formation du stagiaire");
+    contrat.setEtudiantEngagement("Faire du bon travail au stage");
+    contrat.setOffre(offre);
+    contrat.setEtudiant(etudiant);
+    contrat.setMoniteur(moniteur);
+    contratRepository.save(contrat);
+
+    EvaluationEtudiant evaluationEtudiant = new EvaluationEtudiant();
+    evaluationEtudiant.setEvaluationGrid(new char[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2});
+    evaluationEtudiant.setMoniteurFonction("Aider la stagiaire avec ses travails.");
+    evaluationEtudiant.setCommentairesProductivite("Pas beaucoup de productivité avec cet stagiaire.");
+    evaluationEtudiant.setCommentairesTravail("Le travail que cet stagiaire fais est adéquat.");
+    evaluationEtudiant.setCommentairesRelations("Le stagiaire ne travail pas bon en équipe.");
+    evaluationEtudiant.setCommentairesAttitude("Le stagiaire ne veut pas toujours faire son travail.");
+    evaluationEtudiant.setCommentairesGlobale("C'est un non.");
+    evaluationEtudiant.setCommentairesFormation("Les formations sont bonnes.");
+    evaluationEtudiant.setCommuniqueAuStagiaire(false);
+    evaluationEtudiant.setHeuresEncadrementParSemaine(20);
+    evaluationEtudiant.setGarderStagiaire(false);
+    evaluationEtudiant.setContrat(contrat);
+    evaluationEtudiantRepository.save(evaluationEtudiant);
+
+    EvaluationEntreprise evaluationEntreprise = new EvaluationEntreprise();
+    evaluationEntreprise.setNumeroStage(1);
+    evaluationEntreprise.setEvaluationGrid(new char[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1});
+    evaluationEntreprise.setCommentaires("L'entreprise n'accorde pas assez d'attention au stagiaire. Aucune formation n'a été effectuée une fois que le stagiaire a commencé. ");
+    evaluationEntreprise.setStagePrefere(2);
+    evaluationEntreprise.setNombreStagiaires(2);
+    evaluationEntreprise.setGarderStagiaire(false);
+    evaluationEntreprise.setVariableShifts(false);
+    evaluationEntreprise.setHeuresEncadrementParSemaineMois1(0);
+    evaluationEntreprise.setHeuresEncadrementParSemaineMois2(0);
+    evaluationEntreprise.setHeuresEncadrementParSemaineMois3(0);
+    evaluationEntreprise.setContrat(contrat);
+    evaluationEntreprise.setSuperviseur(superviseur);
+    evaluationEntrepriseRepository.save(evaluationEntreprise);
   }
 }

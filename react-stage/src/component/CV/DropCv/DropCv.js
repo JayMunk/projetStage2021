@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
+import { faFlagCheckered } from '@fortawesome/free-solid-svg-icons'
+import CVService from '../../../services/CVService';
+
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
@@ -24,9 +27,6 @@ const DropCv = () => {
         else {
             document.querySelector("#test").textContent = ""
         }
-
-
-
     }
 
     const fileToBase64 = (file, cb) => {
@@ -142,6 +142,12 @@ const DropCv = () => {
         }
     }
 
+    const setDefaultCV = async (cv) => {
+        await CVService.saveCv(cv)
+        updateCvs()
+
+    }
+
     const cvList = cvs.map((cv) =>
         <tr key={cv.id.toString()}>
             <td>{cv.nom}</td>
@@ -149,6 +155,11 @@ const DropCv = () => {
             <td><button onClick={() => deleteCV(cv)} className="tableCvButton">effacer</button></td>
             <td><button onClick={() => download(cv)} className="tableCvButton">télécharger</button></td>
             <td>{getStatusIcon(cv.status)}</td>
+            {cv.defaultCV ?
+                <td><FontAwesomeIcon onClick={() => setDefaultCV(cv)} icon={faFlagCheckered} size="2x" /></td>
+                :
+                <td><FontAwesomeIcon className="text-secondary" onClick={() => setDefaultCV(cv)} icon={faFlagCheckered} size="2x" /></td>
+            }
         </tr>);
 
     useEffect(() => {
@@ -192,6 +203,7 @@ const DropCv = () => {
                     <th>effacer</th>
                     <th>télécarger</th>
                     <th>Statut du CV</th>
+                    <th>CV primaire</th>
                 </tr>
                 {cvList}
             </table> : null}

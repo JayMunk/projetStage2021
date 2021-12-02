@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import Notification from './Notification'
 import { useHistory } from 'react-router-dom'
+import { Col, Row } from 'react-bootstrap'
 
 
 const NotificationViewer = () => {
@@ -147,22 +148,26 @@ const NotificationViewer = () => {
         <div className="text-muted mb-4">
             <h1 className="text-center">Notifications Non Vérifiées</h1>
             {uncheckedVisible.map((notification) =>
-                <div>
+                <div className="text-center">
                     <Notification key={notification.id} notification={notification} forceReload={forceReload} />
                     <br />
                 </div>
             )}
             {listUnchecked != 0 ?
-                <div className="row">
-                    <div className="col-3"></div>
-                    <button onClick={previousPageUnchecked} className="btn bg-secondary col-3 m-1">
-                        «
-                    </button>
-                    <button onClick={nextPageUnchecked} className="btn bg-secondary col-3 m-1">
-                        »
-                    </button>
-                    <div className="col-3"></div>
-                </div>
+                <Row>
+                    <Col sm="0" lg="3"></Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={previousPageUnchecked} className="btn bg-secondary m-1">
+                            «
+                        </button>
+                    </Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={nextPageUnchecked} className="btn bg-secondary m-1">
+                            »
+                        </button>
+                    </Col>
+                    <Col sm="0" lg="3"></Col>
+                </Row>
                 :
                 <h4 className="text-center">Aucune notification non vérifiée.</h4>
             }
@@ -171,22 +176,26 @@ const NotificationViewer = () => {
 
             <h1 className="text-center mt-4">Notifications Vérifiées</h1>
             {checkedVisible.map((notification) =>
-                <div>
+                <div className="text-center">
                     <Notification key={notification.id} notification={notification} forceReload={forceReload} />
                     <br />
                 </div>
             )}
             {listChecked != 0 ?
-                <div className="row">
-                    <div className="col-3"></div>
-                    <button onClick={previousPageChecked} className="btn bg-secondary col-3 m-1">
-                        «
-                    </button>
-                    <button onClick={nextPageChecked} className="btn bg-secondary col-3 m-1">
-                        »
-                    </button>
-                    <div className="col-3"></div>
-                </div>
+                <Row className="text-center">
+                    <Col sm="0" lg="3"></Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={previousPageChecked} className="btn bg-secondary m-1">
+                            «
+                        </button>
+                    </Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={nextPageChecked} className="btn bg-secondary m-1">
+                            »
+                        </button>
+                    </Col>
+                    <Col sm="0" lg="3"></Col>
+                </Row>
                 :
                 <h4 className="text-center">Aucune notification vérifiée.</h4>
             }

@@ -17,7 +17,6 @@ const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPer
     const etudiants = await UserService.getListAllEtudiantsAllSession()
     setEtudiants(getListForSpecificSession(etudiants));
     setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage));
-
   }, [reloadList]);
 
 

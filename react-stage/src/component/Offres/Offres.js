@@ -14,6 +14,12 @@ import UserService from "../../services/UserService.js";
 import { MultiSelect } from "react-multi-select-component";
 import { Col, Row } from 'react-bootstrap'
 import Swal from "sweetalert2";
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CVService from "../../services/CVService";
+import { saveAs } from 'file-saver'
+
+
 
 
 const Offres = () => {
@@ -179,6 +185,55 @@ const Offres = () => {
     );
   };
 
+  const getEtudiantCV = async (etudiant) => {
+    const listCVEtudiant = await CVService.getAllCVEtudiant(etudiant.id)
+    const defaultCV = getCVDefaut(listCVEtudiant)
+
+    if (defaultCV == undefined || listCVEtudiant.length == 0) {
+      console.log("aucun default cv ou list empty")
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur!',
+        text: "Cet étudiant n'a aucun cv disponible",
+      })
+      return
+
+    }
+    else if (defaultCV.status != "ACCEPTED") {
+      console.log("Cv not accepted")
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur!',
+        text: "Cet étudiant n'a aucun cv disponible",
+      })
+      return
+
+    }
+    downloadCV(defaultCV)
+  }
+
+  const getCVDefaut = (listCVEtudiant) => {
+    return listCVEtudiant.find(cv => cv.defaultCV)
+  }
+
+  const downloadCV = async (cv) => {
+    await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
+      .then(res => {
+        console.log(res)
+        if (res.ok) {
+          saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+        }
+        if (!res.ok) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur!',
+            text: 'Le fichier est invalide ou indisponible pour l`instant.',
+          })
+          throw res
+        }
+      })
+  }
+
   return (
     <div className="container" style={{ textAlign: "center" }}>
       <h1>Offres</h1>
@@ -252,7 +307,7 @@ const Offres = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.75)'
+          backgroundColor: 'rgba(31, 31, 31, 0.75)'
         },
         content: {
           position: 'absolute',
@@ -261,7 +316,7 @@ const Offres = () => {
           right: '40px',
           bottom: '40px',
           border: '1px solid #ccc',
-          background: 'lightgrey',
+          background: 'rgb(69, 69, 69)',
           overflow: 'auto',
           WebkitOverflowScrolling: 'touch',
           borderRadius: '4px',
@@ -277,46 +332,46 @@ const Offres = () => {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <th className="bg-secondary">Titre</th>
-                      <td className="bg-light">{currentOffre.titre}</td>
+                      <th className="bg-muted text-white">Titre</th>
+                      <td className="bg-secondary">{currentOffre.titre}</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Entreprise</th>
-                      <td className="bg-light">{currentOffre.entreprise}</td>
+                      <th className="bg-muted text-white">Entreprise</th>
+                      <td className="bg-secondary">{currentOffre.entreprise}</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Adresse</th>
-                      <td className="bg-light">{currentOffre.adresse}</td>
+                      <th className="bg-muted text-white">Adresse</th>
+                      <td className="bg-secondary">{currentOffre.adresse}</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Date Debut</th>
-                      <td className="bg-light">{currentOffre.dateDebut}</td>
+                      <th className="bg-muted text-white">Date Debut</th>
+                      <td className="bg-secondary">{currentOffre.dateDebut}</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Date Fin</th>
-                      <td className="bg-light">{currentOffre.dateFin}</td>
+                      <th className="bg-muted text-white">Date Fin</th>
+                      <td className="bg-secondary">{currentOffre.dateFin}</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Durée Totale</th>
-                      <td className="bg-light">{currentOffre.nbTotalSemaine} semaines</td>
+                      <th className="bg-muted text-white">Durée Totale</th>
+                      <td className="bg-secondary">{currentOffre.nbTotalSemaine} semaines</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Horaire</th>
-                      <td className="bg-light">{currentOffre.horaire}</td>
+                      <th className="bg-muted text-white">Horaire</th>
+                      <td className="bg-secondary">{currentOffre.horaire}</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Totales Heures/Semaine</th>
-                      <td className="bg-light">{currentOffre.nbTotalHeuresParSemaine} heures</td>
+                      <th className="bg-muted text-white">Totales Heures/Semaine</th>
+                      <td className="bg-secondary">{currentOffre.nbTotalHeuresParSemaine} heures</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary">Taux Horaires</th>
-                      <td className="bg-light">{currentOffre.tauxHoraire}$/h</td>
+                      <th className="bg-muted text-white">Taux Horaires</th>
+                      <td className="bg-secondary">{currentOffre.tauxHoraire}$/h</td>
                     </tr>
                     <tr>
-                      <th className="bg-secondary" colSpan='2'>Description</th>
+                      <th className="bg-muted text-white" colSpan='2'>Description</th>
                     </tr>
                     <tr>
-                      <td className="bg-light" colSpan='2'>{currentOffre.description}</td>
+                      <td className="bg-secondary" colSpan='2'>{currentOffre.description}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -342,10 +397,10 @@ const Offres = () => {
                     <table className="table">
                       <tbody>
                         <tr>
-                          <th className="bg-secondary">Validity</th>
+                          <th className="bg-muted text-white">Validity</th>
                         </tr>
                         <tr>
-                          <td className="bg-light">
+                          <td className="bg-secondary">
                             <label className="form-check-label" htmlFor="valid">
                               {" "}
                               <input
@@ -381,11 +436,11 @@ const Offres = () => {
                       <table className="table mt-4">
                         <tbody>
                           <tr>
-                            <th className="bg-secondary">Whitelisted Étudiants</th>
+                            <th className="bg-muted text-white">Whitelisted Étudiants</th>
                           </tr>
                           {listWhitelistedEtudiant.map((etudiant, index) => (
                             <tr>
-                              <td className="bg-light" key={index}>{etudiant.label}</td>
+                              <td className="bg-secondary" key={index}>{etudiant.label}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -414,10 +469,11 @@ const Offres = () => {
                     <table className="table border table-dark">
                       <thead>
                         <tr>
-                          <th scope="col">Nom d'étudiant</th>
-                          <th scope="col">Courriel</th>
-                          <th scope="col">Permis</th>
-                          <th scope="col">Voiture</th>
+                          <th >Nom d'étudiant</th>
+                          <th >Courriel</th>
+                          <th >Permis</th>
+                          <th >Voiture</th>
+                          <th >CV</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -430,6 +486,7 @@ const Offres = () => {
                               <td className="text-white">{etudiant.courriel}</td>
                               <td>{getBoolIcon(etudiant.hasLicense)}</td>
                               <td>{getBoolIcon(etudiant.hasVoiture)}</td>
+                              <td><FontAwesomeIcon className="text-secondary" onClick={() => getEtudiantCV(etudiant)} icon={faFileDownload} size="2x" /></td>
                             </tr>
                           ))}
                       </tbody>

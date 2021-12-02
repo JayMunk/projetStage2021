@@ -25,6 +25,7 @@ public class CV implements Serializable {
   private LocalDate dateSoumission;
   private Status status;
   private String session;
+  private boolean defaultCV;
 
   @Lob
   private byte[] data;
@@ -34,7 +35,7 @@ public class CV implements Serializable {
 
   public CV() {
     this.dateSoumission = LocalDate.now();
-
+    this.defaultCV = true;
     this.status = Status.PENDING;
     this.session = SessionManager.CURRENT_SESSION.getNomSession();
   }

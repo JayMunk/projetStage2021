@@ -39,6 +39,18 @@ public class OffreService extends SessionManager<Offre> {
     this.notificationService = notificationService;
   }
 
+  private void sendNotificationListEtudiantWhitelist(Offre offre){
+    if(offre.isValid()) {
+      Set<Etudiant> etudiants = offre.getWhitelist();
+      for (Etudiant etudiant : etudiants) {
+        notificationService.saveNotificationEtudiant(
+            new Notification("Il y a une nouvelle offre qui vous êtes disponible.\n"
+                + " L'offre est " + offre.getTitre() + " de l'entreprise " + offre.getEntreprise(),
+                NotifStatus.ALERT), etudiant.getId());
+      }
+    }
+  }
+
   public List<Offre> getAllOffres() {
     List<Offre> listAllOffres = offreRepository.findAll();
     return getListForCurrentSession(listAllOffres);
@@ -68,7 +80,7 @@ public class OffreService extends SessionManager<Offre> {
         offre.setGestionnaire((Gestionnaire) user);
       }
     }
-
+    sendNotificationListEtudiantWhitelist(offre);
     return Optional.of(offreRepository.save(offre));
   }
 

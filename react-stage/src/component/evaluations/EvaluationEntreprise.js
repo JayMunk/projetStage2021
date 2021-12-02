@@ -52,6 +52,9 @@ const EvaluationEntreprise = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      setContrats(
+        contrats.filter((contrat) => contrat.id !== currentContrat.id)
+      );
       handleCancel();
     } else {
       Swal.fire({

@@ -15,7 +15,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
     commentairesGlobale: "",
     communiqueAuStagiaire: false,
     heuresEncadrementParSemaine: 0,
-    garderStagiaire: "peutEtre",
+    garderStagiaire: false,
     commentairesFormation: "",
     contrat: contrat,
   });
@@ -71,9 +71,21 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
   const checkErrors = () => {
     let errors = {};
 
-    if (!values.moniteurFonction) {
-      errors.moniteurFonction = "Fonction requis";
-    }
+    if (!values.moniteurFonction) errors.moniteurFonction = "Fonction requis";
+    if (!values.commentairesProductivite)
+      errors.commentairesProductivite = "Commentaires productivité requis";
+    if (!values.commentairesTravail)
+      errors.commentairesTravail = "Commentaires qualité du travail requis";
+    if (!values.commentairesRelations)
+      errors.commentairesRelations =
+        "Commentaires relations interpersonnelles requis";
+    if (!values.commentairesAttitude)
+      errors.commentairesAttitude =
+        "Commentaires habiletés personnelles requis";
+    if (!values.commentairesGlobale)
+      errors.commentairesGlobale = "Commentaires appréciation requis";
+    if (!values.commentairesFormation)
+      errors.commentairesFormation = "Commentaires formation requis";
 
     setErrors(errors);
     return errors;
@@ -95,9 +107,12 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
 
   return (
     <div className="container">
-      <Button variant="danger" onClick={onClickCancel}>
-        Annuler
-      </Button>
+      <input
+        type="button"
+        value="Annuler"
+        className="btn btn-danger"
+        onClick={onClickCancel}
+      />
       <h1 className="text-white">Évaluation du stagiaire</h1>
       <form onSubmit={onSubmit}>
         <div className="border p-5">
@@ -181,6 +196,11 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               onChange={handleChange}
             />
           </div>
+          {errors.commentairesProductivite && (
+            <p className="error text-center">
+              {errors.commentairesProductivite}
+            </p>
+          )}
         </div>
 
         <div className="border p-5">
@@ -224,6 +244,9 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               onChange={handleChange}
             />
           </div>
+          {errors.commentairesTravail && (
+            <p className="error text-center">{errors.commentairesTravail}</p>
+          )}
         </div>
 
         <div className="border p-5">
@@ -271,6 +294,9 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               onChange={handleChange}
             />
           </div>
+          {errors.commentairesRelations && (
+            <p className="error text-center">{errors.commentairesRelations}</p>
+          )}
         </div>
 
         <div className="border p-5">
@@ -318,6 +344,9 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               onChange={handleChange}
             />
           </div>
+          {errors.commentairesAttitude && (
+            <p className="error text-center">{errors.commentairesAttitude}</p>
+          )}
         </div>
 
         <div className="border p-5">
@@ -399,6 +428,9 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               onChange={handleChange}
             />
           </div>
+          {errors.commentairesGlobale && (
+            <p className="error text-center">{errors.commentairesGlobale}</p>
+          )}
           <div className="row mt-3">
             <label className="text-white col-auto">
               Cette évaluation a été discutée avec le stagiaire:{" "}
@@ -412,18 +444,20 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
             />
           </div>
         </div>
-        <div className="border p-5 row">
-          <label className="text-white text-center col-lg">
-            Veuillez indiquer le nombre d'heures réel par semaine d'encadrement
-            accordé au stagiaire:{" "}
-          </label>
-          <input
-            className="col"
-            type="number"
-            name="heuresEncadrementParSemaine"
-            value={values.heuresEncadrementParSemaine}
-            onChange={handleChange}
-          />
+        <div className="border p-5">
+          <div className="row">
+            <label className="text-white text-center col-lg">
+              Veuillez indiquer le nombre d'heures réel par semaine
+              d'encadrement accordé au stagiaire:{" "}
+            </label>
+            <input
+              className="col"
+              type="number"
+              name="heuresEncadrementParSemaine"
+              value={values.heuresEncadrementParSemaine}
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <div className="border p-5">
           <div className="row">
@@ -436,6 +470,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               type="checkbox"
               id="garderStagiaire"
               name="garderStagiaire"
+              value={values.garderStagiaire}
               onChange={handleChange}
             />
           </div>
@@ -450,12 +485,17 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
             value={values.commentairesFormation}
             onChange={handleChange}
           />
+          {errors.commentairesFormation && (
+            <p className="error text-center">{errors.commentairesFormation}</p>
+          )}
         </div>
         <div className="row m-3">
-          <input type="submit" value="Soumettre" className="btn btn-primary" />
           {errors.moniteurFonction && (
-            <p className="error">Veuillez remplir tout le formulaire</p>
+            <p className="error text-center">
+              Veuillez remplir tout le formulaire
+            </p>
           )}
+          <input type="submit" value="Soumettre" className="btn btn-primary" />
         </div>
       </form>
     </div>

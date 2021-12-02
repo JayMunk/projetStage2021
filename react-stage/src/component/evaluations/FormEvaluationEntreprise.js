@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ReadOnlyText from "./ReadOnlyText";
-import Button from "react-bootstrap/Button";
 import EntrepriseEvaluationGrid from "./EntrepriseEvaluationGrid";
 
 const FormEvaluationEntreprise = ({
@@ -11,16 +10,16 @@ const FormEvaluationEntreprise = ({
 }) => {
   const [errors, setErrors] = useState({});
   const [evaluationGrid, setEvaluationGrid] = useState([
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
   ]);
   const [garderStagiaire, setGarderStagiaire] = useState(false);
   const [variableShifts, setVariableShifts] = useState(false);
@@ -63,7 +62,8 @@ const FormEvaluationEntreprise = ({
   const checkErrors = () => {
     let errors = {};
 
-    if (!values.numeroStage) errors.numeroStage = "Numero du stage requis";
+    if (!values.numeroStage || values.numeroStage < 1)
+      errors.numeroStage = "Numero du stage positif requis";
     if (!values.commentaires) errors.commentaires = "Commentaires requis";
     if (!values.stagePrefere) errors.stagePrefere = "Stage privilégié requis";
     if (!values.nombreStagiaires)
@@ -99,9 +99,12 @@ const FormEvaluationEntreprise = ({
 
   return (
     <div className="container">
-      <Button variant="danger" onClick={onClickCancel}>
-        Annuler
-      </Button>
+      <input
+        type="button"
+        value="Annuler"
+        className="btn btn-danger"
+        onClick={onClickCancel}
+      />
       <h1 className="text-white">ÉVALUATION DU MILIEU DE STAGE</h1>
       <form onSubmit={onSubmit}>
         <div className="border p-5">
@@ -154,6 +157,9 @@ const FormEvaluationEntreprise = ({
               onChange={handleChange}
             />
           </div>
+          {errors.numeroStage && (
+            <p className="error right">{errors.numeroStage}</p>
+          )}
         </div>
 
         <div className="border p-5">
@@ -258,9 +264,11 @@ const FormEvaluationEntreprise = ({
               onChange={handleChange}
             />
           </div>
+          {errors.commentaires && (
+            <p className="error text-center">{errors.commentaires}</p>
+          )}
         </div>
 
-        {errors.commentaires && <p className="error">{errors.commentaires}</p>}
         <div className="border p-5">
           <h2>OBSERVATIONS GÉNÉRALES</h2>
           <div className="row pt-4">
@@ -275,7 +283,7 @@ const FormEvaluationEntreprise = ({
               onChange={handleChange}
             />
             {errors.stagePrefere && (
-              <p className="error">{errors.stagePrefere}</p>
+              <p className="error text-center">{errors.stagePrefere}</p>
             )}
           </div>
           <div className="row pt-4">
@@ -290,7 +298,7 @@ const FormEvaluationEntreprise = ({
               onChange={handleChange}
             />
             {errors.nombreStagiaires && (
-              <p className="error">{errors.nombreStagiaires}</p>
+              <p className="error text-center">{errors.nombreStagiaires}</p>
             )}
           </div>
           <div className="row mt-3">
@@ -321,11 +329,17 @@ const FormEvaluationEntreprise = ({
             />
           </div>
         </div>
-        <div className="row m-3">
-          <input type="submit" value="Soumettre" className="btn btn-primary" />
-          {errors.moniteurFonction && (
-            <p className="error">Veuillez remplir tout le formulaire</p>
+        <div className="m-3 row">
+          {Object.keys(errors).length > 0 && (
+            <p className="error text-center">
+              Veuillez remplir tout le formulaire
+            </p>
           )}
+          <input
+            type="submit"
+            value="Soumettre"
+            className="btn btn-primary col-auto center"
+          />
         </div>
       </form>
     </div>

@@ -29,7 +29,7 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
             <input
               type="radio"
               name={question.index}
-              value="4"
+              value={4}
               onChange={handleChangeRadio}
             />
           </div>
@@ -37,7 +37,7 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
             <input
               type="radio"
               name={question.index}
-              value="3"
+              value={3}
               onChange={handleChangeRadio}
             />
           </div>
@@ -45,7 +45,7 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
             <input
               type="radio"
               name={question.index}
-              value="2"
+              value={2}
               onChange={handleChangeRadio}
             />
           </div>
@@ -53,7 +53,7 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
             <input
               type="radio"
               name={question.index}
-              value="1"
+              value={1}
               onChange={handleChangeRadio}
             />
           </div>
@@ -61,7 +61,7 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
             <input
               type="radio"
               name={question.index}
-              value="0"
+              value={0}
               onChange={handleChangeRadio}
             />
           </div>

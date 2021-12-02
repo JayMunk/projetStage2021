@@ -4,7 +4,12 @@ const ReadOnlyText = ({ label, value }) => {
   return (
     <div className="row">
       <label className="text-white col-auto">{label}</label>
-      <input className="col-8 right" type="text" value={value} readOnly />
+      <input
+        className="col-8 right text-center"
+        type="text"
+        value={value}
+        readOnly
+      />
     </div>
   );
 };

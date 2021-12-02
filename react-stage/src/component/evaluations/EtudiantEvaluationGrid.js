@@ -1,9 +1,10 @@
 import React from "react";
 
-const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
+const EtudiantEvaluationGrid = ({ questions, handleChangeRadio }) => {
   return (
     <>
       <div className="row mb-3">
+        <div className="col-lg" />
         <div className="col text-center text-white">
           <p>Totalement en accord</p>
         </div>
@@ -11,18 +12,18 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
           <p>Plutôt en accord</p>
         </div>
         <div className="col text-center text-white">
-          <p>Plutôt désaccord</p>
+          <p>Plutôt en désaccord</p>
         </div>
         <div className="col text-center text-white">
-          <p>Totalement désaccord</p>
+          <p>Totalement en désaccord</p>
         </div>
         <div className="col text-center text-white">
-          <p>Impossible de se prononcer</p>
+          <p>N/A</p>
         </div>
       </div>
       {questions.map((question) => (
         <div className="row mt-3">
-          <div className="text-center text-white">
+          <div className="col-lg text-center text-white">
             <p className="mb-0">{question.text}</p>
           </div>
           <div className="col text-center">
@@ -71,4 +72,4 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
   );
 };
 
-export default EntrepriseEvaluationGrid;
+export default EtudiantEvaluationGrid;

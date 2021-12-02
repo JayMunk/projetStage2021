@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ContratService from '../../../services/ContratService'
-import '../../../Css/FormMunger.css'
+import '../../../Css/FormContratOffre.css'
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -110,7 +110,7 @@ const GestionnaireAfficherContrat = () => {
     }
 
     return (
-        <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+        <form className="form" id="txtform" className="FormContratOffre" onSubmit={handleSubmit}>
             <h1>Démarrer contrat</h1>
 
             <div className="form-inputs">

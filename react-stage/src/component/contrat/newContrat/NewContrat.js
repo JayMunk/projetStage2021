@@ -153,7 +153,7 @@ const NewContrat = () => {
 
     return (
         <body id="body">
-            <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+            <form className="form" id="txtform" className="FormContratOffre" onSubmit={handleSubmit}>
                 <h1>Créez un nouveau contrat</h1>
 
 

@@ -10,7 +10,7 @@ body {
     margin-top: 50px;
 }
 
-.formMunger {
+.FormContratOffre {
     max-width: 500px;
     margin: 0 auto;
     background-color: #121212;
@@ -19,7 +19,7 @@ body {
     border-radius: 10px;
 }
 
-.formMunger label {
+.FormContratOffre label {
     color: #EDEDED;
     display: inline-block;
     margin: 25px 0 15px;
@@ -28,9 +28,9 @@ body {
     font-weight: bold;
 }
 
-.formMunger input,
-.formMunger textarea,
-.formMunger select {
+.FormContratOffre input,
+.FormContratOffre textarea,
+.FormContratOffre select {
     background-color: #121212;
     display: block;
     padding: 10px 6px;
@@ -41,13 +41,13 @@ body {
     color: #EDEDED
 }
 
-.formMunger input:hover, input:focus {
+.FormContratOffre input:hover, input:focus {
     outline: none !important;
     border-bottom: 1px solid #DBB2FF;
     box-shadow: 0 0 10px #EDEDED;
 }
 
-.formMunger input[type="checkbox"] {
+.FormContratOffre input[type="checkbox"] {
     display: inline-block;
     width: 12px;
     margin: 0 10px 0 0;
@@ -55,11 +55,11 @@ body {
     top: 2px;
 }
 
-.formMunger .submit {
+.FormContratOffre .submit {
     text-align: center;
 }
 
-.formMunger .error {
+.FormContratOffre .error {
     color: #F08080;
     margin-top: 10px;
     font-size: 0.8em;
@@ -68,7 +68,7 @@ body {
     opacity: 70%;
 }
 
-.formMunger h1 {
+.FormContratOffre h1 {
     text-align: center;
     color: #DBB2FF;
 }
@@ -84,7 +84,7 @@ body {
     }
 }
 
-.formMunger .button {
+.FormContratOffre .button {
     margin-left: 20%;
     font-size: 16px;
     letter-spacing: 2px;
@@ -101,11 +101,11 @@ body {
     transition: all 100ms linear;
 }
 
-.formMunger .button:hover {
+.FormContratOffre .button:hover {
     transform: scale(1.05) rotate(-2.5deg);
 }
 
-.formMunger .button:hover::after {
+.FormContratOffre .button:hover::after {
     content: '';
     display: block;
     width: 75px;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import ContratService from '../../../services/ContratService'
-import '../../../Css/FormMunger.css'
+import '../../../Css/FormContratOffre.css'
 
 const MoniteurAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -88,7 +88,7 @@ const MoniteurAfficherContrat = () => {
 
 
     return (
-        <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+        <form className="form" id="txtform" className="FormContratOffre" onSubmit={handleSubmit}>
             <h1>Démarrer contrat</h1>
 
             <div className="form-inputs">

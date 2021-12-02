@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react"
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import { useHistory } from "react-router-dom"
 import OffreService from '../../../services/OffreService'
-import '../../../Css/FormMunger.css'
+import '../../../Css/FormContratOffre.css'
 
 const FormOffre = () => {
     const history = useHistory()
@@ -103,7 +103,7 @@ const FormOffre = () => {
 
     return (
         <body id="body">
-            <form className="form formMunger" onSubmit={handleSubmit}>
+            <form className="form FormContratOffre" onSubmit={handleSubmit}>
                 <h1>Créez votre offre de stage dès maintenant!</h1>
 
                 <div className="form-inputs">

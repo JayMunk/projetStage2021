@@ -168,13 +168,12 @@ public class CVControllerTests {
     CV expected = new CV();
     expected.setId(1);
     doNothing().when(cvService).deleteCV(anyInt());
+
     // Act
     MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
 
     // Assert
-    var actual = mapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-    assertThat(actual).isTrue();
   }
 
 

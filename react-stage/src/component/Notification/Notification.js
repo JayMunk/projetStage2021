@@ -1,19 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import { UserInfoContext } from '../../contexts/UserInfo'
 import NotificationService from '../../services/NotificationService'
 
 const Notification = ({ notification, forceReload }) => {
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
 
 
     const checkNotification = async () => {
         notification.checked = true
-        console.log(notification, "check before save")
         await NotificationService.saveNotification(notification)
+        setLoggedUser({ ...loggedUser, notifications: reinitialiseNotifications() })
         forceReload()
     }
+    const reinitialiseNotifications = () => {
+        const currentListNotifs = loggedUser.notifications
+        const listSansNotificationActuelle = currentListNotifs.filter(notif => notif.id !== notification.id)
+        listSansNotificationActuelle.push(notification)
+        return listSansNotificationActuelle
+    }
 
-    useEffect(() => {
-        console.log(notification, "in component")
-    }, [])
     return (
         <div className="row">
             <div className="col-3"></div>

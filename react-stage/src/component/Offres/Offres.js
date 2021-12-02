@@ -50,8 +50,9 @@ const Offres = () => {
         loggedUser.role === "ETUDIANT" ||
         loggedUser.role === "MONITEUR"
       )
-    )
-      history.push("/login");
+    ) {
+      history.push("/login")
+    }
     const getOffres = async () => {
       let dbOffres;
       switch (loggedUser.role) {

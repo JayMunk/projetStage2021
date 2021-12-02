@@ -8,6 +8,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
 import CVService from '../../../services/CVService';
+import UserService from '../../../services/UserService';
 import { useHistory } from 'react-router-dom'
 
 const DropCv = () => {
@@ -53,7 +54,7 @@ const DropCv = () => {
 
     }
 
-    const OnSubmit = (e) => {
+    const OnSubmit = async (e) => {
         e.preventDefault()
 
         fileToBase64(files, (err, result) => {
@@ -93,6 +94,9 @@ const DropCv = () => {
                             document.querySelector("#test").textContent = ""
                             updateCvs()
                         })
+
+
+
                 }
             }
         })
@@ -105,27 +109,14 @@ const DropCv = () => {
     }
 
     const deleteCV = async (cv) => {
-        // const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
-        const res = CVService.deleteCV(cv)
-        await res.json().then(updateCvs())
+        const boolean = await CVService.deleteCv(cv.id)
+        if (boolean) {
+            updateCvs()
+        }
     }
 
     const download = async (cv) => {
-        await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
-            .then(res => {
-                console.log(res)
-                if (res.ok) {
-                    saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
-                }
-                if (!res.ok) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Le fichier est invalide ou indisponible pour l`instant.',
-                    })
-                    throw res
-                }
-            })
+        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
     }
 
     const getStatusIcon = (status) => {
@@ -156,15 +147,10 @@ const DropCv = () => {
                 .then(res => {
                     return res.json();
                 })
-                .then(data => {
+                .then(async (data) => {
                     setEtudiant(data)
-                    fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
-                        .then(res => {
-                            return res.json()
-                        })
-                        .then(data => {
-                            setCvs(data)
-                        })
+                    const res = await CVService.getCvEtudiant(data.id)
+                    setCvs(res)
                 })
         }
     }, [])

@@ -1,0 +1,15 @@
+.cvDark {
+  background-color: #343a40;
+}
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+  /*width: 80% !important;
+    height: 100% !important;*/
+}
+
+.react-pdf__message.react-pdf__message--error {
+  color: white;
+  background-color: red;
+  text-align: center;
+}

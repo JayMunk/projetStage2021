@@ -1,5 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
@@ -16,8 +14,7 @@ import {
 } from "react-router-dom";
 import UserInfo from "./contexts/UserInfo";
 import AccountDetails from "./component/AccountDetails/AccountDetails";
-import VerificationCV from './component/CV/gestionCV/VerificationCV'
-import VerificationCVList from "./component/CV/gestionCV/VerificationCVList";
+import VerificationCV from './component/CV/gestionCV/VerificationCV';
 import DropCv from "./component/CV/DropCv/DropCv";
 import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
@@ -63,8 +60,7 @@ function App() {
               <Route exact path="/login"><NewLoginUser /></Route>
               <Route exact path="/newOffre"><FormOffre /></Route>
               <Route exact path="/dropCv"><DropCv /></Route>
-              <Route exact path="/gestion/cv"><VerificationCVList /></Route>
-              <Route exact path="/gestion/cv/:id"><VerificationCV /></Route>
+              <Route exact path="/gestion/cv"><VerificationCV /></Route>
               <Route exact path="/dashboard"><Dashboard /></Route>
               {/* <Route exact path="/contrat"><Contrat /></Route> */}
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>

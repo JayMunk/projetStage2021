@@ -34,9 +34,11 @@ public class OffreControllerTests {
 
   private final ObjectMapper mapper;
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private OffreService service;
+  @MockBean
+  private OffreService service;
 
   public OffreControllerTests() {
     this.mapper = new ObjectMapper().findAndRegisterModules();

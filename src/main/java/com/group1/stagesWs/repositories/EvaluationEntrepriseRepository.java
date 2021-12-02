@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EvaluationEntrepriseRepository
     extends JpaRepository<EvaluationEntreprise, Integer> {
+
   List<EvaluationEntreprise> findAllBySession(String session);
 
   List<EvaluationEntreprise> findAllByContratMoniteurId(int moniteurId);

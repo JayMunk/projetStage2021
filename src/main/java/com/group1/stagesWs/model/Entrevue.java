@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 public class Entrevue implements Serializable {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -28,9 +29,11 @@ public class Entrevue implements Serializable {
 
   private String session;
 
-  @ManyToOne private Etudiant etudiant;
+  @ManyToOne
+  private Etudiant etudiant;
 
-  @ManyToOne private Moniteur moniteur;
+  @ManyToOne
+  private Moniteur moniteur;
 
   public Entrevue() {
     session = SessionManager.CURRENT_SESSION.getNomSession();

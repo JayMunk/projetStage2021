@@ -2,8 +2,9 @@ import React from "react";
 import Cvs from "./Cvs";
 import Etudiants from "./Etudiants";
 import Moniteurs from "./Moniteurs";
-import Offres from "./Offres";
 import Superviseurs from "./Superviseurs";
+import "./DashboardGestionnaireCSS.css";
+import OffresDashGestionnaire from "./OffresDashGestionnaire";
 const DashboardGestionnaire = () => {
   return (
     <body>
@@ -14,7 +15,7 @@ const DashboardGestionnaire = () => {
         <Cvs />
       </div>
       <div className="center">
-        <Offres />
+        <OffresDashGestionnaire />
       </div>
       <div className="bottomLeft">
         <Moniteurs />

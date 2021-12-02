@@ -31,13 +31,17 @@ public class Offre implements Serializable {
   private double tauxHoraire;
   private String session;
 
-  @ManyToOne private Gestionnaire gestionnaire;
+  @ManyToOne
+  private Gestionnaire gestionnaire;
 
-  @ManyToOne private Moniteur moniteur;
+  @ManyToOne
+  private Moniteur moniteur;
 
-  @ManyToMany private Set<Etudiant> whitelist;
+  @ManyToMany
+  private Set<Etudiant> whitelist;
 
-  @ManyToMany private Set<Etudiant> applicants;
+  @ManyToMany
+  private Set<Etudiant> applicants;
 
   public Offre() {
     this.whitelist = new HashSet<>();

@@ -1,52 +1,80 @@
 /* PickListDemo.css */
 
-
 .picklist-demo .product-item {
-    display: flex;
-    align-items: center;
-    padding: .5rem;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .picklist-demo .product-item img {
-    width: 75px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    margin-right: 1rem;
+  width: 75px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-right: 1rem;
 }
 
 .picklist-demo .product-item .product-list-detail {
-    flex: 1 1 0;
+  flex: 1 1 0;
 }
 
 .picklist-demo .product-item .product-list-action {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .picklist-demo .product-item .product-category-icon {
-    vertical-align: middle;
-    margin-right: .5rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }
 
 .picklist-demo .product-item .product-category {
-    vertical-align: middle;
-    line-height: 1;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 @media screen and (max-width: 576px) {
-    .picklist-demo .product-item {
-        flex-wrap: wrap;
-    }
+  .picklist-demo .product-item {
+    flex-wrap: wrap;
+  }
 
-    .picklist-demo .product-item .image-container {
-        width: 100%;
-        text-align: center;
-    }
+  .picklist-demo .product-item .image-container {
+    width: 100%;
+    text-align: center;
+  }
 
-    .picklist-demo .product-item img {
-        margin: 0 0 1rem 0;
-        width: 100px;
-    }
+  .picklist-demo .product-item img {
+    margin: 0 0 1rem 0;
+    width: 100px;
+  }
 }
-                 
+
+.select-panel,
+.search input {
+  background-color: grey;
+}
+
+.search input::placeholder,
+.search input {
+  color: white;
+}
+
+label.select-item.selected > .item-renderer {
+  background: lightgray;
+}
+
+.rmsc .select-item.selected {
+  background: lightgray !important;
+}
+
+.rmsc .select-item.false:hover {
+  background: lightgray !important;
+}
+
+.rmsc .gray {
+  color: white !important;
+}
+
+.rmsc .dropdown-heading {
+  background-color: grey !important;
+}

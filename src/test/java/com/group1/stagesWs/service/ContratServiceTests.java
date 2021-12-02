@@ -24,11 +24,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ContratServiceTests {
 
-  @Mock private ContratRepository contratRepository;
+  @Mock
+  private ContratRepository contratRepository;
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @InjectMocks private ContratService contratService;
+  @InjectMocks
+  private ContratService contratService;
 
   @Test
   void testGetAllContrats() {

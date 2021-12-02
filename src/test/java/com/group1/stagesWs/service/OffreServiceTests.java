@@ -24,17 +24,24 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class OffreServiceTests {
-  @Mock private OffreRepository offreRepository;
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private OffreRepository offreRepository;
 
-  @Mock private MoniteurRepository moniteurRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @Mock private UserService userService;
+  @Mock
+  private MoniteurRepository moniteurRepository;
 
-  @Mock private NotificationService notificationService;
+  @Mock
+  private UserService userService;
 
-  @InjectMocks private OffreService service;
+  @Mock
+  private NotificationService notificationService;
+
+  @InjectMocks
+  private OffreService service;
 
   @Test
   void testGetAllOffres() {

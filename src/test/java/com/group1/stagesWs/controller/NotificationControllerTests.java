@@ -34,9 +34,11 @@ public class NotificationControllerTests {
 
   private final ObjectMapper mapper;
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private NotificationService notificationService;
+  @MockBean
+  private NotificationService notificationService;
 
   public NotificationControllerTests() {
     this.mapper = new ObjectMapper().findAndRegisterModules();

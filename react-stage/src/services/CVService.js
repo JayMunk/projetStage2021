@@ -1,16 +1,13 @@
 const urlBase = 'http://localhost:9191/cv'
 const CVService = {
-    updateCVsEtudiant: async (etudiantId) => {
-        const res = await fetch(`http://localhost:9191/cv/etudiant/${etudiantId}`)
-        const data = await res.json()
-        return data
-    },
-
-    deleteCV: async (cv) => {
-        console.log(cv,"cv")
-        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`,
+    saveCv: async (cv) => {
+        const res = await fetch(urlBase,
             {
-                method: 'DELETE'
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(cv)
             })
         const data = await res.json()
         return data
@@ -52,7 +49,13 @@ const CVService = {
         const res = await fetch(urlBase + '/' + id)
         const data = await res.json()
         return data
-    }
+    },
+
+    getAllCVEtudiant: async (id) => {
+        const res = await fetch(urlBase + '/etudiant/' + id)
+        const data = await res.json()
+        return data
+    },
 }
 
 export default CVService

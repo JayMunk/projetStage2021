@@ -131,7 +131,7 @@ public class OffreControllerTests {
 
     // Assert
     var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
-    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
     assertThat(actualOffre).isEqualTo(expected);
   }
 

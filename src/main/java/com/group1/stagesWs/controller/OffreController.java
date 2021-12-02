@@ -50,7 +50,7 @@ public class OffreController {
       @RequestBody Offre offre, @PathVariable String authorEmail) {
     return service
         .addOffre(offre, authorEmail)
-        .map(ResponseEntity::ok)
+        .map(offre1 -> ResponseEntity.status(HttpStatus.CREATED).body(offre))
         .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
   }
 

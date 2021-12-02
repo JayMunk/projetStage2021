@@ -172,9 +172,7 @@ public class CVControllerTests {
     MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
 
     // Assert
-    var actual = mapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-    assertThat(actual).isTrue();
   }
 
 

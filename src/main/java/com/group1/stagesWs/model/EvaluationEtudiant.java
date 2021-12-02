@@ -17,7 +17,7 @@ public class EvaluationEtudiant implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  private char[] evaluationGrid;
+  private int[] evaluationGrid;
   private String moniteurFonction;
   private String commentairesProductivite;
   private String commentairesTravail;
@@ -26,7 +26,7 @@ public class EvaluationEtudiant implements Serializable {
   private String commentairesGlobale;
   private boolean communiqueAuStagiaire;
   private double heuresEncadrementParSemaine;
-  private String garderStagiaire;
+  private boolean garderStagiaire;
   private String commentairesFormation;
   private LocalDate dateCreation;
   private String session;
@@ -35,7 +35,7 @@ public class EvaluationEtudiant implements Serializable {
 
   public EvaluationEtudiant() {
     this.dateCreation = LocalDate.now();
-    this.evaluationGrid = new char[23];
+    this.evaluationGrid = new int[23];
     this.session = SessionManager.CURRENT_SESSION.getNomSession();
   }
 }

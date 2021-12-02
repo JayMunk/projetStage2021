@@ -7,3 +7,9 @@
   /*width: 80% !important;
     height: 100% !important;*/
 }
+
+.react-pdf__message.react-pdf__message--error {
+  color: white;
+  background-color: red;
+  text-align: center;
+}

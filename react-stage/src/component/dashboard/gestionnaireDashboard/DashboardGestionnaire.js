@@ -3,7 +3,6 @@ import Cvs from "./Cvs";
 import Etudiants from "./Etudiants";
 import Moniteurs from "./Moniteurs";
 import Superviseurs from "./Superviseurs";
-import "./DashboardGestionnaireCSS.css";
 import OffresDashGestionnaire from "./OffresDashGestionnaire";
 const DashboardGestionnaire = () => {
   return (

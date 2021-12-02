@@ -14,12 +14,10 @@ const NotificationBell = () => {
     const [listUnchecked, setListUnchecked] = useState([])
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [reload, setReload] = useState(false)
-    const firstRender = useRef(true)
 
     useEffect(async () => {
         if (reload) {
             await getNotifications()
-            // console.log(listNotifs, "listNotifs")
             getUncheckedNotifs(listNotifs)
             setReload(false)
         }
@@ -29,12 +27,11 @@ const NotificationBell = () => {
         setListNotifs([])
         setListUnchecked([])
         setReload(true)
-    }, [loggedUser])
+    }, [loggedUser.courriel])
 
 
     useEffect(async () => {
-        firstRender.current = false
-        let interval = setInterval(() => setReload(true), 60000)
+        let interval = setInterval(() => setReload(true), 15000)
         //destroy interval on unmount
         return () => clearInterval(interval)
     }, [])
@@ -49,26 +46,26 @@ const NotificationBell = () => {
                     case "ETUDIANT":
                         notifications = await NotificationService.getAllNotificationByEtudiant(fullUser.id)
                         toastNewNotifications(listNotifs, notifications)
+                        setLoggedUser({ ...loggedUser, notifications: listNotifs })
                         setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs etudiant")
                         break
                     case "SUPERVISEUR":
                         notifications = await NotificationService.getAllNotificationBySuperviseur(fullUser.id)
                         toastNewNotifications(listNotifs, notifications)
+                        setLoggedUser({ ...loggedUser, notifications: listNotifs })
                         setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs superv")
                         break
                     case "MONITEUR":
                         notifications = await NotificationService.getAllNotificationByMoniteur(fullUser.id)
                         toastNewNotifications(listNotifs, notifications)
+                        setLoggedUser({ ...loggedUser, notifications: listNotifs })
                         setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs Moniteur")
                         break
                     case "GESTIONNAIRE":
                         notifications = await NotificationService.getAllNotificationGestionnaire()
                         toastNewNotifications(listNotifs, notifications)
+                        setLoggedUser({ ...loggedUser, notifications: listNotifs })
                         setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs gestionnaire")
                         break
                 }
             }
@@ -76,9 +73,6 @@ const NotificationBell = () => {
     }
 
     const toastNewNotifications = (previousNotificationsList, newNotificationsList) => {
-        // console.log(previousNotificationsList, "previousssssSSSSSSSSSS")
-        // console.log(newNotificationsList, "NEWWWWWWWWWWWWWWW")
-
         const newNotifications = newNotificationsList.filter(
             (newNotification) =>
                 !previousNotificationsList.some(
@@ -86,13 +80,14 @@ const NotificationBell = () => {
                         newNotification.id === previousNotification.id
                 )
         )
-        if (!firstRender) {
-            // console.log(newNotifications, "DIFFERENCEEE")
+
+        if (newNotifications.length != 0) {
             newNotifications.forEach(notification => {
-                toastNotification(notification)
+                if (!notification.checked) {
+                    toastNotification(notification)
+                }
             })
         }
-
 
     }
 
@@ -127,7 +122,6 @@ const NotificationBell = () => {
                     return notif
                 }
             })
-            console.log(uncheckedNotifs, "uncheckednotifs")
             setListUnchecked(uncheckedNotifs)
             return
         }

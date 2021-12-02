@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Row, Col } from 'react-bootstrap';
 import UserService from '../../services/UserService';
 
 const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
@@ -16,7 +17,6 @@ const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPer
     const etudiants = await UserService.getListAllEtudiantsAllSession()
     setEtudiants(getListForSpecificSession(etudiants));
     setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage));
-
   }, [reloadList]);
 
 
@@ -48,10 +48,10 @@ const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPer
   ));
 
   return (
-    <>
-      <table>
+    <div>
+      <table className="table table-dark">
         <tr>
-          <th colSpan="2">Étudiants All Sessions</th>
+          <th colSpan="6">Étudiants All Sessions</th>
         </tr>
         <tr>
           <th>Prénom/Nom</th>
@@ -59,20 +59,25 @@ const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPer
           <th>Session</th>
         </tr>
         <tbody>{etudiantsList}</tbody>
-        <tr>
-          <td className="hoverButton">
-            <button onClick={previousPage} className="button">
-              «
-            </button>
-          </td>
-          <td className="hoverButton">
-            <button onClick={nextPage} className="button">
-              »
-            </button>
-          </td>
-        </tr>
       </table>
-    </>
+      {etudiantsVisible.length == 0 &&
+        <h3 className="text-center text-warning">Aucun etudiant visible pour la sélection choisie</h3>
+      }
+      <Row className="mb-4">
+        <Col lg="5" sm="5" className="hoverButton m-auto">
+          <button onClick={previousPage} className="btn bg-dark text-white">
+            «
+          </button>
+        </Col>
+        <Col lg="2" sm="2"></Col>
+        <Col lg="5" sm="5" className="hoverButton m-auto">
+          <button onClick={nextPage} className="btn bg-dark text-white">
+            »
+          </button>
+        </Col>
+      </Row>
+      <br />
+    </div>
   );
 }
 

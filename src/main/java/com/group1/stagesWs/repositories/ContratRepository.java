@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContratRepository extends JpaRepository<Contrat, Integer> {
+
   List<Contrat> findAllByMoniteurCourrielIgnoreCase(String moniteurCourriel);
 
   Contrat findContratByEtudiant(Etudiant etudiant);

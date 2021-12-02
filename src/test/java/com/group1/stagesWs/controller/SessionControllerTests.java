@@ -30,9 +30,11 @@ public class SessionControllerTests {
 
   private final ObjectMapper mapper;
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private SessionService service;
+  @MockBean
+  private SessionService service;
 
   public SessionControllerTests() {
     this.mapper = new ObjectMapper().findAndRegisterModules();

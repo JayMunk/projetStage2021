@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OffreService extends SessionManager<Offre> {
+
   private final OffreRepository offreRepository;
   private final EtudiantRepository etudiantRepository;
   private final MoniteurRepository moniteurRepository;
@@ -36,6 +37,18 @@ public class OffreService extends SessionManager<Offre> {
     this.moniteurRepository = moniteurRepository;
     this.userService = userService;
     this.notificationService = notificationService;
+  }
+
+  private void sendNotificationListEtudiantWhitelist(Offre offre){
+    if(offre.isValid()) {
+      Set<Etudiant> etudiants = offre.getWhitelist();
+      for (Etudiant etudiant : etudiants) {
+        notificationService.saveNotificationEtudiant(
+            new Notification("Il y a une nouvelle offre qui vous êtes disponible.\n"
+                + " L'offre est " + offre.getTitre() + " de l'entreprise " + offre.getEntreprise(),
+                NotifStatus.ALERT), etudiant.getId());
+      }
+    }
   }
 
   public List<Offre> getAllOffres() {
@@ -61,10 +74,13 @@ public class OffreService extends SessionManager<Offre> {
     var userOptional = userService.findUserByCourriel(email);
     if (userOptional.isPresent()) {
       User user = userOptional.get();
-      if (user instanceof Moniteur) offre.setMoniteur((Moniteur) user);
-      else if (user instanceof Gestionnaire) offre.setGestionnaire((Gestionnaire) user);
+      if (user instanceof Moniteur) {
+        offre.setMoniteur((Moniteur) user);
+      } else if (user instanceof Gestionnaire) {
+        offre.setGestionnaire((Gestionnaire) user);
+      }
     }
-
+    sendNotificationListEtudiantWhitelist(offre);
     return Optional.of(offreRepository.save(offre));
   }
 
@@ -77,11 +93,15 @@ public class OffreService extends SessionManager<Offre> {
 
   public Optional<Offre> applyForOffre(int id, String email) {
     Optional<Offre> offreOptional = offreRepository.findById(id);
-    if (offreOptional.isEmpty()) return offreOptional;
+    if (offreOptional.isEmpty()) {
+      return offreOptional;
+    }
 
     Optional<Etudiant> etudiantOptional =
         Optional.ofNullable(etudiantRepository.findEtudiantByCourrielIgnoreCase(email));
-    if (etudiantOptional.isEmpty()) return Optional.empty();
+    if (etudiantOptional.isEmpty()) {
+      return Optional.empty();
+    }
 
     Offre offre = offreOptional.get();
     Etudiant etudiant = etudiantOptional.get();

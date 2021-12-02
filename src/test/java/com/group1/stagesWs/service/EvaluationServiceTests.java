@@ -20,11 +20,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class EvaluationServiceTests {
-  @Mock private EvaluationEntrepriseRepository entrepriseEvalRepo;
 
-  @Mock private EvaluationEtudiantRepository etudiantEvalRepo;
+  @Mock
+  private EvaluationEntrepriseRepository entrepriseEvalRepo;
 
-  @InjectMocks private EvaluationService service;
+  @Mock
+  private EvaluationEtudiantRepository etudiantEvalRepo;
+
+  @InjectMocks
+  private EvaluationService service;
 
   @Test
   void testSaveEvaluationEntreprise() {

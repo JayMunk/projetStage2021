@@ -12,6 +12,15 @@ import "./PickList.css";
 import OffreService from "../../services/OffreService.js";
 import UserService from "../../services/UserService.js";
 import { MultiSelect } from "react-multi-select-component";
+import { Col, Row } from 'react-bootstrap'
+import Swal from "sweetalert2";
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CVService from "../../services/CVService";
+import { saveAs } from 'file-saver'
+
+
+
 
 const Offres = () => {
   const history = useHistory();
@@ -47,8 +56,9 @@ const Offres = () => {
         loggedUser.role === "ETUDIANT" ||
         loggedUser.role === "MONITEUR"
       )
-    )
-      history.push("/login");
+    ) {
+      history.push("/login")
+    }
     const getOffres = async () => {
       let dbOffres;
       switch (loggedUser.role) {
@@ -64,7 +74,6 @@ const Offres = () => {
         default:
           break;
       }
-      console.log(dbOffres, "dbOffres");
       setListOffres(dbOffres);
     };
     getOffres();
@@ -78,16 +87,6 @@ const Offres = () => {
     getListAllEtudiants();
   }, []);
 
-  useEffect(() => {
-    console.log("-----UseEffect Logging--------");
-    console.log(listAllEtudiant, "list all etudiant --- listAllEtudiant");
-    console.log(
-      listWhitelistedEtudiant,
-      "list whitelisted etudiant --- listWhitelistedEtudiant "
-    );
-    console.log(listOffres, "list all offres  ------------ listOffres");
-    // console.log(getOptionsEtudiant(listAllEtudiant), "filtered list etudiant ===================================")
-  }, [listAllEtudiant, listWhitelistedEtudiant, listOffres]);
 
   const getOptionsEtudiant = (listEtudiant) => {
     return listEtudiant.map((etudiant) => {
@@ -107,22 +106,23 @@ const Offres = () => {
   };
 
   const onClickOffre = (offre) => {
-    console.log(offre, "ON click details offre");
     setCurrentOffre(offre);
     setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist));
     setShowModal(true);
   };
 
   const appliquerOffre = async (offre) => {
-    console.log(offre, "offre");
     let offreApplied;
     offreApplied = await OffreService.applyForOffre(
       offre.id,
       loggedUser.courriel
     );
-    console.log(offreApplied, "offreApplied");
     if (offreApplied != null) {
-      alert("Application recu");
+      Swal.fire(
+        'Application Reçu',
+        `Vous avez appliqué à l'offre ${currentOffre.titre} de l'entreprise ${currentOffre.entreprise}`,
+        'success'
+      )
     }
   };
 
@@ -138,21 +138,14 @@ const Offres = () => {
     }));
   };
 
-  // useEffect(() => {
-  //     console.log(currentOffre, "CURRENT OFFRE")
-  // }, [currentOffre])
-
   const onClickSave = async () => {
     const updatedOffre = currentOffre;
     updatedOffre.whitelist = getListEtudiantFromOptions(
       listWhitelistedEtudiant
     );
     setCurrentOffre(updatedOffre);
-    console.log(updatedOffre, "UPDATED OFFRE");
     await OffreService.saveOffre(updatedOffre);
     await updateOffres();
-
-    console.log(listOffres, "list offres as save -------------------");
     onClickClose();
   };
 
@@ -161,17 +154,14 @@ const Offres = () => {
       loggedUser.role === "ETUDIANT"
         ? await OffreService.getEtudiantOffres(loggedUser.courriel)
         : await OffreService.getAllOffres();
-    console.log(dbOffres, "dbOffres in update offres");
     setListOffres(dbOffres);
   };
 
   const getOptionsList = () => {
     if (currentOffre != null) {
-
       if (listWhitelistedEtudiant.length == 0) {
         return getOptionsEtudiant(listAllEtudiant);
       } else {
-        console.log(currentOffre != null, "CONDITION___________________________________")
         let listAllEtudiantArray = listAllEtudiant;
         listAllEtudiantArray = listAllEtudiantArray.filter(
           (etudiant) =>
@@ -183,7 +173,6 @@ const Offres = () => {
         return getOptionsEtudiant(listAllEtudiantArray).concat(
           listWhitelistedEtudiant
         );
-
       }
     }
   }
@@ -196,188 +185,320 @@ const Offres = () => {
     );
   };
 
+  const getEtudiantCV = async (etudiant) => {
+    const listCVEtudiant = await CVService.getAllCVEtudiant(etudiant.id)
+    const defaultCV = getCVDefaut(listCVEtudiant)
+
+    if (defaultCV == undefined || listCVEtudiant.length == 0) {
+      console.log("aucun default cv ou list empty")
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur!',
+        text: "Cet étudiant n'a aucun cv disponible",
+      })
+      return
+
+    }
+    else if (defaultCV.status != "ACCEPTED") {
+      console.log("Cv not accepted")
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur!',
+        text: "Cet étudiant n'a aucun cv disponible",
+      })
+      return
+
+    }
+    downloadCV(defaultCV)
+  }
+
+  const getCVDefaut = (listCVEtudiant) => {
+    return listCVEtudiant.find(cv => cv.defaultCV)
+  }
+
+  const downloadCV = async (cv) => {
+    await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
+      .then(res => {
+        console.log(res)
+        if (res.ok) {
+          saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+        }
+        if (!res.ok) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur!',
+            text: 'Le fichier est invalide ou indisponible pour l`instant.',
+          })
+          throw res
+        }
+      })
+  }
+
   return (
     <div className="container" style={{ textAlign: "center" }}>
       <h1>Offres</h1>
-      <table className="table border">
-        <thead>
-          <tr>
-            <th colSpan="3" style={{ color: "black" }}>
-              Titre
-            </th>
-            <th colSpan="3" style={{ color: "black" }}>
-              Entreprise
-            </th>
-            {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {loggedUser.role === "ETUDIANT"
-            ? listOffres.map((offre) => (
-              <tr key={offre.id.toString()}>
-                <td colSpan="3">{offre.titre}</td>
-                <td colSpan="3">{offre.entreprise}</td>
-                <td colSpan="1">
-                  <input
-                    type="button"
-                    onClick={() => onClickOffre(offre)}
-                    value="Détails"
-                    className="p-1 btn-secondary"
-                  />
-                </td>
-              </tr>
-            ))
-            : listOffres.map((offre) => (
-              <tr key={offre.id.toString()}>
-                <td colSpan="3">{offre.titre}</td>
-                <td colSpan="3">{offre.entreprise}</td>
-                <td colSpan="1">
-                  {offre.valid ? (
-                    <AiOutlineCheckCircle color="green" />
-                  ) : (
-                    <AiOutlineCloseCircle color="red" />
-                  )}
-                </td>
-                <td colSpan="1">
-                  <input
-                    type="button"
-                    onClick={() => onClickOffre(offre)}
-                    value="Détails"
-                    className="p-1 btn-secondary"
-                  />
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <ReactModal isOpen={showModal} ariaHideApp={false}>
-        <div className="container text-center">
-          <AiOutlineClose color="red" size="24px" onClick={onClickClose} />
-          <div className="row">
-            <h3 className="col-2">Titre</h3>
-            <h3 className="col-4">Description</h3>
-            <h3 className="col-2">Entreprise</h3>
-            <h3 className="col-2">Adresse</h3>
-            {loggedUser.role !== "ETUDIANT" && (
-              <h3 className="col-2">Validity</h3>
-            )}
-          </div>
-
-          {currentOffre &&
-            <div>
-              <div className="row mt-4">
-                <div className="col-2">{currentOffre.titre}</div>
-                <div className="col-4">{currentOffre.description}</div>
-                <div className="col-2">{currentOffre.entreprise}</div>
-                <div className="col-2">{currentOffre.adresse}</div>
-                {loggedUser.role !== "ETUDIANT" && (
-                  <div className="col-2 form-check ">
-                    <label className="form-check-label" htmlFor="valid">
-                      {" "}
-                      <input
-                        type="checkbox"
-                        name="valid"
-                        className="form-check-input"
-                        checked={currentOffre.valid}
-                        onChange={onToggleValid}
-                      />
-                      Valid{" "}
-                    </label>
-                  </div>
-                )}
-              </div>
-              <br />
-              <br />
-              <br />
-
-              <div className="row text-center">
-                <h3 className="col-2">Date Debut</h3>
-                <h3 className="col-2">Date Fin</h3>
-                <h3 className="col-2">Duree Total</h3>
-                <h3 className="col-2">Horaire</h3>
-                <h3 className="col-2">Total Heure Semaine</h3>
-                <h3 className="col-2">Taux Horaire</h3>
-              </div>
-              <div className="row mt-4 text-center">
-                <div className="col-2">{currentOffre.dateDebut}</div>
-                <div className="col-2">{currentOffre.dateFin}</div>
-                <div className="col-2">{currentOffre.nbTotalSemaine} semaines</div>
-                <div className="col-2">{currentOffre.horaire}</div>
-                <div className="col-2">
-                  {currentOffre.nbTotalHeuresParSemaine} heures
-                </div>
-                <div className="col-2">{currentOffre.tauxHoraire} $/h</div>
-                {loggedUser.role === "ETUDIANT" && (
-                  <div className="row">
-                    <input
-                      type="button"
-                      onClick={() => appliquerOffre(currentOffre)}
-                      value="Appliquer à l offre"
-                      className="p-1 btn-primary"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          }
-
-          {loggedUser.role === "GESTIONNAIRE" && (
-            <div className="mt-4">
-              <div className="row">
-                <div className="col-6">
-                  <h1>Select Etudiants</h1>
-                  <MultiSelect
-                    options={getOptionsList()}
-                    value={listWhitelistedEtudiant}
-                    onChange={setListWhitelistedEtudiant}
-                    labelledBy="Select"
-                  />
-                </div>
-                <div className="col-6">
-                  <h1>Whitelisted Etudiants</h1>
-                  {listWhitelistedEtudiant.map((etudiant, index) => (
-                    <li key={index}>{etudiant.label}</li>
-                  ))}
-                </div>
-              </div>
-              <div className="row text-center">
-                <input type="button" value="Save" onClick={onClickSave}></input>
-              </div>
-            </div>
-          )}
-
-          {(loggedUser.role === "MONITEUR" && currentOffre) &&
-            <div>
-              <h2 className="text-center text-muted mt-4">Candidats</h2>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col" className="text-secondary">Nom d'étudiant</th>
-                    <th scope="col" className="text-secondary">Courriel</th>
-                    <th scope="col" className="text-secondary">Permis</th>
-                    <th scope="col" className="text-secondary">Voiture</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {showModal &&
-                    currentOffre.applicants.map((etudiant) => (
-                      <tr key={etudiant.id}>
-                        <td>
-                          {etudiant.prenom} {etudiant.nom}
-                        </td>
-                        <td>{etudiant.courriel}</td>
-                        <td>{getBoolIcon(etudiant.hasLicense)}</td>
-                        <td>{getBoolIcon(etudiant.hasVoiture)}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-          }
+      {listOffres.length == 0 ?
+        <div>
+          <h3 className="text-center text-muted mt-4">Il n'y a aucunes offres</h3>
         </div>
-      </ReactModal>
-    </div>
+        :
+
+        <Row className="mt-4">
+          <Col sm='12' lg='8' className="mx-auto">
+            <table className="table border table-dark">
+              <thead>
+                <tr>
+                  <th colSpan="3">
+                    Titre
+                  </th>
+                  <th colSpan="3">
+                    Entreprise
+                  </th>
+                  {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {loggedUser.role === "ETUDIANT"
+                  ? listOffres.map((offre) => (
+                    <tr className="text-white" key={offre.id.toString()}>
+                      <td colSpan="3">{offre.titre}</td>
+                      <td colSpan="3">{offre.entreprise}</td>
+                      <td colSpan="1">
+                        <input
+                          type="button"
+                          onClick={() => onClickOffre(offre)}
+                          value="Détails"
+                          className="p-1 btn-secondary"
+                        />
+                      </td>
+                    </tr>
+                  ))
+                  : listOffres.map((offre) => (
+                    <tr className="text-white" key={offre.id.toString()}>
+                      <td colSpan="3">{offre.titre}</td>
+                      <td colSpan="3">{offre.entreprise}</td>
+                      <td colSpan="1">
+                        {offre.valid ? (
+                          <AiOutlineCheckCircle color="green" />
+                        ) : (
+                          <AiOutlineCloseCircle color="red" />
+                        )}
+                      </td>
+                      <td colSpan="1">
+                        <input
+                          type="button"
+                          onClick={() => onClickOffre(offre)}
+                          value="Détails"
+                          className="p-1 btn-secondary"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </Col>
+        </Row>
+      }
+      <ReactModal isOpen={showModal} ariaHideApp={false} style={{
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(31, 31, 31, 0.75)'
+        },
+        content: {
+          position: 'absolute',
+          top: '40px',
+          left: '40px',
+          right: '40px',
+          bottom: '40px',
+          border: '1px solid #ccc',
+          background: 'rgb(69, 69, 69)',
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          borderRadius: '4px',
+          outline: 'none',
+          padding: '20px'
+        }
+      }}>
+        {currentOffre &&
+          <div className="container text-center">
+            <AiOutlineClose color="red" size="24px" onClick={onClickClose} />
+            <Row className="mt-4">
+              <Col lg='4' sm='12' className="mx-auto">
+                <table className="table">
+                  <tbody>
+                    <tr>
+                      <th className="bg-muted text-white">Titre</th>
+                      <td className="bg-secondary">{currentOffre.titre}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Entreprise</th>
+                      <td className="bg-secondary">{currentOffre.entreprise}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Adresse</th>
+                      <td className="bg-secondary">{currentOffre.adresse}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Date Debut</th>
+                      <td className="bg-secondary">{currentOffre.dateDebut}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Date Fin</th>
+                      <td className="bg-secondary">{currentOffre.dateFin}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Durée Totale</th>
+                      <td className="bg-secondary">{currentOffre.nbTotalSemaine} semaines</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Horaire</th>
+                      <td className="bg-secondary">{currentOffre.horaire}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Totales Heures/Semaine</th>
+                      <td className="bg-secondary">{currentOffre.nbTotalHeuresParSemaine} heures</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Taux Horaires</th>
+                      <td className="bg-secondary">{currentOffre.tauxHoraire}$/h</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white" colSpan='2'>Description</th>
+                    </tr>
+                    <tr>
+                      <td className="bg-secondary" colSpan='2'>{currentOffre.description}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </Col>
+            </Row>
+
+
+            {loggedUser.role === "ETUDIANT" &&
+              <Row>
+                <Col sm="1" lg="5"></Col>
+                <Col sm="10" lg="2">
+                  <button className="btn btn-success btn-lg mt-4" onClick={() => appliquerOffre(currentOffre)}>Appliquer à l'offre</button>
+                </Col>
+                <Col sm="1" lg="5"></Col>
+              </Row>
+            }
+
+
+            {loggedUser.role === "GESTIONNAIRE" && (
+              <div>
+                <Row>
+                  <Col lg='4' sm='12' className="mx-auto">
+                    <table className="table">
+                      <tbody>
+                        <tr>
+                          <th className="bg-muted text-white">Validity</th>
+                        </tr>
+                        <tr>
+                          <td className="bg-secondary">
+                            <label className="form-check-label" htmlFor="valid">
+                              {" "}
+                              <input
+                                type="checkbox"
+                                name="valid"
+                                checked={currentOffre.valid}
+                                onChange={onToggleValid}
+                              />
+                              Valid{" "}
+                            </label>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </Col>
+                </Row>
+                <div className="mt-4">
+                  <Row className="mx-auto">
+                    <Col sm="12" lg="6">
+                      <h1>Select Etudiants</h1>
+                      <Row>
+                        <Col className="mx-auto" lg="8" sm="10">
+                          <MultiSelect
+                            options={getOptionsList()}
+                            value={listWhitelistedEtudiant}
+                            onChange={setListWhitelistedEtudiant}
+                            labelledBy="Select"
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col sm="12" lg="6" className="mt-4">
+                      <table className="table mt-4">
+                        <tbody>
+                          <tr>
+                            <th className="bg-muted text-white">Whitelisted Étudiants</th>
+                          </tr>
+                          {listWhitelistedEtudiant.map((etudiant, index) => (
+                            <tr>
+                              <td className="bg-secondary" key={index}>{etudiant.label}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm="1" lg="5"></Col>
+                    <Col sm="10" lg="2">
+                      <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
+                    </Col>
+                    <Col sm="1" lg="5"></Col>
+                  </Row>
+                </div>
+              </div>
+            )}
+
+
+
+            {(loggedUser.role === "MONITEUR" && currentOffre) &&
+              <div>
+
+                <h2 className="text-center text-muted mt-4">Candidats</h2>
+                <Row>
+                  <Col lg='6' sm='12' className="mx-auto">
+                    <table className="table border table-dark">
+                      <thead>
+                        <tr>
+                          <th >Nom d'étudiant</th>
+                          <th >Courriel</th>
+                          <th >Permis</th>
+                          <th >Voiture</th>
+                          <th >CV</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {showModal &&
+                          currentOffre.applicants.map((etudiant) => (
+                            <tr key={etudiant.id}>
+                              <td className="text-white">
+                                {etudiant.prenom} {etudiant.nom}
+                              </td>
+                              <td className="text-white">{etudiant.courriel}</td>
+                              <td>{getBoolIcon(etudiant.hasLicense)}</td>
+                              <td>{getBoolIcon(etudiant.hasVoiture)}</td>
+                              <td><FontAwesomeIcon className="text-secondary" onClick={() => getEtudiantCV(etudiant)} icon={faFileDownload} size="2x" /></td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </Col>
+                </Row>
+              </div>
+            }
+          </div>
+        }
+      </ReactModal >
+    </div >
   );
 };
 

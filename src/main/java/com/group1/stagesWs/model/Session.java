@@ -16,7 +16,8 @@ public class Session {
 
   private String nomSession;
 
-  public Session() {}
+  public Session() {
+  }
 
   public Session(String nomSession) {
     this.nomSession = nomSession;

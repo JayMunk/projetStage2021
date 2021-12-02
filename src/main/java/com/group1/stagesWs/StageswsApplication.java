@@ -4,17 +4,7 @@ import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.ContratRepository;
-import com.group1.stagesWs.repositories.EntrevueRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.EvaluationEntrepriseRepository;
-import com.group1.stagesWs.repositories.EvaluationEtudiantRepository;
-import com.group1.stagesWs.repositories.GestionnaireRepository;
-import com.group1.stagesWs.repositories.MoniteurRepository;
-import com.group1.stagesWs.repositories.NotificationRepository;
-import com.group1.stagesWs.repositories.OffreRepository;
-import com.group1.stagesWs.repositories.SuperviseurRepository;
+import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.service.RapportService;
 import com.group1.stagesWs.service.SessionService;
 import org.springframework.boot.CommandLineRunner;
@@ -45,11 +35,13 @@ public class StageswsApplication implements CommandLineRunner {
   private final SessionService sessionService;
 
   private Session sessionAlternative;
+  private Gestionnaire gestionnaire;
   private List<Notification> notificationList;
   private List<Superviseur> superviseurList;
   private List<Etudiant> etudiantList;
   private List<Moniteur> moniteurList;
   private List<Offre> offreList;
+  private List<Contrat> contratList;
 
   public StageswsApplication(
       OffreRepository offreRepository,
@@ -102,7 +94,7 @@ public class StageswsApplication implements CommandLineRunner {
     moniteurList = getListMoniteurs();
     moniteurRepository.saveAll(moniteurList);
 
-    Gestionnaire gestionnaire = getGestionnaire();
+    gestionnaire = getGestionnaire();
     gestionnaireRepository.save(gestionnaire);
 
     List<CV> cvList = getListCVs();
@@ -111,11 +103,57 @@ public class StageswsApplication implements CommandLineRunner {
     offreList = getListOffres();
     offreRepository.saveAll(offreList);
 
-    List<Contrat> contratList = getListContrats();
+    contratList = getListContrats();
     contratRepository.saveAll(contratList);
 
     List<Entrevue> entrevueList = getListEntrevues();
     entrevueRepository.saveAll(entrevueList);
+
+    EvaluationEtudiant evaluationEtudiant = getEvaluationEtudiant();
+    evaluationEtudiantRepository.save(evaluationEtudiant);
+
+    EvaluationEntreprise evaluationEntreprise = getEvaluationEntreprise();
+    evaluationEntrepriseRepository.save(evaluationEntreprise);
+  }
+
+  private EvaluationEntreprise getEvaluationEntreprise() {
+    EvaluationEntreprise evaluationEntreprise = new EvaluationEntreprise();
+    evaluationEntreprise.setNumeroStage(1);
+    evaluationEntreprise.setEvaluationGrid(new int[] {0, 1, 2, 3, 4, 3, 2, 1, 0, 1});
+    evaluationEntreprise.setCommentaires(
+        "L'entreprise n'accorde pas assez d'attention au stagiaire. Aucune formation n'a été effectuée une fois que le stagiaire a commencé. ");
+    evaluationEntreprise.setStagePrefere(2);
+    evaluationEntreprise.setNombreStagiaires(2);
+    evaluationEntreprise.setGarderStagiaire(false);
+    evaluationEntreprise.setVariableShifts(false);
+    evaluationEntreprise.setHeuresEncadrementParSemaineMois1(0);
+    evaluationEntreprise.setHeuresEncadrementParSemaineMois2(0);
+    evaluationEntreprise.setHeuresEncadrementParSemaineMois3(0);
+    evaluationEntreprise.setContrat(contratList.get(3));
+    evaluationEntreprise.setSuperviseur(superviseurList.get(6));
+
+    return evaluationEntreprise;
+  }
+
+  private EvaluationEtudiant getEvaluationEtudiant() {
+    EvaluationEtudiant evaluationEtudiant = new EvaluationEtudiant();
+    evaluationEtudiant.setEvaluationGrid(
+        new int[] {0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2});
+    evaluationEtudiant.setMoniteurFonction("Aider la stagiaire avec ses travails.");
+    evaluationEtudiant.setCommentairesProductivite(
+        "Pas beaucoup de productivité avec cet stagiaire.");
+    evaluationEtudiant.setCommentairesTravail("Le travail que cet stagiaire fais est adéquat.");
+    evaluationEtudiant.setCommentairesRelations("Le stagiaire ne travail pas bon en équipe.");
+    evaluationEtudiant.setCommentairesAttitude(
+        "Le stagiaire ne veut pas toujours faire son travail.");
+    evaluationEtudiant.setCommentairesGlobale("C'est un non.");
+    evaluationEtudiant.setCommentairesFormation("Les formations sont bonnes.");
+    evaluationEtudiant.setCommuniqueAuStagiaire(false);
+    evaluationEtudiant.setHeuresEncadrementParSemaine(20);
+    evaluationEtudiant.setGarderStagiaire(false);
+    evaluationEtudiant.setContrat(contratList.get(3));
+
+    return evaluationEtudiant;
   }
 
   private List<Entrevue> getListEntrevues() {
@@ -174,7 +212,22 @@ public class StageswsApplication implements CommandLineRunner {
             etudiantList.get(1),
             moniteurList.get(0));
 
-    return List.of(contrat1, contrat2, contrat3);
+    Contrat contrat4 =
+        new Contrat(
+            "Verifier que la stage marche bien",
+            "Assurer la formation du stagiaire",
+            "Faire du bon travail au stage",
+            offreList.get(6),
+            etudiantList.get(6),
+            moniteurList.get(6));
+    contrat4.setMoniteurConfirmed(true);
+    contrat4.setEtudiantConfirmed(true);
+    contrat4.setGestionnaireConfirmed(true);
+    contrat4.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
+    contrat4.setDateSignatureEtudiant(LocalDate.of(2021, 12, 20));
+    contrat4.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
+
+    return List.of(contrat1, contrat2, contrat3, contrat4);
   }
 
   private List<Offre> getListOffres() {
@@ -278,7 +331,26 @@ public class StageswsApplication implements CommandLineRunner {
             20.75);
     offre6.setSession(sessionAlternative.getNomSession());
 
-    return List.of(offre1, offre2, offre3, offre4, offre5, offre6);
+    Offre offre7 =
+        new Offre(
+            "Programmeur",
+            "Besoin du programmeur fullstack de java et js",
+            "ByteCreationLabs",
+            true,
+            "222 Montée de Liesse",
+            "2022-01-11",
+            "2022-02-22",
+            6,
+            LocalTime.of(9, 0),
+            LocalTime.of(17, 0),
+            40,
+            23);
+    offre7.setGestionnaire(gestionnaire);
+    offre7.setMoniteur(moniteurList.get(6));
+    offre7.setWhitelist(Set.of(etudiantList.get(6)));
+    offre7.setApplicants(Set.of(etudiantList.get(6)));
+
+    return List.of(offre1, offre2, offre3, offre4, offre5, offre6, offre7);
   }
 
   private List<CV> getListCVs() {
@@ -374,7 +446,16 @@ public class StageswsApplication implements CommandLineRunner {
     moniteur6.setNomEntreprise("Bob the builder");
     moniteur6.setAdresseEntreprise("110 lapierre");
 
-    return List.of(moniteur, moniteur2, moniteur3, moniteur4, moniteur5, moniteur6);
+    Moniteur moniteur7 = new Moniteur();
+    moniteur.setPrenom("Jordan");
+    moniteur.setNom("Orange");
+    moniteur.setCourriel("jorange@example.com");
+    moniteur.setPassword("Password1");
+    moniteur.setNumTelephone("2222222222");
+    moniteur.setNomEntreprise("ByteCreationLabs");
+    moniteur.setAdresseEntreprise("222 Montée de Liesse");
+
+    return List.of(moniteur, moniteur2, moniteur3, moniteur4, moniteur5, moniteur6, moniteur7);
   }
 
   private List<Etudiant> getListEtudiants() {
@@ -455,7 +536,19 @@ public class StageswsApplication implements CommandLineRunner {
     etudiant6.setNumMatricule("18223234");
     etudiant6.setHasLicense(true);
 
-    return List.of(etudiant, etudiant2, etudiant3, etudiant4, etudiant5, etudiant6);
+    Etudiant etudiant7 = new Etudiant();
+    etudiant.setPrenom("Aurelie");
+    etudiant.setNom("Jackson");
+    etudiant.setCourriel("aujack@example.com");
+    etudiant.setPassword("Password1");
+    etudiant.setNumTelephone("1111111111");
+    etudiant.setProgramme("Informatique");
+    etudiant.setAdresse("1299 Rue Sherbrooke");
+    etudiant.setNumMatricule("1675732");
+    etudiant.setHasLicense(true);
+    etudiant.setSuperviseur(superviseurList.get(6));
+
+    return List.of(etudiant, etudiant2, etudiant3, etudiant4, etudiant5, etudiant6, etudiant7);
   }
 
   private List<Superviseur> getListSuperviseurs() {
@@ -519,8 +612,23 @@ public class StageswsApplication implements CommandLineRunner {
     superviseur6.setDepartement("Informatique");
     superviseur6.setSpecialite("fullstack");
 
+    Superviseur superviseur7 = new Superviseur();
+    superviseur.setPrenom("Lonzo");
+    superviseur.setNom("Dagonzo");
+    superviseur.setCourriel("londagon@example.com");
+    superviseur.setPassword("Password1");
+    superviseur.setNumTelephone("3333333333");
+    superviseur.setDepartement("Informatique");
+    superviseur.setSpecialite("Réseautage");
+
     return List.of(
-        superviseur, superviseur2, superviseur3, superviseur4, superviseur5, superviseur6);
+        superviseur,
+        superviseur2,
+        superviseur3,
+        superviseur4,
+        superviseur5,
+        superviseur6,
+        superviseur7);
   }
 
   private List<Notification> getListNotifications() {
@@ -531,106 +639,5 @@ public class StageswsApplication implements CommandLineRunner {
     Notification notif3 = new Notification("test3", NotifStatus.URGENT);
 
     return List.of(notif1, notif2, notif3);
-    entrevueRepository.saveAll(List.of(entrevue, entrevue2));
-
-    createEvaluationDemoEntities(gestionnaire); // passing gestionnaire as parameter as there is only one gestionnaire
-  }
-
-  private void createEvaluationDemoEntities(Gestionnaire gestionnaire) {
-    Superviseur superviseur = new Superviseur();
-    superviseur.setPrenom("Lonzo");
-    superviseur.setNom("Dagonzo");
-    superviseur.setCourriel("londagon@example.com");
-    superviseur.setPassword("Password1");
-    superviseur.setNumTelephone("3333333333");
-    superviseur.setDepartement("Informatique");
-    superviseur.setSpecialite("Réseautage");
-    superviseurRepository.save(superviseur);
-
-    Etudiant etudiant = new Etudiant();
-    etudiant.setPrenom("Aurelie");
-    etudiant.setNom("Jackson");
-    etudiant.setCourriel("aujack@example.com");
-    etudiant.setPassword("Password1");
-    etudiant.setNumTelephone("1111111111");
-    etudiant.setProgramme("Informatique");
-    etudiant.setAdresse("1299 Rue Sherbrooke");
-    etudiant.setNumMatricule("1675732");
-    etudiant.setHasLicense(true);
-    etudiant.setSuperviseur(superviseur);
-    etudiantRepository.save(etudiant);
-
-    Moniteur moniteur = new Moniteur();
-    moniteur.setPrenom("Jordan");
-    moniteur.setNom("Orange");
-    moniteur.setCourriel("jorange@example.com");
-    moniteur.setPassword("Password1");
-    moniteur.setNumTelephone("2222222222");
-    moniteur.setNomEntreprise("ByteCreationLabs");
-    moniteur.setAdresseEntreprise("222 Montée de Liesse");
-    moniteurRepository.save(moniteur);
-
-    Offre offre = new Offre();
-    offre.setTitre("Programmeur");
-    offre.setDescription("Besoin du programmeur fullstack de java et js");
-    offre.setEntreprise("ByteCreationLabs");
-    offre.setValid(true);
-    offre.setAdresse("222 Montée de Liesse");
-    offre.setDateDebut("2022-01-11");
-    offre.setDateFin("2022-02-22");
-    offre.setNbTotalSemaine(6);
-    offre.setHoraire("9 à 5, Lundi à Vendredi");
-    offre.setNbTotalHeuresParSemaine(40);
-    offre.setTauxHoraire(23);
-    offre.setGestionnaire(gestionnaire);
-    offre.setMoniteur(moniteur);
-    offre.setWhitelist(Set.of(etudiant));
-    offre.setApplicants(Set.of(etudiant));
-    offreRepository.save(offre);
-
-    Contrat contrat = new Contrat();
-    contrat.setMoniteurConfirmed(true);
-    contrat.setEtudiantConfirmed(true);
-    contrat.setGestionnaireConfirmed(true);
-    contrat.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
-    contrat.setDateSignatureEtudiant(LocalDate.of(2021, 12, 20));
-    contrat.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
-    contrat.setCollegeEngagement("Verifier que la stage marche bien");
-    contrat.setEntrepriseEngagement("Assurer la formation du stagiaire");
-    contrat.setEtudiantEngagement("Faire du bon travail au stage");
-    contrat.setOffre(offre);
-    contrat.setEtudiant(etudiant);
-    contrat.setMoniteur(moniteur);
-    contratRepository.save(contrat);
-
-    EvaluationEtudiant evaluationEtudiant = new EvaluationEtudiant();
-    evaluationEtudiant.setEvaluationGrid(new int[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2});
-    evaluationEtudiant.setMoniteurFonction("Aider la stagiaire avec ses travails.");
-    evaluationEtudiant.setCommentairesProductivite("Pas beaucoup de productivité avec cet stagiaire.");
-    evaluationEtudiant.setCommentairesTravail("Le travail que cet stagiaire fais est adéquat.");
-    evaluationEtudiant.setCommentairesRelations("Le stagiaire ne travail pas bon en équipe.");
-    evaluationEtudiant.setCommentairesAttitude("Le stagiaire ne veut pas toujours faire son travail.");
-    evaluationEtudiant.setCommentairesGlobale("C'est un non.");
-    evaluationEtudiant.setCommentairesFormation("Les formations sont bonnes.");
-    evaluationEtudiant.setCommuniqueAuStagiaire(false);
-    evaluationEtudiant.setHeuresEncadrementParSemaine(20);
-    evaluationEtudiant.setGarderStagiaire(false);
-    evaluationEtudiant.setContrat(contrat);
-    evaluationEtudiantRepository.save(evaluationEtudiant);
-
-    EvaluationEntreprise evaluationEntreprise = new EvaluationEntreprise();
-    evaluationEntreprise.setNumeroStage(1);
-    evaluationEntreprise.setEvaluationGrid(new int[]{0, 1, 2, 3, 4, 3, 2, 1, 0, 1});
-    evaluationEntreprise.setCommentaires("L'entreprise n'accorde pas assez d'attention au stagiaire. Aucune formation n'a été effectuée une fois que le stagiaire a commencé. ");
-    evaluationEntreprise.setStagePrefere(2);
-    evaluationEntreprise.setNombreStagiaires(2);
-    evaluationEntreprise.setGarderStagiaire(false);
-    evaluationEntreprise.setVariableShifts(false);
-    evaluationEntreprise.setHeuresEncadrementParSemaineMois1(0);
-    evaluationEntreprise.setHeuresEncadrementParSemaineMois2(0);
-    evaluationEntreprise.setHeuresEncadrementParSemaineMois3(0);
-    evaluationEntreprise.setContrat(contrat);
-    evaluationEntreprise.setSuperviseur(superviseur);
-    evaluationEntrepriseRepository.save(evaluationEntreprise);
   }
 }

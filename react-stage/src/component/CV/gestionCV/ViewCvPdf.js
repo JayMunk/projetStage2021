@@ -26,14 +26,20 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
 
   const renderPageControls = (
     <div className="container">
-      <div className="row center">
-        <button className="btn btn-primary col-1 prevPage" onClick={onPrevPage}>
+      <div className="row text-center justify-content-center">
+        <button
+          className="btn btn-primary col-1 ml-auto mr-0"
+          onClick={onPrevPage}
+        >
           &lt;
         </button>
-        <div className="col-2 pages">
+        <div className="col-2 ml-0 mr-0 mt-auto mb-auto text-white">
           Page {page} of {numPages}
         </div>
-        <button className="btn btn-primary col-1 nextPage" onClick={onNextPage}>
+        <button
+          className="btn btn-primary col-1 mr-auto ml-0"
+          onClick={onNextPage}
+        >
           &gt;
         </button>
       </div>
@@ -49,24 +55,26 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
       >
         -
       </button>
-      <div className="col pages">{pdfScale * 100}%</div>
+      <div className="col text-center text-white mt-auto mb-auto">
+        {pdfScale * 100}%
+      </div>
       <button
         className="btn btn-secondary btn-sm col-1"
         onClick={() => setPdfScale((scale) => scale + 0.25)}
       >
         +
       </button>
-      <button className="btn btn-danger col prevPage" onClick={onReject}>
+      <button className="btn btn-danger col ml-auto mr-0" onClick={onReject}>
         Rejeter
       </button>
-      <button className="btn btn-success col nextPage" onClick={onAccept}>
+      <button className="btn btn-success col mr-auto ml-0" onClick={onAccept}>
         Accepter
       </button>
     </>
   );
 
   return (
-    <div className="dark h-100 pb-auto mb-auto">
+    <div className="cvDark h-100 pb-auto mb-auto">
       {!cv ? (
         ""
       ) : (

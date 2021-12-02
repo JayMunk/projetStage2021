@@ -60,43 +60,18 @@ const DropCv = () => {
         fileToBase64(files, (err, result) => {
             if (result) {
                 result = result.substring(28)
-
-
-
                 if (loggedUser.isLoggedIn) {
-                    fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                        .then(res => {
-                            return res.json();
-                        })
-                        .then(async (data) => {
-                            console.log(data, "data")
-                            console.log(data.id)
+                    if (loggedUser.isLoggedIn) {
+                        UserService.getUserByEmail(loggedUser.courriel).then(data => {
                             setEtudiant(data)
-
                             let cv = { data: result, etudiant: data, nom: files.name }
-
-                            const res = await fetch('http://localhost:9191/cv', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-type': 'application/json',
-                                },
-                                body: JSON.stringify(cv)
+                            CVService.saveCv(cv).then(data => {
+                                setFile(null)
+                                document.querySelector("#test").textContent = ""
+                                updateCvs()
                             })
-                            if (res.ok) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Succès!',
-                                    text: 'Votre cv vient d`être ajouté à la liste ci-dessous.'
-                                })
-                            }
-                            await res.json()
-                            setFile(null)
-                            document.querySelector("#test").textContent = ""
-                            updateCvs()
                         })
-
-
-
+                    }
                 }
             }
         })
@@ -143,15 +118,13 @@ const DropCv = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                setEtudiant(data)
+                CVService.getCvEtudiant(data.id).then(data => {
+                    setCvs(data)
                 })
-                .then(async (data) => {
-                    setEtudiant(data)
-                    const res = await CVService.getCvEtudiant(data.id)
-                    setCvs(res)
-                })
+
+            })
         }
     }, [])
 

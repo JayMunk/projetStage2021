@@ -447,13 +447,13 @@ public class StageswsApplication implements CommandLineRunner {
     moniteur6.setAdresseEntreprise("110 lapierre");
 
     Moniteur moniteur7 = new Moniteur();
-    moniteur.setPrenom("Jordan");
-    moniteur.setNom("Orange");
-    moniteur.setCourriel("jorange@example.com");
-    moniteur.setPassword("Password1");
-    moniteur.setNumTelephone("2222222222");
-    moniteur.setNomEntreprise("ByteCreationLabs");
-    moniteur.setAdresseEntreprise("222 Montée de Liesse");
+    moniteur7.setPrenom("Jordan");
+    moniteur7.setNom("Orange");
+    moniteur7.setCourriel("jorange@example.com");
+    moniteur7.setPassword("Password1");
+    moniteur7.setNumTelephone("2222222222");
+    moniteur7.setNomEntreprise("ByteCreationLabs");
+    moniteur7.setAdresseEntreprise("222 Montée de Liesse");
 
     return List.of(moniteur, moniteur2, moniteur3, moniteur4, moniteur5, moniteur6, moniteur7);
   }
@@ -537,16 +537,16 @@ public class StageswsApplication implements CommandLineRunner {
     etudiant6.setHasLicense(true);
 
     Etudiant etudiant7 = new Etudiant();
-    etudiant.setPrenom("Aurelie");
-    etudiant.setNom("Jackson");
-    etudiant.setCourriel("aujack@example.com");
-    etudiant.setPassword("Password1");
-    etudiant.setNumTelephone("1111111111");
-    etudiant.setProgramme("Informatique");
-    etudiant.setAdresse("1299 Rue Sherbrooke");
-    etudiant.setNumMatricule("1675732");
-    etudiant.setHasLicense(true);
-    etudiant.setSuperviseur(superviseurList.get(6));
+    etudiant7.setPrenom("Aurelie");
+    etudiant7.setNom("Jackson");
+    etudiant7.setCourriel("aujack@example.com");
+    etudiant7.setPassword("Password1");
+    etudiant7.setNumTelephone("1111111111");
+    etudiant7.setProgramme("Informatique");
+    etudiant7.setAdresse("1299 Rue Sherbrooke");
+    etudiant7.setNumMatricule("1675732");
+    etudiant7.setHasLicense(true);
+    etudiant7.setSuperviseur(superviseurList.get(6));
 
     return List.of(etudiant, etudiant2, etudiant3, etudiant4, etudiant5, etudiant6, etudiant7);
   }
@@ -613,13 +613,13 @@ public class StageswsApplication implements CommandLineRunner {
     superviseur6.setSpecialite("fullstack");
 
     Superviseur superviseur7 = new Superviseur();
-    superviseur.setPrenom("Lonzo");
-    superviseur.setNom("Dagonzo");
-    superviseur.setCourriel("londagon@example.com");
-    superviseur.setPassword("Password1");
-    superviseur.setNumTelephone("3333333333");
-    superviseur.setDepartement("Informatique");
-    superviseur.setSpecialite("Réseautage");
+    superviseur7.setPrenom("Lonzo");
+    superviseur7.setNom("Dagonzo");
+    superviseur7.setCourriel("londagon@example.com");
+    superviseur7.setPassword("Password1");
+    superviseur7.setNumTelephone("3333333333");
+    superviseur7.setDepartement("Informatique");
+    superviseur7.setSpecialite("Réseautage");
 
     return List.of(
         superviseur,

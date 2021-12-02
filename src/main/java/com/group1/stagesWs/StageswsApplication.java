@@ -2,7 +2,6 @@ package com.group1.stagesWs;
 
 import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.enums.Status;
-import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.service.RapportService;
@@ -373,253 +372,254 @@ public class StageswsApplication implements CommandLineRunner {
   }
 
   private Gestionnaire getGestionnaire() {
-    Gestionnaire gestionnaire = new Gestionnaire();
-    gestionnaire.setPrenom("Neil");
-    gestionnaire.setNom("Carrie");
-    gestionnaire.setCourriel("neil@gmail.com");
-    gestionnaire.setPassword("Password1");
-    gestionnaire.setNumTelephone("879382378");
-    gestionnaire.setRole(UserType.GESTIONNAIRE);
-    gestionnaire.setDepartement("Informatique");
-
-    return gestionnaire;
+    return new Gestionnaire(
+        "Neil", "Carrie", "neil@gmail.com", "Password1", "879382378", "Informatique");
   }
 
   private List<Moniteur> getListMoniteurs() {
-    Moniteur moniteur = new Moniteur();
-    moniteur.setPrenom("Pascal");
-    moniteur.setNom("Bourgoin");
-    moniteur.setCourriel("pascal@gmail.com");
-    moniteur.setPassword("Password1");
-    moniteur.setNumTelephone("2389238");
-    moniteur.setRole(UserType.MONITEUR);
-    moniteur.setNomEntreprise("Bob the builder");
-    moniteur.setAdresseEntreprise("110 lapierre");
+    Moniteur moniteur =
+        new Moniteur(
+            "Pascal",
+            "Bourgoin",
+            "pascal@gmail.com",
+            "Password1",
+            "2389238",
+            "Bob the builder",
+            "110 lapierre");
 
-    Moniteur moniteur2 = new Moniteur();
-    moniteur2.setPrenom("Joel");
-    moniteur2.setNom("Drole");
-    moniteur2.setCourriel("joel@gmail.com");
-    moniteur2.setPassword("Password1");
-    moniteur2.setNumTelephone("2389238");
-    moniteur2.setRole(UserType.MONITEUR);
-    moniteur2.setNomEntreprise("Bob the builder");
-    moniteur2.setAdresseEntreprise("110 lapierre");
+    Moniteur moniteur2 =
+        new Moniteur(
+            "Joel",
+            "Drole",
+            "joel@gmail.com",
+            "Password1",
+            "2389238",
+            "Bob the builder",
+            "110 lapierre");
 
-    Moniteur moniteur3 = new Moniteur();
-    moniteur3.setPrenom("Alex");
-    moniteur3.setNom("Bonheur");
-    moniteur3.setCourriel("alex@gmail.com");
-    moniteur3.setPassword("Password1");
-    moniteur3.setNumTelephone("2389238");
-    moniteur3.setRole(UserType.MONITEUR);
-    moniteur3.setNomEntreprise("Bob the builder");
-    moniteur3.setAdresseEntreprise("110 lapierre");
+    Moniteur moniteur3 =
+        new Moniteur(
+            "Alex",
+            "Bonheur",
+            "alex@gmail.com",
+            "Password1",
+            "2389238",
+            "Bob the builder",
+            "110 lapierre");
 
-    Moniteur moniteur4 = new Moniteur();
-    moniteur4.setPrenom("Kassandra");
-    moniteur4.setNom("Cheer");
-    moniteur4.setCourriel("kassandra@gmail.com");
-    moniteur4.setPassword("Password1");
-    moniteur4.setNumTelephone("2389238");
-    moniteur4.setRole(UserType.MONITEUR);
-    moniteur4.setNomEntreprise("Bob the builder");
-    moniteur4.setAdresseEntreprise("110 lapierre");
+    Moniteur moniteur4 =
+        new Moniteur(
+            "Kassandra",
+            "Cheer",
+            "kassandra@gmail.com",
+            "Password1",
+            "2389238",
+            "Bob the builder",
+            "110 lapierre");
 
-    Moniteur moniteur5 = new Moniteur();
-    moniteur5.setPrenom("Jonathan");
-    moniteur5.setNom("Bo");
-    moniteur5.setCourriel("jonathan@gmail.com");
-    moniteur5.setPassword("Password1");
-    moniteur5.setNumTelephone("2389238");
-    moniteur5.setRole(UserType.MONITEUR);
-    moniteur5.setNomEntreprise("Bob the builder");
-    moniteur5.setAdresseEntreprise("110 lapierre");
+    Moniteur moniteur5 =
+        new Moniteur(
+            "Jonathan",
+            "Bo",
+            "jonathan@gmail.com",
+            "Password1",
+            "2389238",
+            "Bob the builder",
+            "110 lapierre");
 
-    Moniteur moniteur6 = new Moniteur();
-    moniteur6.setPrenom("Ricky");
-    moniteur6.setNom("Boby");
-    moniteur6.setCourriel("ricky@gmail.com");
-    moniteur6.setPassword("Password1");
-    moniteur6.setNumTelephone("2389238");
-    moniteur6.setRole(UserType.MONITEUR);
-    moniteur6.setNomEntreprise("Bob the builder");
-    moniteur6.setAdresseEntreprise("110 lapierre");
+    Moniteur moniteur6 =
+        new Moniteur(
+            "Ricky",
+            "Boby",
+            "ricky@gmail.com",
+            "Password1",
+            "2389238",
+            "Bob the builder",
+            "110 lapierre");
 
-    Moniteur moniteur7 = new Moniteur();
-    moniteur7.setPrenom("Jordan");
-    moniteur7.setNom("Orange");
-    moniteur7.setCourriel("jorange@example.com");
-    moniteur7.setPassword("Password1");
-    moniteur7.setNumTelephone("2222222222");
-    moniteur7.setNomEntreprise("ByteCreationLabs");
-    moniteur7.setAdresseEntreprise("222 Montée de Liesse");
+    Moniteur moniteur7 =
+        new Moniteur(
+            "Jordan",
+            "Orange",
+            "jorange@example.com",
+            "Password1",
+            "2222222222",
+            "ByteCreationLabs",
+            "222 Montée de Liesse");
 
     return List.of(moniteur, moniteur2, moniteur3, moniteur4, moniteur5, moniteur6, moniteur7);
   }
 
   private List<Etudiant> getListEtudiants() {
-    Etudiant etudiant = new Etudiant();
-    etudiant.setPrenom("Mathieu");
-    etudiant.setNom("Felton");
-    etudiant.setCourriel("mat@gmail.com");
-    etudiant.setPassword("Password1");
-    etudiant.setNumTelephone("2323232323");
-    etudiant.setRole(UserType.ETUDIANT);
-    etudiant.setProgramme("Informatique");
-    etudiant.setAdresse("113 lapierre");
-    etudiant.setNumMatricule("1822323");
-    etudiant.setHasLicense(true);
+    Etudiant etudiant =
+        new Etudiant(
+            "Mathieu",
+            "Felton",
+            "mat@gmail.com",
+            "Password1",
+            "2323232323",
+            "Informatique",
+            "113 lapierre",
+            "1822323",
+            true,
+            false);
     etudiant.setNotifications(notificationList);
     etudiant.setSuperviseur(superviseurList.get(0));
 
-    Etudiant etudiant2 = new Etudiant();
-    etudiant2.setPrenom("Patrick");
-    etudiant2.setNom("Star");
-    etudiant2.setCourriel("pat@gmail.com");
-    etudiant2.setPassword("Password1");
-    etudiant2.setNumTelephone("123145676");
-    etudiant2.setRole(UserType.ETUDIANT);
-    etudiant2.setProgramme("Info");
-    etudiant2.setAdresse("113 lapierre");
-    etudiant2.setNumMatricule("12345678");
-    etudiant2.setHasLicense(true);
-    etudiant2.setHasVoiture(true);
+    Etudiant etudiant2 =
+        new Etudiant(
+            "Patrick",
+            "Star",
+            "pat@gmail.com",
+            "Password1",
+            "123145676",
+            "Info",
+            "113 lapierre",
+            "12345678",
+            true,
+            true);
 
-    Etudiant etudiant3 = new Etudiant();
-    etudiant3.setPrenom("Maelle");
-    etudiant3.setNom("Chantier");
-    etudiant3.setCourriel("maelle@gmail.com");
-    etudiant3.setPassword("Password1");
-    etudiant3.setNumTelephone("2323232323");
-    etudiant3.setRole(UserType.ETUDIANT);
-    etudiant3.setProgramme("Informatique");
-    etudiant3.setAdresse("113 lapierre");
-    etudiant3.setNumMatricule("18223243");
-    etudiant3.setHasLicense(true);
+    Etudiant etudiant3 =
+        new Etudiant(
+            "Maelle",
+            "Chantier",
+            "maelle@gmail.com",
+            "Password1",
+            "2323232323",
+            "Informatique",
+            "113 lapierre",
+            "18223243",
+            true,
+            false);
     etudiant3.setSession(sessionAlternative.getNomSession());
 
-    Etudiant etudiant4 = new Etudiant();
-    etudiant4.setPrenom("Mahellie");
-    etudiant4.setNom("Belle");
-    etudiant4.setCourriel("mahelli@gmail.com");
-    etudiant4.setPassword("Password1");
-    etudiant4.setNumTelephone("2323232323");
-    etudiant4.setRole(UserType.ETUDIANT);
-    etudiant4.setProgramme("Informatique");
-    etudiant4.setAdresse("113 lapierre");
-    etudiant4.setNumMatricule("18422323");
-    etudiant4.setHasLicense(true);
+    Etudiant etudiant4 =
+        new Etudiant(
+            "Mahellie",
+            "Belle",
+            "mahelli@gmail.com",
+            "Password1",
+            "2323232323",
+            "Informatique",
+            "113 lapierre",
+            "18422323",
+            true,
+            false);
     etudiant4.setSession(sessionAlternative.getNomSession());
 
-    Etudiant etudiant5 = new Etudiant();
-    etudiant5.setPrenom("Emil");
-    etudiant5.setNom("Docteur");
-    etudiant5.setCourriel("emil@gmail.com");
-    etudiant5.setPassword("Password1");
-    etudiant5.setNumTelephone("2323232323");
-    etudiant5.setRole(UserType.ETUDIANT);
-    etudiant5.setProgramme("Informatique");
-    etudiant5.setAdresse("113 lapierre");
-    etudiant5.setNumMatricule("18224323");
-    etudiant5.setHasLicense(true);
+    Etudiant etudiant5 =
+        new Etudiant(
+            "Emil",
+            "Docteur",
+            "emil@gmail.com",
+            "Password1",
+            "2323232323",
+            "Informatique",
+            "113 lapierre",
+            "18224323",
+            true,
+            false);
 
-    Etudiant etudiant6 = new Etudiant();
-    etudiant6.setPrenom("Simon");
-    etudiant6.setNom("Roger");
-    etudiant6.setCourriel("simon@gmail.com");
-    etudiant6.setPassword("Password1");
-    etudiant6.setNumTelephone("2323232323");
-    etudiant6.setRole(UserType.ETUDIANT);
-    etudiant6.setProgramme("Informatique");
-    etudiant6.setAdresse("113 lapierre");
-    etudiant6.setNumMatricule("18223234");
-    etudiant6.setHasLicense(true);
+    Etudiant etudiant6 =
+        new Etudiant(
+            "Simon",
+            "Roger",
+            "simon@gmail.com",
+            "Password1",
+            "2323232323",
+            "Informatique",
+            "113 lapierre",
+            "18223234",
+            true,
+            false);
 
-    Etudiant etudiant7 = new Etudiant();
-    etudiant7.setPrenom("Aurelie");
-    etudiant7.setNom("Jackson");
-    etudiant7.setCourriel("aujack@example.com");
-    etudiant7.setPassword("Password1");
-    etudiant7.setNumTelephone("1111111111");
-    etudiant7.setProgramme("Informatique");
-    etudiant7.setAdresse("1299 Rue Sherbrooke");
-    etudiant7.setNumMatricule("1675732");
-    etudiant7.setHasLicense(true);
+    Etudiant etudiant7 =
+        new Etudiant(
+            "Aurelie",
+            "Jackson",
+            "aujack@example.com",
+            "Password1",
+            "1111111111",
+            "Informatique",
+            "1299 Rue Sherbrooke",
+            "1675732",
+            true,
+            false);
     etudiant7.setSuperviseur(superviseurList.get(6));
 
     return List.of(etudiant, etudiant2, etudiant3, etudiant4, etudiant5, etudiant6, etudiant7);
   }
 
   private List<Superviseur> getListSuperviseurs() {
-    Superviseur superviseur = new Superviseur();
-    superviseur.setPrenom("Jeremie");
-    superviseur.setNom("Munger");
-    superviseur.setCourriel("jeremie@gmail.com");
-    superviseur.setPassword("Password1");
-    superviseur.setNumTelephone("82308920938");
-    superviseur.setRole(UserType.SUPERVISEUR);
-    superviseur.setDepartement("Informatique");
-    superviseur.setSpecialite("fullstack");
+    Superviseur superviseur =
+        new Superviseur(
+            "Jeremie",
+            "Munger",
+            "jeremie@gmail.com",
+            "Password1",
+            "82308920938",
+            "Informatique",
+            "fullstack");
 
-    Superviseur superviseur2 = new Superviseur();
-    superviseur2.setPrenom("Lynn");
-    superviseur2.setNom("Petti");
-    superviseur2.setCourriel("lynn@gmail.com");
-    superviseur2.setPassword("Password1");
-    superviseur2.setNumTelephone("82308920938");
-    superviseur2.setRole(UserType.SUPERVISEUR);
-    superviseur2.setDepartement("Informatique");
-    superviseur2.setSpecialite("fullstack");
+    Superviseur superviseur2 =
+        new Superviseur(
+            "Lynn",
+            "Petti",
+            "lynn@gmail.com",
+            "Password1",
+            "82308920938",
+            "Informatique",
+            "fullstack");
 
-    Superviseur superviseur3 = new Superviseur();
-    superviseur3.setPrenom("Eric");
-    superviseur3.setNom("Grand");
-    superviseur3.setCourriel("eric@gmail.com");
-    superviseur3.setPassword("Password1");
-    superviseur3.setNumTelephone("82308920938");
-    superviseur3.setRole(UserType.SUPERVISEUR);
-    superviseur3.setDepartement("Informatique");
-    superviseur3.setSpecialite("fullstack");
+    Superviseur superviseur3 =
+        new Superviseur(
+            "Eric",
+            "Grand",
+            "eric@gmail.com",
+            "Password1",
+            "82308920938",
+            "Informatique",
+            "fullstack");
 
-    Superviseur superviseur4 = new Superviseur();
-    superviseur4.setPrenom("Audrey");
-    superviseur4.setNom("Jeune");
-    superviseur4.setCourriel("audrey@gmail.com");
-    superviseur4.setPassword("Password1");
-    superviseur4.setNumTelephone("82308920938");
-    superviseur4.setRole(UserType.SUPERVISEUR);
-    superviseur4.setDepartement("Informatique");
-    superviseur4.setSpecialite("fullstack");
+    Superviseur superviseur4 =
+        new Superviseur(
+            "Audrey",
+            "Jeune",
+            "audrey@gmail.com",
+            "Password1",
+            "82308920938",
+            "Informatique",
+            "fullstack");
 
-    Superviseur superviseur5 = new Superviseur();
-    superviseur5.setPrenom("Jonaik");
-    superviseur5.setNom("Bob");
-    superviseur5.setCourriel("jonaik@gmail.com");
-    superviseur5.setPassword("Password1");
-    superviseur5.setNumTelephone("82308920938");
-    superviseur5.setRole(UserType.SUPERVISEUR);
-    superviseur5.setDepartement("Informatique");
-    superviseur5.setSpecialite("fullstack");
+    Superviseur superviseur5 =
+        new Superviseur(
+            "Jonaik",
+            "Bob",
+            "jonaik@gmail.com",
+            "Password1",
+            "82308920938",
+            "Informatique",
+            "fullstack");
 
-    Superviseur superviseur6 = new Superviseur();
-    superviseur6.setPrenom("Emilie");
-    superviseur6.setNom("Loi");
-    superviseur6.setCourriel("emilie@gmail.com");
-    superviseur6.setPassword("Password1");
-    superviseur6.setNumTelephone("82308920938");
-    superviseur6.setRole(UserType.SUPERVISEUR);
-    superviseur6.setDepartement("Informatique");
-    superviseur6.setSpecialite("fullstack");
+    Superviseur superviseur6 =
+        new Superviseur(
+            "Emilie",
+            "Loi",
+            "emilie@gmail.com",
+            "Password1",
+            "82308920938",
+            "Informatique",
+            "fullstack");
 
-    Superviseur superviseur7 = new Superviseur();
-    superviseur7.setPrenom("Lonzo");
-    superviseur7.setNom("Dagonzo");
-    superviseur7.setCourriel("londagon@example.com");
-    superviseur7.setPassword("Password1");
-    superviseur7.setNumTelephone("3333333333");
-    superviseur7.setDepartement("Informatique");
-    superviseur7.setSpecialite("Réseautage");
+    Superviseur superviseur7 =
+        new Superviseur(
+            "Lonzo",
+            "Dagonzo",
+            "londagon@example.com",
+            "Password1",
+            "3333333333",
+            "Informatique",
+            "Réseautage");
 
     return List.of(
         superviseur,

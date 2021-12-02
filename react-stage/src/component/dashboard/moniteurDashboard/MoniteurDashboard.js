@@ -4,7 +4,7 @@ import UserService from '../../../services/UserService'
 import Offres from '../../Offres/Offres'
 import Entrevue from './Entrevue'
 import FormEntrevue from './FormEntrevue'
-import '../../../Css/DashboardMunger.css'
+import '../../../Css/Dashboard.css'
 
 const MoniteurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -54,7 +54,7 @@ const MoniteurDashboard = () => {
         </tr>)
 
     return (
-        <div className="dashboardMunger">
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>

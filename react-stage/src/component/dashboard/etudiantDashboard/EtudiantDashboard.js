@@ -5,7 +5,7 @@ import VoirCVState from './VoirCVState'
 import ContratService from '../../../services/ContratService'
 import Entrevue from './Entrevue'
 import UserService from '../../../services/UserService'
-import '../../../Css/DashboardMunger.css'
+import '../../../Css/Dashboard.css'
 
 
 const EtudiantDashboard = () => {
@@ -58,7 +58,7 @@ const EtudiantDashboard = () => {
     }
 
     return (
-        <div className="dashboardMunger">
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>

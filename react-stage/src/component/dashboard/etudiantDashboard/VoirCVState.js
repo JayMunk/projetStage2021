@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
 import CVService from '../../../services/CVService'
 import UserService from '../../../services/UserService'
-import '../../../Css/DashboardMunger.css'
+import '../../../Css/Dashboard.css'
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()

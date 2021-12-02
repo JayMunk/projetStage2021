@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
-import '../../../Css/DashboardMunger.css'
+import '../../../Css/Dashboard.css'
 
 const SuperviseurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -48,7 +48,7 @@ const SuperviseurDashboard = () => {
         </tr>)
 
     return (
-        <div className="dashboardMunger">
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>

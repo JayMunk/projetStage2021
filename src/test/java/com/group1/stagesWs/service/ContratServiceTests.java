@@ -89,33 +89,6 @@ public class ContratServiceTests {
     assertThat(returned).isEqualTo(Optional.of(expected));
   }
 
-  @Test
-  void testGetAllMoniteurContrats() {
-    // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(expected);
-
-    // Act
-    var actual = contratService.getAllMoniteurContrats("moniteur@example.com");
-
-    // Assert
-    assertThat(actual.size()).isEqualTo(expected.size());
-  }
-
-  @Test
-  void testGetAllSuperviseurEtudiantContrats() {
-    // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString()))
-        .thenReturn(expected);
-
-    // Act
-    var actual = contratService.getAllSuperviseurEtudiantContrats("superviseur@example.com");
-
-    // Assert
-    assertThat(actual.size()).isEqualTo(expected.size());
-  }
-
   private Etudiant getEtudiant() {
     return new Etudiant(
         "Pascal",

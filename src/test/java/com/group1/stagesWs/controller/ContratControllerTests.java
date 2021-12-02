@@ -132,38 +132,6 @@ public class ContratControllerTests {
     assertThat(actualContrat).isEqualTo(expected);
   }
 
-  @Test
-  void testGetAllMoniteurContrats() throws Exception {
-    // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratService.getAllMoniteurContrats(anyString())).thenReturn(expected);
-
-    // Act
-    MvcResult result =
-        mockMvc.perform(get("/contrats/moniteur/courriel/moniteur@example.com")).andReturn();
-
-    // Assert
-    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
-    assertThat(actual.size()).isEqualTo(expected.size());
-  }
-
-  @Test
-  void testGetAllSuperviseurEtudiantContrats() throws Exception {
-    // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratService.getAllSuperviseurEtudiantContrats(anyString())).thenReturn(expected);
-
-    // Act
-    MvcResult result =
-        mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com")).andReturn();
-
-    // Assert
-    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
-    assertThat(actual.size()).isEqualTo(expected.size());
-  }
-
   private Etudiant getEtudiant() {
     return new Etudiant(
         "Pascal",

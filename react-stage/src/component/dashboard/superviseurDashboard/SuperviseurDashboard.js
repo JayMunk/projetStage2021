@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
+import '../../../Css/DashboardMunger.css'
 
 const SuperviseurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -33,7 +34,7 @@ const SuperviseurDashboard = () => {
             })
 
         }
-    }, []);
+    }, [])
 
     const getEtudiants = async (id) => {
         const dbEtudiants = await UserService.getListEtudiantSuperviseur(id)
@@ -44,12 +45,12 @@ const SuperviseurDashboard = () => {
         <tr key={etudiant.id.toString()}>
             <td>{etudiant.prenom} {etudiant.nom}</td>
             <td>{etudiant.courriel}</td>
-        </tr>);
+        </tr>)
 
     return (
-        <>
+        <div className="dashboardMunger">
             <div>
-                <h2>Bonjour {fullUser.prenom} {fullUser.nom}</h2>
+                <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
             {listEtudiants.length > 0 ?
                 <div>
@@ -66,7 +67,7 @@ const SuperviseurDashboard = () => {
                 :
                 <p className="superviseurDashboard_P">Vous etes responsable d'aucun étudiant pour l'instant</p>
             }
-        </>
+        </div>
     )
 }
 

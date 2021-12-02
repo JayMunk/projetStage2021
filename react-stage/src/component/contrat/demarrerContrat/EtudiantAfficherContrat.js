@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { UserInfoContext } from '../../../contexts/UserInfo';
-import ContratService from '../../../services/ContratService';
+import { UserInfoContext } from '../../../contexts/UserInfo'
+import ContratService from '../../../services/ContratService'
+import '../../../Css/FormMunger.css'
 
 const EtudiantAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -16,15 +17,15 @@ const EtudiantAfficherContrat = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         const date = new Date()
-        contrat.dateSignatureEtudiant = date.toISOString().split('T')[0];
+        contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
         contrat.etudiantConfirmed = true
         const newContrat = await ContratService.saveContrat(contrat)
         setContrat(newContrat)
     }
 
     return (
-        <form className="form" id="txtform" onSubmit={handleSubmit}>
-            <h2>Démarrer contrat</h2>
+        <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+            <h1>Démarrer contrat</h1>
 
             <div className="form-inputs">
                 <label htmlFor="collegeEngagement"

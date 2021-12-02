@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { UserInfoContext } from './../../../contexts/UserInfo';
+import { UserInfoContext } from './../../../contexts/UserInfo'
 import ContratService from '../../../services/ContratService'
 import OffreService from '../../../services/OffreService'
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 
 const NewContrat = () => {
-    const history = useHistory();
+    const history = useHistory()
     const [loggedUser] = useContext(UserInfoContext)
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
@@ -16,7 +16,7 @@ const NewContrat = () => {
 
     useEffect(() => {
 
-        if (!loggedUser.isLoggedIn && loggedUser.role != "GESTIONNAIRE") history.push("/login")
+        if (!loggedUser.isLoggedIn) history.push("/login")
 
         const getOffres = async () => {
             let dbOffres
@@ -57,7 +57,7 @@ const NewContrat = () => {
         let listIdEtudiantsAlreadyContracted = getListIdEtudiantsAlreadyContracted(listEtudiantsAlreadyContracted)
         let listIdApplicants = getListIdApplicants(listApplicants)
 
-        listIdApplicants = listIdApplicants.filter(idApplicant => !listIdEtudiantsAlreadyContracted.includes(idApplicant));
+        listIdApplicants = listIdApplicants.filter(idApplicant => !listIdEtudiantsAlreadyContracted.includes(idApplicant))
 
         let tempListEtudiant = []
         listApplicants.forEach(applicant => {
@@ -153,8 +153,8 @@ const NewContrat = () => {
 
     return (
         <body id="body">
-            <form className="form" id="txtform" onSubmit={handleSubmit}>
-                <h2>Créez un nouveau contrat</h2>
+            <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+                <h1>Créez un nouveau contrat</h1>
 
 
                 <div className="form-inputs">

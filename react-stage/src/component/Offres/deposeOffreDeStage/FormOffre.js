@@ -1,10 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react"
 import { UserInfoContext } from '../../../contexts/UserInfo'
-import { useHistory } from "react-router-dom";
-import OffreService from '../../../services/OffreService';
+import { useHistory } from "react-router-dom"
+import OffreService from '../../../services/OffreService'
+import '../../../Css/FormMunger.css'
 
 const FormOffre = () => {
-    const history = useHistory();
+    const history = useHistory()
     const [loggedUser] = useContext(UserInfoContext)
     const [values, setValues] = useState({
         titre: "",
@@ -24,8 +25,7 @@ const FormOffre = () => {
     const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
-        console.log(!loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR"))
-        if (!loggedUser.isLoggedIn && !(loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR")) history.push("/login")
+        if (!loggedUser.isLoggedIn) history.push("/login")
     }, [values])
 
     const handleChange = e => {
@@ -41,7 +41,7 @@ const FormOffre = () => {
     }
 
     const handleSubmit = async e => {
-        e.preventDefault();
+        e.preventDefault()
         setErrors(checkError(values))
         setSubmitted(true)
         if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
@@ -103,8 +103,8 @@ const FormOffre = () => {
 
     return (
         <body id="body">
-            <form className="form" onSubmit={handleSubmit}>
-                <h2>Créez votre offre de stage dès maintenant!</h2>
+            <form className="form formMunger" onSubmit={handleSubmit}>
+                <h1>Créez votre offre de stage dès maintenant!</h1>
 
                 <div className="form-inputs">
                     <label htmlFor="titre"

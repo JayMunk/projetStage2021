@@ -2,27 +2,22 @@ const urlBase = 'http://localhost:9191/contrats'
 
 const ContratService = {
 
-    getContrat: async (email) => {
-        //const res = await fetch(url + email)
-        //const data = await res.json()
-        //return data
-    },
     getAllContrats: async () => {
-        const res = await fetch(urlBase);
-        const data = await res.json();
-        return data;
+        const res = await fetch(urlBase)
+        const data = await res.json()
+        return data
     },
 
     getContratsByMoniteurEmail: async (email) => {
-        const res = await fetch(urlBase + '/moniteur/' + email);
-        const data = await res.json();
-        return data;
+        const res = await fetch(urlBase + '/moniteur/' + email)
+        const data = await res.json()
+        return data
     },
 
     getContratsByEtudiantEmail: async (email) => {
-        const res = await fetch(urlBase + '/etudiant/' + email);
-        const data = await res.json();
-        return data;
+        const res = await fetch(urlBase + '/etudiant/' + email)
+        const data = await res.json()
+        return data
     },
 
     saveContrat: async (values) => {

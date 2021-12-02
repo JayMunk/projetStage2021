@@ -1,14 +1,15 @@
 import { React, useState, useContext, useEffect } from 'react'
-import { UserInfoContext } from '../../../contexts/UserInfo';
+import { UserInfoContext } from '../../../contexts/UserInfo'
 import { saveAs } from 'file-saver'
 import { Link } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
-import CVService from '../../../services/CVService';
-import UserService from '../../../services/UserService';
+import CVService from '../../../services/CVService'
+import UserService from '../../../services/UserService'
+import '../../../Css/DashboardMunger.css'
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
-    const [cvs, setCvs] = useState([]);
+    const [cvs, setCvs] = useState([])
     const [loggedUser] = useContext(UserInfoContext)
 
     const updateCvs = async () => {
@@ -41,7 +42,7 @@ const VoirCVState = () => {
             case "REJECTED":
                 return <AiOutlineCloseCircle color="red" size="48px" />
             default:
-                return;
+                return
         }
     }
 
@@ -66,10 +67,10 @@ const VoirCVState = () => {
         <tr key={cv.id.toString()}>
             <td>{cv.nom}</td>
             <td>{cv.dateSoumission}</td>
-            <td><button onClick={() => deleteCV(cv)}>effacer</button></td>
-            <td><button onClick={() => download(cv)}>télécharger</button></td>
+            <td className="etudiantDashboardButton"><button onClick={() => deleteCV(cv)} >effacer</button></td>
+            <td className="etudiantDashboardButton"><button onClick={() => download(cv)} >télécharger</button></td>
             <td>{getStatusIcon(cv.status)}</td>
-        </tr>);
+        </tr>)
 
 
     return (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import ContratService from '../../../services/ContratService'
+import '../../../Css/FormMunger.css'
 
 const MoniteurAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -78,7 +79,7 @@ const MoniteurAfficherContrat = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         const date = new Date()
-        contrat.dateSignatureMoniteur = date.toISOString().split('T')[0];
+        contrat.dateSignatureMoniteur = date.toISOString().split('T')[0]
         contrat.moniteurConfirmed = true
         const newContrat = await ContratService.saveContrat(contrat)
         setContrat(newContrat)
@@ -87,8 +88,8 @@ const MoniteurAfficherContrat = () => {
 
 
     return (
-        <form className="form" id="txtform" onSubmit={handleSubmit}>
-            <h2>Démarrer contrat</h2>
+        <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+            <h1>Démarrer contrat</h1>
 
             <div className="form-inputs">
                 <label htmlFor="offre"

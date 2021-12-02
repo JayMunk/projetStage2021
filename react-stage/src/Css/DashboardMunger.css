@@ -1,0 +1,40 @@
+.dashboardMunger table {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dashboardMunger table th {
+    padding: auto;
+    background-color: gray;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.dashboardMunger table td {
+    padding: 5px;
+    background-color: #DBB2FF;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.dashboardMunger h2,
+.dashboardMunger h1 {
+    text-align: center;
+    padding-top: 25px;
+    color: #DBB2FF;
+}
+
+.etudiantDashboardButton button {
+    background: #DBB2FF;
+    color: #161616;
+    cursor: pointer;
+    align-items: center;
+    border: none;
+}
+
+
+.superviseurDashboard_P {
+    text-align: center;
+    color: #F08080;
+}

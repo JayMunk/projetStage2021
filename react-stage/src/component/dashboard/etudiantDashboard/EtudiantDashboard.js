@@ -5,6 +5,7 @@ import VoirCVState from './VoirCVState'
 import ContratService from '../../../services/ContratService'
 import Entrevue from './Entrevue'
 import UserService from '../../../services/UserService'
+import '../../../Css/DashboardMunger.css'
 
 
 const EtudiantDashboard = () => {
@@ -48,7 +49,7 @@ const EtudiantDashboard = () => {
             })
 
         }
-    }, []);
+    }, [])
 
     const getContrat = async (courriel) => {
         const dbContrat = await ContratService.getContratsByEtudiantEmail(courriel)
@@ -57,9 +58,9 @@ const EtudiantDashboard = () => {
     }
 
     return (
-        <>
+        <div className="dashboardMunger">
             <div>
-                <h2>Bonjour {fullUser.prenom} {fullUser.nom}</h2>
+                <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
             <div>
                 <h2>État de vos CV</h2>
@@ -110,7 +111,7 @@ const EtudiantDashboard = () => {
                     null
                 }
             </div>
-        </>
+        </div>
     )
 }
 

@@ -4,6 +4,7 @@ import UserService from '../../../services/UserService'
 import Offres from '../../Offres/Offres'
 import Entrevue from './Entrevue'
 import FormEntrevue from './FormEntrevue'
+import '../../../Css/DashboardMunger.css'
 
 const MoniteurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -39,7 +40,7 @@ const MoniteurDashboard = () => {
             })
 
         }
-    }, []);
+    }, [])
 
     const getGestionnaires = async () => {
         const gestionnaires = await UserService.getGestionnaires()
@@ -50,12 +51,12 @@ const MoniteurDashboard = () => {
         <tr key={gestionnaire.id.toString()}>
             <td>{gestionnaire.prenom} {gestionnaire.nom}</td>
             <td>{gestionnaire.courriel}</td>
-        </tr>);
+        </tr>)
 
     return (
-        <>
+        <div className="dashboardMunger">
             <div>
-                <h2>Bonjour {fullUser.prenom} {fullUser.nom}</h2>
+                <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
 
             <div>
@@ -71,7 +72,7 @@ const MoniteurDashboard = () => {
             <Offres />
             <FormEntrevue handleReloadList={handleReloadList} />
             <Entrevue reloadList={reloadList} handleReloadList={handleReloadList} />
-        </>
+        </div>
     )
 }
 

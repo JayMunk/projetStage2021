@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import { UserInfoContext } from './../../../contexts/UserInfo';
-import GestionnaireAfficherContrat from './GestionnaireAfficherContrat';
-import EtudiantAfficherContrat from './EtudiantAfficherContrat';
-import MoniteurAfficherContrat from './MoniteurAfficherContrat';
-import { useHistory } from "react-router-dom";
+import { UserInfoContext } from './../../../contexts/UserInfo'
+import GestionnaireAfficherContrat from './GestionnaireAfficherContrat'
+import EtudiantAfficherContrat from './EtudiantAfficherContrat'
+import MoniteurAfficherContrat from './MoniteurAfficherContrat'
+import { useHistory } from "react-router-dom"
 
 const AfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
-    const history = useHistory();
+    const history = useHistory()
 
-    if (!loggedUser.isLoggedIn && !(loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR")) history.push("/login")
+    if (!loggedUser.isLoggedIn) history.push("/login")
 
 
     return (

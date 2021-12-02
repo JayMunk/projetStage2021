@@ -4,12 +4,12 @@ import EtudiantDashboard from './etudiantDashboard/EtudiantDashboard'
 import DashboardGestionnaire from './gestionnaireDashboard/DashboardGestionnaire'
 import SuperviseurDashboard from './superviseurDashboard/SuperviseurDashboard'
 import MoniteurDashboard from './moniteurDashboard/MoniteurDashboard'
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 
 
 const Dashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
-    const history = useHistory();
+    const history = useHistory()
 
     if (!loggedUser.isLoggedIn) history.push("/login")
 

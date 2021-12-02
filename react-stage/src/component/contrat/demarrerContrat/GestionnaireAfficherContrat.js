@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ContratService from '../../../services/ContratService'
+import '../../../Css/FormMunger.css'
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -102,15 +103,15 @@ const GestionnaireAfficherContrat = () => {
         setErrors(checkError(contrat))
         if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
             const date = new Date()
-            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0];
+            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
             contrat.gestionnaireConfirmed = true
             await ContratService.saveContrat(contrat)
         }
     }
 
     return (
-        <form className="form" id="txtform" onSubmit={handleSubmit}>
-            <h2>Démarrer contrat</h2>
+        <form className="form" id="txtform" className="formMunger" onSubmit={handleSubmit}>
+            <h1>Démarrer contrat</h1>
 
             <div className="form-inputs">
                 <label htmlFor="offre"

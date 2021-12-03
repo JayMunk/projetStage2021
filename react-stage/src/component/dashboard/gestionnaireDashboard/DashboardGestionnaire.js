@@ -26,7 +26,6 @@ const DashboardGestionnaire = () => {
       <div className="bottomLeft">
         <Moniteurs />
         <Superviseurs />
-        <Offres />
         <Entrevues />
         <Contrats />
         <EvulationEntreprise />

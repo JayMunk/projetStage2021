@@ -249,30 +249,34 @@ const Offres = () => {
             <table className="table border table-dark">
               <thead>
                 <tr>
-                  <th colSpan="3">Titre</th>
-                  <th colSpan="3">Entreprise</th>
-                  {loggedUser.role !== "ETUDIANT" && (
-                    <th colSpan="1">Valide</th>
-                  )}
-                  <th></th>
+                  <th colSpan="3">
+                    Titre
+                  </th>
+                  <th colSpan="3">
+                    Entreprise
+                  </th>
+                  <th colSpan="1">
+                    Détails
+                  </th>
+                  {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
                 </tr>
               </thead>
               <tbody>
                 {loggedUser.role === "ETUDIANT"
                   ? listOffres.map((offre) => (
-                      <tr className="text-white" key={offre.id.toString()}>
-                        <td colSpan="3">{offre.titre}</td>
-                        <td colSpan="3">{offre.entreprise}</td>
-                        <td colSpan="1">
-                          <input
-                            type="button"
-                            onClick={() => onClickOffre(offre)}
-                            value="Détails"
-                            className="p-1 btn-secondary"
-                          />
-                        </td>
-                      </tr>
-                    ))
+                    <tr className="text-white" key={offre.id.toString()}>
+                      <td colSpan="3">{offre.titre}</td>
+                      <td colSpan="3">{offre.entreprise}</td>
+                      <td colSpan="2">
+                        <input
+                          type="button"
+                          onClick={() => onClickOffre(offre)}
+                          value="Détails"
+                          className="btn btn-secondary"
+                        />
+                      </td>
+                    </tr>
+                  ))
                   : listOffres.map((offre) => (
                       <tr className="text-white" key={offre.id.toString()}>
                         <td colSpan="3">{offre.titre}</td>

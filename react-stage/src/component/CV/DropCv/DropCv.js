@@ -193,7 +193,7 @@ const DropCv = () => {
           </thead>
           <tbody>{cvList}</tbody>
         </Table>
-      ) : null}
+      ) : <h3 className="text-center mt-4 text-warning">Cet étdudiant n'a aucun cv</h3>}
 
 
     </body>

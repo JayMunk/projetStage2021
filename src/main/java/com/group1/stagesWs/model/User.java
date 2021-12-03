@@ -36,7 +36,8 @@ public class User implements Serializable {
   protected LocalDate dateCreation;
   protected String session;
 
-  @OneToMany protected List<Notification> notifications = new ArrayList<>();
+  @OneToMany
+  protected List<Notification> notifications = new ArrayList<>();
 
   public User() {
     dateCreation = LocalDate.now();

@@ -7,10 +7,11 @@ import com.group1.stagesWs.model.EvaluationEntreprise;
 import com.group1.stagesWs.model.EvaluationEtudiant;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ContratService extends SessionManager<Contrat> {
@@ -31,16 +32,6 @@ public class ContratService extends SessionManager<Contrat> {
 
   public Optional<Contrat> saveContrat(Contrat contrat) {
     return Optional.of(contratRepository.save(contrat));
-  }
-
-  public List<Contrat> getAllMoniteurContrats(String moniteurCourriel) {
-    return getListForCurrentSession(
-        contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteurCourriel));
-  }
-
-  public List<Contrat> getAllSuperviseurEtudiantContrats(String superviseurCourriel) {
-    return getListForCurrentSession(
-        contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(superviseurCourriel));
   }
 
   public List<Contrat> getMoniteurContratsToEvaluate(String moniteurCourriel) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EvaluationEtudiantRepository extends JpaRepository<EvaluationEtudiant, Integer> {
+
   List<EvaluationEtudiant> findAllBySession(String session);
 
   List<EvaluationEtudiant> findAllByContratEtudiantId(int etudiantId);

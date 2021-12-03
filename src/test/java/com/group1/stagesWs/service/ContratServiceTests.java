@@ -5,28 +5,38 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.group1.stagesWs.model.Contrat;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class ContratServiceTests {
 
-  @Mock private ContratRepository contratRepository;
+  @Mock
+  private ContratRepository contratRepository;
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @InjectMocks private ContratService contratService;
+  @Mock
+  private EvaluationService evaluationService;
+  
+  @InjectMocks
+  private ContratService contratService;
 
   @Test
   void testGetAllContrats() {
@@ -88,30 +98,49 @@ public class ContratServiceTests {
   }
 
   @Test
-  void testGetAllMoniteurContrats() {
+  void testGetMoniteurContratsToEvaluate() {
     // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(expected);
+    Contrat evaluated = getContrat();
+    evaluated.setId(1);
+    EvaluationEtudiant evaluation = new EvaluationEtudiant();
+    evaluation.setContrat(evaluated);
+    Contrat notEvaluated1 = getContrat();
+    notEvaluated1.setId(2);
+    Contrat notEvaluated2 = getContrat();
+    notEvaluated2.setId(3);
+    List<EvaluationEtudiant> evaluations = List.of(evaluation);
+    List<Contrat> allContrats = List.of(evaluated, notEvaluated1, notEvaluated2);
+    when(evaluationService.getAllCurrentEtudiantEvals()).thenReturn(evaluations);
+    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(allContrats);
 
     // Act
-    var actual = contratService.getAllMoniteurContrats("moniteur@example.com");
+    var actual = contratService.getMoniteurContratsToEvaluate("moniteur@example.com");
 
     // Assert
-    assertThat(actual.size()).isEqualTo(expected.size());
+    assertThat(actual.size()).isEqualTo(2);
   }
 
   @Test
-  void testGetAllSuperviseurEtudiantContrats() {
+  void testGetSuperviseurContratsToEvaluate() {
     // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString()))
-        .thenReturn(expected);
+    Contrat evaluated = getContrat();
+    evaluated.setId(1);
+    EvaluationEntreprise evaluation = new EvaluationEntreprise();
+    evaluation.setContrat(evaluated);
+    Contrat notEvaluated1 = getContrat();
+    notEvaluated1.setId(2);
+    Contrat notEvaluated2 = getContrat();
+    notEvaluated2.setId(3);
+    List<EvaluationEntreprise> evaluations = List.of(evaluation);
+    List<Contrat> allContrats = List.of(evaluated, notEvaluated1, notEvaluated2);
+    when(evaluationService.getAllCurrentEntrepriseEvals()).thenReturn(evaluations);
+    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString())).thenReturn(allContrats);
 
     // Act
-    var actual = contratService.getAllSuperviseurEtudiantContrats("superviseur@example.com");
+    var actual = contratService.getSuperviseurContratsToEvaluate("moniteur@example.com");
 
     // Assert
-    assertThat(actual.size()).isEqualTo(expected.size());
+    assertThat(actual.size()).isEqualTo(2);
   }
 
   private Etudiant getEtudiant() {
@@ -149,7 +178,8 @@ public class ContratServiceTests {
         "2022-1-05",
         "2022-4-05",
         13,
-        "9:00 a 5:00",
+        LocalTime.of(9, 0),
+        LocalTime.of(17, 0),
         40,
         22);
   }

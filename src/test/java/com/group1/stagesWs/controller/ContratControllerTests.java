@@ -1,11 +1,5 @@
 package com.group1.stagesWs.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Contrat;
@@ -13,8 +7,6 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.service.ContratService;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +19,27 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 @ContextConfiguration(
     classes = ContratController.class,
     initializers = ConfigFileApplicationContextInitializer.class)
 @WebMvcTest(ContratController.class)
 public class ContratControllerTests {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private ContratService contratService;
+  @MockBean
+  private ContratService contratService;
 
   private static ObjectMapper mapper;
 
@@ -131,14 +135,14 @@ public class ContratControllerTests {
   }
 
   @Test
-  void testGetAllMoniteurContrats() throws Exception {
+  void testMoniteurContratsToEvaluate() throws Exception {
     // Arrange
     List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratService.getAllMoniteurContrats(anyString())).thenReturn(expected);
+    when(contratService.getMoniteurContratsToEvaluate(anyString())).thenReturn(expected);
 
     // Act
     MvcResult result =
-        mockMvc.perform(get("/contrats/moniteur/courriel/moniteur@example.com")).andReturn();
+            mockMvc.perform(get("/contrats/moniteur/courriel/moniteur@example.com/toEvaluate")).andReturn();
 
     // Assert
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
@@ -147,14 +151,14 @@ public class ContratControllerTests {
   }
 
   @Test
-  void testGetAllSuperviseurEtudiantContrats() throws Exception {
+  void testGetSuperviseurContratsToEvaluate() throws Exception {
     // Arrange
     List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratService.getAllSuperviseurEtudiantContrats(anyString())).thenReturn(expected);
+    when(contratService.getSuperviseurContratsToEvaluate(anyString())).thenReturn(expected);
 
     // Act
     MvcResult result =
-        mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com")).andReturn();
+            mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com/toEvaluate")).andReturn();
 
     // Assert
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
@@ -197,7 +201,8 @@ public class ContratControllerTests {
         "2022-1-05",
         "2022-4-05",
         13,
-        "9:00 a 5:00",
+        LocalTime.of(9, 0),
+        LocalTime.of(17, 0),
         40,
         22);
   }

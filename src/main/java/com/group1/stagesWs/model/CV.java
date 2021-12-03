@@ -25,14 +25,17 @@ public class CV implements Serializable {
   private LocalDate dateSoumission;
   private Status status;
   private String session;
+  private boolean defaultCV;
 
-  @Lob private byte[] data;
+  @Lob
+  private byte[] data;
 
-  @ManyToOne private Etudiant etudiant;
+  @ManyToOne
+  private Etudiant etudiant;
 
   public CV() {
     this.dateSoumission = LocalDate.now();
-
+    this.defaultCV = true;
     this.status = Status.PENDING;
     this.session = SessionManager.CURRENT_SESSION.getNomSession();
   }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { Col, Row } from 'react-bootstrap';
 import UserService from '../../services/UserService';
 
 const AllSessionSuperviseur = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
@@ -46,10 +47,10 @@ const AllSessionSuperviseur = ({ reloadList, getListForSpecificSession, elements
     ));
 
     return (
-        <>
-            <table>
+        <div>
+            <table className="table table-dark">
                 <tr>
-                    <th colSpan="2">Superviseurs All Sessions</th>
+                    <th colSpan="3">Superviseurs All Sessions</th>
                 </tr>
                 <tr>
                     <th>Prénom/Nom</th>
@@ -57,20 +58,25 @@ const AllSessionSuperviseur = ({ reloadList, getListForSpecificSession, elements
                     <th>Session</th>
                 </tr>
                 <tbody>{superviseursList}</tbody>
-                <tr>
-                    <td className="hoverButton">
-                        <button onClick={previousPage} className="button">
-                            «
-                        </button>
-                    </td>
-                    <td className="hoverButton">
-                        <button onClick={nextPage} className="button">
-                            »
-                        </button>
-                    </td>
-                </tr>
             </table>
-        </>
+            {superviseursVisible.length == 0 &&
+                <h3 className="text-center text-warning">Aucun superviseur visible pour la sélection choisie</h3>
+            }
+            <Row className="mb-4">
+                <Col lg="5" sm="5" className="hoverButton">
+                    <button onClick={previousPage} className="btn bg-dark text-white">
+                        «
+                    </button>
+                </Col>
+                <Col lg="2" sm="2"></Col>
+                <Col lg="5" sm="5" className="hoverButton">
+                    <button onClick={nextPage} className="btn bg-dark text-white">
+                        »
+                    </button>
+                </Col>
+            </Row>
+            <br />
+        </div>
     );
 }
 

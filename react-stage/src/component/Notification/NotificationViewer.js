@@ -1,27 +1,30 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo'
-import UserService from '../../services/UserService'
-import NotificationService from '../../services/NotificationService'
 import Notification from './Notification'
+import { useHistory } from 'react-router-dom'
+import { Col, Row } from 'react-bootstrap'
+
 
 const NotificationViewer = () => {
+    const history = useHistory()
     const [listNotifs, setListNotifs] = useState([])
     const [listUnchecked, setListUnchecked] = useState([])
     const [listChecked, setListChecked] = useState([])
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
-    const [reload, setReload] = useState(false)
+    const [reload, setReload] = useState(true)
     const [checkedVisible, setCheckedVisible] = useState([])
     const [uncheckedVisible, setUncheckedVisible] = useState([])
     const [pageNumberChecked, setPageNumberChecked] = useState(0);
     const [pageNumberUnchecked, setPageNumberUnchecked] = useState(0);
     const elementsPerPage = 3
 
-
+    useEffect(() => {
+        console.log(pageNumberChecked, "page number Checked")
+    }, [pageNumberChecked])
 
     useEffect(async () => {
         if (reload) {
-            await getNotifications()
-            // console.log(listNotifs, "listNotifs")
+            getNotifications()
             getCheckedNotifs(listNotifs)
             getUncheckedNotifs(listNotifs)
             setReload(false)
@@ -29,48 +32,27 @@ const NotificationViewer = () => {
     })
 
 
+    const getNotifications = () => {
+        setListNotifs(loggedUser.notifications)
+    }
+
+
+    useEffect(() => {
+        getNotifications()
+        setReload(true)
+    }, [loggedUser])
+
+
     useEffect(async () => {
-        await getNotifications()
+        if (!loggedUser.isLoggedIn) history.push("/")
+        getNotifications()
         getCheckedNotifs(listNotifs)
         getUncheckedNotifs(listNotifs)
         setReload(true)
-        let interval = setInterval(() => setReload(true), 60000)
-        //destroy interval on unmount
-        return () => clearInterval(interval)
     }, [])
 
 
-    const getNotifications = async () => {
-        if (loggedUser.isLoggedIn) {
-            const fullUser = await getFullUser()
-            if (fullUser != null) {
-                let notifications = []
-                switch (loggedUser.role) {
-                    case "ETUDIANT":
-                        notifications = await NotificationService.getAllNotificationByEtudiant(fullUser.id)
-                        // console.log(notifications, "PRESORTING")
-                        setListNotifs(notifications)
-                        // console.log(sortNotifs(notifications), "POST SORTING")
-                        break
-                    case "SUPERVISEUR":
-                        notifications = await NotificationService.getAllNotificationBySuperviseur(fullUser.id)
-                        setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs superv")
-                        break
-                    case "MONITEUR":
-                        notifications = await NotificationService.getAllNotificationByMoniteur(fullUser.id)
-                        setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs Moniteur")
-                        break
-                    case "GESTIONNAIRE":
-                        notifications = await NotificationService.getAllNotificationGestionnaire()
-                        setListNotifs(notifications)
-                        // console.log(notifications, "setting notifs gestionnaire")
-                        break
-                }
-            }
-        }
-    }
+
 
     const sortNotifs = (listNotifications) => {
         return listNotifications.sort((notif1, notif2) => sortingByUrgency(notif1, notif2))
@@ -96,7 +78,6 @@ const NotificationViewer = () => {
                     return notif
                 }
             })
-            // console.log(uncheckedNotifs, "uncheckednotifs")
             setListUnchecked(uncheckedNotifs)
             setUncheckedVisible(sortNotifs(uncheckedNotifs.slice(0, elementsPerPage)))
             return
@@ -113,7 +94,6 @@ const NotificationViewer = () => {
                     return notif
                 }
             })
-            // console.log(checkedNotifs, "checkedNotifs")
             setListChecked(checkedNotifs)
             setCheckedVisible(sortNotifs(checkedNotifs.slice(0, elementsPerPage)))
             return
@@ -130,13 +110,14 @@ const NotificationViewer = () => {
     };
 
     const nextPageChecked = () => {
+        console.log(listChecked.length)
         if (elementsPerPage * (pageNumberChecked + 1) >= listChecked.length) return;
         updateListChecked(pageNumberChecked + 1);
         setPageNumberChecked(pageNumberChecked + 1);
     };
 
     const previousPageChecked = () => {
-        if (pageNumberUnchecked === 0) return;
+        if (pageNumberChecked === 0) return;
         updateListChecked(pageNumberChecked - 1);
         setPageNumberChecked(pageNumberChecked - 1);
     };
@@ -163,47 +144,61 @@ const NotificationViewer = () => {
         setReload(true)
     }
 
-    const getFullUser = async () => {
-        return await UserService.getUserByEmail(loggedUser.courriel)
-    }
     return (
-        <div>
-            <h1 className="text-center">Unchecked Notifications</h1>
+        <div className="text-muted mb-4">
+            <h1 className="text-center">Notifications Non Vérifiées</h1>
             {uncheckedVisible.map((notification) =>
-                <div>
+                <div className="text-center">
                     <Notification key={notification.id} notification={notification} forceReload={forceReload} />
                     <br />
                 </div>
             )}
-            <div className="row">
-                <div className="col-3"></div>
-                <button onClick={previousPageUnchecked} className="btn bg-secondary col-3 m-1">
-                    «
-                </button>
-                <button onClick={nextPageUnchecked} className="btn bg-secondary col-3 m-1">
-                    »
-                </button>
-                <div className="col-3"></div>
-            </div>
+            {listUnchecked != 0 ?
+                <Row>
+                    <Col sm="0" lg="3"></Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={previousPageUnchecked} className="btn bg-secondary m-1">
+                            «
+                        </button>
+                    </Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={nextPageUnchecked} className="btn bg-secondary m-1">
+                            »
+                        </button>
+                    </Col>
+                    <Col sm="0" lg="3"></Col>
+                </Row>
+                :
+                <h4 className="text-center">Aucune notification non vérifiée.</h4>
+            }
+            <br />
+            <hr />
 
-            <h1 className="text-center">Checked Notifications</h1>
+            <h1 className="text-center mt-4">Notifications Vérifiées</h1>
             {checkedVisible.map((notification) =>
-                <div>
+                <div className="text-center">
                     <Notification key={notification.id} notification={notification} forceReload={forceReload} />
                     <br />
                 </div>
             )}
-            <div className="row">
-                <div className="col-3"></div>
-                <button onClick={previousPageChecked} className="btn bg-secondary col-3 m-1">
-                    «
-                </button>
-                <button onClick={nextPageChecked} className="btn bg-secondary col-3 m-1">
-                    »
-                </button>
-                <div className="col-3"></div>
-            </div>
-
+            {listChecked != 0 ?
+                <Row className="text-center">
+                    <Col sm="0" lg="3"></Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={previousPageChecked} className="btn bg-secondary m-1">
+                            «
+                        </button>
+                    </Col>
+                    <Col sm="6" lg="3">
+                        <button onClick={nextPageChecked} className="btn bg-secondary m-1">
+                            »
+                        </button>
+                    </Col>
+                    <Col sm="0" lg="3"></Col>
+                </Row>
+                :
+                <h4 className="text-center">Aucune notification vérifiée.</h4>
+            }
 
         </div>
     )

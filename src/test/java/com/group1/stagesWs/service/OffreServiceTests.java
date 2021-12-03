@@ -1,10 +1,5 @@
 package com.group1.stagesWs.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
-
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Notification;
@@ -12,27 +7,41 @@ import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class OffreServiceTests {
-  @Mock private OffreRepository offreRepository;
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private OffreRepository offreRepository;
 
-  @Mock private MoniteurRepository moniteurRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @Mock private UserService userService;
+  @Mock
+  private MoniteurRepository moniteurRepository;
 
-  @Mock private NotificationService notificationService;
+  @Mock
+  private UserService userService;
 
-  @InjectMocks private OffreService service;
+  @Mock
+  private NotificationService notificationService;
+
+  @InjectMocks
+  private OffreService service;
 
   @Test
   void testGetAllOffres() {
@@ -62,7 +71,7 @@ public class OffreServiceTests {
         .get(0)
         .setSession(
             "HIVER-2021"); // Changement de la session a une sesion differente que la session
-                           // actuelle
+    // actuelle
     when(offreRepository.findAll()).thenReturn(expected);
 
     // Act
@@ -170,7 +179,8 @@ public class OffreServiceTests {
         "2022-1-05",
         "2022-4-05",
         13,
-        "9:00 a 5:00",
+        LocalTime.of(9, 0),
+        LocalTime.of(17, 0),
         40,
         22);
   }
@@ -191,5 +201,50 @@ public class OffreServiceTests {
         "123456",
         true,
         true);
+  }
+
+  @Test
+  void testGetAllOffresValide() {
+    // Arrange
+    Offre offre1 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    Offre offre2 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    Offre offre3 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    offre1.setValid(true);
+    offre2.setValid(true);
+    offre3.setValid(true);
+
+    offre3.setSession("AUT-2021");
+
+    List<Offre> listOffre = List.of(offre1, offre2, offre3);
+    when(offreRepository.findAllByIsValidTrue()).thenReturn(listOffre);
+
+    // Act
+    List<Offre> returned = service.getOffreValide();
+
+    // Assert
+    assertThat(returned.size())
+        .isEqualTo(3 - 1);
+  }
+
+  @Test
+  void testGetAllOffresInvalide() {
+    // Arrange
+    Offre offre1 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    Offre offre2 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+
+    offre1.setValid(false);
+    offre2.setValid(false);
+
+    offre2.setSession("AUT-2021");
+
+    List<Offre> listOffre = List.of(offre1, offre2);
+    when(offreRepository.findAllByIsValidFalse()).thenReturn(listOffre);
+
+    // Act
+    List<Offre> returned = service.getOffreInvalide();
+
+    // Assert
+    assertThat(returned.size())
+        .isEqualTo(2 - 1);
   }
 }

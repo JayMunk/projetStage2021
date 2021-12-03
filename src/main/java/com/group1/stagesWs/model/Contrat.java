@@ -35,11 +35,14 @@ public class Contrat implements Serializable {
 
   private String session;
 
-  @ManyToOne private Offre offre;
+  @ManyToOne
+  private Offre offre;
 
-  @OneToOne private Etudiant etudiant;
+  @OneToOne
+  private Etudiant etudiant;
 
-  @ManyToOne private Moniteur moniteur;
+  @ManyToOne
+  private Moniteur moniteur;
 
   public Contrat() {
     this.dateCreation = LocalDate.now();

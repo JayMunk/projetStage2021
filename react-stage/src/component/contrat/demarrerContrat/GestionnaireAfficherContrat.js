@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { UserInfoContext } from '../../../contexts/UserInfo'
+import React, { useState, useEffect } from 'react'
 import ContratService from '../../../services/ContratService'
-import validateInfoDemarrerContrat from './validateInfoDemarrerContrat'
+import '../../../Css/FormContratOffre.css'
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -20,10 +19,19 @@ const GestionnaireAfficherContrat = () => {
     const getOffres = (listContrats) => {
         let tempListOffres = []
         listContrats.forEach(contrat => {
-            tempListOffres = [...tempListOffres, contrat.offre]
-        });
+            if (offreIsNotInList(tempListOffres, contrat)) {
+                tempListOffres = [...tempListOffres, contrat.offre]
+            }
+        })
         setListOffres(tempListOffres)
         setValuesOnLoad(listContrats, tempListOffres)
+    }
+
+    const offreIsNotInList = (tempListOffres, contratToCheck) => {
+        if (tempListOffres.some(offre => offre.id === contratToCheck.offre.id)) {
+            return false
+        }
+        return true
     }
 
     const setValuesOnLoad = (listContrats, listOffres) => {
@@ -43,7 +51,7 @@ const GestionnaireAfficherContrat = () => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
                 tempListEtudiantsContratOffre = [...tempListEtudiantsContratOffre, contrat.etudiant]
             }
-        });
+        })
         return tempListEtudiantsContratOffre
     }
 
@@ -54,20 +62,18 @@ const GestionnaireAfficherContrat = () => {
 
     }
 
-    const onChangeEtudiant = async (e) => {
+    const onChangeEtudiant = (e) => {
         let etudiant = JSON.parse(e.target.value)
         setErrors({})
-        await setContratValues(listContrats, etudiant)
+        setContratValues(listContrats, etudiant)
     }
 
-    const setContratValues = async (listContrats, etudiant) => {
-        let tempContrat = {}
+    const setContratValues = (listContrats, etudiant) => {
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
-                tempContrat = contrat
+                setContrat(contrat)
             }
-        });
-        setContrat(tempContrat)
+        })
     }
 
     const isAlreadyStarted = (contrat) => {
@@ -78,99 +84,110 @@ const GestionnaireAfficherContrat = () => {
         }
     }
 
-    const handleSubmit = e => {
+    function checkError(values) {
+        let errors = {}
+
+        if (!values.etudiantConfirmed) {
+            errors.etudiantConfirmed = "La signature de l'étudiant est requise"
+        }
+
+        if (!values.moniteurConfirmed) {
+            errors.moniteurConfirmed = "La signature du moniteur est requise"
+        }
+
+        return errors
+    }
+
+    const handleSubmit = async e => {
         e.preventDefault()
-        let errorValidation = validateInfoDemarrerContrat(contrat)
-        setErrors(errorValidation)
-        if (Object.keys(errorValidation).length === 0 && !isAlreadyStarted(contrat)) {
+        setErrors(checkError(contrat))
+        if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
             const date = new Date()
-            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0];
+            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
             contrat.gestionnaireConfirmed = true
-            ContratService.saveContrat(contrat)
+            await ContratService.saveContrat(contrat)
         }
     }
 
     return (
-        <div className="form-content-right">
-            <form className="form" onSubmit={handleSubmit}>
-                <h1>Démarrer contrat</h1>
+        <form className="form" id="txtform" className="FormContratOffre" onSubmit={handleSubmit}>
+            <h1>Démarrer contrat</h1>
 
-                <div className="form-inputs">
-                    <label htmlFor="offre"
-                        className="form-label">
-                        Offre
-                    </label>
-                    <select onChange={onChangeOffre}>
-                        {listOffres.map((offre) => (
-                            <option value={JSON.stringify(offre)}>{offre.titre}</option>
-                        ))}
-                    </select>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="offre"
+                    className="form-label">
+                    Offre
+                </label>
+                <select onChange={onChangeOffre}>
+                    {listOffres.map((offre) => (
+                        <option value={JSON.stringify(offre)}>{offre.titre}</option>
+                    ))}
+                </select>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="etudiant"
-                        className="form-label">
-                        Étudiant
-                    </label>
-                    <select onChange={onChangeEtudiant}>
-                        {listEtudiants.map((etudiant) => (
-                            <option value={JSON.stringify(etudiant)}>{etudiant.prenom} {etudiant.nom}</option>
-                        ))}
-                    </select>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="etudiant"
+                    className="form-label">
+                    Étudiant
+                </label>
+                <select onChange={onChangeEtudiant}>
+                    {listEtudiants.map((etudiant) => (
+                        <option value={JSON.stringify(etudiant)}>{etudiant.prenom} {etudiant.nom}</option>
+                    ))}
+                </select>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="collegeEngagement"
-                        className="form-label">
-                        Le Collège s’engage à :
-                    </label>
-                    <input id="collegeEngagement" type="text" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" defaultValue={contrat.collegeEngagement} readOnly></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="collegeEngagement"
+                    className="form-label">
+                    Le Collège s’engage à :
+                </label>
+                <textarea form="txtform" rows="3" cols="50" id="collegeEngagement" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" defaultValue={contrat.collegeEngagement} readOnly></textarea>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="entrepriseEngagement"
-                        className="form-label">
-                        L’entreprise s’engage à :
-                    </label>
-                    <input id="entrepriseEngagement" type="text" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" defaultValue={contrat.entrepriseEngagement} readOnly></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="entrepriseEngagement"
+                    className="form-label">
+                    L’entreprise s’engage à :
+                </label>
+                <textarea form="txtform" rows="3" cols="50" id="entrepriseEngagement" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" defaultValue={contrat.entrepriseEngagement} readOnly></textarea>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="etudiantEngagement"
-                        className="form-label">
-                        L’étudiant s’engage à :
-                    </label>
-                    <input id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" defaultValue={contrat.etudiantEngagement} readOnly></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="etudiantEngagement"
+                    className="form-label">
+                    L’étudiant s’engage à :
+                </label>
+                <textarea form="txtform" rows="3" cols="50" id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" defaultValue={contrat.etudiantEngagement} readOnly></textarea>
+            </div>
 
-                <div className="form-inputs">
-                    <label htmlFor="moniteurConfirmed" className="form-label">
-                        Signature moniteur
-                    </label>
-                    <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
-                </div>
-                {errors.moniteurConfirmed && <p>{errors.moniteurConfirmed}</p>}
+            <div className="form-inputs">
+                <label htmlFor="moniteurConfirmed" className="form-label">
+                    Signature moniteur
+                </label>
+                <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
+            </div>
+            {errors.moniteurConfirmed && <p className="error">{errors.moniteurConfirmed}</p>}
 
-                <div className="form-inputs">
-                    <label htmlFor="etudiantConfirmed" className="form-label">
-                        Signature étudiant
-                    </label>
-                    <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
-                </div>
-                {errors.etudiantConfirmed && <p>{errors.etudiantConfirmed}</p>}
+            <div className="form-inputs">
+                <label htmlFor="etudiantConfirmed" className="form-label">
+                    Signature étudiant
+                </label>
+                <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
+            </div>
+            {errors.etudiantConfirmed && <p className="error">{errors.etudiantConfirmed}</p>}
 
-                <div className="form-inputs">
-                    <label htmlFor="gestionnaireConfirmed" className="form-label">
-                        Signature gestionnaire
-                    </label>
-                    <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
-                </div>
+            <div className="form-inputs">
+                <label htmlFor="gestionnaireConfirmed" className="form-label">
+                    Signature gestionnaire
+                </label>
+                <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
+            </div>
 
 
-                <button className="form-input-btn" type="submit">Signer et démarrer le contrat</button>
+            <button className="button" type="submit">Signer et démarrer le contrat</button>
 
-            </form>
-        </div>
+        </form>
     )
 }
 

@@ -36,11 +36,14 @@ import org.springframework.test.web.servlet.MvcResult;
 @WebMvcTest(CVController.class)
 public class CVControllerTests {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private CVService cvService;
+  @MockBean
+  private CVService cvService;
 
-  @MockBean private EmailService emailService;
+  @MockBean
+  private EmailService emailService;
 
   private static ObjectMapper mapper;
 
@@ -168,13 +171,12 @@ public class CVControllerTests {
     CV expected = new CV();
     expected.setId(1);
     doNothing().when(cvService).deleteCV(anyInt());
+
     // Act
     MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
 
     // Assert
-    var actual = mapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-    assertThat(actual).isTrue();
   }
 
 

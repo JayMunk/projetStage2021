@@ -1,13 +1,9 @@
-
-
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
 <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 const urlBase = 'http://localhost:9191/user'
 
 const UserService = {
-
-
 
     saveEtudiant: async (values) => {
         const res = await fetch(urlBase + '/etudiant',
@@ -111,10 +107,22 @@ const UserService = {
         return data
     },
 
-    getMoniteur: async (id) => {
-        //     //const res = await fetch(urlBase + '/moniteur/' + id)
-        //     //const data = await res.json()
-        //     //return data
+    saveSuperviseurEtudiants: async (etudiants, idSuperviseur) => {
+        const res = await fetch(`http://localhost:9191/user/superviseur/${idSuperviseur}/etudiants`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(etudiants)
+            })
+        if (!res.ok) {
+            errorAlert("Incapable de sauver la liste d'etudiants sélectionnés")
+            return
+        }
+        const data = await res.json()
+        return data
+
     },
 
     getGestionnaires: async () => {
@@ -122,10 +130,6 @@ const UserService = {
         const data = await res.json()
         return data
     },
-
-
-
-
 }
 
 const errorAlert = (errorMessage) => {

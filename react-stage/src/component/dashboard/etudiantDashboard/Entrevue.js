@@ -37,7 +37,7 @@ const Entrevue = () => {
 
     return (
         <div>
-            <h1>Entrevues</h1>
+            <h2>Entrevues</h2>
             <table>
                 <tr>
                     <th>Titre</th>

@@ -61,13 +61,12 @@ public class EntrevueService extends SessionManager<Entrevue> {
     return entrevueRepository.findAllByDateBefore(LocalDate.now());
   }
 
-  public List<Entrevue> getAllEntrevues() {
+  public List<Entrevue> getAllEntrevues() { //tested
     return entrevueRepository.findAll();
-  }
+  } //tested
 
   public List<Entrevue> getEntrevuesAccepted() {
     List<Entrevue> listEntrevuesAccepted = entrevueRepository.findEntrevueByStatus(Status.ACCEPTED);
-
     return listEntrevuesAccepted;
   }
 

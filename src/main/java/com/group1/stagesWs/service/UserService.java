@@ -135,12 +135,6 @@ public class UserService extends SessionManager<User> {
     return (List<Etudiant>)
         (List<?>) getListForCurrentSession((List<User>) (List<?>) listAllEtudiantBySuperviseur);
   }
-  /*
-   * IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR public
-   * Optional<User> findMoniteurByEtudiantId(int id) { Etudiant etudiant =
-   * etudiantRepository.findEtudiantById(id); return Optional.of(etudiant.get());
-   * }
-   */
 
   public List<Moniteur> getAllMoniteurs() {
     List<Moniteur> moniteurList = moniteurRepository.findAll();

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OffreRepository extends JpaRepository<Offre, Integer> {
+
   List<Offre> findAllByWhitelistContainsAndIsValidTrue(Etudiant etudiant);
 
   List<Offre> findAllByMoniteur(Moniteur moniteur);

@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 public class EvaluationEntreprise implements Serializable {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -32,9 +33,11 @@ public class EvaluationEntreprise implements Serializable {
   private LocalDate dateCreation;
   private String session;
 
-  @OneToOne private Contrat contrat;
+  @OneToOne
+  private Contrat contrat;
 
-  @ManyToOne private Superviseur superviseur;
+  @ManyToOne
+  private Superviseur superviseur;
 
   public EvaluationEntreprise() {
     this.dateCreation = LocalDate.now();

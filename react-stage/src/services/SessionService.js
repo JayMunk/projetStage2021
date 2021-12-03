@@ -14,7 +14,7 @@ const SessionService = {
 
   addNewSession: async (newSessionName) => {
     const res = await fetch(urlBase + '/new/' + newSessionName);
-    if (res.ok) {
+    if (!res.ok) {
       toastError("Server error, unable to create new session")
       return
     }

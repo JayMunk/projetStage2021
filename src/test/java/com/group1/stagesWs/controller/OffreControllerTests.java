@@ -1,18 +1,9 @@
 package com.group1.stagesWs.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.service.OffreService;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,6 +15,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 @ContextConfiguration(
     classes = OffreController.class,
     initializers = ConfigFileApplicationContextInitializer.class)
@@ -32,9 +34,11 @@ public class OffreControllerTests {
 
   private final ObjectMapper mapper;
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private OffreService service;
+  @MockBean
+  private OffreService service;
 
   public OffreControllerTests() {
     this.mapper = new ObjectMapper().findAndRegisterModules();
@@ -131,28 +135,9 @@ public class OffreControllerTests {
 
     // Assert
     var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
-    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
     assertThat(actualOffre).isEqualTo(expected);
   }
-
-  //    @Test
-  //    void testUpdateOffre() throws Exception {
-  //        //Arrange
-  //        Offre expected = getOffre();
-  //        when(service.updateOffre(any(Integer.class),
-  // any(Offre.class))).thenReturn(Optional.of(expected));
-  //
-  //        //Act
-  //        MvcResult result = mockMvc.perform(put("/offres/1")
-  //                .contentType(MediaType.APPLICATION_JSON)
-  //                .content(mapper.writeValueAsString(expected))).andReturn();
-  //
-  //        //Assert
-  //        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(),
-  // Offre.class);
-  //        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-  //        assertThat(actualOffre).isEqualTo(expected);
-  //    }
 
   @Test
   void testApplyForOffre() throws Exception {
@@ -188,7 +173,8 @@ public class OffreControllerTests {
         "2022-1-05",
         "2022-4-05",
         13,
-        "9:00 a 5:00",
+        LocalTime.of(9, 0),
+        LocalTime.of(17, 0),
         40,
         22);
   }

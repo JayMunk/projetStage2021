@@ -1,6 +1,6 @@
 import Swal from "sweetalert2"
 import "@sweetalert2/theme-dark/dark.css"
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
 
 const urlBase = "http://localhost:9191/cv";
 const CVService = {

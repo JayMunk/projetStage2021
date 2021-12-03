@@ -29,14 +29,6 @@ const AccountDetails = () => {
   useEffect(async () => {
     if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
-      // fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-      //   .then((res) => {
-      //     return res.json();
-      //   })
-      //   .then((data) => {
-      //     console.log(data, "data");
-      //     setFullUser(data);
-      //   });
       const data = await UserService.getUserByEmail(loggedUser.courriel)
       setFullUser(data)
     }

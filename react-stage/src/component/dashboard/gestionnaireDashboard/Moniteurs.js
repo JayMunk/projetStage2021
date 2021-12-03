@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
+import UserService from "../../../services/UserService"
 
 const Moniteurs = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
@@ -8,16 +9,11 @@ const Moniteurs = () => {
   const [moniteursVisible, setMoniteursVisible] = useState([]);
   const moniteursPerPage = 3;
 
-  useEffect(() => {
+  useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/user/moniteurs`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((moniteurs) => {
-          setMoniteurs(moniteurs);
-          setMoniteursVisible(moniteurs.slice(0, moniteursPerPage));
-        });
+      const moniteursList = await UserService.getListAllMoniteurs()
+      setMoniteurs(moniteursList)
+      setMoniteursVisible(moniteursList.slice(0, moniteursPerPage))
     }
   }, []);
 
@@ -41,23 +37,23 @@ const Moniteurs = () => {
 
   const moniteursList = moniteursVisible.map((moniteur) => (
     <tr key={moniteur.id.toString()}>
-      <td>{moniteur.prenom}</td>
-      <td>{moniteur.nom}</td>
+      <td>{moniteur.prenom} {moniteur.nom}</td>
+      <td>{moniteur.courriel}</td>
     </tr>
   ));
   return (
     <>
-      <table>
+      <table className="tableDashboardGestionnaire">
         <tr>
           <th colSpan="2">Moniteurs</th>
         </tr>
-        <tr>
-          <td>Le nombres de moniteurs inscrient</td>
+        <tr className="totalTr">
+          <td >Le nombres de moniteurs inscrient</td>
           <td>{moniteurs.length}</td>
         </tr>
         <tr>
-          <th>Prénom</th>
           <th>Nom</th>
+          <th>Courriel</th>
         </tr>
         <tbody>{moniteursList}</tbody>
         <tr>

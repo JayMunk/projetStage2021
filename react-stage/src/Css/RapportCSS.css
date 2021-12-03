@@ -1,0 +1,64 @@
+.cardRapport{
+    background: #006994;
+    width: 500px;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    height: 350px;
+}
+
+.cardRapport h4 {
+    padding-top:20px ;
+    color: white;
+}
+
+.cardRapport span {
+  margin-top: 10px;
+  display: inline-block;
+  color: white;
+  opacity: 60%;
+  width: 200px;
+}
+
+.tableRapport{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.tableRapport,
+.tableRapport td,
+.tableRapport th {
+  border: 1px solid black;
+}
+
+.tableRapport th {
+    background: gray;
+  } 
+
+.tableRapport tr:nth-child(odd) {
+    background-color: lightgray;
+    color: black;
+}
+.tableRapport tr:nth-child(even) {
+    background-color: #DBB2FF;
+    color: black;
+} 
+  
+.tableRapport tbody tr:hover {
+    background-color: #23b6fd;
+} 
+
+.tableRapport .button{
+  background-color: white;
+  width: 100%;
+}
+
+.tableRapport .button:hover {
+  background-color: black;
+  color: white;
+}

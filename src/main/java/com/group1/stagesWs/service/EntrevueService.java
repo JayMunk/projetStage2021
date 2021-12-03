@@ -38,6 +38,11 @@ public class EntrevueService extends SessionManager<Entrevue> {
     return Optional.of(entrevueRepository.save(entrevue));
   }
 
+  public List<Entrevue> getAllEntrevuesSession() {
+    List<Entrevue> listEntrevueCurrentSession = entrevueRepository.findAll();
+    return getListForCurrentSession(listEntrevueCurrentSession);
+  }
+
   public List<Entrevue> getAllEntrevueEtudiant(int id) {
     List<Entrevue> listEtudiantCurrentSession = entrevueRepository.findEntrevueByEtudiantId(id);
     return getListForCurrentSession(listEtudiantCurrentSession);

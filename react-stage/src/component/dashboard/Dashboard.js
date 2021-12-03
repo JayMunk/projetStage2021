@@ -31,13 +31,15 @@ const Dashboard = () => {
                 loggedUser.role === "MONITEUR" ?
                     < MoniteurDashboard />
                     :
-                    null
-            }
+                    null}
             {
                 loggedUser.role === "GESTIONNAIRE" ?
                     < DashboardGestionnaire />
                     :
-                    null
+                    null}
+
+            {
+                loggedUser.isLoggedIn ? null : history.push("/login")
             }
         </body>
     )

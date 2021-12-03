@@ -6,6 +6,7 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from
 import CVService from '../../../services/CVService'
 import UserService from '../../../services/UserService'
 import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
@@ -63,16 +64,18 @@ const VoirCVState = () => {
     return (
         <div>
             {cvs.length > 0 ?
-                <table>
-                    <tr>
-                        <th>nom du fichier</th>
-                        <th>Date de soumission</th>
-                        <th>effacer</th>
-                        <th>télécarger</th>
-                        <th>Statut du CV</th>
-                    </tr>
-                    {cvList}
-                </table>
+                <Table striped bordered hover variant="dark" id="tableCv">
+                    <thead>
+                        <tr>
+                            <th>nom du fichier</th>
+                            <th>Date de soumission</th>
+                            <th>effacer</th>
+                            <th>télécarger</th>
+                            <th>Statut du CV</th>
+                        </tr>
+                    </thead>
+                    <tbody>{cvList}</tbody>
+                </Table>
                 :
                 <p style={{ textAlign: "center" }}>Déposez votre cv <Link to="/dropCv" style={{ color: "blue" }}>ici</Link></p>
             }

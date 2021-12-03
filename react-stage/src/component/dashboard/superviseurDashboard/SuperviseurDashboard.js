@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
 import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 const SuperviseurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -55,14 +56,17 @@ const SuperviseurDashboard = () => {
             {listEtudiants.length > 0 ?
                 <div>
                     <h2>Liste étudiants</h2>
-                    <table>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Courriel</th>
-                        </tr>
-
-                        {etudiantsList}
-                    </table>
+                    <Table striped bordered hover variant="dark" className="DashboardTable">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Courriel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {etudiantsList}
+                        </tbody>
+                    </Table>
                 </div>
                 :
                 <p className="superviseurDashboard_P">Vous etes responsable d'aucun étudiant pour l'instant</p>

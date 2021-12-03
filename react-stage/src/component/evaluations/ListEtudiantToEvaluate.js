@@ -7,7 +7,7 @@ import Table from "react-bootstrap/Table";
 const ListEtudiantToEvaluate = ({ contrats, onClick }) => {
   return (
     <div className="container">
-      <h1 className="text-white">Liste des étudiants à évaluer</h1>
+      <h1 className="text-white text-center">Liste des étudiants à évaluer</h1>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -27,7 +27,9 @@ const ListEtudiantToEvaluate = ({ contrats, onClick }) => {
             ))
           ) : (
             <tr>
-              <td colSpan="2">Aucun étudiants à afficher</td>
+              <td colSpan="2" className="text-center">
+                Aucun étudiants à afficher
+              </td>
             </tr>
           )}
         </tbody>

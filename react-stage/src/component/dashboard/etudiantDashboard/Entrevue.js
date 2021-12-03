@@ -29,22 +29,30 @@ const Entrevue = () => {
         </tr>);
 
     return (
-        <div>
+        <>
             <h2>Entrevues</h2>
-            <Table striped bordered hover variant="dark" className="DashboardTable">
-                <thead>
-                    <tr>
-                        <th>Titre</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Nom de l'entreprise</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {entrevuesList}
-                </tbody>
-            </Table>
-        </div>
+            {entrevuesList.length > 0 ?
+                <div>
+
+                    <Table striped bordered hover variant="dark" className="DashboardTable">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Nom de l'entreprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {entrevuesList}
+                        </tbody>
+                    </Table>
+
+                </div>
+                :
+                <h3 className="text-center text-warning mt-4">Il n'y a aucunes entrevues</h3>
+            }
+        </>
 
     )
 }

@@ -20,16 +20,16 @@ public class EntrevueController {
 
   private final EntrevueService entrevueService;
 
+  public EntrevueController(EntrevueService entrevueService) {
+    this.entrevueService = entrevueService;
+  }
+
   @PostMapping("")
   public ResponseEntity<Entrevue> saveEntrevue(@RequestBody Entrevue entrevue) {
     return entrevueService
         .saveEntrevue(entrevue)
         .map(entrevue1 -> ResponseEntity.status(HttpStatus.CREATED).body(entrevue1))
         .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-  }
-
-  public EntrevueController(EntrevueService entrevueService) {
-    this.entrevueService = entrevueService;
   }
 
   @GetMapping(path = "/etudiant/{id}")
@@ -44,6 +44,6 @@ public class EntrevueController {
 
   @GetMapping(path = "")
   public ResponseEntity<List<Entrevue>> getAllEntrevuesSession() {
-    return new ResponseEntity<>(entrevueService.getAllEntrevuesSession(),HttpStatus.OK);
+    return new ResponseEntity<>(entrevueService.getAllEntrevuesSession(), HttpStatus.OK);
   }
 }

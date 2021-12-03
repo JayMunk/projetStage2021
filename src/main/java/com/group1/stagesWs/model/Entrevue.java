@@ -39,4 +39,14 @@ public class Entrevue implements Serializable {
     session = SessionManager.CURRENT_SESSION.getNomSession();
     this.status = Status.PENDING;
   }
+
+  public Entrevue(String titre, LocalDate date, LocalTime time,
+      String nomEntreprise, Etudiant etudiant, Moniteur moniteur) {
+    this.titre = titre;
+    this.date = date;
+    this.time = time;
+    this.nomEntreprise = nomEntreprise;
+    this.etudiant = etudiant;
+    this.moniteur = moniteur;
+  }
 }

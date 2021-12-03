@@ -1,28 +1,28 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react"
+import { useState, useEffect, useContext } from "react"
+import { useHistory } from "react-router-dom"
 import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
   AiOutlineClose,
-} from "react-icons/ai";
-import { UserInfoContext } from "../../contexts/UserInfo";
-import ReactModal from "react-modal";
-import "./PickList.css";
-import OffreService from "../../services/OffreService.js";
-import UserService from "../../services/UserService.js";
-import { MultiSelect } from "react-multi-select-component";
-import { Col, Row } from "react-bootstrap";
-import Swal from "sweetalert2";
-import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CVService from "../../services/CVService";
-import { saveAs } from "file-saver";
+} from "react-icons/ai"
+import { UserInfoContext } from "../../contexts/UserInfo"
+import ReactModal from "react-modal"
+import "./PickList.css"
+import OffreService from "../../services/OffreService.js"
+import UserService from "../../services/UserService.js"
+import { MultiSelect } from "react-multi-select-component"
+import { Col, Row } from "react-bootstrap"
+import Swal from "sweetalert2"
+import { faFileDownload } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import CVService from "../../services/CVService"
+import { saveAs } from "file-saver"
 
 const Offres = () => {
-  const history = useHistory();
-  const [listOffres, setListOffres] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const history = useHistory()
+  const [listOffres, setListOffres] = useState([])
+  const [showModal, setShowModal] = useState(false)
   const [currentOffre, setCurrentOffre] = useState({
     titre: String,
     description: String,
@@ -38,13 +38,13 @@ const Offres = () => {
     whitelist: Array,
     applicants: Array,
     valid: Boolean,
-  });
+  })
 
-  const [listAllEtudiant, setListAllEtudiant] = useState([]);
+  const [listAllEtudiant, setListAllEtudiant] = useState([])
 
-  const [listWhitelistedEtudiant, setListWhitelistedEtudiant] = useState([]);
+  const [listWhitelistedEtudiant, setListWhitelistedEtudiant] = useState([])
 
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
 
   useEffect(() => {
     if (
@@ -55,188 +55,188 @@ const Offres = () => {
         loggedUser.role === "MONITEUR"
       )
     ) {
-      history.push("/login");
+      history.push("/login")
     }
     const getOffres = async () => {
-      let dbOffres;
+      let dbOffres
       switch (loggedUser.role) {
         case "GESTIONNAIRE":
-          dbOffres = await OffreService.getAllOffres();
-          break;
+          dbOffres = await OffreService.getAllOffres()
+          break
         case "MONITEUR":
-          dbOffres = await OffreService.getMoniteurOffres(loggedUser.courriel);
-          break;
+          dbOffres = await OffreService.getMoniteurOffres(loggedUser.courriel)
+          break
         case "ETUDIANT":
-          dbOffres = await OffreService.getEtudiantOffres(loggedUser.courriel);
-          break;
+          dbOffres = await OffreService.getEtudiantOffres(loggedUser.courriel)
+          break
         default:
-          break;
+          break
       }
-      setListOffres(dbOffres);
-    };
-    getOffres();
-  }, []);
+      setListOffres(dbOffres)
+    }
+    getOffres()
+  }, [])
 
   useEffect(() => {
     const getListAllEtudiants = async () => {
-      const allEtudiants = await UserService.getListAllEtudiants();
-      setListAllEtudiant(allEtudiants);
-    };
-    getListAllEtudiants();
-  }, []);
+      const allEtudiants = await UserService.getListAllEtudiants()
+      setListAllEtudiant(allEtudiants)
+    }
+    getListAllEtudiants()
+  }, [])
 
   const getOptionsEtudiant = (listEtudiant) => {
     return listEtudiant.map((etudiant) => {
-      let etudiantOption = {};
-      etudiantOption.label = etudiant.prenom + " " + etudiant.nom;
-      etudiantOption.value = etudiant;
-      return etudiantOption;
-    });
-  };
+      let etudiantOption = {}
+      etudiantOption.label = etudiant.prenom + " " + etudiant.nom
+      etudiantOption.value = etudiant
+      return etudiantOption
+    })
+  }
 
   const getListEtudiantFromOptions = (listWhitelistOptions) => {
     return listWhitelistOptions.map((option) => {
-      let etudiant = {};
-      etudiant = option.value;
-      return etudiant;
-    });
-  };
+      let etudiant = {}
+      etudiant = option.value
+      return etudiant
+    })
+  }
 
   const onClickOffre = (offre) => {
-    setCurrentOffre(offre);
-    setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist));
-    setShowModal(true);
-  };
+    setCurrentOffre(offre)
+    setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist))
+    setShowModal(true)
+  }
 
   const appliquerOffre = async (offre) => {
-    let offreApplied;
+    let offreApplied
     offreApplied = await OffreService.applyForOffre(
       offre.id,
       loggedUser.courriel
-    );
+    )
     if (offreApplied != null) {
       Swal.fire(
         "Application Reçu",
         `Vous avez appliqué à l'offre ${currentOffre.titre} de l'entreprise ${currentOffre.entreprise}`,
         "success"
-      );
+      )
     }
-  };
+  }
 
   const onClickClose = () => {
-    setShowModal(false);
-    setCurrentOffre(null);
-  };
+    setShowModal(false)
+    setCurrentOffre(null)
+  }
 
   const onToggleValid = () => {
     setCurrentOffre((offre) => ({
       ...offre,
       valid: !offre.valid,
-    }));
-  };
+    }))
+  }
 
   const onClickSave = async () => {
-    const updatedOffre = currentOffre;
-    updatedOffre.whitelist = getListEtudiantFromOptions(
-      listWhitelistedEtudiant
-    );
-    setCurrentOffre(updatedOffre);
-    const savedOffre = await OffreService.saveOffre(updatedOffre);
+    const updatedOffre = currentOffre
+    updatedOffre.whitelist = getListEtudiantFromOptions(listWhitelistedEtudiant)
+    setCurrentOffre(updatedOffre)
+    const savedOffre = await OffreService.saveOffre(updatedOffre)
     if (savedOffre != undefined) {
       Swal.fire({
         icon: "success",
         title: "Succès!",
         text: "L'offre a été modifié.",
-      });
+      })
     }
-    await updateOffres();
-    onClickClose();
-  };
+    await updateOffres()
+    onClickClose()
+  }
 
   const updateOffres = async () => {
     const dbOffres =
       loggedUser.role === "ETUDIANT"
         ? await OffreService.getEtudiantOffres(loggedUser.courriel)
-        : await OffreService.getAllOffres();
-    setListOffres(dbOffres);
-  };
+        : await OffreService.getAllOffres()
+    setListOffres(dbOffres)
+  }
 
   const getOptionsList = () => {
     if (currentOffre != null) {
       if (listWhitelistedEtudiant.length == 0) {
-        return getOptionsEtudiant(listAllEtudiant);
+        return getOptionsEtudiant(listAllEtudiant)
       } else {
-        let listAllEtudiantArray = listAllEtudiant;
+        let listAllEtudiantArray = listAllEtudiant
         listAllEtudiantArray = listAllEtudiantArray.filter(
           (etudiant) =>
             !listWhitelistedEtudiant.some(
               (whitelistedEtudiantOption) =>
                 whitelistedEtudiantOption.value.id === etudiant.id
             )
-        );
+        )
         return getOptionsEtudiant(listAllEtudiantArray).concat(
           listWhitelistedEtudiant
-        );
+        )
       }
     }
-  };
+  }
 
   const getBoolIcon = (bool) => {
     return bool ? (
       <AiOutlineCheckCircle color="green" />
     ) : (
       <AiOutlineCloseCircle color="red" />
-    );
-  };
+    )
+  }
 
   const getEtudiantCV = async (etudiant) => {
-    const listCVEtudiant = await CVService.getCvEtudiant(etudiant.id);
-    const defaultCV = getCVDefaut(listCVEtudiant);
+    const listCVEtudiant = await CVService.getCvEtudiant(etudiant.id)
+    const defaultCV = getCVDefaut(listCVEtudiant)
 
     if (defaultCV == undefined || listCVEtudiant.length == 0) {
-      console.log("aucun default cv ou list empty");
+      console.log("aucun default cv ou list empty")
       Swal.fire({
         icon: "error",
         title: "Erreur!",
         text: "Cet étudiant n'a aucun cv disponible",
-      });
-      return;
+      })
+      return
     } else if (defaultCV.status != "ACCEPTED") {
-      console.log("Cv not accepted");
+      console.log("Cv not accepted")
       Swal.fire({
         icon: "error",
         title: "Erreur!",
         text: "Cet étudiant n'a aucun cv disponible",
-      });
-      return;
+      })
+      return
     }
-    downloadCV(defaultCV);
-  };
+    downloadCV(defaultCV)
+  }
 
   const getCVDefaut = (listCVEtudiant) => {
-    return listCVEtudiant.find((cv) => cv.defaultCV);
-  };
+    return listCVEtudiant.find((cv) => cv.defaultCV)
+  }
 
   const downloadCV = async (cv) => {
     await fetch(`http://localhost:9191/cv/pdf/${cv.id}`).then((res) => {
-      console.log(res);
+      console.log(res)
       if (res.ok) {
-        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`);
+        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
       }
       if (!res.ok) {
         Swal.fire({
           icon: "error",
           title: "Erreur!",
           text: "Le fichier est invalide ou indisponible pour l`instant.",
-        });
-        throw res;
+        })
+        throw res
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className="container" style={{ textAlign: "center" }}>
-      <h1 className="mt-4" style={{ color: "#DBB2FF" }}>Offres</h1>
+      <h1 className="mt-4" style={{ color: "#DBB2FF" }}>
+        Offres
+      </h1>
       {listOffres.length == 0 ? (
         <div>
           <h3 className="text-center text-warning mt-4">
@@ -249,55 +249,51 @@ const Offres = () => {
             <table className="table table-dark">
               <thead>
                 <tr>
-                  <th colSpan="3">
-                    Titre
-                  </th>
-                  <th colSpan="3">
-                    Entreprise
-                  </th>
-                  <th colSpan="1">
-                    Détails
-                  </th>
-                  {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
+                  <th colSpan="3">Titre</th>
+                  <th colSpan="3">Entreprise</th>
+                  {loggedUser.role !== "ETUDIANT" && (
+                    <th colSpan="1">Valide</th>
+                  )}
+                  <th colSpan="1">Détails</th>
                 </tr>
               </thead>
               <tbody>
                 {loggedUser.role === "ETUDIANT"
                   ? listOffres.map((offre) => (
-                    <tr className="text-white" key={offre.id.toString()}>
-                      <td colSpan="3">{offre.titre}</td>
-                      <td colSpan="3">{offre.entreprise}</td>
-                      <td colSpan="2">
-                        <input
-                          type="button"
-                          onClick={() => onClickOffre(offre)}
-                          value="Détails"
-                          className="btn btn-secondary"
-                        />
-                      </td>
-                    </tr>
-                  ))
+                      <tr className="text-white" key={offre.id.toString()}>
+                        <td colSpan="3">{offre.titre}</td>
+                        <td colSpan="3">{offre.entreprise}</td>
+                        <td colSpan="2">
+                          <input
+                            type="button"
+                            onClick={() => onClickOffre(offre)}
+                            value="Détails"
+                            className="btn btn-secondary"
+                          />
+                        </td>
+                      </tr>
+                    ))
                   : listOffres.map((offre) => (
-                    <tr className="text-white" key={offre.id.toString()}>
-                      <td colSpan="3">{offre.titre}</td>
-                      <td colSpan="3">{offre.entreprise}</td>
-                      <td colSpan="1">
-                        {offre.valid ? (
-                          <AiOutlineCheckCircle color="green" />
-                        ) : (
-                          <AiOutlineCloseCircle color="red" />
-                        )}
-                      </td>
-                      <td colSpan="1">
-                        <input
-                          type="button"
-                          onClick={() => onClickOffre(offre)}
-                          value="Détails"
-                          className="p-1 btn-secondary"
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                      <tr className="text-white" key={offre.id.toString()}>
+                        <td colSpan="3">{offre.titre}</td>
+                        <td colSpan="3">{offre.entreprise}</td>
+                        <td colSpan="1">
+                          {offre.valid ? (
+                            <AiOutlineCheckCircle color="green" />
+                          ) : (
+                            <AiOutlineCloseCircle color="red" />
+                          )}
+                        </td>
+                        <td colSpan="1">
+                          <input
+                            type="button"
+                            onClick={() => onClickOffre(offre)}
+                            value="Détails"
+                            className="p-1 btn-secondary"
+                          />
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
             </table>
           </Col>
@@ -546,7 +542,7 @@ const Offres = () => {
         )}
       </ReactModal>
     </div>
-  );
-};
+  )
+}
 
-export default Offres;
+export default Offres

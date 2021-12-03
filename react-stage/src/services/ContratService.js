@@ -1,3 +1,8 @@
+import Swal from "sweetalert2";
+import "@sweetalert2/theme-dark/dark.css";
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>;
+
+
 const urlBase = 'http://localhost:9191/contrats'
 
 const ContratService = {
@@ -29,6 +34,13 @@ const ContratService = {
                 },
                 body: JSON.stringify(values)
             })
+        if (res.ok) {
+            Swal.fire({
+                icon: "success",
+                title: "Succès!",
+                text: "Votre contrat a été mis à jour.",
+            })
+        }
         const data = await res.json()
         return data
     },

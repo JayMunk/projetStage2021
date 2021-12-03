@@ -26,7 +26,7 @@ const FormOffre = () => {
 
     useEffect(() => {
         if (!loggedUser.isLoggedIn) history.push("/login")
-    }, [values])
+    }, [])
 
     const handleChange = e => {
         const { name, value } = e.target

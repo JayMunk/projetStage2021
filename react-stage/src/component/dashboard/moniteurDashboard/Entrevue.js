@@ -1,5 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
+import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 
 const Entrevue = (reloadList) => {
@@ -47,7 +49,7 @@ const Entrevue = (reloadList) => {
     return (
         <div>
             <h2>Entrevues</h2>
-            <table>
+            <Table striped bordered hover variant="dark" className="DashboardTable">
                 <tr>
                     <th>Titre</th>
                     <th>Date</th>
@@ -56,7 +58,7 @@ const Entrevue = (reloadList) => {
                 <tbody>
                     {entrevuesList}
                 </tbody>
-            </table>
+            </Table>
         </div>
 
     )

@@ -159,6 +159,7 @@ const DropCv = () => {
 
   return (
     <body id="body">
+      <h2 className="text-center">Ajout de cv</h2>
       <div id="formContainer" className="mx-auto text-center">
         <form method="post" action="#" id="formCv" onSubmit={OnSubmit}>
           <div class="form-group files">
@@ -180,6 +181,7 @@ const DropCv = () => {
         </form>
       </div>
       {cvs.length > 0 ? (
+
         <Table striped bordered hover variant="dark" id="tableCv">
           <thead>
             <tr>
@@ -193,7 +195,7 @@ const DropCv = () => {
           </thead>
           <tbody>{cvList}</tbody>
         </Table>
-      ) : null}
+      ) : <h3 className="text-center mt-4 text-warning">Cet étdudiant n'a aucun cv</h3>}
 
 
     </body>

@@ -31,7 +31,7 @@ const EtudiantsPasEvaluationMoniteur = () => {
         <>
             {etudiantsList.length > 0 ? (
                 <div className="cardRapport">
-                    <h4>Liste des etudiants n'ayant pas d'évaluation du moniteur</h4>
+                    <h4 className="text-wrap">Liste des etudiants n'ayant pas d'évaluation du moniteur</h4>
                     <Table striped bordered hover variant="dark" className="tableRapport">
                         <thead >
                             <tr>

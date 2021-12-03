@@ -236,7 +236,7 @@ const Offres = () => {
 
   return (
     <div className="container" style={{ textAlign: "center" }}>
-      <h1 className="text-white mt-4">Offres</h1>
+      <h1 className="mt-4" style={{ color: "#DBB2FF" }}>Offres</h1>
       {listOffres.length == 0 ? (
         <div>
           <h3 className="text-center text-warning mt-4">
@@ -246,54 +246,58 @@ const Offres = () => {
       ) : (
         <Row className="mt-4">
           <Col sm="12" lg="8" className="mx-auto">
-            <table className="table border table-dark">
+            <table className="table table-dark">
               <thead>
                 <tr>
-                  <th colSpan="3">Titre</th>
-                  <th colSpan="3">Entreprise</th>
-                  {loggedUser.role !== "ETUDIANT" && (
-                    <th colSpan="1">Valide</th>
-                  )}
-                  <th></th>
+                  <th colSpan="3">
+                    Titre
+                  </th>
+                  <th colSpan="3">
+                    Entreprise
+                  </th>
+                  <th colSpan="1">
+                    Détails
+                  </th>
+                  {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
                 </tr>
               </thead>
               <tbody>
                 {loggedUser.role === "ETUDIANT"
                   ? listOffres.map((offre) => (
-                      <tr className="text-white" key={offre.id.toString()}>
-                        <td colSpan="3">{offre.titre}</td>
-                        <td colSpan="3">{offre.entreprise}</td>
-                        <td colSpan="1">
-                          <input
-                            type="button"
-                            onClick={() => onClickOffre(offre)}
-                            value="Détails"
-                            className="p-1 btn-secondary"
-                          />
-                        </td>
-                      </tr>
-                    ))
+                    <tr className="text-white" key={offre.id.toString()}>
+                      <td colSpan="3">{offre.titre}</td>
+                      <td colSpan="3">{offre.entreprise}</td>
+                      <td colSpan="2">
+                        <input
+                          type="button"
+                          onClick={() => onClickOffre(offre)}
+                          value="Détails"
+                          className="btn btn-secondary"
+                        />
+                      </td>
+                    </tr>
+                  ))
                   : listOffres.map((offre) => (
-                      <tr className="text-white" key={offre.id.toString()}>
-                        <td colSpan="3">{offre.titre}</td>
-                        <td colSpan="3">{offre.entreprise}</td>
-                        <td colSpan="1">
-                          {offre.valid ? (
-                            <AiOutlineCheckCircle color="green" />
-                          ) : (
-                            <AiOutlineCloseCircle color="red" />
-                          )}
-                        </td>
-                        <td colSpan="1">
-                          <input
-                            type="button"
-                            onClick={() => onClickOffre(offre)}
-                            value="Détails"
-                            className="p-1 btn-secondary"
-                          />
-                        </td>
-                      </tr>
-                    ))}
+                    <tr className="text-white" key={offre.id.toString()}>
+                      <td colSpan="3">{offre.titre}</td>
+                      <td colSpan="3">{offre.entreprise}</td>
+                      <td colSpan="1">
+                        {offre.valid ? (
+                          <AiOutlineCheckCircle color="green" />
+                        ) : (
+                          <AiOutlineCloseCircle color="red" />
+                        )}
+                      </td>
+                      <td colSpan="1">
+                        <input
+                          type="button"
+                          onClick={() => onClickOffre(offre)}
+                          value="Détails"
+                          className="p-1 btn-secondary"
+                        />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </Col>

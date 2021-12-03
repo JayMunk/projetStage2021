@@ -15,25 +15,23 @@ const EvaluationEntreprise = () => {
   const [currentContrat, setCurrentContrat] = useState();
   const [superviseur, setSuperviseur] = useState({});
 
-  useEffect(() => {
-    console.log(loggedUser);
-    if (!loggedUser.isLoggedIn || loggedUser.role !== "SUPERVISEUR")
+  useEffect(async () => {
+    if (!loggedUser.isLoggedIn || loggedUser.role !== "SUPERVISEUR") {
       history.push("/login");
+    }
+    else {
+      const dataContrat = await ContratService.getSuperviseurContratsToEvaluate(loggedUser.courriel);
+      if (dataContrat != undefined) {
+        setContrats(dataContrat)
+      }
 
-    const getContrats = async () => {
-      const contratList = await ContratService.getSuperviseurContratsToEvaluate(
-        loggedUser.courriel
-      );
-      setContrats(contratList);
+      const dataSuperviseur = await UserService.getUserByEmail(loggedUser.courriel);
+      if (dataContrat != undefined) {
+        setSuperviseur(dataSuperviseur)
+      }
     };
-    getContrats();
 
-    const getSuperviseur = async () => {
-      const superviseur = await UserService.getUserByEmail(loggedUser.courriel);
-      setSuperviseur(superviseur);
-    };
-    getSuperviseur();
-  }, [loggedUser, history]);
+  }, []);
 
   const selectContrat = (id) => {
     setCurrentContrat(contrats.find((contrat) => contrat.id === id));

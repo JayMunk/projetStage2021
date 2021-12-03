@@ -46,6 +46,10 @@ const ContratService = {
 
     getMoniteurContratsToEvaluate: async (moniteurCourriel) => {
         const res = await fetch(urlBase + '/moniteur/courriel/' + moniteurCourriel + '/toEvaluate')
+        if (!res.ok) {
+            alertError("Il est impossible d'aller chercher les étudiants à évaluer")
+            return
+        }
         const data = await res.json()
         return data
     },
@@ -55,6 +59,15 @@ const ContratService = {
         const data = await res.json()
         return data
     }
+
 }
+
+const alertError = (message => {
+    Swal.fire({
+        icon: "error",
+        title: "Erreur!",
+        text: message,
+    });
+})
 
 export default ContratService

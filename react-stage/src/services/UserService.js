@@ -55,6 +55,10 @@ const UserService = {
 
     getUserByEmail: async (email) => {
         const res = await fetch(urlBase + '/' + email)
+        if (!res.ok) {
+            errorAlert("Impossible d'obtenir l'utilisateur")
+            return
+        }
         const data = await res.json()
         return data
     },

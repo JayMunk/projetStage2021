@@ -121,6 +121,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
             value={
               values.contrat.etudiant.prenom + " " + values.contrat.etudiant.nom
             }
+
           />
           <ReadOnlyText
             label="Programme d'études:"
@@ -144,7 +145,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
           <div className="row">
             <label className="text-white col-3">Fonction: </label>
             <input
-              className="col text-center"
+              className="col text-center bg-secondary text-white"
               type="text"
               name="moniteurFonction"
               value={values.moniteurFonction}
@@ -461,12 +462,12 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
         </div>
         <div className="border p-5">
           <div className="row">
-            <h2 className="col-lg text-center">
+            <label className="col-lg text-center h2 text-white" for="garderStagiaire" >
               L'ENTREPRISE AIMERAIT ACCUEILLIR CET ÉLÈVE POUR SON PROCHAIN
               STAGE:
-            </h2>
+            </label>
             <input
-              className="col-auto ms-auto me-auto"
+              className="col-auto ms-auto me-auto my-auto"
               type="checkbox"
               id="garderStagiaire"
               name="garderStagiaire"

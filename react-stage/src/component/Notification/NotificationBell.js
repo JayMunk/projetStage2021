@@ -128,17 +128,15 @@ const NotificationBell = () => {
         setListUnchecked([])
         return
     }
-
     const getFullUser = async () => {
-        return await UserService.getUserByEmail(loggedUser.courriel)
+        const data = await UserService.getUserByEmail(loggedUser.courriel)
+        if (data != undefined) {
+            return data
+        }
     }
 
     return (
         <div>
-            {/* <span class="fa-stack fa-5x has-badge" data-count="8,888,888">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-            </span> */}
             {listUnchecked.length != 0 ?
 
                 <Link to="/notification">

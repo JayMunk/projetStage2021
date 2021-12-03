@@ -171,6 +171,7 @@ public class CVControllerTests {
     CV expected = new CV();
     expected.setId(1);
     doNothing().when(cvService).deleteCV(anyInt());
+
     // Act
     MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
 

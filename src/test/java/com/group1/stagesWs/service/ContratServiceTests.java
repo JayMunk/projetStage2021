@@ -1,9 +1,11 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Contrat;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Offre;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,9 @@ public class ContratServiceTests {
   @Mock
   private EtudiantRepository etudiantRepository;
 
+  @Mock
+  private EvaluationService evaluationService;
+  
   @InjectMocks
   private ContratService contratService;
 
@@ -90,6 +95,52 @@ public class ContratServiceTests {
 
     // Assert
     assertThat(returned).isEqualTo(Optional.of(expected));
+  }
+
+  @Test
+  void testGetMoniteurContratsToEvaluate() {
+    // Arrange
+    Contrat evaluated = getContrat();
+    evaluated.setId(1);
+    EvaluationEtudiant evaluation = new EvaluationEtudiant();
+    evaluation.setContrat(evaluated);
+    Contrat notEvaluated1 = getContrat();
+    notEvaluated1.setId(2);
+    Contrat notEvaluated2 = getContrat();
+    notEvaluated2.setId(3);
+    List<EvaluationEtudiant> evaluations = List.of(evaluation);
+    List<Contrat> allContrats = List.of(evaluated, notEvaluated1, notEvaluated2);
+    when(evaluationService.getAllCurrentEtudiantEvals()).thenReturn(evaluations);
+    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(allContrats);
+
+    // Act
+    var actual = contratService.getMoniteurContratsToEvaluate("moniteur@example.com");
+
+    // Assert
+    assertThat(actual.size()).isEqualTo(2);
+  }
+
+  @Test
+  void testGetSuperviseurContratsToEvaluate() {
+    // Arrange
+    Contrat evaluated = getContrat();
+    evaluated.setId(1);
+    EvaluationEntreprise evaluation = new EvaluationEntreprise();
+    evaluation.setContrat(evaluated);
+    Contrat notEvaluated1 = getContrat();
+    notEvaluated1.setId(2);
+    Contrat notEvaluated2 = getContrat();
+    notEvaluated2.setId(3);
+    List<EvaluationEntreprise> evaluations = List.of(evaluation);
+    List<Contrat> allContrats = List.of(evaluated, notEvaluated1, notEvaluated2);
+    when(evaluationService.getAllCurrentEntrepriseEvals()).thenReturn(evaluations);
+    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString())).thenReturn(allContrats);
+
+    // Act
+    var actual = contratService.getSuperviseurContratsToEvaluate("moniteur@example.com");
+
+    // Assert
+    assertThat(actual.size()).isEqualTo(2);
   }
 
   private Etudiant getEtudiant() {

@@ -113,7 +113,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
         className="btn btn-danger"
         onClick={onClickCancel}
       />
-      <h1 className="text-white">Évaluation du stagiaire</h1>
+      <h1 className="text-white text-center">Évaluation du stagiaire</h1>
       <form onSubmit={onSubmit}>
         <div className="border p-5">
           <ReadOnlyText
@@ -142,9 +142,9 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
           />
 
           <div className="row">
-            <label className="text-white col-auto">Fonction: </label>
+            <label className="text-white col-3">Fonction: </label>
             <input
-              className="col-8 right text-center"
+              className="col text-center"
               type="text"
               name="moniteurFonction"
               value={values.moniteurFonction}
@@ -444,14 +444,14 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
             />
           </div>
         </div>
-        <div className="border p-5">
+        <div className="border p-5 text-center">
           <div className="row">
             <label className="text-white text-center col-lg">
               Veuillez indiquer le nombre d'heures réel par semaine
               d'encadrement accordé au stagiaire:{" "}
             </label>
             <input
-              className="col"
+              className="col-auto ms-auto"
               type="number"
               name="heuresEncadrementParSemaine"
               value={values.heuresEncadrementParSemaine}
@@ -466,7 +466,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
               STAGE:
             </h2>
             <input
-              className="col-1 center"
+              className="col-auto ms-auto me-auto"
               type="checkbox"
               id="garderStagiaire"
               name="garderStagiaire"

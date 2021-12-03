@@ -1,6 +1,5 @@
-import Swal from "sweetalert2";
-import "@sweetalert2/theme-dark/dark.css";
-;
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
 
 
 const urlBase = 'http://localhost:9191/contrats'

@@ -34,8 +34,8 @@ const VerificationCVList = ({ cvList, onClickCV }) => {
         </thead>
         <tbody>
           {cvList.length === 0 ? (
-            <tr>
-              <td colSpan="4 text-center">Aucun CV à afficher</td>
+            <tr className="text-center">
+              <td colSpan="4">Aucun CV à afficher</td>
             </tr>
           ) : (
             cvList.map((cv) => (

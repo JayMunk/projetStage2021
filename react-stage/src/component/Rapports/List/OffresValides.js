@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from 'react'
 import { saveAs } from 'file-saver'
 import { UserInfoContext } from '../../../contexts/UserInfo';
 import RapportService from '../../../services/RapportService';
+import Table from "react-bootstrap/Table";
 
 const OffresValides = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -28,25 +29,34 @@ const OffresValides = () => {
         </tr>);
 
     return (
-        <div className="cardRapport">
-            <h4>Liste des offres valides</h4>
-            <table className="tableRapport">
-                <tr>
-                    <th>Titre</th>
-                    <th>Date debut</th>
-                    <th>Date fin</th>
-                </tr>
-                <tbody>
-                    {offresList}
-                </tbody>
-                <tr >
-                    <td colSpan="3">
-                        <button className="button" onClick={downloadOffresValid}>Télécharger</button>
-                    </td>
-                </tr>
-            </table>
-            <span>Pour voir la liste au complet ou pour plus de détails veuillez télécharger le pdf.</span>
-        </div>
+        <>
+            {offresList.length > 0 ? (
+                <div className="cardRapport">
+                    <h4>Liste des offres valides</h4>
+                    <Table striped bordered hover variant="dark" className="tableRapport">
+                        <thead >
+                            <tr>
+                                <th>Titre</th>
+                                <th>Date debut</th>
+                                <th>Date fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {offresList}
+                            <tr>
+                                <td colSpan="3">
+                                    <button className="button" onClick={downloadOffresValid}>Télécharger</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </Table>
+                </div>
+            ) : <div className="cardRapport">
+                <h4>Liste des offres valides</h4>
+                <h3 className="text-warning mt-4">Liste des offres valides</h3>
+            </div>}
+        </>
     )
 }
 

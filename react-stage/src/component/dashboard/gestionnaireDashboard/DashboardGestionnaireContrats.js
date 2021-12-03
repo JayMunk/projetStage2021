@@ -3,6 +3,7 @@ import { UserInfoContext } from "../../../contexts/UserInfo";
 import ContratService from "../../../services/ContratService"
 import Table from "react-bootstrap/Table";
 import { Row, Col } from 'react-bootstrap'
+import "../../../Css/Dashboard.css"
 
 
 const DashboardGestionnaireContrats = () => {

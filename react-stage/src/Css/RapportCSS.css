@@ -1,5 +1,5 @@
 .cardRapport{
-    background: #006994;
+    background: rgb(69, 69, 69);
     width: 500px;
     border-radius: 30px;
     margin-left: auto;
@@ -7,7 +7,7 @@
     text-align: center;
     margin-top: 20px;
     padding-bottom: 20px;
-    height: 350px;
+    height: 320px;
 }
 
 .cardRapport h4 {
@@ -15,13 +15,6 @@
     color: white;
 }
 
-.cardRapport span {
-  margin-top: 10px;
-  display: inline-block;
-  color: white;
-  opacity: 60%;
-  width: 200px;
-}
 
 .tableRapport{
     margin-top: 20px;
@@ -30,35 +23,12 @@
     width: 300px;
 }
 
-.tableRapport,
-.tableRapport td,
-.tableRapport th {
-  border: 1px solid black;
+#titleRapports {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.tableRapport th {
-    background: gray;
-  } 
-
-.tableRapport tr:nth-child(odd) {
-    background-color: lightgray;
-    color: black;
-}
-.tableRapport tr:nth-child(even) {
-    background-color: #DBB2FF;
-    color: black;
-} 
-  
-.tableRapport tbody tr:hover {
-    background-color: #23b6fd;
-} 
-
-.tableRapport .button{
-  background-color: white;
-  width: 100%;
-}
-
-.tableRapport .button:hover {
-  background-color: black;
-  color: white;
+.cardRapport .button {
+    background: color;
 }

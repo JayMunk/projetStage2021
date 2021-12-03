@@ -23,6 +23,8 @@ const Rapports = () => {
 
     return (
         <div>
+            <h3 id="titleRapports" className="text-info">Pour voir la liste au complet ou pour plus de détails veuillez télécharger le pdf.</h3>
+
             <Row>
                 <Col lg="6" sm="10" className="mx-auto">
                     <OffresValides />

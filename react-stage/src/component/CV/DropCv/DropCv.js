@@ -1,6 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
-import "./DropCv.css";
+import "../../../Css/DropCv.css";
 import { saveAs } from "file-saver";
 import {
   AiOutlineCheckCircle,
@@ -179,16 +179,6 @@ const DropCv = () => {
         </form>
       </div>
       {cvs.length > 0 ? (
-        // <table id="tableCv">
-        //     <tr>
-        //         <th>nom du fichier</th>
-        //         <th>Date de soumission</th>
-        //         <th>effacer</th>
-        //         <th>télécarger</th>
-        //         <th>Statut du CV</th>
-        //     </tr>
-        //     {cvList}
-        // </table>
         <Table striped bordered hover variant="dark" id="tableCv">
           <thead>
             <tr>

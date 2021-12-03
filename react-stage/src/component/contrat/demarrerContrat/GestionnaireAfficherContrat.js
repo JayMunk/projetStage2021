@@ -106,7 +106,6 @@ const GestionnaireAfficherContrat = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         setErrors(checkError(contrat))
-        console.log(contrat, "contrat")
         if (contrat.collegeEngagement != undefined) {
             if (!isAlreadyStarted(contrat)) {
                 if (Object.keys(checkError(contrat)).length === 0) {

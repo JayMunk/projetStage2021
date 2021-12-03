@@ -5,7 +5,6 @@ import '../../../Css/FormContratOffre.css'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
 import Swal from "sweetalert2"
 import "@sweetalert2/theme-dark/dark.css"
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
 
 const EtudiantAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)

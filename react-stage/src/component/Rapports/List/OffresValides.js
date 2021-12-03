@@ -45,7 +45,7 @@ const OffresValides = () => {
                             {offresList}
                             <tr>
                                 <td colSpan="3">
-                                    <button className="button" onClick={downloadOffresValid}>Télécharger</button>
+                                    <button className="btn bg-secondary" onClick={downloadOffresValid}>Télécharger</button>
                                 </td>
                             </tr>
 

@@ -25,9 +25,8 @@ const AccountDetails = () => {
     specialite: String,
   });
 
-  if (!loggedUser.isLoggedIn) history.push("/login")
-
   useEffect(() => {
+    if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
       fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
         .then((res) => {

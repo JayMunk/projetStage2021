@@ -109,6 +109,10 @@ const NavbarHTML = () => {
             <Nav.Link as={Link} to="/rapports">Rapports</Nav.Link> : null
           }
 
+          {loggedUser.isLoggedIn &&
+            <Nav.Link className="logout" href="/login">Déconnexion</Nav.Link>
+          }
+
 
         </Nav>
       </Navbar.Collapse>

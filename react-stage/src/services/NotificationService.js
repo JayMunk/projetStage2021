@@ -1,4 +1,4 @@
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
 const urlBase = 'http://localhost:9191/notification'
 

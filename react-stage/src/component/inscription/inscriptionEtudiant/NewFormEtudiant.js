@@ -1,11 +1,11 @@
 import { React, useState } from 'react'
-import { useHistory } from "react-router-dom"
-import UserService from '../../../services/UserService'
+import { useHistory } from "react-router-dom";
+import UserService from '../../../services/UserService';
 
 import '../../../Css/FormInscriptionCSS.css'
 
 const NewFormEtudiant = () => {
-    const history = useHistory()
+    const history = useHistory();
 
     const [values, setValues] = useState({
         prenom: "",
@@ -85,7 +85,7 @@ const NewFormEtudiant = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         setErrors(checkError(values))
 
         setSubmitted(true)
@@ -94,8 +94,8 @@ const NewFormEtudiant = () => {
 
             values.hasLicense = hasLicense
             values.hasVoiture = hasVoiture
-            UserService.saveEtudiant(values)
-            history.push("/login")
+            UserService.saveEtudiant(values);
+            history.push("/login");
 
         }
     }
@@ -183,7 +183,7 @@ const NewFormEtudiant = () => {
                 <button type="submit" className="button">S'inscrire</button>
             </form >
         </body>
-    )
+    );
 }
 
 export default NewFormEtudiant

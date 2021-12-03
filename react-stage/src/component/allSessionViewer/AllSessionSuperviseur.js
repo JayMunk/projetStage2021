@@ -1,42 +1,42 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import UserService from '../../services/UserService'
+import { Col, Row } from 'react-bootstrap';
+import UserService from '../../services/UserService';
 
 const AllSessionSuperviseur = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
-    const [superviseurs, setSuperviseurs] = useState([])
-    const [pageNumber, setPageNumber] = useState(0)
-    const [superviseursVisible, setSuperviseursVisible] = useState([])
+    const [superviseurs, setSuperviseurs] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [superviseursVisible, setSuperviseursVisible] = useState([]);
 
     useEffect(async () => {
         const superviseurs = await UserService.getListAllSuperviseursAllSession()
-        setSuperviseurs(getListForSpecificSession(superviseurs))
-        setSuperviseursVisible(getListForSpecificSession(superviseurs).slice(0, elementsPerPage))
-    }, [])
+        setSuperviseurs(getListForSpecificSession(superviseurs));
+        setSuperviseursVisible(getListForSpecificSession(superviseurs).slice(0, elementsPerPage));
+    }, []);
 
     useEffect(async () => {
         const superviseurs = await UserService.getListAllSuperviseursAllSession()
-        setSuperviseurs(getListForSpecificSession(superviseurs))
-        setSuperviseursVisible(getListForSpecificSession(superviseurs).slice(0, elementsPerPage))
-    }, [reloadList])
+        setSuperviseurs(getListForSpecificSession(superviseurs));
+        setSuperviseursVisible(getListForSpecificSession(superviseurs).slice(0, elementsPerPage));
+    }, [reloadList]);
 
 
     const updateListSuperviseurs = (pageNumber) => {
-        let offset = elementsPerPage * pageNumber
+        let offset = elementsPerPage * pageNumber;
 
-        setSuperviseursVisible(superviseurs.slice(0 + offset, elementsPerPage + offset))
-    }
+        setSuperviseursVisible(superviseurs.slice(0 + offset, elementsPerPage + offset));
+    };
 
     const nextPage = () => {
-        if (elementsPerPage * (pageNumber + 1) >= superviseurs.length) return
-        updateListSuperviseurs(pageNumber + 1)
-        setPageNumber(pageNumber + 1)
-    }
+        if (elementsPerPage * (pageNumber + 1) >= superviseurs.length) return;
+        updateListSuperviseurs(pageNumber + 1);
+        setPageNumber(pageNumber + 1);
+    };
 
     const previousPage = () => {
-        if (pageNumber === 0) return
-        updateListSuperviseurs(pageNumber - 1)
-        setPageNumber(pageNumber - 1)
-    }
+        if (pageNumber === 0) return;
+        updateListSuperviseurs(pageNumber - 1);
+        setPageNumber(pageNumber - 1);
+    };
 
     const superviseursList = superviseursVisible.map((superviseur) => (
         <tr key={superviseur.id}>
@@ -44,7 +44,7 @@ const AllSessionSuperviseur = ({ reloadList, getListForSpecificSession, elements
             <td>{superviseur.courriel}</td>
             <td>{superviseur.session}</td>
         </tr>
-    ))
+    ));
 
     return (
         <div>
@@ -77,7 +77,7 @@ const AllSessionSuperviseur = ({ reloadList, getListForSpecificSession, elements
             </Row>
             <br />
         </div>
-    )
+    );
 }
 
 export default AllSessionSuperviseur

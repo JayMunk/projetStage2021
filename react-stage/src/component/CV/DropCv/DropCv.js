@@ -1,37 +1,37 @@
-import { React, useState, useContext, useEffect } from "react"
-import { UserInfoContext } from "../../../contexts/UserInfo"
-import "./DropCv.css"
-import { saveAs } from "file-saver"
+import { React, useState, useContext, useEffect } from "react";
+import { UserInfoContext } from "../../../contexts/UserInfo";
+import "./DropCv.css";
+import { saveAs } from "file-saver";
 import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
   AiOutlineClockCircle,
-} from "react-icons/ai"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUpload } from "@fortawesome/free-solid-svg-icons"
-import Swal from "sweetalert2"
-import "@sweetalert2/theme-dark/dark.css"
-import CVService from "../../../services/CVService"
-import UserService from "../../../services/UserService"
-import { useHistory } from "react-router-dom"
-import Table from "react-bootstrap/Table"
-import { faFlagCheckered } from "@fortawesome/free-solid-svg-icons"
+} from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+import "@sweetalert2/theme-dark/dark.css";
+import CVService from "../../../services/CVService";
+import UserService from "../../../services/UserService";
+import { useHistory } from "react-router-dom";
+import Table from "react-bootstrap/Table";
+import { faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
 
 const DropCv = () => {
-  const [etudiant, setEtudiant] = useState()
-  const [cvs, setCvs] = useState([])
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
-  const [files, setFile] = useState(null)
-  const history = useHistory()
+  const [etudiant, setEtudiant] = useState();
+  const [cvs, setCvs] = useState([]);
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+  const [files, setFile] = useState(null);
+  const history = useHistory();
 
   const OnInputChange = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files[0]);
     if (e.target.files[0] != undefined) {
-      document.querySelector("#test").textContent = e.target.files[0].name
+      document.querySelector("#test").textContent = e.target.files[0].name;
     } else {
-      document.querySelector("#test").textContent = ""
+      document.querySelector("#test").textContent = "";
     }
-  }
+  };
 
   const fileToBase64 = (file, cb) => {
     if (file == null) {
@@ -39,75 +39,75 @@ const DropCv = () => {
         icon: "error",
         title: "Erreur!",
         text: "Veuillez choisir un fichier s`il-vous-plaît.",
-      })
+      });
     } else if (file != null) {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onload = function () {
-        cb(null, reader.result)
-      }
+        cb(null, reader.result);
+      };
       reader.onerror = function (error) {
-        cb(error, null)
-      }
+        cb(error, null);
+      };
     }
-  }
+  };
 
   const OnSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     fileToBase64(files, (err, result) => {
       if (result) {
-        result = result.substring(28)
+        result = result.substring(28);
         if (loggedUser.isLoggedIn) {
           if (loggedUser.isLoggedIn) {
             UserService.getUserByEmail(loggedUser.courriel).then((data) => {
-              setEtudiant(data)
-              let cv = { data: result, etudiant: data, nom: files.name }
+              setEtudiant(data);
+              let cv = { data: result, etudiant: data, nom: files.name };
               CVService.saveCv(cv).then((data) => {
-                setFile(null)
-                document.querySelector("#test").textContent = ""
-                updateCvs()
-              })
-            })
+                setFile(null);
+                document.querySelector("#test").textContent = "";
+                updateCvs();
+              });
+            });
           }
         }
       }
-    })
-  }
+    });
+  };
 
   const updateCvs = async () => {
-    const fetchCv = await CVService.getCvEtudiant(etudiant.id)
-    setCvs(fetchCv)
-  }
+    const fetchCv = await CVService.getCvEtudiant(etudiant.id);
+    setCvs(fetchCv);
+  };
 
   const deleteCV = async (cv) => {
-    const boolean = await CVService.deleteCv(cv.id)
+    const boolean = await CVService.deleteCv(cv.id);
     if (boolean) {
-      updateCvs()
+      updateCvs();
     }
-  }
+  };
 
   const download = async (cv) => {
-    saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
-  }
+    saveAs(`http://localhost:9191/cv/pdf/${cv.id}`);
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
       case "PENDING":
-        return <AiOutlineClockCircle color="gold" size="48px" />
+        return <AiOutlineClockCircle color="gold" size="48px" />;
       case "ACCEPTED":
-        return <AiOutlineCheckCircle color="green" size="48px" />
+        return <AiOutlineCheckCircle color="green" size="48px" />;
       case "REJECTED":
-        return <AiOutlineCloseCircle color="red" size="48px" />
+        return <AiOutlineCloseCircle color="red" size="48px" />;
       default:
-        return
+        return;
     }
-  }
+  };
 
   const setDefaultCV = async (cv) => {
-    await CVService.saveCv(cv)
-    updateCvs()
-  }
+    await CVService.saveCv(cv);
+    updateCvs();
+  };
 
   const cvList = cvs.map((cv) => (
     <tr key={cv.id.toString()}>
@@ -143,19 +143,19 @@ const DropCv = () => {
         </td>
       )}
     </tr>
-  ))
+  ));
 
   useEffect(() => {
     if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
       UserService.getUserByEmail(loggedUser.courriel).then((data) => {
-        setEtudiant(data)
+        setEtudiant(data);
         CVService.getCvEtudiant(data.id).then((data) => {
-          setCvs(data)
-        })
-      })
+          setCvs(data);
+        });
+      });
     }
-  }, [])
+  }, []);
 
   return (
     <body id="body">
@@ -197,7 +197,7 @@ const DropCv = () => {
 
 
     </body>
-  )
-}
+  );
+};
 
-export default DropCv
+export default DropCv;

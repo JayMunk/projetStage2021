@@ -1,16 +1,16 @@
-import React, { useContext, useState, useEffect } from "react"
-import { UserInfoContext } from "../../../contexts/UserInfo"
+import React, { useContext, useState, useEffect } from "react";
+import { UserInfoContext } from "../../../contexts/UserInfo";
 import ContratService from "../../../services/ContratService"
-import Table from "react-bootstrap/Table"
+import Table from "react-bootstrap/Table";
 import { Row, Col } from 'react-bootstrap'
 
 
 const DashboardGestionnaireContrats = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
-  const [contrats, setContrats] = useState([])
-  const [pageNumber, setPageNumber] = useState(0)
-  const [contratsVisible, setContratsVisible] = useState([])
-  const contratsPerPage = 3
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+  const [contrats, setContrats] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [contratsVisible, setContratsVisible] = useState([]);
+  const contratsPerPage = 3;
 
   useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
@@ -18,25 +18,25 @@ const DashboardGestionnaireContrats = () => {
       setContrats(contratsList)
       setContratsVisible(contratsList.slice(0, contratsPerPage))
     }
-  }, [])
+  }, []);
 
   const updateListeEtudiants = (pageNumber) => {
-    let offset = contratsPerPage * pageNumber
+    let offset = contratsPerPage * pageNumber;
 
-    setContratsVisible(contrats.slice(0 + offset, contratsPerPage + offset))
-  }
+    setContratsVisible(contrats.slice(0 + offset, contratsPerPage + offset));
+  };
 
   const nextPage = () => {
-    if (contratsPerPage * (pageNumber + 1) >= contrats.length) return
-    updateListeEtudiants(pageNumber + 1)
-    setPageNumber(pageNumber + 1)
-  }
+    if (contratsPerPage * (pageNumber + 1) >= contrats.length) return;
+    updateListeEtudiants(pageNumber + 1);
+    setPageNumber(pageNumber + 1);
+  };
 
   const previousPage = () => {
-    if (pageNumber === 0) return
-    updateListeEtudiants(pageNumber - 1)
-    setPageNumber(pageNumber - 1)
-  }
+    if (pageNumber === 0) return;
+    updateListeEtudiants(pageNumber - 1);
+    setPageNumber(pageNumber - 1);
+  };
 
   const contratsList = contratsVisible.map((contrat) => (
     <tr key={contrat.id.toString()}>
@@ -48,7 +48,7 @@ const DashboardGestionnaireContrats = () => {
       <td>{contrat.dateSignatureGestionnaire == null ? "Aucune" : contrat.dateSignatureEtudiant}</td>
 
     </tr>
-  ))
+  ));
 
   return (
     <div>
@@ -92,7 +92,7 @@ const DashboardGestionnaireContrats = () => {
       </Row>
     </div>
 
-  )
-}
+  );
+};
 
-export default DashboardGestionnaireContrats
+export default DashboardGestionnaireContrats;

@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { saveAs } from 'file-saver'
-import { UserInfoContext } from '../../../contexts/UserInfo'
-import RapportService from '../../../services/RapportService'
+import { UserInfoContext } from '../../../contexts/UserInfo';
+import RapportService from '../../../services/RapportService';
 
 const CvsPendingEtRejected = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -13,7 +13,7 @@ const CvsPendingEtRejected = () => {
             const cvsFetch = await RapportService.getCvsPendingEtRejected()
             setCvs(cvsFetch.slice(0, 3))
         }
-    }, [])
+    }, []);
 
     const downloadCVPendingRejected = () => {
         saveAs("http://localhost:9191/rapport/pdf/cvPendingRejected")
@@ -24,7 +24,7 @@ const CvsPendingEtRejected = () => {
         <tr key={cv.id.toString()}>
             <td>{cv.nom}</td>
             <td>{cv.status}</td>
-        </tr>)
+        </tr>);
 
     return (
         <div className="cardRapport">

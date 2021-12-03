@@ -1,36 +1,36 @@
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
 const urlBase = "http://localhost:9191/session"
 const SessionService = {
   getAllSessions: async () => {
-    const res = await fetch(urlBase + '/allSessions')
+    const res = await fetch(urlBase + '/allSessions');
     if (!res.ok) {
       errorAlert("Server error, unable to get list of sessions")
       return
     }
-    const data = await res.json()
-    return data
+    const data = await res.json();
+    return data;
   },
 
   addNewSession: async (newSessionName) => {
-    const res = await fetch(urlBase + '/new/' + newSessionName)
+    const res = await fetch(urlBase + '/new/' + newSessionName);
     if (!res.ok) {
       toastError("Server error, unable to create new session")
       return
     }
-    const data = await res.json()
+    const data = await res.json();
 
-    return data
+    return data;
   },
 
   getCurrentSession: async () => {
-    const res = await fetch(urlBase + '/currentSession')
+    const res = await fetch(urlBase + '/currentSession');
     if (!res.ok) {
       toastError("Server error, unable to access current session")
       return
     }
-    const data = await res.json()
-    return data
+    const data = await res.json();
+    return data;
   }
 }
 
@@ -60,4 +60,4 @@ const toastError = (errorMessage) => {
 }
 
 
-export default SessionService
+export default SessionService;

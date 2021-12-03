@@ -1,31 +1,31 @@
-import React from "react"
-import { useState, useEffect, useContext, useRef } from "react"
-import { useHistory } from "react-router-dom"
+import React from "react";
+import { useState, useEffect, useContext, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
   AiOutlineClose,
-} from "react-icons/ai"
-import { UserInfoContext } from "../../contexts/UserInfo"
-import ReactModal from "react-modal"
-import "./PickList.css"
-import OffreService from "../../services/OffreService.js"
-import UserService from "../../services/UserService.js"
-import { MultiSelect } from "react-multi-select-component"
+} from "react-icons/ai";
+import { UserInfoContext } from "../../contexts/UserInfo";
+import ReactModal from "react-modal";
+import "./PickList.css";
+import OffreService from "../../services/OffreService.js";
+import UserService from "../../services/UserService.js";
+import { MultiSelect } from "react-multi-select-component";
 import { Col, Row } from 'react-bootstrap'
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import CVService from "../../services/CVService"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CVService from "../../services/CVService";
 import { saveAs } from 'file-saver'
 
 
 
 
 const Offres = () => {
-  const history = useHistory()
-  const [listOffres, setListOffres] = useState([])
-  const [showModal, setShowModal] = useState(false)
+  const history = useHistory();
+  const [listOffres, setListOffres] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const [currentOffre, setCurrentOffre] = useState({
     titre: String,
     description: String,
@@ -40,13 +40,13 @@ const Offres = () => {
     whitelist: Array,
     applicants: Array,
     valid: Boolean,
-  })
+  });
 
-  const [listAllEtudiant, setListAllEtudiant] = useState([])
+  const [listAllEtudiant, setListAllEtudiant] = useState([]);
 
-  const [listWhitelistedEtudiant, setListWhitelistedEtudiant] = useState([])
+  const [listWhitelistedEtudiant, setListWhitelistedEtudiant] = useState([]);
 
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
 
   useEffect(() => {
     if (
@@ -60,63 +60,63 @@ const Offres = () => {
       history.push("/login")
     }
     const getOffres = async () => {
-      let dbOffres
+      let dbOffres;
       switch (loggedUser.role) {
         case "GESTIONNAIRE":
-          dbOffres = await OffreService.getAllOffres()
-          break
+          dbOffres = await OffreService.getAllOffres();
+          break;
         case "MONITEUR":
-          dbOffres = await OffreService.getMoniteurOffres(loggedUser.courriel)
-          break
+          dbOffres = await OffreService.getMoniteurOffres(loggedUser.courriel);
+          break;
         case "ETUDIANT":
-          dbOffres = await OffreService.getEtudiantOffres(loggedUser.courriel)
-          break
+          dbOffres = await OffreService.getEtudiantOffres(loggedUser.courriel);
+          break;
         default:
-          break
+          break;
       }
-      setListOffres(dbOffres)
-    }
-    getOffres()
-  }, [])
+      setListOffres(dbOffres);
+    };
+    getOffres();
+  }, []);
 
   useEffect(() => {
     const getListAllEtudiants = async () => {
-      const allEtudiants = await UserService.getListAllEtudiants()
-      setListAllEtudiant(allEtudiants)
-    }
-    getListAllEtudiants()
-  }, [])
+      const allEtudiants = await UserService.getListAllEtudiants();
+      setListAllEtudiant(allEtudiants);
+    };
+    getListAllEtudiants();
+  }, []);
 
 
   const getOptionsEtudiant = (listEtudiant) => {
     return listEtudiant.map((etudiant) => {
-      let etudiantOption = {}
-      etudiantOption.label = etudiant.prenom + " " + etudiant.nom
-      etudiantOption.value = etudiant
-      return etudiantOption
-    })
-  }
+      let etudiantOption = {};
+      etudiantOption.label = etudiant.prenom + " " + etudiant.nom;
+      etudiantOption.value = etudiant;
+      return etudiantOption;
+    });
+  };
 
   const getListEtudiantFromOptions = (listWhitelistOptions) => {
     return listWhitelistOptions.map((option) => {
-      let etudiant = {}
-      etudiant = option.value
-      return etudiant
-    })
-  }
+      let etudiant = {};
+      etudiant = option.value;
+      return etudiant;
+    });
+  };
 
   const onClickOffre = (offre) => {
-    setCurrentOffre(offre)
-    setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist))
-    setShowModal(true)
-  }
+    setCurrentOffre(offre);
+    setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist));
+    setShowModal(true);
+  };
 
   const appliquerOffre = async (offre) => {
-    let offreApplied
+    let offreApplied;
     offreApplied = await OffreService.applyForOffre(
       offre.id,
       loggedUser.courriel
-    )
+    );
     if (offreApplied != null) {
       Swal.fire(
         'Application Reçu',
@@ -124,55 +124,55 @@ const Offres = () => {
         'success'
       )
     }
-  }
+  };
 
   const onClickClose = () => {
-    setShowModal(false)
-    setCurrentOffre(null)
-  }
+    setShowModal(false);
+    setCurrentOffre(null);
+  };
 
   const onToggleValid = () => {
     setCurrentOffre((offre) => ({
       ...offre,
       valid: !offre.valid,
-    }))
-  }
+    }));
+  };
 
   const onClickSave = async () => {
-    const updatedOffre = currentOffre
+    const updatedOffre = currentOffre;
     updatedOffre.whitelist = getListEtudiantFromOptions(
       listWhitelistedEtudiant
-    )
-    setCurrentOffre(updatedOffre)
-    await OffreService.saveOffre(updatedOffre)
-    await updateOffres()
-    onClickClose()
-  }
+    );
+    setCurrentOffre(updatedOffre);
+    await OffreService.saveOffre(updatedOffre);
+    await updateOffres();
+    onClickClose();
+  };
 
   const updateOffres = async () => {
     const dbOffres =
       loggedUser.role === "ETUDIANT"
         ? await OffreService.getEtudiantOffres(loggedUser.courriel)
-        : await OffreService.getAllOffres()
-    setListOffres(dbOffres)
-  }
+        : await OffreService.getAllOffres();
+    setListOffres(dbOffres);
+  };
 
   const getOptionsList = () => {
     if (currentOffre != null) {
       if (listWhitelistedEtudiant.length == 0) {
-        return getOptionsEtudiant(listAllEtudiant)
+        return getOptionsEtudiant(listAllEtudiant);
       } else {
-        let listAllEtudiantArray = listAllEtudiant
+        let listAllEtudiantArray = listAllEtudiant;
         listAllEtudiantArray = listAllEtudiantArray.filter(
           (etudiant) =>
             !listWhitelistedEtudiant.some(
               (whitelistedEtudiantOption) =>
                 whitelistedEtudiantOption.value.id === etudiant.id
             )
-        )
+        );
         return getOptionsEtudiant(listAllEtudiantArray).concat(
           listWhitelistedEtudiant
-        )
+        );
       }
     }
   }
@@ -182,8 +182,8 @@ const Offres = () => {
       <AiOutlineCheckCircle color="green" />
     ) : (
       <AiOutlineCloseCircle color="red" />
-    )
-  }
+    );
+  };
 
   const getEtudiantCV = async (etudiant) => {
     const listCVEtudiant = await CVService.getAllCVEtudiant(etudiant.id)
@@ -503,7 +503,7 @@ const Offres = () => {
         }
       </ReactModal >
     </div >
-  )
-}
+  );
+};
 
-export default Offres
+export default Offres;

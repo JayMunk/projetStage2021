@@ -1,42 +1,42 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import UserService from '../../services/UserService'
+import { Col, Row } from 'react-bootstrap';
+import UserService from '../../services/UserService';
 
 const AllSessionMoniteur = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
-    const [moniteurs, setMoniteurs] = useState([])
-    const [pageNumber, setPageNumber] = useState(0)
-    const [moniteursVisible, setMoniteursVisible] = useState([])
+    const [moniteurs, setMoniteurs] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [moniteursVisible, setMoniteursVisible] = useState([]);
 
     useEffect(async () => {
         const moniteurs = await UserService.getListAllMoniteursAllSession()
-        setMoniteurs(getListForSpecificSession(moniteurs))
-        setMoniteursVisible(getListForSpecificSession(moniteurs).slice(0, elementsPerPage))
-    }, [])
+        setMoniteurs(getListForSpecificSession(moniteurs));
+        setMoniteursVisible(getListForSpecificSession(moniteurs).slice(0, elementsPerPage));
+    }, []);
 
     useEffect(async () => {
         const moniteurs = await UserService.getListAllMoniteursAllSession()
-        setMoniteurs(getListForSpecificSession(moniteurs))
-        setMoniteursVisible(getListForSpecificSession(moniteurs).slice(0, elementsPerPage))
-    }, [reloadList])
+        setMoniteurs(getListForSpecificSession(moniteurs));
+        setMoniteursVisible(getListForSpecificSession(moniteurs).slice(0, elementsPerPage));
+    }, [reloadList]);
 
 
     const updateListMoniteurs = (pageNumber) => {
-        let offset = elementsPerPage * pageNumber
+        let offset = elementsPerPage * pageNumber;
 
-        setMoniteursVisible(moniteurs.slice(0 + offset, elementsPerPage + offset))
-    }
+        setMoniteursVisible(moniteurs.slice(0 + offset, elementsPerPage + offset));
+    };
 
     const nextPage = () => {
-        if (elementsPerPage * (pageNumber + 1) >= moniteurs.length) return
-        updateListMoniteurs(pageNumber + 1)
-        setPageNumber(pageNumber + 1)
-    }
+        if (elementsPerPage * (pageNumber + 1) >= moniteurs.length) return;
+        updateListMoniteurs(pageNumber + 1);
+        setPageNumber(pageNumber + 1);
+    };
 
     const previousPage = () => {
-        if (pageNumber === 0) return
-        updateListMoniteurs(pageNumber - 1)
-        setPageNumber(pageNumber - 1)
-    }
+        if (pageNumber === 0) return;
+        updateListMoniteurs(pageNumber - 1);
+        setPageNumber(pageNumber - 1);
+    };
 
     const moniteursList = moniteursVisible.map((moniteur) => (
         <tr key={moniteur.id}>
@@ -44,7 +44,7 @@ const AllSessionMoniteur = ({ reloadList, getListForSpecificSession, elementsPer
             <td>{moniteur.courriel}</td>
             <td>{moniteur.session}</td>
         </tr>
-    ))
+    ));
 
     return (
         <div>
@@ -77,7 +77,7 @@ const AllSessionMoniteur = ({ reloadList, getListForSpecificSession, elementsPer
             </Row>
             <br />
         </div>
-    )
+    );
 }
 
 export default AllSessionMoniteur

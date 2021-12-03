@@ -14,8 +14,8 @@ const NotificationViewer = () => {
     const [reload, setReload] = useState(true)
     const [checkedVisible, setCheckedVisible] = useState([])
     const [uncheckedVisible, setUncheckedVisible] = useState([])
-    const [pageNumberChecked, setPageNumberChecked] = useState(0)
-    const [pageNumberUnchecked, setPageNumberUnchecked] = useState(0)
+    const [pageNumberChecked, setPageNumberChecked] = useState(0);
+    const [pageNumberUnchecked, setPageNumberUnchecked] = useState(0);
     const elementsPerPage = 3
 
     useEffect(() => {
@@ -104,41 +104,41 @@ const NotificationViewer = () => {
     }
 
     const updateListChecked = (pageNumberChecked) => {
-        let offset = elementsPerPage * pageNumberChecked
+        let offset = elementsPerPage * pageNumberChecked;
 
-        setCheckedVisible(listChecked.slice(0 + offset, elementsPerPage + offset))
-    }
+        setCheckedVisible(listChecked.slice(0 + offset, elementsPerPage + offset));
+    };
 
     const nextPageChecked = () => {
         console.log(listChecked.length)
-        if (elementsPerPage * (pageNumberChecked + 1) >= listChecked.length) return
-        updateListChecked(pageNumberChecked + 1)
-        setPageNumberChecked(pageNumberChecked + 1)
-    }
+        if (elementsPerPage * (pageNumberChecked + 1) >= listChecked.length) return;
+        updateListChecked(pageNumberChecked + 1);
+        setPageNumberChecked(pageNumberChecked + 1);
+    };
 
     const previousPageChecked = () => {
-        if (pageNumberChecked === 0) return
-        updateListChecked(pageNumberChecked - 1)
-        setPageNumberChecked(pageNumberChecked - 1)
-    }
+        if (pageNumberChecked === 0) return;
+        updateListChecked(pageNumberChecked - 1);
+        setPageNumberChecked(pageNumberChecked - 1);
+    };
 
     const updateListUnchecked = (pageNumberUnchecked) => {
-        let offset = elementsPerPage * pageNumberUnchecked
+        let offset = elementsPerPage * pageNumberUnchecked;
 
-        setUncheckedVisible(listUnchecked.slice(0 + offset, elementsPerPage + offset))
-    }
+        setUncheckedVisible(listUnchecked.slice(0 + offset, elementsPerPage + offset));
+    };
 
     const nextPageUnchecked = () => {
-        if (elementsPerPage * (pageNumberUnchecked + 1) >= listUnchecked.length) return
-        updateListUnchecked(pageNumberUnchecked + 1)
-        setPageNumberUnchecked(pageNumberUnchecked + 1)
-    }
+        if (elementsPerPage * (pageNumberUnchecked + 1) >= listUnchecked.length) return;
+        updateListUnchecked(pageNumberUnchecked + 1);
+        setPageNumberUnchecked(pageNumberUnchecked + 1);
+    };
 
     const previousPageUnchecked = () => {
-        if (pageNumberUnchecked === 0) return
-        updateListUnchecked(pageNumberUnchecked - 1)
-        setPageNumberUnchecked(pageNumberUnchecked - 1)
-    }
+        if (pageNumberUnchecked === 0) return;
+        updateListUnchecked(pageNumberUnchecked - 1);
+        setPageNumberUnchecked(pageNumberUnchecked - 1);
+    };
 
     const forceReload = () => {
         setReload(true)

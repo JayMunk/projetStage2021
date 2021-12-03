@@ -1,31 +1,33 @@
-import "./App.css"
-import 'bootstrap/dist/css/bootstrap.min.css'
-import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant"
-import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur"
-import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur"
-import NewLoginUser from "./component/loginUser/NewLoginUser"
-import Navbar from "./component/navbar/NavbarHTML"
-import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre"
-import Offres from "./component/Offres/Offres"
+import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
+import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";
+import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
+import NewLoginUser from "./component/loginUser/NewLoginUser";
+import Navbar from "./component/navbar/NavbarHTML";
+import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre";
+import Offres from "./component/Offres/Offres";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-} from "react-router-dom"
-import UserInfo from "./contexts/UserInfo"
-import AccountDetails from "./component/AccountDetails/AccountDetails"
-import VerificationCV from './component/CV/gestionCV/VerificationCV'
-import DropCv from "./component/CV/DropCv/DropCv"
-import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation'
-import Dashboard from './component/dashboard/Dashboard'
-import Rapports from "./component/Rapports/Rapports"
-import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo"
+} from "react-router-dom";
+import UserInfo from "./contexts/UserInfo";
+import AccountDetails from "./component/AccountDetails/AccountDetails";
+import VerificationCV from './component/CV/gestionCV/VerificationCV';
+import DropCv from "./component/CV/DropCv/DropCv";
+import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
+import Dashboard from './component/dashboard/Dashboard';
+
+// import Contrat from './component/contrat/Contrat';
+import Rapports from "./component/Rapports/Rapports";
+import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 import NewContrat from "./component/contrat/newContrat/NewContrat"
-import NotificationViewer from "./component/Notification/NotificationViewer"
-import EvaluationEtudiant from "./component/evaluations/EvaluationEtudiant"
+import NotificationViewer from "./component/Notification/NotificationViewer";
+import EvaluationEtudiant from "./component/evaluations/EvaluationEtudiant";
 import AfficherContrat from "./component/contrat/demarrerContrat/AfficherContrat"
-import EvaluationEntreprise from "./component/evaluations/EvaluationEntreprise"
-import NotFound from "./component/notFound/NotFound"
+import EvaluationEntreprise from "./component/evaluations/EvaluationEntreprise";
+import NotFound from "./component/notFound/NotFound";
 
 
 
@@ -63,7 +65,7 @@ function App() {
         </UserInfo>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

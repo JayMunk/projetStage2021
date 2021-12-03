@@ -137,7 +137,7 @@ const AllSessionInfo = () => {
                         <option value="All" selected>Tout Session</option>
                         {allSessions.map(session =>
                             <option key={session.id} value={session.nomSession}>{session.nomSession}</option>
-                        )}
+                        )};
                     </select>
                 </Col>
                 {/* <div className="col-1"></div> */}

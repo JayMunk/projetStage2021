@@ -1,12 +1,12 @@
 import { React, useState } from 'react'
-import { useHistory } from "react-router-dom"
-import UserService from '../../../services/UserService'
+import { useHistory } from "react-router-dom";
+import UserService from '../../../services/UserService';
 
 
 import '../../../Css/FormInscriptionCSS.css'
 
 const NewFormMoniteur = () => {
-    const history = useHistory()
+    const history = useHistory();
 
     const [values, setValues] = useState({
         prenom: "",
@@ -80,7 +80,7 @@ const NewFormMoniteur = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         setErrors(checkError(values))
 
         setSubmitted(true)
@@ -89,8 +89,8 @@ const NewFormMoniteur = () => {
 
 
 
-            UserService.saveMoniteur(values)
-            history.push("/login")
+            UserService.saveMoniteur(values);
+            history.push("/login");
 
         }
     }
@@ -100,12 +100,12 @@ const NewFormMoniteur = () => {
 
 
     const saveMoniteur = async () => {
-        var request = new XMLHttpRequest()
-        request.open('POST', 'http://localhost:9191/user/moniteur', true)
-        request.setRequestHeader('Content-Type', 'application/json charset=UTF-8')
+        var request = new XMLHttpRequest();
+        request.open('POST', 'http://localhost:9191/user/moniteur', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
-        const moniteur = JSON.stringify(values)
+        const moniteur = JSON.stringify(values);
 
         request.send(moniteur)
     }
@@ -170,7 +170,7 @@ const NewFormMoniteur = () => {
                 <button type="submit" className="button">S'inscrire</button>
             </form >
         </body >
-    )
+    );
 }
 
 export default NewFormMoniteur

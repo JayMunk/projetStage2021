@@ -1,39 +1,39 @@
-import React, { useContext, useState, useEffect } from "react"
-import { UserInfoContext } from "../../../contexts/UserInfo"
+import React, { useContext, useState, useEffect } from "react";
+import { UserInfoContext } from "../../../contexts/UserInfo";
 import OffreService from "../../../services/OffreService"
 
 
 const OffresDashGestionnaire = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
-  const [offres, setOffres] = useState([])
-  const [pageNumber, setPageNumber] = useState(0)
-  const [offresVisible, setOffresVisible] = useState([])
-  const offresPerPage = 3
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+  const [offres, setOffres] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [offresVisible, setOffresVisible] = useState([]);
+  const offresPerPage = 3;
 
   useEffect(async () => {
     const offresList = await OffreService.getAllOffres()
     setOffres(offresList)
     console.log(offresList, "offers")
     setOffresVisible(offresList.slice(0, offresPerPage))
-  }, [])
+  }, []);
 
   const updateListeOffres = (pageNumber) => {
-    let offset = offresPerPage * pageNumber
+    let offset = offresPerPage * pageNumber;
 
-    setOffresVisible(offres.slice(0 + offset, offresPerPage + offset))
-  }
+    setOffresVisible(offres.slice(0 + offset, offresPerPage + offset));
+  };
 
   const nextPage = () => {
-    if (offresPerPage * (pageNumber + 1) >= offres.length) return
-    updateListeOffres(pageNumber + 1)
-    setPageNumber(pageNumber + 1)
-  }
+    if (offresPerPage * (pageNumber + 1) >= offres.length) return;
+    updateListeOffres(pageNumber + 1);
+    setPageNumber(pageNumber + 1);
+  };
 
   const previousPage = () => {
-    if (pageNumber === 0) return
-    updateListeOffres(pageNumber - 1)
-    setPageNumber(pageNumber - 1)
-  }
+    if (pageNumber === 0) return;
+    updateListeOffres(pageNumber - 1);
+    setPageNumber(pageNumber - 1);
+  };
 
   const offresList = offresVisible.map((offre) => (
     <tr key={offre.id.toString()}>
@@ -44,7 +44,7 @@ const OffresDashGestionnaire = () => {
 
 
     </tr>
-  ))
+  ));
 
   return (
     <>
@@ -79,7 +79,7 @@ const OffresDashGestionnaire = () => {
         </tr>
       </table>
     </>
-  )
-}
+  );
+};
 
-export default OffresDashGestionnaire
+export default OffresDashGestionnaire;

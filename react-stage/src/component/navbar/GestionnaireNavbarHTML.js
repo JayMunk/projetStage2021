@@ -12,7 +12,7 @@ import NotificationBell from '../Notification/NotificationBell'
 const GestionnaireNavbarHTML = () => {
 
   const myFunction = () => {
-    const url = encodeURIComponent("http://localhost:3000/moniteur")
+    const url = encodeURIComponent("http://localhost:3000/moniteur");
     window.open(`mailto:?subject=${url}&body=Voici le lien pour vous inscrire`)
   }
 

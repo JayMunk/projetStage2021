@@ -23,27 +23,27 @@ const AccountDetails = () => {
     nomEntreprise: String,
     adresseEntreprise: String,
     specialite: String,
-  })
+  });
 
   useEffect(() => {
     if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
       fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
         .then((res) => {
-          return res.json()
+          return res.json();
         })
         .then((data) => {
-          console.log(data, "data")
-          setFullUser(data)
-        })
+          console.log(data, "data");
+          setFullUser(data);
+        });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (fullUser.courriel != null) {
-      console.log(fullUser, "LOGGING FULLUSER")
+      console.log(fullUser, "LOGGING FULLUSER");
     }
-  }, [fullUser])
+  }, [fullUser]);
 
   return (
     <body>
@@ -225,7 +225,7 @@ const AccountDetails = () => {
 
       </form>
     </body>
-  )
-}
+  );
+};
 
-export default AccountDetails
+export default AccountDetails;

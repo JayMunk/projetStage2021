@@ -1,43 +1,43 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col } from 'react-bootstrap'
-import UserService from '../../services/UserService'
+import { Row, Col } from 'react-bootstrap';
+import UserService from '../../services/UserService';
 
 const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
-  const [etudiants, setEtudiants] = useState([])
-  const [pageNumber, setPageNumber] = useState(0)
-  const [etudiantsVisible, setEtudiantsVisible] = useState([])
+  const [etudiants, setEtudiants] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [etudiantsVisible, setEtudiantsVisible] = useState([]);
 
   useEffect(async () => {
     const etudiants = await UserService.getListAllEtudiantsAllSession()
-    setEtudiants(getListForSpecificSession(etudiants))
-    setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage))
-  }, [])
+    setEtudiants(getListForSpecificSession(etudiants));
+    setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage));
+  }, []);
 
   useEffect(async () => {
     const etudiants = await UserService.getListAllEtudiantsAllSession()
-    setEtudiants(getListForSpecificSession(etudiants))
-    setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage))
-  }, [reloadList])
+    setEtudiants(getListForSpecificSession(etudiants));
+    setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage));
+  }, [reloadList]);
 
 
 
   const updateListeEtudiants = (pageNumber) => {
-    let offset = elementsPerPage * pageNumber
+    let offset = elementsPerPage * pageNumber;
 
-    setEtudiantsVisible(etudiants.slice(0 + offset, elementsPerPage + offset))
-  }
+    setEtudiantsVisible(etudiants.slice(0 + offset, elementsPerPage + offset));
+  };
 
   const nextPage = () => {
-    if (elementsPerPage * (pageNumber + 1) >= etudiants.length) return
-    updateListeEtudiants(pageNumber + 1)
-    setPageNumber(pageNumber + 1)
-  }
+    if (elementsPerPage * (pageNumber + 1) >= etudiants.length) return;
+    updateListeEtudiants(pageNumber + 1);
+    setPageNumber(pageNumber + 1);
+  };
 
   const previousPage = () => {
-    if (pageNumber === 0) return
-    updateListeEtudiants(pageNumber - 1)
-    setPageNumber(pageNumber - 1)
-  }
+    if (pageNumber === 0) return;
+    updateListeEtudiants(pageNumber - 1);
+    setPageNumber(pageNumber - 1);
+  };
 
   const etudiantsList = etudiantsVisible.map((etudiant) => (
     <tr key={etudiant.id}>
@@ -45,7 +45,7 @@ const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPer
       <td>{etudiant.courriel}</td>
       <td>{etudiant.session}</td>
     </tr>
-  ))
+  ));
 
   return (
     <div>
@@ -78,7 +78,7 @@ const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPer
       </Row>
       <br />
     </div>
-  )
+  );
 }
 
 export default AllSessionEtudiant

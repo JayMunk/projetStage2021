@@ -1,48 +1,48 @@
-import React, { useContext, useState, useEffect } from "react"
-import { UserInfoContext } from "../../../contexts/UserInfo"
+import React, { useContext, useState, useEffect } from "react";
+import { UserInfoContext } from "../../../contexts/UserInfo";
 import CVService from "../../../services/CVService"
-import Table from "react-bootstrap/Table"
+import Table from "react-bootstrap/Table";
 import { Col, Row } from 'react-bootstrap'
 
 const DashboardGestionnaireCV = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
 
-  const [listPendingCV, setListPendingCV] = useState("0")
-  const [listAcceptedCV, setListAcceptedCV] = useState("0")
-  const [listRejectedCV, setListRejectedCV] = useState("0")
-  const [cvs, setCVs] = useState([])
+  const [listPendingCV, setListPendingCV] = useState("0");
+  const [listAcceptedCV, setListAcceptedCV] = useState("0");
+  const [listRejectedCV, setListRejectedCV] = useState("0");
+  const [cvs, setCVs] = useState([]);
 
   useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
       const cvsList = await CVService.getAllCVs()
       setCVs(cvsList)
     }
-  }, [])
+  }, []);
 
   useEffect(async () => {
     if (cvs !== undefined) {
-      console.log(cvs, "test cvs")
-      listCV(cvs)
+      console.log(cvs, "test cvs");
+      listCV(cvs);
     }
-  }, [cvs])
+  }, [cvs]);
 
   const listCV = (listCV) => {
-    let pendingCVS = []
-    let acceptedCVS = []
-    let rejectedCVS = []
+    let pendingCVS = [];
+    let acceptedCVS = [];
+    let rejectedCVS = [];
     listCV.map((cv) => {
       if (cv.status === "PENDING") {
-        pendingCVS.push(cv)
+        pendingCVS.push(cv);
       } else if (cv.status === "REJECTED") {
-        rejectedCVS.push(cv)
+        rejectedCVS.push(cv);
       } else if (cv.status === "ACCEPTED") {
-        acceptedCVS.push(cv)
+        acceptedCVS.push(cv);
       }
-    })
-    setListAcceptedCV(acceptedCVS.length)
-    setListPendingCV(pendingCVS.length)
-    setListRejectedCV(rejectedCVS.length)
-  }
+    });
+    setListAcceptedCV(acceptedCVS.length);
+    setListPendingCV(pendingCVS.length);
+    setListRejectedCV(rejectedCVS.length);
+  };
 
   return (
     <div>
@@ -80,7 +80,7 @@ const DashboardGestionnaireCV = () => {
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default DashboardGestionnaireCV
+export default DashboardGestionnaireCV;

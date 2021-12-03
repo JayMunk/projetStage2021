@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { UserInfoContext} from './../../contexts/UserInfo'
+import React, { useContext } from 'react'
+import { UserInfoContext } from './../../contexts/UserInfo'
 import EtudiantDashboard from './etudiantDashboard/EtudiantDashboard'
 import DashboardGestionnaire from './gestionnaireDashboard/DashboardGestionnaire'
 import SuperviseurDashboard from './superviseurDashboard/SuperviseurDashboard'
@@ -7,7 +7,7 @@ import MoniteurDashboard from './moniteurDashboard/MoniteurDashboard'
 
 
 const Dashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     console.log(loggedUser)
     return (
         <>

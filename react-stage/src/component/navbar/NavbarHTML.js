@@ -1,122 +1,43 @@
 import React, { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import './NavbarCSS.css'
-import logo from './logo.svg'
-import { Link } from 'react-router-dom'
 import { UserInfoContext } from '../../contexts/UserInfo'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import NotificationBell from '../../component/Notification/NotificationBell'
-
-
-
-
+import EtudiantNavbarHTML from './EtudiantNavbarHTML'
+import SuperviseurNavbarHTML from './SuperviseurNavbarHTML'
+import MoniteurNavbarHTML from './MoniteurNavbarHTML'
+import GestionnaireNavbarHTML from './GestionnaireNavbarHTML'
 
 const NavbarHTML = () => {
   const [loggedUser] = useContext(UserInfoContext)
 
-  const myFunction = () => {
-    const url = encodeURIComponent("http://localhost:3000/moniteur");
-    window.open(`mailto:?subject=${url}&body=Voici le lien pour vous inscrire`)
-  }
-
-
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      {loggedUser.isLoggedIn ?
-        <Navbar.Brand as={Link} to="/dashboard"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
-        :
-        <Navbar.Brand as={Link} to="/login"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
+    <>
+      {
+        loggedUser.isLoggedIn && loggedUser.role === "ETUDIANT" ?
+          < EtudiantNavbarHTML />
+          :
+          null
       }
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto ">
-
-          {loggedUser.isLoggedIn ?
-            <Nav.Item>
-              <Nav.Link as={Link} to="/account">Account details</Nav.Link>
-            </Nav.Item>
-            :
-            null
-          }
-
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
-            <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={myFunction}>Envoyer par courriel</NavDropdown.Item>
-              <CopyToClipboard text={"http://localhost:3000/moniteur"}><NavDropdown.Item >Copier le lien</NavDropdown.Item></CopyToClipboard>
-            </NavDropdown>
-            :
-            null
-          }
-
-          {(loggedUser.isLoggedIn && loggedUser.role !== "SUPERVISEUR") ?
-            <NavDropdown title="Offres" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/offres">Offres</NavDropdown.Item>
-              {loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR" ?
-                <NavDropdown.Item as={Link} to="/newOffre">Créer offre de stage</NavDropdown.Item> : null
-              }
-            </NavDropdown>
-            :
-            null
-          }
-
-          {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE") ?
-            <NavDropdown title="CV" id="basic-nav-dropdown">
-              {loggedUser.role === "ETUDIANT" ?
-                <NavDropdown.Item as={Link} to="/dropCv">Ajouter ou voir cv</NavDropdown.Item> : null
-              }
-              {loggedUser.role === "GESTIONNAIRE" ?
-                <NavDropdown.Item as={Link} to="/gestion/cv">Voir et valider les CV</NavDropdown.Item> : null
-              }
-            </NavDropdown>
-            :
-            null
-          }
-
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
-            <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> : null
-          }
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
-            <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
-          }
-          {loggedUser.isLoggedIn && loggedUser.role === "MONITEUR" && <Nav.Link as={Link} to="/evaluation/etudiant">Evaluation Étudiant</Nav.Link>}
-          {loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" && <Nav.Link as={Link} to="/evaluation/entreprise">Evaluation Entreprise</Nav.Link>}
-
-
-
-
-          {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR") ?
-            <NavDropdown title="Contrat" id="basic-nav-dropdown">
-              {loggedUser.role === "GESTIONNAIRE" ?
-                <NavDropdown.Item as={Link} to="/gestion/newContrat">Créer Contrat</NavDropdown.Item> : null
-              }
-              <NavDropdown.Item as={Link} to="/gestion/demarrerContrat">Démarrer Contrat</NavDropdown.Item>
-
-            </NavDropdown>
-            :
-            null
-          }
-          {loggedUser.isLoggedIn &&
-            <Nav.Item>
-              <Nav.Link className="bell">
-                <NotificationBell />
-              </Nav.Link>
-            </Nav.Item>
-          }
-
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
-            <Nav.Link as={Link} to="/rapports">Rapports</Nav.Link> : null
-          }
-
-          {loggedUser.isLoggedIn &&
-            <Nav.Link className="logout" href="/login">Déconnexion</Nav.Link>
-          }
-
-
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+      {
+        loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" ?
+          < SuperviseurNavbarHTML />
+          :
+          null
+      }
+      {
+        loggedUser.isLoggedIn && loggedUser.role === "MONITEUR" ?
+          < MoniteurNavbarHTML />
+          :
+          null
+      }
+      {
+        loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
+          < GestionnaireNavbarHTML />
+          :
+          null
+      }
+    </>
   )
 }
 

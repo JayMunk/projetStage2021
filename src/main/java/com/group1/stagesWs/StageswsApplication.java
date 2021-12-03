@@ -224,7 +224,7 @@ public class StageswsApplication implements CommandLineRunner {
     contrat4.setGestionnaireConfirmed(true);
     contrat4.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
     contrat4.setDateSignatureEtudiant(LocalDate.of(2021, 12, 20));
-    contrat4.setDateSignatureGestionnaire(LocalDate.of(2021, 12, 20));
+    contrat4.setDateSignatureMoniteur(LocalDate.of(2021, 12, 20));
 
     return List.of(contrat1, contrat2, contrat3, contrat4);
   }

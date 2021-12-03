@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 import CVService from "../../../services/CVService"
+import Table from "react-bootstrap/Table";
+import { Col, Row } from 'react-bootstrap'
 
-
-const Cvs = () => {
+const DashboardGestionnaireCV = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
 
   const [listPendingCV, setListPendingCV] = useState("0");
@@ -44,35 +45,42 @@ const Cvs = () => {
   };
 
   return (
-    <>
-      <table className="tableDashboardGestionnaire">
-        <tr>
-          <th colSpan="2">CV</th>
-        </tr>
-        <tr className="totalTr">
-          <td>Le nombres de cvs totals</td>
-          <td>{cvs.length}</td>
-        </tr>
-        <tr>
-          <th>Le status du cv</th>
-          <th>Le nombre de cv relié à ce statut</th>
-        </tr>
-        <tr>
-          <td>Le nombre de cv accepté</td>
-          <td>{listAcceptedCV}</td>
-        </tr>
-        <tr>
-          <td>Le nombre de cv refusé</td>
-          <td>{listRejectedCV}</td>
-        </tr>
-        <tr>
-          <td>Le nombre de cv en attente</td>
-          <td>{listPendingCV}</td>
-        </tr>
-        <tr></tr>
-      </table>
-    </>
+    <div>
+      <Row >
+        <Col sm="12" lg="8" className="mx-auto">
+          <Table striped bordered hover variant="dark" className="mt-4">
+            <thead>
+              <tr>
+                <th colSpan="4">CV</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Le status du cv</th>
+                <th>Le nombre de cv relié à ce statut</th>
+              </tr>
+              <tr>
+                <td colSpan="1">Le nombre d'offres totales</td>
+                <td>{cvs.length}</td>
+              </tr>
+              <tr>
+                <td>Le nombre de cv accepté</td>
+                <td>{listAcceptedCV}</td>
+              </tr>
+              <tr>
+                <td>Le nombre de cv refusé</td>
+                <td>{listRejectedCV}</td>
+              </tr>
+              <tr>
+                <td>Le nombre de cv en attente</td>
+                <td>{listPendingCV}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
-export default Cvs;
+export default DashboardGestionnaireCV;

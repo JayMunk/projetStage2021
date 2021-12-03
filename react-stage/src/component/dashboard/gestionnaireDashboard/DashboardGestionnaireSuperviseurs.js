@@ -1,9 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 import UserService from "../../../services/UserService"
+import Table from "react-bootstrap/Table";
+import { Row, Col } from 'react-bootstrap'
 
 
-const Superviseurs = () => {
+
+const DashboardGestionnaireSuperviseurs = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [superviseurs, setSuperviseurs] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -46,35 +49,43 @@ const Superviseurs = () => {
   ));
 
   return (
-    <>
-      <table className="tableDashboardGestionnaire">
-        <tr>
-          <th colSpan="2">Superviseurs</th>
-        </tr>
-        <tr className="totalTr">
-          <td >Le nombres de superviseur inscrient</td>
-          <td>{superviseurs.length}</td>
-        </tr>
-        <tr>
-          <th>Nom</th>
-          <th>Courriel</th>
-        </tr>
-        <tbody>{superviseursList}</tbody>
-        <tr>
-          <td className="hoverButton">
-            <button onClick={previousPage} className="button">
-              «
-            </button>
-          </td>
-          <td className="hoverButton">
-            <button onClick={nextPage} className="button">
-              »
-            </button>
-          </td>
-        </tr>
-      </table>
-    </>
+    <div>
+      <Row >
+        <Col sm="12" lg="8" className="mx-auto">
+          <Table striped bordered hover variant="dark" className="mt-4">
+            <thead>
+              <tr>
+                <th colSpan="2">Superviseurs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="totalTr">
+                <td >Le nombres de superviseur inscrient</td>
+                <td>{superviseurs.length}</td>
+              </tr>
+              <tr>
+                <th>Nom</th>
+                <th>Courriel</th>
+              </tr>
+              {superviseursList}
+            </tbody>
+          </Table>
+          <Row>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={previousPage} className="btn bg-dark text-white">
+                «
+              </button>
+            </Col>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={nextPage} className="btn bg-dark text-white">
+                »
+              </button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
-export default Superviseurs;
+export default DashboardGestionnaireSuperviseurs;

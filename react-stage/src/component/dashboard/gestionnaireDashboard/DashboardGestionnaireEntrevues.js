@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 import EntrevueService from "../../../services/EntrevueService"
-import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
+import Table from "react-bootstrap/Table";
+import { Row, Col } from 'react-bootstrap'
 
 
-
-const Entrevues = () => {
+const DashboardGestionnaireEntrevues = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [entrevues, setEntrevues] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -63,39 +63,47 @@ const Entrevues = () => {
   ));
 
   return (
-    <>
-      <table className="tableDashboardGestionnaire">
-        <tr>
-          <th colSpan="6">Entrevues</th>
-        </tr>
-        <tr className="totalTr">
-          <td colSpan="5">Le nombre d'entrevues totales</td>
-          <td>{entrevues.length}</td>
-        </tr>
-        <tr>
-          <th>Titre</th>
-          <th>Date de l'entrevue</th>
-          <th>Heure de l'entrevue</th>
-          <th>Nom de l'éttudiant</th>
-          <th>Nom du moniteur</th>
-          <th>Réponse</th>
-        </tr>
-        <tbody>{entrevuesList}</tbody>
-        <tr>
-          <td colSpan="3" className="hoverButton" >
-            <button onClick={previousPage} className="button">
-              «
-            </button>
-          </td>
-          <td colSpan="3" className="hoverButton">
-            <button onClick={nextPage} className="button">
-              »
-            </button>
-          </td>
-        </tr>
-      </table>
-    </>
+    <div>
+      <Row >
+        <Col sm="12" lg="8" className="mx-auto">
+          <Table striped bordered hover variant="dark" className="mt-4">
+            <thead>
+              <tr>
+                <th colSpan="6">Entrevues</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td colSpan="5">Le nombre d'entrevues totales</td>
+                <td>{entrevues.length}</td>
+              </tr>
+              <tr>
+                <th>Titre</th>
+                <th>Date de l'entrevue</th>
+                <th>Heure de l'entrevue</th>
+                <th>Nom de l'éttudiant</th>
+                <th>Nom du moniteur</th>
+                <th>Réponse</th>
+              </tr>
+              {entrevuesList}
+            </tbody>
+          </Table>
+          <Row>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={previousPage} className="btn bg-dark text-white">
+                «
+              </button>
+            </Col>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={nextPage} className="btn bg-dark text-white">
+                »
+              </button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
-export default Entrevues;
+export default DashboardGestionnaireEntrevues;

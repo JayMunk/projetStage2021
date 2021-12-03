@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 import OffreService from "../../../services/OffreService"
+import Table from "react-bootstrap/Table";
+import { Row, Col } from 'react-bootstrap'
 
 
-const Offres = () => {
+const DashboardGestionnaireOffres = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [offres, setOffres] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -47,39 +49,45 @@ const Offres = () => {
   ));
 
   return (
-    <>
-      <table className="tableDashboardGestionnaire">
-        <tr>
-          <th colSpan="4">Offres</th>
-        </tr>
-        <tr className="totalTr">
-          <td colSpan="3">Le nombre d'offres totales</td>
-          <td>{offres.length}</td>
-        </tr>
-        <tr>
-          <th>Titre</th>
-          <th>Date de début</th>
-          <th>Date de fin</th>
-          <th>Validité</th>
-
-
-        </tr>
-        <tbody>{offresList}</tbody>
-        <tr>
-          <td colSpan="2" className="hoverButton">
-            <button onClick={previousPage} className="button">
-              «
-            </button>
-          </td>
-          <td colSpan="2" className="hoverButton">
-            <button onClick={nextPage} className="button">
-              »
-            </button>
-          </td>
-        </tr>
-      </table>
-    </>
+    <div>
+      <Row >
+        <Col sm="12" lg="8" className="mx-auto">
+          <Table striped bordered hover variant="dark" className="mt-4">
+            <thead>
+              <tr>
+                <th colSpan="4">Offres</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colSpan="3">Le nombre d'offres totales</td>
+                <td>{offres.length}</td>
+              </tr>
+              <tr>
+                <th>Titre</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Validité</th>
+              </tr>
+              {offresList}
+            </tbody>
+          </Table>
+          <Row>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={previousPage} className="btn bg-dark text-white">
+                «
+              </button>
+            </Col>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={nextPage} className="btn bg-dark text-white">
+                »
+              </button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
-export default Offres;
+export default DashboardGestionnaireOffres;

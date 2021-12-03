@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const EtudiantEvaluationGrid = ({ questions, handleChangeRadio }) => {
   return (
@@ -69,7 +69,7 @@ const EtudiantEvaluationGrid = ({ questions, handleChangeRadio }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default EtudiantEvaluationGrid;
+export default EtudiantEvaluationGrid

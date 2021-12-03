@@ -1,24 +1,24 @@
-import React from "react";
+import React from "react"
 import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
   AiOutlineClockCircle,
-} from "react-icons/ai";
-import Table from "react-bootstrap/Table";
+} from "react-icons/ai"
+import Table from "react-bootstrap/Table"
 
 const VerificationCVList = ({ cvList, onClickCV }) => {
   const getStatusIcon = (status) => {
     switch (status) {
       case "PENDING":
-        return <AiOutlineClockCircle color="gold" size="48px" />;
+        return <AiOutlineClockCircle color="gold" size="48px" />
       case "ACCEPTED":
-        return <AiOutlineCheckCircle color="green" size="48px" />;
+        return <AiOutlineCheckCircle color="green" size="48px" />
       case "REJECTED":
-        return <AiOutlineCloseCircle color="red" size="48px" />;
+        return <AiOutlineCloseCircle color="red" size="48px" />
       default:
-        return;
+        return
     }
-  };
+  }
 
   return (
     <div className="container">
@@ -52,7 +52,7 @@ const VerificationCVList = ({ cvList, onClickCV }) => {
         </tbody>
       </Table>
     </div>
-  );
-};
+  )
+}
 
-export default VerificationCVList;
+export default VerificationCVList

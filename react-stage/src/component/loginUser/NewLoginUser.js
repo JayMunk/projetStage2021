@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext, useRef } from "react";
-import { useHistory } from "react-router-dom";
-import { UserInfoContext } from "../../contexts/UserInfo";
+import { useState, useEffect, useContext, useRef } from "react"
+import { useHistory } from "react-router-dom"
+import { UserInfoContext } from "../../contexts/UserInfo"
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 import '../../Css/FormInscriptionCSS.css'
 import '../../Css/lienInscription.css'
@@ -14,7 +14,7 @@ const NewLoginUser = () => {
 
 
     
-    const history = useHistory();
+    const history = useHistory()
 
     const [values, setValues] = useState({
 
@@ -59,7 +59,7 @@ const NewLoginUser = () => {
 
 
     const handleSubmit = e => {
-        e.preventDefault();
+        e.preventDefault()
 
         setErrors(checkError(values))
 
@@ -99,7 +99,7 @@ const NewLoginUser = () => {
                                 role: data.role,
                                 isLoggedIn: true
                             })
-                            history.push("/dashboard");
+                            history.push("/dashboard")
                         }
                     })
                     .catch(error => {
@@ -113,7 +113,7 @@ const NewLoginUser = () => {
             }
         }
     }, [errors]
-    );
+    )
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
@@ -152,7 +152,7 @@ const NewLoginUser = () => {
                 <button type="submit" className="button">Se connecter</button>
             </form >
         </body>
-    );
+    )
 }
 
 export default NewLoginUser

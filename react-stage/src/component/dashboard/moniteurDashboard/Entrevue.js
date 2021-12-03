@@ -23,7 +23,7 @@ const Entrevue = (reloadList) => {
         if (loggedUser.isLoggedIn) {
             await fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
                 .then(res => {
-                    return res.json();
+                    return res.json()
                 })
                 .then(data => {
                     fetch(`http://localhost:9191/entrevue/moniteur/${data.id}`)
@@ -44,7 +44,7 @@ const Entrevue = (reloadList) => {
             <td>{entrevue.date}</td>
             <td>{entrevue.time}</td>
 
-        </tr>);
+        </tr>)
 
     return (
         <div>

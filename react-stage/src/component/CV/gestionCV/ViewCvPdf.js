@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
-import { UserInfoContext } from "../../../contexts/UserInfo";
-import CVService from "../../../services/CVService";
-import "./ViewCvPdf.css";
+import React, { useState, useEffect, useContext } from "react"
+import { useParams, useHistory } from "react-router-dom"
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
+import { UserInfoContext } from "../../../contexts/UserInfo"
+import CVService from "../../../services/CVService"
+import "./ViewCvPdf.css"
 
 const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
-  const [numPages, setNumPages] = useState(0);
-  const [page, setPage] = useState(1);
-  const [pdfScale, setPdfScale] = useState(1);
+  const [numPages, setNumPages] = useState(0)
+  const [page, setPage] = useState(1)
+  const [pdfScale, setPdfScale] = useState(1)
 
   const onDocumentLoad = ({ numPages }) => {
-    setNumPages(numPages);
-  };
+    setNumPages(numPages)
+  }
 
   const onNextPage = () => {
-    if (page >= numPages) return;
-    setPage((current) => current + 1);
-  };
+    if (page >= numPages) return
+    setPage((current) => current + 1)
+  }
 
   const onPrevPage = () => {
-    if (page <= 1) return;
-    setPage((current) => current - 1);
-  };
+    if (page <= 1) return
+    setPage((current) => current - 1)
+  }
 
   const renderPageControls = (
     <div className="container">
@@ -31,7 +31,7 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
           className="btn btn-primary col-1 ml-auto mr-0"
           onClick={onPrevPage}
         >
-          &lt;
+          &lt
         </button>
         <div className="col-2 ml-0 mr-0 mt-auto mb-auto text-white">
           Page {page} of {numPages}
@@ -40,11 +40,11 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
           className="btn btn-primary col-1 mr-auto ml-0"
           onClick={onNextPage}
         >
-          &gt;
+          &gt
         </button>
       </div>
     </div>
-  );
+  )
 
   const renderControls = (
     <>
@@ -71,7 +71,7 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
         Accepter
       </button>
     </>
-  );
+  )
 
   return (
     <div className="cvDark h-100 pb-auto mb-auto">
@@ -91,7 +91,7 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
             </div>
           </div>
           <Document
-            file={`data:application/pdf;base64,${cv.data}`}
+            file={`data:application/pdfbase64,${cv.data}`}
             onLoadSuccess={onDocumentLoad}
           >
             <Page
@@ -104,7 +104,7 @@ const ViewCvPdf = ({ cv, onAccept, onReject, onCancel }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ViewCvPdf;
+export default ViewCvPdf

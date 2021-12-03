@@ -1,40 +1,40 @@
-import React, { useContext, useState, useEffect } from "react";
-import { UserInfoContext } from "../../../contexts/UserInfo";
+import React, { useContext, useState, useEffect } from "react"
+import { UserInfoContext } from "../../../contexts/UserInfo"
 import EntrevueService from "../../../services/EntrevueService"
-import Table from "react-bootstrap/Table";
+import Table from "react-bootstrap/Table"
 import { Row, Col } from 'react-bootstrap'
 
 
 const DashboardGestionnaireEntrevues = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
-  const [entrevues, setEntrevues] = useState([]);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [entrevuesVisible, setentrevuesVisible] = useState([]);
-  const entrevuesPerPage = 3;
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+  const [entrevues, setEntrevues] = useState([])
+  const [pageNumber, setPageNumber] = useState(0)
+  const [entrevuesVisible, setentrevuesVisible] = useState([])
+  const entrevuesPerPage = 3
 
   useEffect(async () => {
     const entrevuesList = await EntrevueService.getAllEntrevues()
     setEntrevues(entrevuesList)
     setentrevuesVisible(entrevuesList.slice(0, entrevuesPerPage))
-  }, []);
+  }, [])
 
   const updateListEntrevues = (pageNumber) => {
-    let offset = entrevuesPerPage * pageNumber;
+    let offset = entrevuesPerPage * pageNumber
 
-    setentrevuesVisible(entrevues.slice(0 + offset, entrevuesPerPage + offset));
-  };
+    setentrevuesVisible(entrevues.slice(0 + offset, entrevuesPerPage + offset))
+  }
 
   const nextPage = () => {
-    if (entrevuesPerPage * (pageNumber + 1) >= entrevues.length) return;
-    updateListEntrevues(pageNumber + 1);
-    setPageNumber(pageNumber + 1);
-  };
+    if (entrevuesPerPage * (pageNumber + 1) >= entrevues.length) return
+    updateListEntrevues(pageNumber + 1)
+    setPageNumber(pageNumber + 1)
+  }
 
   const previousPage = () => {
-    if (pageNumber === 0) return;
-    updateListEntrevues(pageNumber - 1);
-    setPageNumber(pageNumber - 1);
-  };
+    if (pageNumber === 0) return
+    updateListEntrevues(pageNumber - 1)
+    setPageNumber(pageNumber - 1)
+  }
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -45,7 +45,7 @@ const DashboardGestionnaireEntrevues = () => {
       case "REJECTED":
         return "Trouvé stage"
       default:
-        return;
+        return
     }
   }
 
@@ -60,7 +60,7 @@ const DashboardGestionnaireEntrevues = () => {
 
 
     </tr>
-  ));
+  ))
 
   return (
     <div>
@@ -103,7 +103,7 @@ const DashboardGestionnaireEntrevues = () => {
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardGestionnaireEntrevues;
+export default DashboardGestionnaireEntrevues

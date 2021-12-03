@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
-import { UserInfoContext } from "../../../contexts/UserInfo";
+import React, { useContext, useState, useEffect } from "react"
+import { UserInfoContext } from "../../../contexts/UserInfo"
 import UserService from "../../../services/UserService"
-import Table from "react-bootstrap/Table";
+import Table from "react-bootstrap/Table"
 import { Col, Row } from 'react-bootstrap'
 
 const DashboardGestionnaireEtudiants = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
-  const [etudiants, setEtudiants] = useState([]);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [etudiantsVisible, setEtudiantsVisible] = useState([]);
-  const etudiantsPerPage = 3;
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+  const [etudiants, setEtudiants] = useState([])
+  const [pageNumber, setPageNumber] = useState(0)
+  const [etudiantsVisible, setEtudiantsVisible] = useState([])
+  const etudiantsPerPage = 3
 
   useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
@@ -17,32 +17,32 @@ const DashboardGestionnaireEtudiants = () => {
       setEtudiants(etudiantsList)
       setEtudiantsVisible(etudiantsList.slice(0, etudiantsPerPage))
     }
-  }, []);
+  }, [])
 
   const updateListeEtudiants = (pageNumber) => {
-    let offset = etudiantsPerPage * pageNumber;
+    let offset = etudiantsPerPage * pageNumber
 
-    setEtudiantsVisible(etudiants.slice(0 + offset, etudiantsPerPage + offset));
-  };
+    setEtudiantsVisible(etudiants.slice(0 + offset, etudiantsPerPage + offset))
+  }
 
   const nextPage = () => {
-    if (etudiantsPerPage * (pageNumber + 1) >= etudiants.length) return;
-    updateListeEtudiants(pageNumber + 1);
-    setPageNumber(pageNumber + 1);
-  };
+    if (etudiantsPerPage * (pageNumber + 1) >= etudiants.length) return
+    updateListeEtudiants(pageNumber + 1)
+    setPageNumber(pageNumber + 1)
+  }
 
   const previousPage = () => {
-    if (pageNumber === 0) return;
-    updateListeEtudiants(pageNumber - 1);
-    setPageNumber(pageNumber - 1);
-  };
+    if (pageNumber === 0) return
+    updateListeEtudiants(pageNumber - 1)
+    setPageNumber(pageNumber - 1)
+  }
 
   const etudiantsList = etudiantsVisible.map((etudiant) => (
     <tr key={etudiant.id.toString()}>
       <td>{etudiant.prenom} {etudiant.nom}</td>
       <td>{etudiant.courriel}</td>
     </tr>
-  ));
+  ))
 
   return (
     <div>
@@ -82,7 +82,7 @@ const DashboardGestionnaireEtudiants = () => {
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardGestionnaireEtudiants;
+export default DashboardGestionnaireEtudiants

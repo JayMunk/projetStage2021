@@ -1,12 +1,12 @@
 import { React, useState } from 'react'
-import { useHistory } from "react-router-dom";
-import UserService from '../../../services/UserService';
+import { useHistory } from "react-router-dom"
+import UserService from '../../../services/UserService'
 
 
 import '../../../Css/FormInscriptionCSS.css'
 
 const NewFormSuperviseur = () => {
-    const history = useHistory();
+    const history = useHistory()
 
     const [values, setValues] = useState({
         prenom: "",
@@ -80,14 +80,14 @@ const NewFormSuperviseur = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setErrors(checkError(values))
 
         setSubmitted(true)
         if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
 
-            UserService.saveSuperviseur(values);
-            history.push("/login");
+            UserService.saveSuperviseur(values)
+            history.push("/login")
 
         }
     }
@@ -153,7 +153,7 @@ const NewFormSuperviseur = () => {
                 <button type="submit" className="button">S'inscrire</button>
             </form >
         </body >
-    );
+    )
 }
 
 export default NewFormSuperviseur

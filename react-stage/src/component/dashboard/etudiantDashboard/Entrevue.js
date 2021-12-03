@@ -10,7 +10,7 @@ const Entrevue = () => {
         if (loggedUser.isLoggedIn) {
             fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
                 .then(res => {
-                    return res.json();
+                    return res.json()
                 })
                 .then(data => {
                     fetch(`http://localhost:9191/entrevue/etudiant/${data.id}`)
@@ -33,7 +33,7 @@ const Entrevue = () => {
             <td>{entrevue.time}</td>
             <td>{entrevue.nomEntreprise}</td>
 
-        </tr>);
+        </tr>)
 
     return (
         <div>

@@ -1,42 +1,42 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Col, Row } from 'react-bootstrap';
-import OffreService from '../../services/OffreService';
+import { Col, Row } from 'react-bootstrap'
+import OffreService from '../../services/OffreService'
 
 const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
-    const [offres, setOffres] = useState([]);
-    const [pageNumber, setPageNumber] = useState(0);
-    const [offresVisible, setOffresVisible] = useState([]);
+    const [offres, setOffres] = useState([])
+    const [pageNumber, setPageNumber] = useState(0)
+    const [offresVisible, setOffresVisible] = useState([])
 
     useEffect(async () => {
         const offres = await OffreService.getAllOffresAllSession()
-        setOffres(getListForSpecificSession(offres));
-        setOffresVisible(getListForSpecificSession(offres).slice(0, elementsPerPage));
-    }, []);
+        setOffres(getListForSpecificSession(offres))
+        setOffresVisible(getListForSpecificSession(offres).slice(0, elementsPerPage))
+    }, [])
 
     useEffect(async () => {
         const offres = await OffreService.getAllOffresAllSession()
-        setOffres(getListForSpecificSession(offres));
-        setOffresVisible(getListForSpecificSession(offres).slice(0, elementsPerPage));
-    }, [reloadList]);
+        setOffres(getListForSpecificSession(offres))
+        setOffresVisible(getListForSpecificSession(offres).slice(0, elementsPerPage))
+    }, [reloadList])
 
 
     const updateListOffres = (pageNumber) => {
-        let offset = elementsPerPage * pageNumber;
+        let offset = elementsPerPage * pageNumber
 
-        setOffresVisible(offres.slice(0 + offset, elementsPerPage + offset));
-    };
+        setOffresVisible(offres.slice(0 + offset, elementsPerPage + offset))
+    }
 
     const nextPage = () => {
-        if (elementsPerPage * (pageNumber + 1) >= offres.length) return;
-        updateListOffres(pageNumber + 1);
-        setPageNumber(pageNumber + 1);
-    };
+        if (elementsPerPage * (pageNumber + 1) >= offres.length) return
+        updateListOffres(pageNumber + 1)
+        setPageNumber(pageNumber + 1)
+    }
 
     const previousPage = () => {
-        if (pageNumber === 0) return;
-        updateListOffres(pageNumber - 1);
-        setPageNumber(pageNumber - 1);
-    };
+        if (pageNumber === 0) return
+        updateListOffres(pageNumber - 1)
+        setPageNumber(pageNumber - 1)
+    }
 
     const offresList = offresVisible.map((offre) => (
         <tr key={offre.id}>
@@ -44,7 +44,7 @@ const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPag
             <td>{offre.entreprise}</td>
             <td>{offre.session}</td>
         </tr>
-    ));
+    ))
 
     return (
         <div>
@@ -78,7 +78,7 @@ const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPag
             <br />
 
         </div>
-    );
+    )
 }
 
 export default AllSessionOffre

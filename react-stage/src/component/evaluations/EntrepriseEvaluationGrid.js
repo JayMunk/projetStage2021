@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
   return (
@@ -68,7 +68,7 @@ const EntrepriseEvaluationGrid = ({ questions, handleChangeRadio }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default EntrepriseEvaluationGrid;
+export default EntrepriseEvaluationGrid

@@ -24,11 +24,11 @@ const FormEntrevue = ({ handleReloadList }) => {
     useEffect(async () => {
         await fetch(`http://localhost:9191/user/etudiants`)
             .then(response => response.json())
-            .then(data => setListEtudiants(data));
+            .then(data => setListEtudiants(data))
 
         await fetch(`http://localhost:9191/user/moniteurs`)
             .then(response => response.json())
-            .then(data => setListMoniteurs(data));
+            .then(data => setListMoniteurs(data))
     }, [])
 
     const reload = useRef(0) //tester ca tantot"
@@ -52,7 +52,7 @@ const FormEntrevue = ({ handleReloadList }) => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (etudiantID.current !== 0 && moniteurID.current !== 0) {
             await fetchAndPost()
             handleReloadList()
@@ -82,11 +82,11 @@ const FormEntrevue = ({ handleReloadList }) => {
         const moniteurEtudiant = []
         await fetch(`http://localhost:9191/user/etudiant/${etudiantID.current}`)
             .then(response => response.json())
-            .then(data => moniteurEtudiant.push(data));
+            .then(data => moniteurEtudiant.push(data))
         await fetch(`http://localhost:9191/user/moniteur/${moniteurID.current}`)
             .then(response => response.json())
-            .then(data => moniteurEtudiant.push(data));
-        return moniteurEtudiant;
+            .then(data => moniteurEtudiant.push(data))
+        return moniteurEtudiant
 
     }
 

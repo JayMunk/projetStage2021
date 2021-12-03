@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import EtudiantEvaluationGrid from "./EtudiantEvaluationGrid";
-import ReadOnlyText from "./ReadOnlyText";
+import React, { useState } from "react"
+import Button from "react-bootstrap/Button"
+import EtudiantEvaluationGrid from "./EtudiantEvaluationGrid"
+import ReadOnlyText from "./ReadOnlyText"
 
 const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({})
   const [values, setValues] = useState({
     evaluationGrid: [],
     moniteurFonction: "",
@@ -18,7 +18,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
     garderStagiaire: false,
     commentairesFormation: "",
     contrat: contrat,
-  });
+  })
   const [evaluationGrid, setEvaluationGrid] = useState([
     "0",
     "0",
@@ -43,67 +43,67 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
     "0",
     "0",
     "2",
-  ]);
-  const [communique, setCommunique] = useState(false);
+  ])
+  const [communique, setCommunique] = useState(false)
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setValues({
       ...values,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleChangeRadio = (e) => {
-    const { name, value } = e.target;
-    console.log("handleChangeRadio" + name + " " + value);
-    console.log("previousGrid" + evaluationGrid);
+    const { name, value } = e.target
+    console.log("handleChangeRadio" + name + " " + value)
+    console.log("previousGrid" + evaluationGrid)
     setEvaluationGrid(
       Object.values({
         ...evaluationGrid,
         [name]: value,
       })
-    );
-  };
+    )
+  }
 
-  const toggleCommunique = () => setCommunique(!communique);
+  const toggleCommunique = () => setCommunique(!communique)
 
   const checkErrors = () => {
-    let errors = {};
+    let errors = {}
 
-    if (!values.moniteurFonction) errors.moniteurFonction = "Fonction requis";
+    if (!values.moniteurFonction) errors.moniteurFonction = "Fonction requis"
     if (!values.commentairesProductivite)
-      errors.commentairesProductivite = "Commentaires productivité requis";
+      errors.commentairesProductivite = "Commentaires productivité requis"
     if (!values.commentairesTravail)
-      errors.commentairesTravail = "Commentaires qualité du travail requis";
+      errors.commentairesTravail = "Commentaires qualité du travail requis"
     if (!values.commentairesRelations)
       errors.commentairesRelations =
-        "Commentaires relations interpersonnelles requis";
+        "Commentaires relations interpersonnelles requis"
     if (!values.commentairesAttitude)
       errors.commentairesAttitude =
-        "Commentaires habiletés personnelles requis";
+        "Commentaires habiletés personnelles requis"
     if (!values.commentairesGlobale)
-      errors.commentairesGlobale = "Commentaires appréciation requis";
+      errors.commentairesGlobale = "Commentaires appréciation requis"
     if (!values.commentairesFormation)
-      errors.commentairesFormation = "Commentaires formation requis";
+      errors.commentairesFormation = "Commentaires formation requis"
 
-    setErrors(errors);
-    return errors;
-  };
+    setErrors(errors)
+    return errors
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    let errors = checkErrors();
+    e.preventDefault()
+    let errors = checkErrors()
     if (
       Object.keys(errors).length === undefined ||
       Object.keys(errors).length === 0
     ) {
-      let evaluation = values;
-      evaluation.evaluationGrid = evaluationGrid;
-      evaluation.communiqueAuStagiaire = communique;
-      onClickSubmit(evaluation);
+      let evaluation = values
+      evaluation.evaluationGrid = evaluationGrid
+      evaluation.communiqueAuStagiaire = communique
+      onClickSubmit(evaluation)
     }
-  };
+  }
 
   return (
     <div className="container">
@@ -499,7 +499,7 @@ const FormEvaluationEtudiant = ({ contrat, onClickSubmit, onClickCancel }) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default FormEvaluationEtudiant;
+export default FormEvaluationEtudiant

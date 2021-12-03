@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const ReadOnlyText = ({ label, value }) => {
   return (
@@ -11,7 +11,7 @@ const ReadOnlyText = ({ label, value }) => {
         readOnly
       />
     </div>
-  );
-};
+  )
+}
 
-export default ReadOnlyText;
+export default ReadOnlyText

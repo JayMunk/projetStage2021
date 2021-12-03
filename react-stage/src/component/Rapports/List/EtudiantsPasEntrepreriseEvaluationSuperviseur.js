@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { saveAs } from 'file-saver'
-import { UserInfoContext } from '../../../contexts/UserInfo';
-import RapportService from '../../../services/RapportService';
+import { UserInfoContext } from '../../../contexts/UserInfo'
+import RapportService from '../../../services/RapportService'
 
 const EtudiantsPasEntrepreriseEvaluationSuperviseur = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -13,7 +13,7 @@ const EtudiantsPasEntrepreriseEvaluationSuperviseur = () => {
             const etudiantsFetch = await RapportService.getEtudiantsPasEvaluationMoniteur()
             setEtudiants(etudiantsFetch.slice(0, 3))
         }
-    }, []);
+    }, [])
 
 
     const downloadEtudiantsNoEntrepriseEvalueSuperviseur = () => {
@@ -26,7 +26,7 @@ const EtudiantsPasEntrepreriseEvaluationSuperviseur = () => {
         <tr key={etudiant.id.toString()}>
             <td>{etudiant.nom}</td>
             <td>{etudiant.prenom}</td>
-        </tr>);
+        </tr>)
 
     return (
         <div className="cardRapport">

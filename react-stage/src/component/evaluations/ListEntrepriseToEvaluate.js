@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { UserInfoContext } from "../../contexts/UserInfo";
-import ContratService from "../../services/ContratService";
-import Table from "react-bootstrap/Table";
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory } from "react-router"
+import { UserInfoContext } from "../../contexts/UserInfo"
+import ContratService from "../../services/ContratService"
+import Table from "react-bootstrap/Table"
 
 const ListEntrepriseToEvaluate = ({ contrats, onClick }) => {
   return (
@@ -31,7 +31,7 @@ const ListEntrepriseToEvaluate = ({ contrats, onClick }) => {
         </tbody>
       </Table>
     </div>
-  );
-};
+  )
+}
 
-export default ListEntrepriseToEvaluate;
+export default ListEntrepriseToEvaluate

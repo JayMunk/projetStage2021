@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { saveAs } from 'file-saver'
-import { UserInfoContext } from '../../../contexts/UserInfo';
-import RapportService from '../../../services/RapportService';
+import { UserInfoContext } from '../../../contexts/UserInfo'
+import RapportService from '../../../services/RapportService'
 
 const OffresValides = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -13,7 +13,7 @@ const OffresValides = () => {
             const offresFetch = await RapportService.getOffresValide()
             setOffresValide(offresFetch.slice(0, 3))
         }
-    }, []);
+    }, [])
 
     const downloadOffresValid = () => {
         saveAs("http://localhost:9191/rapport/pdf/offresValide")
@@ -25,7 +25,7 @@ const OffresValides = () => {
             <td>{offre.titre}</td>
             <td>{offre.dateDebut}</td>
             <td>{offre.dateFin}</td>
-        </tr>);
+        </tr>)
 
     return (
         <div className="cardRapport">

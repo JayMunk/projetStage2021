@@ -1,12 +1,12 @@
 
-import { React, useContext } from "react";
-import DashboardGestionnaireCV from "./DashboardGestionnaireCV";
-import DashboardGestionnaireEtudiants from "./DashboardGestionnaireEtudiants";
-import DashboardGestionnaireMoniteurs from "./DashboardGestionnaireMoniteurs";
-import DashboardGestionnaireOffres from "./DashboardGestionnaireOffres";
-import DashboardGestionnaireSuperviseurs from "./DashboardGestionnaireSuperviseurs";
-import DashboardGestionnaireEntrevues from "./DashboardGestionnaireEntrevues";
-import DashboardGestionnaireContrats from "./DashboardGestionnaireContrats";
+import { React, useContext } from "react"
+import DashboardGestionnaireCV from "./DashboardGestionnaireCV"
+import DashboardGestionnaireEtudiants from "./DashboardGestionnaireEtudiants"
+import DashboardGestionnaireMoniteurs from "./DashboardGestionnaireMoniteurs"
+import DashboardGestionnaireOffres from "./DashboardGestionnaireOffres"
+import DashboardGestionnaireSuperviseurs from "./DashboardGestionnaireSuperviseurs"
+import DashboardGestionnaireEntrevues from "./DashboardGestionnaireEntrevues"
+import DashboardGestionnaireContrats from "./DashboardGestionnaireContrats"
 
 const DashboardGestionnaire = () => {
 
@@ -22,7 +22,7 @@ const DashboardGestionnaire = () => {
         <DashboardGestionnaireContrats />
       </div>
     </body>
-  );
-};
+  )
+}
 
-export default DashboardGestionnaire;
+export default DashboardGestionnaire

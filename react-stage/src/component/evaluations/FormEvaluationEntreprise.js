@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import ReadOnlyText from "./ReadOnlyText";
-import EntrepriseEvaluationGrid from "./EntrepriseEvaluationGrid";
+import React, { useState } from "react"
+import ReadOnlyText from "./ReadOnlyText"
+import EntrepriseEvaluationGrid from "./EntrepriseEvaluationGrid"
 
 const FormEvaluationEntreprise = ({
   contrat,
@@ -8,7 +8,7 @@ const FormEvaluationEntreprise = ({
   onClickCancel,
   superviseur,
 }) => {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({})
   const [evaluationGrid, setEvaluationGrid] = useState([
     "2",
     "2",
@@ -20,9 +20,9 @@ const FormEvaluationEntreprise = ({
     "2",
     "2",
     "2",
-  ]);
-  const [garderStagiaire, setGarderStagiaire] = useState(false);
-  const [variableShifts, setVariableShifts] = useState(false);
+  ])
+  const [garderStagiaire, setGarderStagiaire] = useState(false)
+  const [variableShifts, setVariableShifts] = useState(false)
   const [values, setValues] = useState({
     numeroStage: 0,
     evaluationGrid: [],
@@ -36,66 +36,66 @@ const FormEvaluationEntreprise = ({
     heuresEncadrementParSemaineMois3: 0,
     contrat: contrat,
     superviseur: superviseur,
-  });
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setValues({
       ...values,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleChangeRadio = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setEvaluationGrid(
       Object.values({
         ...evaluationGrid,
         [name]: value,
       })
-    );
-  };
+    )
+  }
 
-  const toggleGarderStagiaire = () => setGarderStagiaire(!garderStagiaire);
-  const toggleVariableShifts = () => setVariableShifts(!variableShifts);
+  const toggleGarderStagiaire = () => setGarderStagiaire(!garderStagiaire)
+  const toggleVariableShifts = () => setVariableShifts(!variableShifts)
 
   const checkErrors = () => {
-    let errors = {};
+    let errors = {}
 
     if (!values.numeroStage || values.numeroStage < 1)
-      errors.numeroStage = "Numero du stage positif requis";
-    if (!values.commentaires) errors.commentaires = "Commentaires requis";
-    if (!values.stagePrefere) errors.stagePrefere = "Stage privilégié requis";
+      errors.numeroStage = "Numero du stage positif requis"
+    if (!values.commentaires) errors.commentaires = "Commentaires requis"
+    if (!values.stagePrefere) errors.stagePrefere = "Stage privilégié requis"
     if (!values.nombreStagiaires)
-      errors.nombreStagiaires = "Nombre de stagiaires requis";
+      errors.nombreStagiaires = "Nombre de stagiaires requis"
     if (!values.heuresEncadrementParSemaineMois1)
       errors.heuresEncadrementParSemaineMois =
-        "Nombre d'eures d'encadrement par semaine requis";
+        "Nombre d'eures d'encadrement par semaine requis"
     if (!values.heuresEncadrementParSemaineMois2)
       errors.heuresEncadrementParSemaineMois =
-        "Nombre d'eures d'encadrement par semaine requis";
+        "Nombre d'eures d'encadrement par semaine requis"
     if (!values.heuresEncadrementParSemaineMois3)
       errors.heuresEncadrementParSemaineMois =
-        "Nombre d'eures d'encadrement par semaine requis";
+        "Nombre d'eures d'encadrement par semaine requis"
 
-    setErrors(errors);
-    return errors;
-  };
+    setErrors(errors)
+    return errors
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    let errors = checkErrors();
+    e.preventDefault()
+    let errors = checkErrors()
     if (
       Object.keys(errors).length === undefined ||
       Object.keys(errors).length === 0
     ) {
-      let evaluation = values;
-      evaluation.evaluationGrid = evaluationGrid;
-      evaluation.garderStagiaire = garderStagiaire;
-      evaluation.variableShifts = variableShifts;
-      onClickSubmit(evaluation);
+      let evaluation = values
+      evaluation.evaluationGrid = evaluationGrid
+      evaluation.garderStagiaire = garderStagiaire
+      evaluation.variableShifts = variableShifts
+      onClickSubmit(evaluation)
     }
-  };
+  }
 
   return (
     <div className="container">
@@ -343,7 +343,7 @@ const FormEvaluationEntreprise = ({
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default FormEvaluationEntreprise;
+export default FormEvaluationEntreprise

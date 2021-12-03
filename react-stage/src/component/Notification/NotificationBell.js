@@ -4,8 +4,8 @@ import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import UserService from '../../services/UserService'
 import NotificationService from '../../services/NotificationService'
-import { Link } from 'react-router-dom';
-import Swal from "sweetalert2";
+import { Link } from 'react-router-dom'
+import Swal from "sweetalert2"
 
 
 

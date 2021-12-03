@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { saveAs } from 'file-saver'
-import { UserInfoContext } from '../../../contexts/UserInfo';
-import RapportService from '../../../services/RapportService';
+import { UserInfoContext } from '../../../contexts/UserInfo'
+import RapportService from '../../../services/RapportService'
 
 const EtudiantsPasDeCv = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -13,7 +13,7 @@ const EtudiantsPasDeCv = () => {
             const etudiantsFetch = await RapportService.getEtudiantsPasDeCv()
             setEtudiants(etudiantsFetch.slice(0, 3))
         }
-    }, []);
+    }, [])
 
     const downloadEtudiantsSansCv = () => {
         saveAs("http://localhost:9191/rapport/pdf/etudiantsSansCv")
@@ -24,7 +24,7 @@ const EtudiantsPasDeCv = () => {
         <tr key={etudiant.id.toString()}>
             <td>{etudiant.nom}</td>
             <td>{etudiant.prenom}</td>
-        </tr>);
+        </tr>)
 
     return (
         <div className="cardRapport">

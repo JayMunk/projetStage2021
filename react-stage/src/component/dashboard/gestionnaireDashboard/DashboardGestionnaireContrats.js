@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 import ContratService from "../../../services/ContratService"
+import Table from "react-bootstrap/Table";
+import { Row, Col } from 'react-bootstrap'
 
-const Contrats = () => {
+
+const DashboardGestionnaireContrats = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [contrats, setContrats] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -48,39 +51,48 @@ const Contrats = () => {
   ));
 
   return (
-    <>
-      <table className="tableDashboardGestionnaire">
-        <tr>
-          <th colSpan="6">Contrats</th>
-        </tr>
-        <tr className="totalTr">
-          <td colSpan="5">Le nombre de contrats total</td>
-          <td>{contrats.length}</td>
-        </tr>
-        <tr>
-          <th>Titre du contrat</th>
-          <th>Nom de l'étudiant</th>
-          <th>Nom du moniteur</th>
-          <th>Date de signature de l'étudiant</th>
-          <th>Date de signature du moniteur</th>
-          <th>Date de signature du gestionnaire</th>
-        </tr>
-        <tbody>{contratsList}</tbody>
-        <tr>
-          <td colSpan="3" className="hoverButton">
-            <button onClick={previousPage} className="button">
-              «
-            </button>
-          </td>
-          <td colSpan="3" className="hoverButton">
-            <button onClick={nextPage} className="button">
-              »
-            </button>
-          </td>
-        </tr>
-      </table>
-    </>
+    <div>
+      <Row >
+        <Col sm="12" lg="8" className="mx-auto">
+          <Table striped bordered hover variant="dark" className="mt-4">
+            <thead>
+              <tr>
+                <th colSpan="6">Contrats</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td colSpan="5">Le nombre de contrats total</td>
+                <td>{contrats.length}</td>
+              </tr>
+              <tr>
+                <th>Titre du contrat</th>
+                <th>Nom de l'étudiant</th>
+                <th>Nom du moniteur</th>
+                <th>Date de signature de l'étudiant</th>
+                <th>Date de signature du moniteur</th>
+                <th>Date de signature du gestionnaire</th>
+              </tr>
+              {contratsList}
+            </tbody>
+          </Table>
+          <Row>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={previousPage} className="btn bg-dark text-white">
+                «
+              </button>
+            </Col>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={nextPage} className="btn bg-dark text-white">
+                »
+              </button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </div>
+
   );
 };
 
-export default Contrats;
+export default DashboardGestionnaireContrats;

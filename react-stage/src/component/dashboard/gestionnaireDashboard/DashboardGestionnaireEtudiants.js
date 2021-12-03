@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
 import UserService from "../../../services/UserService"
+import Table from "react-bootstrap/Table";
+import { Col, Row } from 'react-bootstrap'
 
-const Etudiants = () => {
+const DashboardGestionnaireEtudiants = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [etudiants, setEtudiants] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -43,35 +45,44 @@ const Etudiants = () => {
   ));
 
   return (
-    <>
-      <table className="tableDashboardGestionnaire">
-        <tr>
-          <th colSpan="2">Étudiants</th>
-        </tr>
-        <tr className="totalTr">
-          <td>Le nombre d'étudiants inscrient</td>
-          <td>{etudiants.length}</td>
-        </tr>
-        <tr>
-          <th>Nom</th>
-          <th>Courriel</th>
-        </tr>
-        <tbody>{etudiantsList}</tbody>
-        <tr>
-          <td className="hoverButton">
-            <button onClick={previousPage} className="button">
-              «
-            </button>
-          </td>
-          <td className="hoverButton">
-            <button onClick={nextPage} className="button">
-              »
-            </button>
-          </td>
-        </tr>
-      </table>
-    </>
+    <div>
+      <Row >
+        <Col sm="12" lg="8" className="mx-auto">
+          <Table striped bordered hover variant="dark" className="mt-4">
+            <thead>
+              <tr>
+                <th colSpan="2">Étudiants</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Le nombre d'étudiants inscrient</td>
+                <td>{etudiants.length}</td>
+              </tr>
+              <tr>
+                <th>Nom</th>
+                <th>Courriel</th>
+              </tr>{etudiantsList}
+            </tbody>
+          </Table>
+
+
+          <Row>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={previousPage} className="btn bg-dark text-white">
+                «
+              </button>
+            </Col>
+            <Col lg="6" sm="6" className="m-auto">
+              <button onClick={nextPage} className="btn bg-dark text-white">
+                »
+              </button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
-export default Etudiants;
+export default DashboardGestionnaireEtudiants;

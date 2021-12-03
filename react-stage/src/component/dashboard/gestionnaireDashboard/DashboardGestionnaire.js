@@ -1,33 +1,25 @@
-import { React } from "react"
-import Cvs from "./Cvs"
-import Etudiants from "./Etudiants"
-import Moniteurs from "./Moniteurs"
-import Superviseurs from "./Superviseurs"
-import Entrevues from "./Entrevues"
-import Contrats from "./Contrats"
-import EvulationEntreprise from "./EvulationEntreprise"
-import EvluationEtudiant from "./EvluationEtudiant"
 
-import "./DashboardGestionnaireCSS.css";
-import OffresDashGestionnaire from "./OffresDashGestionnaire"
+import { React, useContext } from "react";
+import DashboardGestionnaireCV from "./DashboardGestionnaireCV";
+import DashboardGestionnaireEtudiants from "./DashboardGestionnaireEtudiants";
+import DashboardGestionnaireMoniteurs from "./DashboardGestionnaireMoniteurs";
+import DashboardGestionnaireOffres from "./DashboardGestionnaireOffres";
+import DashboardGestionnaireSuperviseurs from "./DashboardGestionnaireSuperviseurs";
+import DashboardGestionnaireEntrevues from "./DashboardGestionnaireEntrevues";
+import DashboardGestionnaireContrats from "./DashboardGestionnaireContrats";
+
 const DashboardGestionnaire = () => {
 
   return (
     <body id="body">
       <div id="centerDashboardGestionnaire">
-        <Etudiants />
-        <Cvs />
-      </div>
-      <div className="center">
-        <OffresDashGestionnaire />
-      </div>
-      <div className="bottomLeft">
-        <Moniteurs />
-        <Superviseurs />
-        <Entrevues />
-        <Contrats />
-        <EvulationEntreprise />
-        <EvluationEtudiant />
+        <DashboardGestionnaireEtudiants />
+        <DashboardGestionnaireCV />
+        <DashboardGestionnaireMoniteurs />
+        <DashboardGestionnaireSuperviseurs />
+        <DashboardGestionnaireOffres />
+        <DashboardGestionnaireEntrevues />
+        <DashboardGestionnaireContrats />
       </div>
     </body>
   );

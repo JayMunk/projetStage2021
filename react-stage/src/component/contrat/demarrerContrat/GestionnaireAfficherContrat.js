@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import ContratService from '../../../services/ContratService'
 import '../../../Css/FormContratOffre.css'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -13,8 +15,10 @@ const GestionnaireAfficherContrat = () => {
     useEffect(async () => {
         let dbContrats
         dbContrats = await ContratService.getAllContrats()
-        getOffres(dbContrats)
-        setListContrats(dbContrats)
+        if (dbContrats.length != 0) {
+            getOffres(dbContrats)
+            setListContrats(dbContrats)
+        }
     }, [])
 
     const getOffres = (listContrats) => {
@@ -102,11 +106,19 @@ const GestionnaireAfficherContrat = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         setErrors(checkError(contrat))
-        if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
-            const date = new Date()
-            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
-            contrat.gestionnaireConfirmed = true
-            await ContratService.saveContrat(contrat)
+        if (contrat.collegeEngagement != undefined) {
+            if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
+                const date = new Date()
+                contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
+                contrat.gestionnaireConfirmed = true
+                await ContratService.saveContrat(contrat)
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Erreur!",
+                text: "Vous avez pas encore de contrat."
+            })
         }
     }
 

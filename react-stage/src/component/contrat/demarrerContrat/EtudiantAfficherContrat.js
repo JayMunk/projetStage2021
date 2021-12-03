@@ -20,17 +20,25 @@ const EtudiantAfficherContrat = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        if (!contrat.etudiantConfirmed) {
-            const date = new Date()
-            contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
-            contrat.etudiantConfirmed = true
-            const newContrat = await ContratService.saveContrat(contrat)
-            setContrat(newContrat)
+        if (contrat.collegeEngagement != undefined) {
+            if (!contrat.etudiantConfirmed) {
+                const date = new Date()
+                contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
+                contrat.etudiantConfirmed = true
+                const newContrat = await ContratService.saveContrat(contrat)
+                setContrat(newContrat)
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Vous avez déjà signer votre contrat."
+                })
+            }
         } else {
             Swal.fire({
                 icon: "error",
                 title: "Erreur!",
-                text: "Vous avez déjà signer votre contrat."
+                text: "Vous avez pas encore de contrat."
             })
         }
     }

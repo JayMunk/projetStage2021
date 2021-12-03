@@ -36,11 +36,14 @@ import org.springframework.test.web.servlet.MvcResult;
 @WebMvcTest(CVController.class)
 public class CVControllerTests {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private CVService cvService;
+  @MockBean
+  private CVService cvService;
 
-  @MockBean private EmailService emailService;
+  @MockBean
+  private EmailService emailService;
 
   private static ObjectMapper mapper;
 

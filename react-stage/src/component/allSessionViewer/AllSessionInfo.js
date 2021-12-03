@@ -6,6 +6,7 @@ import AllSessionMoniteur from './AllSessionMoniteur'
 import AllSessionOffre from './AllSessionOffre'
 import AllSessionSuperviseur from './AllSessionSuperviseur'
 import Swal from 'sweetalert2'
+import { Col, Row } from 'react-bootstrap'
 
 
 const AllSessionInfo = () => {
@@ -51,13 +52,30 @@ const AllSessionInfo = () => {
             showCancelButton: true,
             confirmButtonText: 'Add Session'
         }).then(async result => {
-            console.log(result)
             if (result.isConfirmed) {
                 if (newSessionValidation(result.value)) {
-                    addNewSession(result.value)
-                    await getAllSessions()
-                    await getCurrentSession()
-                    setElementsPerPage(elementsPerPage) //FORCE rerender because otherwise its 1 render behind...
+                    Swal.fire({
+                        title: 'Êtes-vous certain',
+                        text: "Cette nouvelle prendra session immédiatement après la création et la session précédente ne sera plus accessible.\n Tout qui sera fait dès maintenant sera dans la nouvelle session",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oui, créer nouvelle session'
+                    }).then(async resultConfirmation => {
+                        if (resultConfirmation.isConfirmed) {
+                            await addNewSession(result.value)
+                            await getAllSessions()
+                            await getCurrentSession()
+                            setElementsPerPage(elementsPerPage) //FORCE rerender because otherwise its 1 render behind...
+                        } else {
+                            Swal.fire(
+                                'Cancelled',
+                                'Création de session annulé',
+                                'error'
+                            )
+                        }
+                    })
                 } else {
                     Swal.fire(
                         'Cancelled',
@@ -101,30 +119,52 @@ const AllSessionInfo = () => {
 
     return (
         <div>
-            <div className="row">
-                <div className="col-1"></div>
-                <button className="btn bg-danger text-white col-1 m-3" onClick={onNewSessionClick}>Start New Session </button>
-                <div className="col-2"></div>
-                <div className="col-3 text-center">
+            <Row>
+                <Col sm="2" lg="1"></Col>
+                <Col sm="8" lg="2" className="mt-4" >
+                    <button className="btn bg-danger text-white" onClick={onNewSessionClick}>Start New Session </button>
+                </Col>
+                {/* <Col sm="0" lg="1" ></Col> */}
+                <Col sm="12" lg="6" className="text-center">
                     <h2>Session Actuelle: <strong>{currentSession.nomSession}</strong></h2>
-                </div>
-                <div className="col-2"></div>
-                <select className="m-4 h4 col-2" onChange={onSelectedSession}>
-                    <option value="All" selected>Tout Session</option>
-                    {allSessions.map(session =>
-                        <option key={session.id} value={session.nomSession}>{session.nomSession}</option>
-                    )};
-                </select>
-                <div className="col-1"></div>
-            </div>
-            <AllSessionEtudiant getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
+                </Col>
+                {/* <Col sm="0" lg="1"></Col> */}
+                <Col sm="12" lg="3" className="text-center">
+                    <select className="m-4 h4" onChange={onSelectedSession}>
+                        <option value="All" selected>Tout Session</option>
+                        {allSessions.map(session =>
+                            <option key={session.id} value={session.nomSession}>{session.nomSession}</option>
+                        )};
+                    </select>
+                </Col>
+                {/* <div className="col-1"></div> */}
+            </Row >
             <br />
-            <AllSessionSuperviseur getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
             <br />
-            <AllSessionMoniteur getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
-            <br />
-            <AllSessionOffre getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
-        </div>
+            <Row>
+                <Col lg="8" sm="12" className="mx-auto">
+                    <AllSessionEtudiant getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
+                </Col>
+
+                <br />
+
+                <Col lg="8" sm="12" className="mx-auto">
+                    <AllSessionSuperviseur getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
+                </Col>
+
+                <br />
+
+                <Col lg="8" sm="12" className="mx-auto">
+                    <AllSessionMoniteur getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
+                </Col>
+
+                <br />
+
+                <Col lg="8" sm="12" className="mx-auto">
+                    <AllSessionOffre getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
+                </Col>
+            </Row>
+        </div >
     )
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { Col, Row } from 'react-bootstrap';
 import UserService from '../../services/UserService';
 
 const AllSessionMoniteur = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
@@ -46,10 +47,10 @@ const AllSessionMoniteur = ({ reloadList, getListForSpecificSession, elementsPer
     ));
 
     return (
-        <>
-            <table>
+        <div>
+            <table className="table table-dark">
                 <tr>
-                    <th colSpan="2">Moniteurs All Sessions</th>
+                    <th colSpan="3">Moniteurs All Sessions</th>
                 </tr>
                 <tr>
                     <th>Prénom/Nom</th>
@@ -57,20 +58,25 @@ const AllSessionMoniteur = ({ reloadList, getListForSpecificSession, elementsPer
                     <th>Session</th>
                 </tr>
                 <tbody>{moniteursList}</tbody>
-                <tr>
-                    <td className="hoverButton">
-                        <button onClick={previousPage} className="button">
-                            «
-                        </button>
-                    </td>
-                    <td className="hoverButton">
-                        <button onClick={nextPage} className="button">
-                            »
-                        </button>
-                    </td>
-                </tr>
             </table>
-        </>
+            {moniteursVisible.length == 0 &&
+                <h3 className="text-center text-warning">Aucun moniteur visible pour la sélection choisie</h3>
+            }
+            <Row className="mb-4">
+                <Col lg="5" sm="5" className="hoverButton">
+                    <button onClick={previousPage} className="btn bg-dark text-white">
+                        «
+                    </button>
+                </Col>
+                <Col lg="2" sm="2"></Col>
+                <Col lg="5" sm="5" className="hoverButton">
+                    <button onClick={nextPage} className="btn bg-dark text-white">
+                        »
+                    </button>
+                </Col>
+            </Row>
+            <br />
+        </div>
     );
 }
 

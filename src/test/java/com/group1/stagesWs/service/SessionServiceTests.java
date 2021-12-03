@@ -18,9 +18,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class SessionServiceTests {
 
-  @Mock private SessionRepository sessionRepository;
+  @Mock
+  private SessionRepository sessionRepository;
 
-  @InjectMocks private SessionService sessionService;
+  @InjectMocks
+  private SessionService sessionService;
 
   @Test
   public void testNewSession() {

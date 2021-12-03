@@ -19,13 +19,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class ContratServiceTests {
 
-  @Mock private ContratRepository contratRepository;
+  @Mock
+  private ContratRepository contratRepository;
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @Mock private EvaluationService evaluationService;
-
-  @InjectMocks private ContratService contratService;
+  @Mock
+  private EvaluationService evaluationService;
+  
+  @InjectMocks
+  private ContratService contratService;
 
   @Test
   void testGetAllContrats() {

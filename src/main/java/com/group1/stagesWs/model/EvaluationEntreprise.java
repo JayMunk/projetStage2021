@@ -14,12 +14,13 @@ import lombok.Data;
 @Data
 @Entity
 public class EvaluationEntreprise implements Serializable {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
   private int numeroStage;
-  private char[] evaluationGrid;
+  private int[] evaluationGrid;
   private String commentaires;
   private int stagePrefere;
   private int nombreStagiaires;
@@ -31,13 +32,15 @@ public class EvaluationEntreprise implements Serializable {
   private LocalDate dateCreation;
   private String session;
 
-  @OneToOne private Contrat contrat;
+  @OneToOne
+  private Contrat contrat;
 
-  @ManyToOne private Superviseur superviseur;
+  @ManyToOne
+  private Superviseur superviseur;
 
   public EvaluationEntreprise() {
     this.dateCreation = LocalDate.now();
-    this.evaluationGrid = new char[10];
+    this.evaluationGrid = new int[10];
     this.session = SessionManager.CURRENT_SESSION.getNomSession();
   }
 }

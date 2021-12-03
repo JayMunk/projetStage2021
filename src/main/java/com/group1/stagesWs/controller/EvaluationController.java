@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/evaluations")
 public class EvaluationController {
+
   private final EvaluationService service;
 
   public EvaluationController(EvaluationService service) {

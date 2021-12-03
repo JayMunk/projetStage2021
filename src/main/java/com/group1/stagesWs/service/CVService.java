@@ -33,6 +33,7 @@ public class CVService extends SessionManager<CV> {
 
   public Optional<CV> saveCV(CV cv) {
     Optional<CV> optionalCV = Optional.of(cvRepository.save(cv));
+    setCVOnlyDefaultCV(optionalCV.get());
     if (optionalCV.isPresent()) {
       emailService.sendGestionnaireEmailCVAjouter();
       notificationService.saveNotificationGestionnaire(
@@ -44,6 +45,19 @@ public class CVService extends SessionManager<CV> {
               NotifStatus.ALERT));
     }
     return optionalCV;
+  }
+
+  public void setCVOnlyDefaultCV(CV cv){
+    List<CV> listCVEtudiant = getAllCVEtudiant(cv.getEtudiant().getId());
+    for(CV cvEtudiant : listCVEtudiant){
+      if(cvEtudiant.getId() != cv.getId()) {
+        cvEtudiant.setDefaultCV(false);
+        cvRepository.save(cvEtudiant);
+      }else{
+        cv.setDefaultCV(true);
+        cvRepository.save(cv);
+      }
+    }
   }
 
   public List<CV> getAllCVEtudiant(int id) {

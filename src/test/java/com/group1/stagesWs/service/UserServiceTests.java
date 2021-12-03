@@ -25,15 +25,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTests {
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @Mock MoniteurRepository moniteurRepository;
+  @Mock
+  MoniteurRepository moniteurRepository;
 
-  @Mock SuperviseurRepository superviseurRepository;
+  @Mock
+  SuperviseurRepository superviseurRepository;
 
-  @Mock GestionnaireRepository gestionnaireRepository;
+  @Mock
+  GestionnaireRepository gestionnaireRepository;
 
-  @InjectMocks private UserService service;
+  @InjectMocks
+  private UserService service;
 
   @Test
   public void testAddEtudiant() {
@@ -81,7 +86,7 @@ public class UserServiceTests {
     when(etudiantRepository.findEtudiantByCourrielIgnoreCase(expected.getCourriel()))
         .thenReturn(expected);
     when(etudiantRepository.findEtudiantByCourrielIgnoreCaseAndPassword(
-            expected.getCourriel(), expected.getPassword()))
+        expected.getCourriel(), expected.getPassword()))
         .thenReturn(expected);
 
     // Act
@@ -98,7 +103,7 @@ public class UserServiceTests {
     when(gestionnaireRepository.findGestionnaireByCourrielIgnoreCase(expected.getCourriel()))
         .thenReturn(expected);
     when(gestionnaireRepository.findGestionnaireByCourrielIgnoreCaseAndPassword(
-            expected.getCourriel(), expected.getPassword()))
+        expected.getCourriel(), expected.getPassword()))
         .thenReturn(expected);
 
     // Act
@@ -115,7 +120,7 @@ public class UserServiceTests {
     when(moniteurRepository.findMoniteurByCourrielIgnoreCase(expected.getCourriel()))
         .thenReturn(expected);
     when(moniteurRepository.findMoniteurByCourrielIgnoreCaseAndPassword(
-            expected.getCourriel(), expected.getPassword()))
+        expected.getCourriel(), expected.getPassword()))
         .thenReturn(expected);
 
     // Act
@@ -132,7 +137,7 @@ public class UserServiceTests {
     when(superviseurRepository.findSuperviseurByCourrielIgnoreCase(expected.getCourriel()))
         .thenReturn(expected);
     when(superviseurRepository.findSuperviseurByCourrielIgnoreCaseAndPassword(
-            expected.getCourriel(), expected.getPassword()))
+        expected.getCourriel(), expected.getPassword()))
         .thenReturn(expected);
 
     // Act
@@ -240,7 +245,7 @@ public class UserServiceTests {
         .hasSize(
             expected.size()
                 - 1); // Verifie que la liste retourne contient juste les etudiants de la session
-                      // actuelle
+    // actuelle
   }
 
   @Test
@@ -284,7 +289,7 @@ public class UserServiceTests {
         .hasSize(
             expected.size()
                 - 1); // Verifie que la liste retourne contient juste les etudiants de la session
-                      // actuelle
+    // actuelle
   }
 
   @Test
@@ -304,7 +309,7 @@ public class UserServiceTests {
     assertThat(returned)
         .isEqualTo(
             expected); // Verifie que la liste retourne contient juste les etudiants de la session
-                       // actuelle
+    // actuelle
   }
 
   @Test
@@ -317,8 +322,8 @@ public class UserServiceTests {
         .setSession(
             getSessionNonActuelle()
                 .getNomSession()); // Changer un des etudiants a une session differente pour assurer
-                                   // que la fonction retourne juste les etudiants de la session
-                                   // actuelle
+    // que la fonction retourne juste les etudiants de la session
+    // actuelle
     when(etudiantRepository.findAllEtudiantBySuperviseurNull()).thenReturn(expected);
 
     // Act
@@ -329,7 +334,7 @@ public class UserServiceTests {
         .hasSize(
             expected.size()
                 - 1); // Verifie que la liste retourne contient juste les etudiants de la session
-                      // actuelle
+    // actuelle
   }
 
   @Test

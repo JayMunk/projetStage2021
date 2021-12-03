@@ -18,6 +18,8 @@ public class UserFactory {
       return new Superviseur();
     } else if (userType == UserType.GESTIONNAIRE) {
       return new Gestionnaire();
-    } else return null;
+    } else {
+      return null;
+    }
   }
 }

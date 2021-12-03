@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from 'react'
 import { saveAs } from 'file-saver'
 import { UserInfoContext } from '../../../contexts/UserInfo';
 import RapportService from '../../../services/RapportService';
+import Table from "react-bootstrap/Table";
 
 const CvsPendingEtRejected = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -27,24 +28,33 @@ const CvsPendingEtRejected = () => {
         </tr>);
 
     return (
-        <div className="cardRapport">
-            <h4>Liste des cvs ayant été rejeté ou refusé</h4>
-            <table className="tableRapport">
-                <tr>
-                    <th>Titre</th>
-                    <th>Statut</th>
-                </tr>
-                <tbody>
-                    {cvList}
-                </tbody>
-                <tr >
-                    <td colSpan="2">
-                        <button className="button" onClick={downloadCVPendingRejected}>Télécharger</button>
-                    </td>
-                </tr>
-            </table>
-            <span>Pour voir la liste au complet ou pour plus de détails veuillez télécharger le pdf.</span>
-        </div>
+        <>
+            {cvs.length > 0 ? (
+                <div className="cardRapport">
+                    <h4>Liste des cvs ayant été rejeté ou refusé</h4>
+                    <Table striped bordered hover variant="dark" className="tableRapport">
+                        <thead >
+                            <tr>
+                                <th>Titre</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cvList}
+                            <tr >
+                                <td colSpan="2">
+                                    <button className="btn bg-secondary" onClick={downloadCVPendingRejected}>Télécharger</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </div>
+            ) : <div className="cardRapport">
+                <h4>Liste des étudiants en attente d'entrevue</h4>
+                <h3 className="text-warning mt-4">Cette liste est vide</h3>
+            </div>}
+        </>
+
     )
 }
 

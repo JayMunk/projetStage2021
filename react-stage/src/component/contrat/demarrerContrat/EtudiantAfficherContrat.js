@@ -2,6 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import ContratService from '../../../services/ContratService'
 import '../../../Css/FormContratOffre.css'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
+
 
 const EtudiantAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -16,11 +20,35 @@ const EtudiantAfficherContrat = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        const date = new Date()
-        contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
-        contrat.etudiantConfirmed = true
-        const newContrat = await ContratService.saveContrat(contrat)
-        setContrat(newContrat)
+        if (contrat.collegeEngagement != undefined) {
+            if (!contrat.etudiantConfirmed) {
+                const date = new Date()
+                contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
+                contrat.etudiantConfirmed = true
+                const newContrat = await ContratService.saveContrat(contrat)
+                setContrat(newContrat)
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Vous avez déjà signer votre contrat."
+                })
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Erreur!",
+                text: "Vous n'avez pas encore de contrat."
+            })
+        }
+    }
+
+    const getBoolIcon = (bool) => {
+        return bool ? (
+            <AiOutlineCheckCircle color="green" />
+        ) : (
+            <AiOutlineCloseCircle color="red" />
+        )
     }
 
     return (
@@ -55,21 +83,21 @@ const EtudiantAfficherContrat = () => {
                 <label htmlFor="moniteurConfirmed" className="form-label">
                     Signature moniteur
                 </label>
-                <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.moniteurConfirmed)}</span>
             </div>
 
             <div className="form-inputs">
                 <label htmlFor="etudiantConfirmed" className="form-label">
                     Signature étudiant
                 </label>
-                <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.etudiantConfirmed)}</span>
             </div>
 
             <div className="form-inputs">
                 <label htmlFor="gestionnaireConfirmed" className="form-label">
                     Signature gestionnaire
                 </label>
-                <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.gestionnaireConfirmed)}</span>
             </div>
 
 

@@ -1,7 +1,6 @@
-import Swal from "sweetalert2";
-import "@sweetalert2/theme-dark/dark.css";
-import { saveAs } from "file-saver";
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>;
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
+
 
 const urlBase = "http://localhost:9191/cv";
 const CVService = {

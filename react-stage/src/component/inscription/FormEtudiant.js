@@ -1,11 +1,10 @@
 import { React, useState } from 'react'
 import { useHistory } from "react-router-dom";
-import UserService from '../../../services/UserService';
+import UserService from '../../services/UserService';
 
+import '../../Css/FormInscriptionCSS.css'
 
-import '../../../Css/FormInscriptionCSS.css'
-
-const NewFormSuperviseur = () => {
+const FormEtudiant = () => {
     const history = useHistory();
 
     const [values, setValues] = useState({
@@ -15,10 +14,15 @@ const NewFormSuperviseur = () => {
         password: "",
         password2: "",
         numTelephone: "",
-        departement: "",
-        specialite: "",
+        programme: "",
+        adresse: "",
+        numMatricule: "",
+        hasLicense: false,
+        hasVoiture: false,
     })
     const [errors, setErrors] = useState(0)
+    const [hasVoiture, setHasVoiture] = useState(false)
+    const [hasLicense, setHasLicense] = useState(false)
     const [submitted, setSubmitted] = useState(false)
 
 
@@ -34,11 +38,9 @@ const NewFormSuperviseur = () => {
 
     function checkError(values) {
         let errors = {}
-
         if (!values.prenom) {
             errors.prenom = "Prenom requis"
         }
-
         if (!values.nom) {
             errors.nom = "Nom requis"
         }
@@ -63,14 +65,17 @@ const NewFormSuperviseur = () => {
             errors.numTelephone = "Numero de telephone requis"
         }
 
-        if (!values.departement) {
-            errors.departement = "Nom du departement requis"
+        if (!values.programme) {
+            errors.programme = "Nom du programme requis"
         }
 
-        if (!values.specialite) {
-            errors.specialite = "Specialité requise"
+        if (!values.adresse) {
+            errors.adresse = "Adresse requise"
         }
 
+        if (!values.numMatricule) {
+            errors.numMatricule = "Numero de matricule requis"
+        }
 
         return errors
 
@@ -86,16 +91,25 @@ const NewFormSuperviseur = () => {
         setSubmitted(true)
         if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
 
-            UserService.saveSuperviseur(values);
+
+            values.hasLicense = hasLicense
+            values.hasVoiture = hasVoiture
+            UserService.saveEtudiant(values);
             history.push("/login");
 
         }
     }
 
 
+
+    const handleClickVoiture = () => setHasVoiture(!hasVoiture)
+
+    const handleClickLicense = () => setHasLicense(!hasLicense)
+
+
     return (
         <body id="body">
-            <h2>Créer un compte de type superviseur</h2>
+            <h2>Créer un compte de type étudiant</h2>
             <form onSubmit={handleSubmit} className="formInscription">
                 <label>
                     Prenom:
@@ -135,25 +149,41 @@ const NewFormSuperviseur = () => {
                 <input id="numTelephone" type="text" name="numTelephone" value={values.numTelephone} onChange={handleChange}></input>
                 {errors.numTelephone && <p className="error">{errors.numTelephone}</p>}
 
-                <label>
-                    Le nom de votre département:
-                </label>
-                <input id="departement" type="text" name="departement" value={values.departement} onChange={handleChange}></input>
-                {errors.departement && <p className="error">{errors.departement}</p>}
 
                 <label>
-                    Votre spécialité:
+                    Programme:
                 </label>
-                <input id="specialite" type="text" name="specialite" value={values.adresseEntreprise} onChange={handleChange}></input>
-                {errors.specialite && <p className="error">{errors.specialite}</p>}
+                <input id="programme" type="text" name="programme" value={values.programme} onChange={handleChange}></input>
+                {errors.programme && <p className="error">{errors.programme}</p>}
 
 
+                <label>
+                    Adresse:
+                </label>
+                <input id="adresse" type="text" name="adresse" value={values.adresse} onChange={handleChange}></input>
+                {errors.adresse && <p className="error">{errors.adresse}</p>}
 
 
+                <label>
+                    Numéro de votre matricule:
+                </label>
+                <input id="numMatricule" type="text" name="numMatricule" value={values.numMatricule} onChange={handleChange}></input>
+                {errors.numMatricule && <p className="error">{errors.numMatricule}</p>}
+
+
+                <div>
+                    <input id="hasLicense" type="checkbox" name="hasLicense" onClick={handleClickLicense} value={hasLicense}></input>
+                    <label>Permis de conduite:</label>
+                </div>
+
+                <div>
+                    <input id="hasVoiture" type="checkbox" name="hasVoiture" onClick={handleClickVoiture} value={hasVoiture}></input>
+                    <label>Possède/conduit une voiture</label>
+                </div>
                 <button type="submit" className="button">S'inscrire</button>
             </form >
-        </body >
+        </body>
     );
 }
 
-export default NewFormSuperviseur
+export default FormEtudiant

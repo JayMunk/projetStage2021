@@ -18,6 +18,18 @@ const EntrevueService = {
         const data = await res.json()
         return data
     },
+
+    getEntrevuesMoniteur: async (id) => {
+        const res = await fetch(urlBase + "/moniteur/" + id)
+        const data = await res.json()
+        return data
+    },
+
+    getEntrevuesEtudiant: async (id) => {
+        const res = await fetch(urlBase + "/etudiant/" + id)
+        const data = await res.json()
+        return data
+    },
 }
 
 export default EntrevueService

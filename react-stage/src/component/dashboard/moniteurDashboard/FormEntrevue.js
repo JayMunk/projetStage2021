@@ -1,6 +1,10 @@
-import { React, useEffect, useState, useRef } from 'react'
+import { React, useEffect, useState, useRef, useContext } from 'react'
 import EntrevueService from '../../../services/EntrevueService'
 import Swal from 'sweetalert2'
+import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
+import UserService from "../../../services/UserService"
+import { UserInfoContext } from "../../../contexts/UserInfo"
 
 const FormEntrevue = ({ handleReloadList }) => {
     const [values, setValues] = useState({
@@ -11,25 +15,23 @@ const FormEntrevue = ({ handleReloadList }) => {
         moniteurId: ""
     })
     const [listEtudiants, setListEtudiants] = useState([])
-    const [listMoniteurs, setListMoniteurs] = useState([])
     const etudiantID = useRef(0)
-    const moniteurID = useRef(0)
+    const [loggedUser] = useContext(UserInfoContext)
+    const [moniteur, setMoniteur] = useState([])
 
 
 
 
 
     useEffect(async () => {
-        await fetch(`http://localhost:9191/user/etudiants`)
-            .then(response => response.json())
-            .then(data => setListEtudiants(data));
 
-        await fetch(`http://localhost:9191/user/moniteurs`)
-            .then(response => response.json())
-            .then(data => setListMoniteurs(data));
+        const moniteur = await UserService.getUserByEmail(loggedUser.courriel)
+        setMoniteur(moniteur)
+
+        const dataListEtudiant = await UserService.getListAllEtudiants()
+        setListEtudiants(dataListEtudiant)
     }, [])
 
-    const reload = useRef(0) //tester ca tantot"
 
 
 
@@ -45,13 +47,10 @@ const FormEntrevue = ({ handleReloadList }) => {
     const handleChangeSelectedEtudiant = e => {
         etudiantID.current = e.target.value
     }
-    const handleChangeSelectedMoniteur = e => {
-        moniteurID.current = e.target.value
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (etudiantID.current !== 0 && moniteurID.current !== 0) {
+        if (etudiantID.current !== 0) {
             await fetchAndPost()
             handleReloadList()
             Swal.fire({
@@ -71,24 +70,22 @@ const FormEntrevue = ({ handleReloadList }) => {
     }
 
     const fetchAndPost = async () => {
-        const moniteurEtudiant = await fetchMoniteurEtEtudiant()
-        postEntrevue(moniteurEtudiant[0], moniteurEtudiant[1])
+        const moniteurEtudiant = await fetchEtudiant()
+        postEntrevue(moniteurEtudiant[0])
 
     }
 
-    const fetchMoniteurEtEtudiant = async () => {
+    const fetchEtudiant = async () => {
         const moniteurEtudiant = []
-        await fetch(`http://localhost:9191/user/etudiant/${etudiantID.current}`)
-            .then(response => response.json())
-            .then(data => moniteurEtudiant.push(data));
-        await fetch(`http://localhost:9191/user/moniteur/${moniteurID.current}`)
-            .then(response => response.json())
-            .then(data => moniteurEtudiant.push(data));
+        const dataEtudiant = await UserService.getEtudiantById(etudiantID.current)
+        moniteurEtudiant.push(dataEtudiant);
+
+
         return moniteurEtudiant;
 
     }
 
-    const postEntrevue = (etudiant, moniteur) => {
+    const postEntrevue = (etudiant) => {
         const entrevue = {
             titre: values.titre,
             date: values.date,
@@ -97,7 +94,7 @@ const FormEntrevue = ({ handleReloadList }) => {
             moniteur: moniteur,
             nomEntreprise: moniteur.nomEntreprise
         }
-        console.log(entrevue)
+        console.log(entrevue, "objet entrevue")
         EntrevueService.addEntrevue(entrevue)
     }
 
@@ -108,24 +105,22 @@ const FormEntrevue = ({ handleReloadList }) => {
         <div>
             <h2>Créer une entrevue</h2>
             <form className="register-form" onSubmit={handleSubmit}>
-                <table>
+                <Table striped bordered hover variant="dark" className="DashboardTable">
                     <tr>
                         <th>Titre</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Id de l'étudiant</th>
-                        <th>Id de du moniteur</th>
                         <th>Créer</th>
                     </tr>
                     <tr>
-                        <td>
+                        <td >
                             <input
                                 value={values.titre}
                                 onChange={handleChange}
                                 id="titre"
-                                className="form-field"
                                 type="text"
-                                placeholder="titre"
+                                placeholder="Titre"
                                 name="titre" />
                         </td>
                         <td>
@@ -133,7 +128,7 @@ const FormEntrevue = ({ handleReloadList }) => {
                                 value={values.date}
                                 onChange={handleChange}
                                 id="date"
-                                className="form-field"
+                                className="text-white"
                                 type="date"
                                 name="date" />
                         </td>
@@ -142,14 +137,14 @@ const FormEntrevue = ({ handleReloadList }) => {
                                 value={values.time}
                                 onChange={handleChange}
                                 id="time"
-                                className="form-field"
+                                className="text-white"
                                 type="time"
                                 name="time" />
                         </td>
                         <td>
 
-                            <select name="etudiant" onChange={handleChangeSelectedEtudiant}>
-                                <option>Please select</option>
+                            <select name="etudiant" onChange={handleChangeSelectedEtudiant} className="text-white">
+                                <option>Sélectionner un option</option>
                                 {
                                     listEtudiants.map((etudiant) =>
                                         <option value={etudiant.id}>{etudiant.prenom} {etudiant.nom}</option>)
@@ -157,19 +152,12 @@ const FormEntrevue = ({ handleReloadList }) => {
                             </select>
                         </td>
                         <td>
-                            <select name="moniteur" onChange={handleChangeSelectedMoniteur}>
-                                <option>Please select</option>
-                                {listMoniteurs.map((moniteur) =>
-                                    <option value={moniteur.id}>{moniteur.prenom} {moniteur.nom}</option>)}
-                            </select>
-                        </td>
-                        <td>
-                            <button className="button" class="form-field" type="submit">
+                            <button className="button text-white" type="submit">
                                 Créer
                             </button>
                         </td>
                     </tr>
-                </table>
+                </Table>
             </form>
 
 

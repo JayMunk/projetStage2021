@@ -1,6 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
-import "./DropCv.css";
+import "../../../Css/DropCv.css";
 import { saveAs } from "file-saver";
 import {
   AiOutlineCheckCircle,
@@ -146,6 +146,7 @@ const DropCv = () => {
   ));
 
   useEffect(() => {
+    if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
       UserService.getUserByEmail(loggedUser.courriel).then((data) => {
         setEtudiant(data);
@@ -194,7 +195,7 @@ const DropCv = () => {
         </Table>
       ) : null}
 
-      {loggedUser.isLoggedIn ? null : history.push("/login")}
+
     </body>
   );
 };

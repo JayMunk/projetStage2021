@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 import '@sweetalert2/theme-dark/dark.css'
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
 const urlBase = 'http://localhost:9191/user'
 
 const UserService = {
@@ -127,6 +127,17 @@ const UserService = {
 
     getGestionnaires: async () => {
         const res = await fetch(urlBase + '/gestionnaires')
+        const data = await res.json()
+        return data
+    },
+
+    getEtudiantById: async (id) => {
+        const res = await fetch(urlBase + '/etudiant/' + id)
+        const data = await res.json()
+        return data
+    },
+    getMoniteurById: async (id) => {
+        const res = await fetch(urlBase + '/etudiant/' + id)
         const data = await res.json()
         return data
     },

@@ -1,6 +1,8 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
-
+import UserService from "../../../services/UserService"
+import EntrevueService from "../../../services/EntrevueService"
+import Table from "react-bootstrap/Table"
 
 const Entrevue = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -8,21 +10,12 @@ const Entrevue = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                EntrevueService.getEntrevuesEtudiant(data.id).then(data => {
+                    setEntrevues(data)
+                    console.log(data, "entrevues")
                 })
-                .then(data => {
-                    fetch(`http://localhost:9191/entrevue/etudiant/${data.id}`)
-                        .then(res => {
-                            return res.json()
-                        })
-                        .then(data => {
-                            setEntrevues(data)
-                            console.log(data, "data")
-
-                        })
-                })
+            })
         }
     }, [])
 
@@ -38,15 +31,19 @@ const Entrevue = () => {
     return (
         <div>
             <h2>Entrevues</h2>
-            <table>
-                <tr>
-                    <th>Titre</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Nom de l'entreprise</th>
-                </tr>
-                {entrevuesList}
-            </table>
+            <Table striped bordered hover variant="dark" className="DashboardTable">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Nom de l'entreprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {entrevuesList}
+                </tbody>
+            </Table>
         </div>
 
     )

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import ContratService from '../../../services/ContratService'
 import '../../../Css/FormContratOffre.css'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -12,8 +15,10 @@ const GestionnaireAfficherContrat = () => {
     useEffect(async () => {
         let dbContrats
         dbContrats = await ContratService.getAllContrats()
-        getOffres(dbContrats)
-        setListContrats(dbContrats)
+        if (dbContrats.length != 0) {
+            getOffres(dbContrats)
+            setListContrats(dbContrats)
+        }
     }, [])
 
     const getOffres = (listContrats) => {
@@ -101,12 +106,28 @@ const GestionnaireAfficherContrat = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         setErrors(checkError(contrat))
-        if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
-            const date = new Date()
-            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
-            contrat.gestionnaireConfirmed = true
-            await ContratService.saveContrat(contrat)
+        if (contrat.collegeEngagement != undefined) {
+            if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
+                const date = new Date()
+                contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
+                contrat.gestionnaireConfirmed = true
+                await ContratService.saveContrat(contrat)
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Erreur!",
+                text: "Vous n'avez pas encore de contrat."
+            })
         }
+    }
+
+    const getBoolIcon = (bool) => {
+        return bool ? (
+            <AiOutlineCheckCircle color="green" />
+        ) : (
+            <AiOutlineCloseCircle color="red" />
+        )
     }
 
     return (
@@ -165,7 +186,7 @@ const GestionnaireAfficherContrat = () => {
                 <label htmlFor="moniteurConfirmed" className="form-label">
                     Signature moniteur
                 </label>
-                <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.moniteurConfirmed)}</span>
             </div>
             {errors.moniteurConfirmed && <p className="error">{errors.moniteurConfirmed}</p>}
 
@@ -173,7 +194,7 @@ const GestionnaireAfficherContrat = () => {
                 <label htmlFor="etudiantConfirmed" className="form-label">
                     Signature étudiant
                 </label>
-                <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.etudiantConfirmed)}</span>
             </div>
             {errors.etudiantConfirmed && <p className="error">{errors.etudiantConfirmed}</p>}
 
@@ -181,7 +202,7 @@ const GestionnaireAfficherContrat = () => {
                 <label htmlFor="gestionnaireConfirmed" className="form-label">
                     Signature gestionnaire
                 </label>
-                <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.gestionnaireConfirmed)}</span>
             </div>
 
 

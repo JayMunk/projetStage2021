@@ -1,3 +1,6 @@
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
+
 const urlBase = "http://localhost:9191/offres"
 const OffreService = {
 
@@ -33,6 +36,13 @@ const OffreService = {
       },
       body: JSON.stringify(offre),
     })
+    if (res.ok) {
+      Swal.fire({
+        icon: "success",
+        title: "Succès!",
+        text: "Votre offre vient d`être ajouté.",
+      });
+    }
     const data = await res.json()
     return data
   },

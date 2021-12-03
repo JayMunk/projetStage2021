@@ -1,19 +1,19 @@
 import React, { useContext } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import './NavbarCSS.css'
 import logo from './logo.svg'
-import { Link } from 'react-router-dom';
-import { UserInfoContext } from '../../contexts/UserInfo';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import NotificationBell from '../../component/Notification/NotificationBell';
+import { Link } from 'react-router-dom'
+import { UserInfoContext } from '../../contexts/UserInfo'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import NotificationBell from '../../component/Notification/NotificationBell'
 
 
 
 
 
 const NavbarHTML = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+  const [loggedUser] = useContext(UserInfoContext)
 
   const myFunction = () => {
     const url = encodeURIComponent("http://localhost:3000/moniteur");
@@ -52,9 +52,9 @@ const NavbarHTML = () => {
 
           {(loggedUser.isLoggedIn && loggedUser.role !== "SUPERVISEUR") ?
             <NavDropdown title="Offres" id="basic-nav-dropdown">
-              <NavDropdown.Item><Link to="/offres">Offres</Link></NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/offres">Offres</NavDropdown.Item>
               {loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR" ?
-                <NavDropdown.Item><Link to="/newOffre">Créer offre de stage</Link></NavDropdown.Item> : null
+                <NavDropdown.Item as={Link} to="/newOffre">Créer offre de stage</NavDropdown.Item> : null
               }
             </NavDropdown>
             :
@@ -64,10 +64,10 @@ const NavbarHTML = () => {
           {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE") ?
             <NavDropdown title="CV" id="basic-nav-dropdown">
               {loggedUser.role === "ETUDIANT" ?
-                <NavDropdown.Item><Link to="/dropCv">Ajouter ou voir cv</Link></NavDropdown.Item> : null
+                <NavDropdown.Item as={Link} to="/dropCv">Ajouter ou voir cv</NavDropdown.Item> : null
               }
               {loggedUser.role === "GESTIONNAIRE" ?
-                <NavDropdown.Item><Link to="/gestion/cv">Voir et valider les CV</Link></NavDropdown.Item> : null
+                <NavDropdown.Item as={Link} to="/gestion/cv">Voir et valider les CV</NavDropdown.Item> : null
               }
             </NavDropdown>
             :
@@ -89,9 +89,9 @@ const NavbarHTML = () => {
           {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR") ?
             <NavDropdown title="Contrat" id="basic-nav-dropdown">
               {loggedUser.role === "GESTIONNAIRE" ?
-                <NavDropdown.Item><Link to="/gestion/newContrat">Créer Contrat</Link></NavDropdown.Item> : null
+                <NavDropdown.Item as={Link} to="/gestion/newContrat">Créer Contrat</NavDropdown.Item> : null
               }
-              <NavDropdown.Item><Link to="/gestion/demarrerContrat">Démarrer Contrat</Link></NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/gestion/demarrerContrat">Démarrer Contrat</NavDropdown.Item>
 
             </NavDropdown>
             :

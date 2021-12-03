@@ -146,6 +146,7 @@ const DropCv = () => {
   ));
 
   useEffect(() => {
+    if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
       UserService.getUserByEmail(loggedUser.courriel).then((data) => {
         setEtudiant(data);
@@ -179,16 +180,6 @@ const DropCv = () => {
         </form>
       </div>
       {cvs.length > 0 ? (
-        // <table id="tableCv">
-        //     <tr>
-        //         <th>nom du fichier</th>
-        //         <th>Date de soumission</th>
-        //         <th>effacer</th>
-        //         <th>télécarger</th>
-        //         <th>Statut du CV</th>
-        //     </tr>
-        //     {cvList}
-        // </table>
         <Table striped bordered hover variant="dark" id="tableCv">
           <thead>
             <tr>
@@ -204,7 +195,7 @@ const DropCv = () => {
         </Table>
       ) : null}
 
-      {loggedUser.isLoggedIn ? null : history.push("/login")}
+
     </body>
   );
 };

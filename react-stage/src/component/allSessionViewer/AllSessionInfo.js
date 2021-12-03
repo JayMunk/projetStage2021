@@ -20,10 +20,8 @@ const AllSessionInfo = () => {
     const [loggedUser] = useContext(UserInfoContext)
     const history = useHistory()
 
-    if (!loggedUser.isLoggedIn) history.push("/login")
-
-
     useEffect(async () => {
+        if (!loggedUser.isLoggedIn) history.push("/login")
         await getAllSessions()
         await getCurrentSession()
     }, [])

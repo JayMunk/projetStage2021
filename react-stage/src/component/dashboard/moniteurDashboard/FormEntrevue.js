@@ -105,14 +105,16 @@ const FormEntrevue = ({ handleReloadList }) => {
         <div>
             <h2>Créer une entrevue</h2>
             <form className="register-form" onSubmit={handleSubmit}>
-                <Table striped bordered hover variant="dark" className="DashboardTable">
-                    <tr>
-                        <th>Titre</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Id de l'étudiant</th>
-                        <th>Créer</th>
-                    </tr>
+                <Table striped bordered hover variant="dark" className="DashboardTable FormEntrevue">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Id de l'étudiant</th>
+                            <th>Créer</th>
+                        </tr>
+                    </thead>
                     <tr>
                         <td >
                             <input

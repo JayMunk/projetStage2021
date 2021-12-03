@@ -4,10 +4,10 @@ import UserService from '../../../services/UserService'
 import Offres from '../../Offres/Offres'
 import Entrevue from './Entrevue'
 import FormEntrevue from './FormEntrevue'
-import './MoniteurDashboard.css'
+import '../../../Css/Dashboard.css'
 
 const MoniteurDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,
@@ -32,22 +32,15 @@ const MoniteurDashboard = () => {
         setReloadList(reloadList + 1)
     }
 
-
-
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
-                    setFullUser(data)
-                    getGestionnaires()
-                })
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                setFullUser(data)
+                getGestionnaires()
+            })
 
         }
-    }, []);
+    }, [])
 
     const getGestionnaires = async () => {
         const gestionnaires = await UserService.getGestionnaires()
@@ -58,16 +51,16 @@ const MoniteurDashboard = () => {
         <tr key={gestionnaire.id.toString()}>
             <td>{gestionnaire.prenom} {gestionnaire.nom}</td>
             <td>{gestionnaire.courriel}</td>
-        </tr>);
+        </tr>)
 
     return (
-        <>
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
 
             <div>
-                <h1>Contact Gestionnaire</h1>
+                <h2>Contact Gestionnaire</h2>
                 <table>
                     <tr>
                         <th>Nom</th>
@@ -79,7 +72,7 @@ const MoniteurDashboard = () => {
             <Offres />
             <FormEntrevue handleReloadList={handleReloadList} />
             <Entrevue reloadList={reloadList} handleReloadList={handleReloadList} />
-        </>
+        </div>
     )
 }
 

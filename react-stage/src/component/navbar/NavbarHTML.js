@@ -105,6 +105,10 @@ const NavbarHTML = () => {
             </Nav.Item>
           }
 
+          {loggedUser.isLoggedIn &&
+            <Nav.Link className="logout" href="/login">Déconnexion</Nav.Link>
+          }
+
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <Nav.Link as={Link} to="/rapports">Rapports</Nav.Link> : null
           }

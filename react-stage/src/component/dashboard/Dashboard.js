@@ -1,18 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { UserInfoContext } from './../../contexts/UserInfo'
 import EtudiantDashboard from './etudiantDashboard/EtudiantDashboard'
 import DashboardGestionnaire from './gestionnaireDashboard/DashboardGestionnaire'
 import SuperviseurDashboard from './superviseurDashboard/SuperviseurDashboard'
 import MoniteurDashboard from './moniteurDashboard/MoniteurDashboard'
-import { useHistory } from 'react-router-dom'
-
+import { useHistory } from "react-router-dom"
 
 
 const Dashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const history = useHistory()
+
+    if (!loggedUser.isLoggedIn) history.push("/login")
+
     return (
-        <>
+        <body id="body">
             {
                 loggedUser.role === "ETUDIANT" ?
                     < EtudiantDashboard />
@@ -39,7 +41,7 @@ const Dashboard = () => {
             {
                 loggedUser.isLoggedIn ? null : history.push("/login")
             }
-        </>
+        </body>
     )
 }
 

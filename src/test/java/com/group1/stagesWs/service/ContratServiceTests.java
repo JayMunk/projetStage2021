@@ -8,13 +8,20 @@ import static org.mockito.Mockito.when;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ContratServiceTests {
@@ -88,33 +95,6 @@ public class ContratServiceTests {
 
     // Assert
     assertThat(returned).isEqualTo(Optional.of(expected));
-  }
-
-  @Test
-  void testGetAllMoniteurContrats() {
-    // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(expected);
-
-    // Act
-    var actual = contratService.getAllMoniteurContrats("moniteur@example.com");
-
-    // Assert
-    assertThat(actual.size()).isEqualTo(expected.size());
-  }
-
-  @Test
-  void testGetAllSuperviseurEtudiantContrats() {
-    // Arrange
-    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
-    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString()))
-        .thenReturn(expected);
-
-    // Act
-    var actual = contratService.getAllSuperviseurEtudiantContrats("superviseur@example.com");
-
-    // Assert
-    assertThat(actual.size()).isEqualTo(expected.size());
   }
 
   @Test
@@ -198,7 +178,8 @@ public class ContratServiceTests {
         "2022-1-05",
         "2022-4-05",
         13,
-        "9:00 a 5:00",
+        LocalTime.of(9, 0),
+        LocalTime.of(17, 0),
         40,
         22);
   }

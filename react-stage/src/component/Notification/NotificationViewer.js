@@ -157,12 +157,12 @@ const NotificationViewer = () => {
                 <Row>
                     <Col sm="0" lg="3"></Col>
                     <Col sm="6" lg="3">
-                        <button onClick={previousPageUnchecked} className="btn bg-secondary m-1">
+                        <button onClick={previousPageUnchecked} className="btn bg-secondary m-1 wide-button">
                             «
                         </button>
                     </Col>
                     <Col sm="6" lg="3">
-                        <button onClick={nextPageUnchecked} className="btn bg-secondary m-1">
+                        <button onClick={nextPageUnchecked} className="btn bg-secondary m-1 wide-button">
                             »
                         </button>
                     </Col>
@@ -185,12 +185,12 @@ const NotificationViewer = () => {
                 <Row className="text-center">
                     <Col sm="0" lg="3"></Col>
                     <Col sm="6" lg="3">
-                        <button onClick={previousPageChecked} className="btn bg-secondary m-1">
+                        <button onClick={previousPageChecked} className="btn bg-secondary m-1 wide-button">
                             «
                         </button>
                     </Col>
                     <Col sm="6" lg="3">
-                        <button onClick={nextPageChecked} className="btn bg-secondary m-1">
+                        <button onClick={nextPageChecked} className="btn bg-secondary m-1 wide-button">
                             »
                         </button>
                     </Col>

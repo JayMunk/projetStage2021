@@ -105,7 +105,7 @@ const DropCv = () => {
   };
 
   const setDefaultCV = async (cv) => {
-    await CVService.saveCv(cv);
+    await CVService.setDefaultCV(cv);
     updateCvs();
   };
 

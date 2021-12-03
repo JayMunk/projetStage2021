@@ -63,14 +63,13 @@ const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPag
                 <h3 className="text-center text-warning">Aucune offre visible pour la sélection choisie</h3>
             }
             <Row className="mb-4">
-                <Col lg="5" sm="5" className="hoverButton">
-                    <button onClick={previousPage} className="btn bg-dark text-white">
+                <Col lg="6" sm="6" className="hoverButton">
+                    <button onClick={previousPage} className="btn bg-dark text-white wide-button">
                         «
                     </button>
                 </Col>
-                <Col lg="2" sm="2"></Col>
-                <Col lg="5" sm="5" className="hoverButton">
-                    <button onClick={nextPage} className="btn bg-dark text-white">
+                <Col lg="6" sm="6" className="hoverButton">
+                    <button onClick={nextPage} className="btn bg-dark text-white wide-button">
                         »
                     </button>
                 </Col>

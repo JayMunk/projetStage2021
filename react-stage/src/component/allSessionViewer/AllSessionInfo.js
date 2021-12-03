@@ -144,7 +144,7 @@ const AllSessionInfo = () => {
             </Row >
             <br />
             <br />
-            <Row>
+            <Row className="text-center">
                 <Col lg="8" sm="12" className="mx-auto">
                     <AllSessionEtudiant getListForSpecificSession={getListForSpecificSession} reloadList={reloadList} elementsPerPage={elementsPerPage} />
                 </Col>

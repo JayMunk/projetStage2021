@@ -55,7 +55,7 @@ const DashboardGestionnaireContrats = () => {
     <div>
       <Row >
         <Col sm="12" lg="8" className="mx-auto">
-          <Table striped bordered hover variant="dark" className="mt-4">
+          <Table striped bordered hover variant="dark" className="my-4 text-center">
             <thead>
               <tr>
                 <th colSpan="6">Contrats</th>
@@ -63,8 +63,8 @@ const DashboardGestionnaireContrats = () => {
             </thead>
             <tbody>
               <tr >
-                <td colSpan="5">Le nombre de contrats total</td>
-                <td>{contrats.length}</td>
+                <td colSpan="4">Le nombre de contrats total</td>
+                <td colSpan="2">{contrats.length}</td>
               </tr>
               <tr>
                 <th>Titre du contrat</th>
@@ -79,12 +79,12 @@ const DashboardGestionnaireContrats = () => {
           </Table>
           <Row>
             <Col lg="6" sm="6" className="m-auto">
-              <button onClick={previousPage} className="btn bg-dark text-white">
+              <button onClick={previousPage} className="btn bg-dark text-white wide-button">
                 «
               </button>
             </Col>
             <Col lg="6" sm="6" className="m-auto">
-              <button onClick={nextPage} className="btn bg-dark text-white">
+              <button onClick={nextPage} className="btn bg-dark text-white wide-button">
                 »
               </button>
             </Col>

@@ -129,7 +129,7 @@ const SuperviseurEtudiantsAssignation = () => {
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: 'rgba(255, 255, 255, 0.75)'
+                            backgroundColor: 'rgba(100, 100, 100, 0.75)'
                         },
                         content: {
                             position: 'absolute',
@@ -138,7 +138,7 @@ const SuperviseurEtudiantsAssignation = () => {
                             right: '40px',
                             bottom: '40px',
                             border: '1px solid #ccc',
-                            background: 'lightgrey',
+                            background: 'rgb(69, 69, 69)',
                             overflow: 'auto',
                             WebkitOverflowScrolling: 'touch',
                             borderRadius: '4px',
@@ -152,24 +152,24 @@ const SuperviseurEtudiantsAssignation = () => {
                                 <table className="table">
                                     <tbody>
                                         <tr>
-                                            <th className="bg-secondary">Prenom/Nom</th>
-                                            <td className="bg-light">{currentSuperviseur.prenom}</td>
+                                            <th className="bg-muted text-white">Prenom/Nom</th>
+                                            <td className="bg-secondary">{currentSuperviseur.prenom}</td>
                                         </tr>
                                         <tr>
-                                            <th className="bg-secondary">Departement</th>
-                                            <td className="bg-light">{currentSuperviseur.departement}</td>
+                                            <th className="bg-muted text-white">Departement</th>
+                                            <td className="bg-secondary">{currentSuperviseur.departement}</td>
                                         </tr>
                                         <tr>
-                                            <th className="bg-secondary"># Telephone</th>
-                                            <td className="bg-light">{currentSuperviseur.numTelephone}</td>
+                                            <th className="bg-muted text-white"># Telephone</th>
+                                            <td className="bg-secondary">{currentSuperviseur.numTelephone}</td>
                                         </tr>
                                         <tr>
-                                            <th className="bg-secondary">Courriel</th>
-                                            <td className="bg-light">{currentSuperviseur.courriel}</td>
+                                            <th className="bg-muted text-white">Courriel</th>
+                                            <td className="bg-secondary">{currentSuperviseur.courriel}</td>
                                         </tr>
                                         <tr>
-                                            <th className="bg-secondary">Specialite</th>
-                                            <td className="bg-light">{currentSuperviseur.specialite}</td>
+                                            <th className="bg-muted text-white">Specialite</th>
+                                            <td className="bg-secondary">{currentSuperviseur.specialite}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -185,7 +185,7 @@ const SuperviseurEtudiantsAssignation = () => {
                                     <div className="mt-4">
                                         <Row>
                                             <Col sm="12" lg="6">
-                                                <h1>Sélectionnez les étudiants</h1>
+                                                <h1 className="text-light">Sélectionnez les étudiants</h1>
                                                 <MultiSelect
                                                     options={listAllEtudiant}
                                                     value={listSelectedEtudiant}
@@ -193,24 +193,32 @@ const SuperviseurEtudiantsAssignation = () => {
                                                     labelledBy="Select"
                                                 />
                                             </Col>
-                                            <Col sm="12" lg="6">
-                                                {listSelectedEtudiant.length === 0 ?
-                                                    <h1>Aucun Etudiant Sélectionné</h1> :
-                                                    listSelectedEtudiant.length < 2 ?
-                                                        <h1>Etudiant Sélectionné</h1>
-                                                        :
-                                                        <h1>Etudiants Sélectionnés</h1>
-                                                }
-                                                {listSelectedEtudiant.map((etudiant, index) =>
-                                                    <li key={index}>{etudiant.label}</li>
-                                                )}
+                                            <Col sm="12" lg="6" className="text-light">
+                                                <table className="table mt-4">
+                                                    <tbody>
+                                                        <tr>
+                                                            {listSelectedEtudiant.length === 0 ?
+                                                                <th>Aucun Etudiant Sélectionné</th> :
+                                                                listSelectedEtudiant.length < 2 ?
+                                                                    <th>Etudiant Sélectionné</th>
+                                                                    :
+                                                                    <th>Etudiants Sélectionnés</th>
+                                                            }
+                                                        </tr>
+                                                        {listSelectedEtudiant.map((etudiant, index) => (
+                                                            <tr>
+                                                                <td className="bg-secondary" key={index}>{etudiant.label}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
                                             </Col>
 
                                         </Row>
                                         <Row>
                                             <Col sm="1" lg="5"></Col>
                                             <Col sm="10" lg="2">
-                                                <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
+                                                <button className="btn btn-success btn-lg mt-4 wide-button" onClick={onClickSave}>SAVE</button>
                                             </Col>
                                             <Col sm="1" lg="5"></Col>
                                         </Row>

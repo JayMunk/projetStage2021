@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'PT Sans', sans-serif;
+  
+  font-family: "PT Sans", sans-serif;
+}
+
+.wide-button {
+  width: 100% !important;
 }
 
 .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {

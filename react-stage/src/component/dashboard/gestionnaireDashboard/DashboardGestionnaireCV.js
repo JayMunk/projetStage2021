@@ -48,7 +48,7 @@ const DashboardGestionnaireCV = () => {
     <div>
       <Row >
         <Col sm="12" lg="8" className="mx-auto">
-          <Table striped bordered hover variant="dark" className="mt-4">
+          <Table striped bordered hover variant="dark" className="my-4 text-center">
             <thead>
               <tr>
                 <th colSpan="4">CV</th>

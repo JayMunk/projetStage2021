@@ -7,7 +7,9 @@ import Table from "react-bootstrap/Table";
 const ListEntrepriseToEvaluate = ({ contrats, onClick }) => {
   return (
     <div className="container">
-      <h1 className="text-white">Liste des entreprises à évaluer</h1>
+      <h1 className="text-white text-center">
+        Liste des entreprises à évaluer
+      </h1>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -25,7 +27,9 @@ const ListEntrepriseToEvaluate = ({ contrats, onClick }) => {
             ))
           ) : (
             <tr>
-              <td colSpan="2">Aucun entreprise à afficher</td>
+              <td colSpan="2" className="text-center text-warning">
+                Aucun entreprise à afficher
+              </td>
             </tr>
           )}
         </tbody>

@@ -44,11 +44,13 @@ const Entrevue = (reloadList) => {
         <div>
             <h2>Entrevues</h2>
             <Table striped bordered hover variant="dark" className="DashboardTable mb-4">
-                <tr>
-                    <th>Titre</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {entrevuesList}
                 </tbody>

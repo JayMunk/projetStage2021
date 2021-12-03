@@ -80,14 +80,21 @@ public class RapportService<T> {
       if (listGeneric.get(i) instanceof CV) {
         CV genericItemCV = (CV) listGeneric.get(i);
         String string =
-            i
+                i
                 + 1
-                + ". "
+                + "."
+                + " prénom: "
                 + genericItemCV.getEtudiant().getPrenom()
-                + " "
+                + " | "
+                + "nom: "
                 + genericItemCV.getEtudiant().getNom()
-                + " "
-                + genericItemCV.getStatus();
+                + " | "
+                + "titre du cv: "
+                + genericItemCV.getNom()
+                + " | "
+                + "statut: "
+                + genericItemCV.getStatus()
+                + "\n";
         paraList.add(string + "\n");
       }
     }

@@ -58,12 +58,12 @@ public class OffreService extends SessionManager<Offre> {
 
   public List<Offre> getEtudiantOffres(String etudiantEmail) {
     Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
-    return offreRepository.findAllByWhitelistContainsAndIsValidTrue(etudiant);
+    return getListForCurrentSession(offreRepository.findAllByWhitelistContainsAndIsValidTrue(etudiant));
   }
 
   public List<Offre> getMoniteurOffres(String email) {
     Moniteur moniteur = moniteurRepository.findMoniteurByCourrielIgnoreCase(email);
-    return offreRepository.findAllByMoniteur(moniteur);
+    return getListForCurrentSession(offreRepository.findAllByMoniteur(moniteur));
   }
 
   public Optional<Offre> addOffre(Offre offre, String email) {

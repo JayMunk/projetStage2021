@@ -32,7 +32,7 @@ const CvsPendingEtRejected = () => {
             {cvs.length > 0 ? (
                 <div className="cardRapport">
                     <h4 className="text-wrap">Liste des cvs ayant été rejeté ou refusé</h4>
-                    <Table striped bordered hover variant="dark" className="tableRapport">
+                    <Table striped bordered hover variant="dark" className="tableRapport text-nowrap">
                         <thead >
                             <tr>
                                 <th>Titre</th>

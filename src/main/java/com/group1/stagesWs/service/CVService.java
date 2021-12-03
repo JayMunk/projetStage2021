@@ -32,10 +32,12 @@ public class CVService extends SessionManager<CV> {
   }
 
   public Optional<CV> saveCV(CV cv) {
+    Optional<CV> checkCV = cvRepository.findById(cv.getId());
     Optional<CV> optionalCV = Optional.of(cvRepository.save(cv));
     setCVOnlyDefaultCV(optionalCV.get());
     if (optionalCV.isPresent()) {
       emailService.sendGestionnaireEmailCVAjouter();
+      if(checkCV.isEmpty())
       notificationService.saveNotificationGestionnaire(
           new Notification(
               "Il y a un nouveau cv a verifier de l'etudiant : "
@@ -118,7 +120,7 @@ public class CVService extends SessionManager<CV> {
     both.addAll(listPending);
     both.addAll(listRejected);
 
-    return both;
+    return getListForCurrentSession(both);
   }
 
   @Override

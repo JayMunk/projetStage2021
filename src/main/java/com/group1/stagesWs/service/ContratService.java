@@ -41,6 +41,7 @@ public class ContratService extends SessionManager<Contrat> {
             .collect(Collectors.toList());
     return getListForCurrentSession(
         contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteurCourriel).stream()
+            .filter(contrat -> contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
             .filter(contrat -> !alreadyEvaluated.contains(contrat))
             .collect(Collectors.toList()));
   }
@@ -54,6 +55,7 @@ public class ContratService extends SessionManager<Contrat> {
         contratRepository
             .findAllByEtudiantSuperviseurCourrielIgnoreCase(superviseurCourriel)
             .stream()
+            .filter(contrat -> contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
             .filter(contrat -> !alreadyEvaluated.contains(contrat))
             .collect(Collectors.toList()));
   }
@@ -62,7 +64,7 @@ public class ContratService extends SessionManager<Contrat> {
   public List<Contrat> getListForCurrentSession(List<Contrat> listContrat) {
     return listContrat.stream()
         .filter(
-            contrat -> contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
+            contrat -> contrat.getSession().equals(CURRENT_SESSION.getNomSession()))
         .collect(Collectors.toList());
   }
 
@@ -79,6 +81,10 @@ public class ContratService extends SessionManager<Contrat> {
 
   public Contrat getContratsByEtudiantEmail(String etudiantEmail) {
     Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
-    return contratRepository.findContratByEtudiant(etudiant);
+    Contrat contrat = contratRepository.findContratByEtudiant(etudiant);
+    if(contrat.getSession().equals(CURRENT_SESSION.getNomSession()) ) {
+      return contrat;
+    }
+    return null;
   }
 }

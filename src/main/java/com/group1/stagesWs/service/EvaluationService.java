@@ -7,10 +7,11 @@ import com.group1.stagesWs.repositories.EvaluationEntrepriseRepository;
 import com.group1.stagesWs.repositories.EvaluationEtudiantRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EvaluationService {
+public class EvaluationService{
 
   private final EvaluationEntrepriseRepository entrepriseEvalRepo;
   private final EvaluationEtudiantRepository etudiantEvalRepo;
@@ -39,18 +40,30 @@ public class EvaluationService {
   }
 
   public List<EvaluationEntreprise> getAllEntrepriseEvals() {
-    return entrepriseEvalRepo.findAll();
+    return entrepriseEvalRepo.findAll().stream()
+        .filter(evaluationEntreprise -> evaluationEntreprise.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
+        .collect(Collectors.toList());
   }
 
   public List<EvaluationEtudiant> getAllEtudiantEvals() {
-    return etudiantEvalRepo.findAll();
+    return etudiantEvalRepo.findAll().stream()
+        .filter(evaluationEntreprise -> evaluationEntreprise.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
+        .collect(Collectors.toList());
   }
 
   public Optional<EvaluationEntreprise> getEntrepriseEval(int id) {
-    return entrepriseEvalRepo.findById(id);
+    Optional<EvaluationEntreprise> evaluationEntreprise = entrepriseEvalRepo.findById(id);
+    if(evaluationEntreprise.get().getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())) {
+      return evaluationEntreprise;
+    }
+    return Optional.empty();
   }
 
   public Optional<EvaluationEtudiant> getEtudiantEval(int id) {
-    return etudiantEvalRepo.findById(id);
+    Optional<EvaluationEtudiant> evaluationEtudiant = etudiantEvalRepo.findById(id);
+    if(evaluationEtudiant.get().getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
+      return evaluationEtudiant;
+    }
+    return Optional.empty();
   }
 }

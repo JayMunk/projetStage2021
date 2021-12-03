@@ -161,10 +161,18 @@ public class UserService extends SessionManager<User> {
   }
 
   public Etudiant getEtudiant(int id) {
-    return etudiantRepository.findEtudiantById(id);
+    Etudiant etudiant = etudiantRepository.findEtudiantById(id);
+    if(etudiant.getSession().equals(CURRENT_SESSION.getNomSession())) {
+      return etudiant;
+    }
+    return null;
   }
 
   public Moniteur getMoniteur(int id) {
-    return moniteurRepository.findMoniteurById(id);
+    Moniteur moniteur = moniteurRepository.findMoniteurById(id);
+    if(moniteur.getSession().equals(CURRENT_SESSION.getNomSession())) {
+      return moniteur;
+    }
+    return null;
   }
 }

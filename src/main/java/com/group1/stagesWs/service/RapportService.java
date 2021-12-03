@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Contrat;
@@ -172,7 +173,10 @@ public class RapportService {
 
   public List<Etudiant> getListEtudiantEnAttenteEntrevue() {
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevuesQuiArrive();
-    return listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
+    return listEntrevue.stream()
+        .filter(entrevue -> entrevue.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
+        .map(Entrevue::getEtudiant)
+        .collect(Collectors.toList());
   }
 
   public byte[] getEtudiantEnAttenteEntrevue() throws Exception {
@@ -197,7 +201,6 @@ public class RapportService {
   public List<Etudiant> getListEtudiantEnAttenteDeReponse() {
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevuesPasse();
     return listEntrevue.stream()
-        .filter(entrevue -> entrevue.getStatus().equals(Status.PENDING))
         .map(Entrevue::getEtudiant)
         .collect(Collectors.toList());
   }
@@ -211,7 +214,9 @@ public class RapportService {
 
   public List<Etudiant> getListEtudiantTrouveStage() {
     List<Entrevue> listEntrevue = entrevueService.getEntrevuesAccepted();
-    return listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
+    return listEntrevue.stream()
+        .map(Entrevue::getEtudiant)
+        .collect(Collectors.toList());
   }
 
   public byte[] getEtudiantTrouveStage() throws Exception {

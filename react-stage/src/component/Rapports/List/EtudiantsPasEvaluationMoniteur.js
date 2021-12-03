@@ -32,7 +32,7 @@ const EtudiantsPasEvaluationMoniteur = () => {
             {etudiantsList.length > 0 ? (
                 <div className="cardRapport">
                     <h4 className="text-wrap">Liste des etudiants n'ayant pas d'évaluation du moniteur</h4>
-                    <Table striped bordered hover variant="dark" className="tableRapport">
+                    <Table striped bordered hover variant="dark" className="tableRapport text-nowrap">
                         <thead >
                             <tr>
                                 <th>Nom</th>

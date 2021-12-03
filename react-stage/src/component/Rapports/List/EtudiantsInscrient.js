@@ -33,7 +33,7 @@ const EtudiantsInscrient = () => {
             {etudiantsList.length > 0 ? (
                 <div className="cardRapport">
                     <h4 className="text-wrap">Liste des étudiants inscrient</h4>
-                    <Table striped bordered hover variant="dark" className="tableRapport">
+                    <Table striped bordered hover variant="dark" className="tableRapport text-nowrap">
                         <thead >
                             <tr>
                                 <th>Nom</th>

@@ -67,11 +67,11 @@ public class EntrevueService extends SessionManager<Entrevue> {
   }
 
   public List<Entrevue> getAllEntrevuesQuiArrive() {
-    return entrevueRepository.findAllByDateAfter(LocalDate.now());
+    return getListForCurrentSession(entrevueRepository.findAllByDateAfter(LocalDate.now()));
   }
 
   public List<Entrevue> getAllEntrevuesPasse() {
-    return entrevueRepository.findAllByDateBefore(LocalDate.now());
+    return getListForCurrentSession(entrevueRepository.findAllByDateBefore(LocalDate.now()));
   }
 
   public List<Entrevue> getAllEntrevues() { //tested
@@ -80,7 +80,7 @@ public class EntrevueService extends SessionManager<Entrevue> {
 
   public List<Entrevue> getEntrevuesAccepted() {
     List<Entrevue> listEntrevuesAccepted = entrevueRepository.findEntrevueByStatus(Status.ACCEPTED);
-    return listEntrevuesAccepted;
+    return getListForCurrentSession(listEntrevuesAccepted);
   }
 
   @Override

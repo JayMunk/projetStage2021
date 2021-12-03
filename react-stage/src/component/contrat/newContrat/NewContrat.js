@@ -21,9 +21,10 @@ const NewContrat = () => {
         const getOffres = async () => {
             let dbOffres
             dbOffres = await OffreService.getAllOffres()
-
-            setListOffres(dbOffres)
-            setValuesOnLoad(dbOffres)
+            if (dbOffres.length != 0) {
+                setListOffres(dbOffres)
+                setValuesOnLoad(dbOffres)
+            }
         }
         getOffres()
     }, [])

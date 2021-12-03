@@ -27,7 +27,7 @@ const ListEtudiantToEvaluate = ({ contrats, onClick }) => {
             ))
           ) : (
             <tr>
-              <td colSpan="2" className="text-center">
+              <td colSpan="2" className="text-center text-warning">
                 Aucun étudiants à afficher
               </td>
             </tr>

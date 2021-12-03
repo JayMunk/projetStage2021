@@ -1,13 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { UserInfoContext } from "../../contexts/UserInfo";
-import ContratService from "../../services/ContratService";
-import Table from "react-bootstrap/Table";
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory } from "react-router"
+import { UserInfoContext } from "../../contexts/UserInfo"
+import ContratService from "../../services/ContratService"
+import Table from "react-bootstrap/Table"
 
 const ListEtudiantToEvaluate = ({ contrats, onClick }) => {
   return (
     <div className="container">
       <h1 className="text-white text-center">Liste des étudiants à évaluer</h1>
+      <h5 className="text-center mt-4 mb-4 text-warning">
+        Cliquez sur n'importe quel des entrées dans la liste pour l'évaluer.
+      </h5>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -35,7 +38,7 @@ const ListEtudiantToEvaluate = ({ contrats, onClick }) => {
         </tbody>
       </Table>
     </div>
-  );
-};
+  )
+}
 
-export default ListEtudiantToEvaluate;
+export default ListEtudiantToEvaluate

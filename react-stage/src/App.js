@@ -1,9 +1,9 @@
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
-import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";
-import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
-import NewLoginUser from "./component/loginUser/NewLoginUser";
+import FormEtudiant from "./component/inscription/FormEtudiant";
+import FormSuperviseur from "./component/inscription/FormSuperviseur";
+import FormMoniteur from "./component/inscription/FormMoniteur";
+import LoginUser from "./component/loginUser/LoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
 import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre";
 import Offres from "./component/Offres/Offres";
@@ -18,8 +18,6 @@ import VerificationCV from './component/CV/gestionCV/VerificationCV';
 import DropCv from "./component/CV/DropCv/DropCv";
 import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
-
-// import Contrat from './component/contrat/Contrat';
 import Rapports from "./component/Rapports/Rapports";
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 import NewContrat from "./component/contrat/newContrat/NewContrat"
@@ -40,13 +38,13 @@ function App() {
           <Navbar />
           <div>
             <Switch>
-              <Route exact path="/"><NewLoginUser /></Route>
-              <Route exact path="/etudiant"><NewFormEtudiant /></Route>
-              <Route exact path="/superviseur"><NewFormSuperviseur /></Route>
-              <Route exact path="/moniteur"><NewFormMoniteur /></Route>
+              <Route exact path="/"><LoginUser /></Route>
+              <Route exact path="/etudiant"><FormEtudiant /></Route>
+              <Route exact path="/superviseur"><FormSuperviseur /></Route>
+              <Route exact path="/moniteur"><FormMoniteur /></Route>
               <Route exact path="/account"><AccountDetails /></Route>
               <Route exact path="/offres"><Offres /></Route>
-              <Route exact path="/login"><NewLoginUser /></Route>
+              <Route exact path="/login"><LoginUser /></Route>
               <Route exact path="/newOffre"><FormOffre /></Route>
               <Route exact path="/dropCv"><DropCv /></Route>
               <Route exact path="/gestion/cv"><VerificationCV /></Route>

@@ -41,20 +41,12 @@ const VoirCVState = () => {
         }
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         if (loggedUser.isLoggedIn) {
-            UserService.getUserByEmail(loggedUser.courriel)
-                .then(data => {
-                    setEtudiant(data)
-                    //await CVService.getAllCVEtudiant(data.id).then(data => { setCvs(data)  })
-                    fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
-                        .then(res => {
-                            return res.json()
-                        })
-                        .then(data => {
-                            setCvs(data)
-                        })
-                })
+            let data = await UserService.getUserByEmail(loggedUser.courriel)
+            setEtudiant(data)
+            let fetchCv = await CVService.getCvEtudiant(data.id)
+            setCvs(fetchCv)
         }
     }, [])
 

@@ -83,11 +83,22 @@ public class RapportService<T> {
             i
                 + 1
                 + ". "
+                + "\t prénom :"
+                + " "
                 + genericItemCV.getEtudiant().getPrenom()
+                + "\n"
+                + "\t nom :"
                 + " "
                 + genericItemCV.getEtudiant().getNom()
+                + "\n"
+                + "\t titre du cv :"
                 + " "
-                + genericItemCV.getStatus();
+                + genericItemCV.getNom()
+                + "\n"
+                + "\t statut :"
+                + " "
+                + genericItemCV.getStatus()
+                + "\n";
         paraList.add(string + "\n");
       }
     }

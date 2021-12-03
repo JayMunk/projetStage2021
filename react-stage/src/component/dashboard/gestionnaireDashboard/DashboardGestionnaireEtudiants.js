@@ -48,7 +48,7 @@ const DashboardGestionnaireEtudiants = () => {
     <div>
       <Row >
         <Col sm="12" lg="8" className="mx-auto">
-          <Table striped bordered hover variant="dark" className="mt-4">
+          <Table striped bordered hover variant="dark" className="my-4 text-center">
             <thead>
               <tr>
                 <th colSpan="2">Étudiants</th>
@@ -69,12 +69,12 @@ const DashboardGestionnaireEtudiants = () => {
 
           <Row>
             <Col lg="6" sm="6" className="m-auto">
-              <button onClick={previousPage} className="btn bg-dark text-white">
+              <button onClick={previousPage} className="btn bg-dark text-white wide-button">
                 «
               </button>
             </Col>
             <Col lg="6" sm="6" className="m-auto">
-              <button onClick={nextPage} className="btn bg-dark text-white">
+              <button onClick={nextPage} className="btn bg-dark text-white wide-button">
                 »
               </button>
             </Col>

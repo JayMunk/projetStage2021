@@ -105,7 +105,7 @@ const DropCv = () => {
   };
 
   const setDefaultCV = async (cv) => {
-    await CVService.saveCv(cv);
+    await CVService.setDefaultCV(cv);
     updateCvs();
   };
 
@@ -179,16 +179,6 @@ const DropCv = () => {
         </form>
       </div>
       {cvs.length > 0 ? (
-        // <table id="tableCv">
-        //     <tr>
-        //         <th>nom du fichier</th>
-        //         <th>Date de soumission</th>
-        //         <th>effacer</th>
-        //         <th>télécarger</th>
-        //         <th>Statut du CV</th>
-        //     </tr>
-        //     {cvList}
-        // </table>
         <Table striped bordered hover variant="dark" id="tableCv">
           <thead>
             <tr>

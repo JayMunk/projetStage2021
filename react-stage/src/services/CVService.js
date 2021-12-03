@@ -5,7 +5,8 @@ import { saveAs } from "file-saver";
 
 const urlBase = "http://localhost:9191/cv";
 const CVService = {
-  saveCv: async (cv) => {
+
+  setDefaultCV: async (cv) => {
     const res = await fetch(urlBase, {
       method: "POST",
       headers: {
@@ -13,6 +14,9 @@ const CVService = {
       },
       body: JSON.stringify(cv),
     });
+    if (!res.ok) {
+      alertError("Incable de rendre ce cv le cv primaire")
+    }
     const data = await res.json();
     return data;
   },
@@ -73,15 +77,27 @@ const CVService = {
       body: JSON.stringify(cv),
     });
     if (res.ok) {
-      Swal.fire({
-        icon: "success",
-        title: "Succès!",
-        text: "Votre cv vient d`être ajouté à la liste ci-dessous.",
-      });
+      alertSuccess("Votre cv vient d`être ajouté à la liste ci-dessous.")
     }
     const data = await res.json();
     return data;
   },
 };
+
+const alertSuccess = (message => {
+  Swal.fire({
+    icon: "success",
+    title: "Succès!",
+    text: message,
+  });
+})
+
+const alertError = (message => {
+  Swal.fire({
+    icon: "error",
+    title: "Erreur!",
+    text: message,
+  });
+})
 
 export default CVService;

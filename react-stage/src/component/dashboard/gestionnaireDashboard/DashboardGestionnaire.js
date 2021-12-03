@@ -14,12 +14,32 @@ const DashboardGestionnaire = () => {
     <body id="body">
       <div id="centerDashboardGestionnaire">
         <DashboardGestionnaireEtudiants />
+        <br />
+        <br />
+
         <DashboardGestionnaireCV />
+        <br />
+        <br />
+
         <DashboardGestionnaireMoniteurs />
+        <br />
+        <br />
+
         <DashboardGestionnaireSuperviseurs />
+        <br />
+        <br />
+
         <DashboardGestionnaireOffres />
+        <br />
+        <br />
+
         <DashboardGestionnaireEntrevues />
+        <br />
+        <br />
+
         <DashboardGestionnaireContrats />
+        <br />
+        <br />
       </div>
     </body>
   );

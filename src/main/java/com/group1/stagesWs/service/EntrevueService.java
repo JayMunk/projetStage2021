@@ -25,6 +25,7 @@ public class EntrevueService extends SessionManager<Entrevue> {
   }
 
   public Optional<Entrevue> saveEntrevue(Entrevue entrevue) {
+
     notificationService.saveNotificationEtudiant(
         new Notification(
             "Vous etes convoque a une entrevue le : "
@@ -32,9 +33,21 @@ public class EntrevueService extends SessionManager<Entrevue> {
                 + " avec le moniteur "
                 + entrevue.getMoniteur().getPrenom()
                 + " "
-                + entrevue.getMoniteur().getNom(),
+                + entrevue.getMoniteur().getNom() + " a l'heure " + entrevue.getTime(),
             NotifStatus.URGENT),
         entrevue.getEtudiant().getId());
+
+    notificationService.saveNotificationMoniteur(
+        new Notification(
+            "Vous avez une entrevue le : "
+                + entrevue.getDate()
+                + " avec l'étudiant "
+                + entrevue.getEtudiant().getPrenom()
+                + " "
+                + entrevue.getEtudiant().getNom()  + " a l'heure " + entrevue.getTime(),
+            NotifStatus.URGENT),
+        entrevue.getEtudiant().getId());
+
     return Optional.of(entrevueRepository.save(entrevue));
   }
 

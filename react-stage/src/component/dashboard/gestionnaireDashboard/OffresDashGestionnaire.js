@@ -48,7 +48,7 @@ const OffresDashGestionnaire = () => {
 
   return (
     <>
-      <table className="tableDashboardGestionnaire">
+      <table className="my-4 text-center">
         <tr>
           <th colSpan="4">Offres</th>
         </tr>
@@ -67,12 +67,12 @@ const OffresDashGestionnaire = () => {
         <tbody>{offresList}</tbody>
         <tr>
           <td colSpan="2" className="hoverButton">
-            <button onClick={previousPage} className="button">
+            <button onClick={previousPage} className="btn bg-dark text-white wide-button">
               «
             </button>
           </td>
           <td colSpan="2" className="hoverButton">
-            <button onClick={nextPage} className="button">
+            <button onClick={nextPage} className="btn bg-dark text-white wide-button">
               »
             </button>
           </td>

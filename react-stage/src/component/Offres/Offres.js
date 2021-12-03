@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   AiOutlineCheckCircle,
@@ -34,7 +34,8 @@ const Offres = () => {
     dateDebut: String,
     dateFin: String,
     nbTotalSemaine: Number,
-    horaire: String,
+    horaireDebut: String,
+    horaireFin: String,
     nbTotalHeuresParSemaine: Number,
     tauxHoraire: Number,
     whitelist: Array,
@@ -144,7 +145,14 @@ const Offres = () => {
       listWhitelistedEtudiant
     );
     setCurrentOffre(updatedOffre);
-    await OffreService.saveOffre(updatedOffre);
+    const savedOffre = await OffreService.saveOffre(updatedOffre);
+    if (savedOffre != undefined) {
+      Swal.fire({
+        icon: "success",
+        title: "Succès!",
+        text: "L'offre a été modifié.",
+      });
+    }
     await updateOffres();
     onClickClose();
   };
@@ -186,7 +194,7 @@ const Offres = () => {
   };
 
   const getEtudiantCV = async (etudiant) => {
-    const listCVEtudiant = await CVService.getAllCVEtudiant(etudiant.id)
+    const listCVEtudiant = await CVService.getCvEtudiant(etudiant.id)
     const defaultCV = getCVDefaut(listCVEtudiant)
 
     if (defaultCV == undefined || listCVEtudiant.length == 0) {
@@ -307,7 +315,7 @@ const Offres = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(31, 31, 31, 0.75)'
+          backgroundColor: 'rgba(100, 100, 100, 0.75)'
         },
         content: {
           position: 'absolute',
@@ -329,7 +337,7 @@ const Offres = () => {
             <AiOutlineClose color="red" size="24px" onClick={onClickClose} />
             <Row className="mt-4">
               <Col lg='4' sm='12' className="mx-auto">
-                <table className="table">
+                <table className="table border">
                   <tbody>
                     <tr>
                       <th className="bg-muted text-white">Titre</th>
@@ -356,8 +364,12 @@ const Offres = () => {
                       <td className="bg-secondary">{currentOffre.nbTotalSemaine} semaines</td>
                     </tr>
                     <tr>
-                      <th className="bg-muted text-white">Horaire</th>
-                      <td className="bg-secondary">{currentOffre.horaire}</td>
+                      <th className="bg-muted text-white">Horaire Debut</th>
+                      <td className="bg-secondary">{currentOffre.horaireDebut}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Horaire Fin</th>
+                      <td className="bg-secondary">{currentOffre.horaireFin}</td>
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Totales Heures/Semaine</th>
@@ -394,7 +406,7 @@ const Offres = () => {
               <div>
                 <Row>
                   <Col lg='4' sm='12' className="mx-auto">
-                    <table className="table">
+                    <table className="table border">
                       <tbody>
                         <tr>
                           <th className="bg-muted text-white">Validity</th>
@@ -420,7 +432,7 @@ const Offres = () => {
                 <div className="mt-4">
                   <Row className="mx-auto">
                     <Col sm="12" lg="6">
-                      <h1>Select Etudiants</h1>
+                      <h1 className="text-light">Select Etudiants</h1>
                       <Row>
                         <Col className="mx-auto" lg="8" sm="10">
                           <MultiSelect
@@ -432,7 +444,7 @@ const Offres = () => {
                         </Col>
                       </Row>
                     </Col>
-                    <Col sm="12" lg="6" className="mt-4">
+                    <Col sm="12" lg="6">
                       <table className="table mt-4">
                         <tbody>
                           <tr>
@@ -449,8 +461,8 @@ const Offres = () => {
                   </Row>
                   <Row>
                     <Col sm="1" lg="5"></Col>
-                    <Col sm="10" lg="2">
-                      <button className="btn btn-success btn-lg mt-4" onClick={onClickSave}>SAVE</button>
+                    <Col sm="10" lg="2" className="mx-auto">
+                      <button className="btn btn-success btn-lg mt-4 btn-default wide-button" onClick={onClickSave}>SAVE</button>
                     </Col>
                     <Col sm="1" lg="5"></Col>
                   </Row>

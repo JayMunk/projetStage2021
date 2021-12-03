@@ -5,7 +5,7 @@ const ReadOnlyText = ({ label, value }) => {
     <div className="row">
       <label className="text-white col-3">{label}</label>
       <input
-        className="col ms-auto text-center"
+        className="col ms-auto text-center bg-secondary text-white"
         type="text"
         value={value}
         readOnly

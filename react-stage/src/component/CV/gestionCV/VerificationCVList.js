@@ -22,7 +22,7 @@ const VerificationCVList = ({ cvList, onClickCV }) => {
 
   return (
     <div className="container">
-      <h1 className="text-white text-center">Liste des CV des étudiants</h1>
+      <h1 className="text-center mt-4 mb-4" style={{ color: "#DBB2FF" }}>Liste des CV des étudiants</h1>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>

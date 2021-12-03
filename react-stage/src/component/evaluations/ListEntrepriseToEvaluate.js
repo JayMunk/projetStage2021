@@ -28,7 +28,7 @@ const ListEntrepriseToEvaluate = ({ contrats, onClick }) => {
           ) : (
             <tr>
               <td colSpan="2" className="text-center text-warning">
-                Aucun entreprise à afficher
+                Aucune entreprise à évaluer
               </td>
             </tr>
           )}

@@ -2,7 +2,7 @@
 .Dashboard h1 {
     text-align: center;
     padding-top: 15px;
-    color: #DBB2FF;
+    color: #DBB2FF !important;
 }
 
 .DashboardTable {

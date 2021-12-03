@@ -31,7 +31,7 @@ const EtudiantsEnAttenteReponseEntrevue = () => {
         <>
             {etudiantsList.length > 0 ? (
                 <div className="cardRapport">
-                    <h4>Liste des étudiants en attente d'une réponse après une entrevue</h4>
+                    <h4 className="text-wrap">Liste des étudiants en attente d'une réponse après une entrevue</h4>
                     <Table striped bordered hover variant="dark" className="tableRapport">
                         <thead >
                             <tr>

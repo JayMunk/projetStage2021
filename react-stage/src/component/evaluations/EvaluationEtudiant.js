@@ -13,19 +13,18 @@ const EvaluationEtudiant = () => {
   const [contrats, setContrats] = useState([]);
   const [currentContrat, setCurrentContrat] = useState();
 
-  useEffect(() => {
-    if (!loggedUser.isLoggedIn || loggedUser.role !== "MONITEUR")
+  useEffect(async () => {
+    if (!loggedUser.isLoggedIn || loggedUser.role !== "MONITEUR") {
       history.push("/login");
+    }
+    else {
+      const data = await ContratService.getMoniteurContratsToEvaluate(loggedUser.courriel);
+      if (data != undefined) {
+        setContrats(data);
+      }
+    }
 
-    const getContrats = async () => {
-      const contratList = await ContratService.getMoniteurContratsToEvaluate(
-        loggedUser.courriel
-      );
-      console.log(contratList);
-      setContrats(contratList);
-    };
-    getContrats();
-  }, [loggedUser, history]);
+  }, []);
 
   const selectContrat = (id) => {
     console.log(id);

@@ -64,16 +64,43 @@ public class RapportService<T> {
       if (listGeneric.get(i) instanceof Etudiant) {
         Etudiant genericItemEtudiant = (Etudiant) listGeneric.get(i);
         String string =
-            i + 1 + ". " + genericItemEtudiant.getPrenom() + " " + genericItemEtudiant.getNom()
-                + " " + genericItemEtudiant.getCourriel() + " "
-                + genericItemEtudiant.getNumMatricule() + " "
-                + genericItemEtudiant.getDateCreation();
+            i
+                + 1 + ". "
+                + " prénom: "
+                + genericItemEtudiant.getPrenom()
+                + " | "
+                + "nom: "
+                + genericItemEtudiant.getNom()
+                + " | "
+                + "courriel: "
+                + genericItemEtudiant.getCourriel()
+                + " | "
+                + "matricule: "
+                + genericItemEtudiant.getNumMatricule()
+                + " | "
+                + "date creation: "
+                + genericItemEtudiant.getDateCreation()
+                + "\n";
         paraList.add(string + "\n");
       }
       if (listGeneric.get(i) instanceof Offre) {
         Offre genericItemOffre = (Offre) listGeneric.get(i);
         String string =
-            i + 1 + ". " + genericItemOffre.getTitre() + " " + genericItemOffre.getDescription();
+            i
+                + 1 + ". "
+                + "titre: "
+                + genericItemOffre.getTitre()
+                + " | "
+                + "date debut: "
+                + genericItemOffre.getDateDebut()
+                + " | "
+                + "date fin: "
+                + genericItemOffre.getDateFin()
+                + " | "
+                + "nombre total de semaines: "
+                + genericItemOffre.getNbTotalSemaine()
+                + "\n";
+
         paraList.add(string + "\n");
       }
 

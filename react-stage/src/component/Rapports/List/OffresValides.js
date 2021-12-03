@@ -32,7 +32,7 @@ const OffresValides = () => {
         <>
             {offresList.length > 0 ? (
                 <div className="cardRapport">
-                    <h4>Liste des offres valides</h4>
+                    <h4 className="text-wrap">Liste des offres valides</h4>
                     <Table striped bordered hover variant="dark" className="tableRapport">
                         <thead >
                             <tr>

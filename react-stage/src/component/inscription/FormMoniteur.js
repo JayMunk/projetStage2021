@@ -1,11 +1,11 @@
 import { React, useState } from 'react'
 import { useHistory } from "react-router-dom";
-import UserService from '../../../services/UserService';
+import UserService from '../../services/UserService';
 
 
-import '../../../Css/FormInscriptionCSS.css'
+import '../../Css/FormInscriptionCSS.css'
 
-const NewFormMoniteur = () => {
+const FormMoniteur = () => {
     const history = useHistory();
 
     const [values, setValues] = useState({
@@ -173,4 +173,4 @@ const NewFormMoniteur = () => {
     );
 }
 
-export default NewFormMoniteur
+export default FormMoniteur

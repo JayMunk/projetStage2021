@@ -10,7 +10,7 @@ import '../../Css/lienInscription.css'
 
 
 
-const NewLoginUser = () => {
+const LoginUser = () => {
 
 
     
@@ -155,4 +155,4 @@ const NewLoginUser = () => {
     );
 }
 
-export default NewLoginUser
+export default LoginUser

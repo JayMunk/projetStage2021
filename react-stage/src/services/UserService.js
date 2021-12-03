@@ -130,6 +130,17 @@ const UserService = {
         const data = await res.json()
         return data
     },
+
+    getEtudiantById: async (id) => {
+        const res = await fetch(urlBase + '/etudiant/' + id)
+        const data = await res.json()
+        return data
+    },
+    getMoniteurById: async (id) => {
+        const res = await fetch(urlBase + '/etudiant/' + id)
+        const data = await res.json()
+        return data
+    },
 }
 
 const errorAlert = (errorMessage) => {

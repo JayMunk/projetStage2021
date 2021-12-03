@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { UserInfoContext } from "../../contexts/UserInfo"
 import { useHistory } from "react-router-dom"
+import UserService from "../../services/UserService"
 
 import '../../Css/FormInscriptionCSS.css'
 const AccountDetails = () => {
@@ -25,17 +26,11 @@ const AccountDetails = () => {
     specialite: String,
   });
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
-      fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data, "data");
-          setFullUser(data);
-        });
+      const data = await UserService.getUserByEmail(loggedUser.courriel)
+      setFullUser(data)
     }
   }, []);
 

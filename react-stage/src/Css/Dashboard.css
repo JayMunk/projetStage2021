@@ -30,3 +30,13 @@
     border: none;
     color: white;
 }
+
+#titre::placeholder {
+    text-align: center;
+    color: gray;
+}
+
+#titre {
+    color: white;
+}
+

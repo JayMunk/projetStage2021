@@ -262,8 +262,10 @@ const Offres = () => {
                   <th colSpan="3">
                     Entreprise
                   </th>
+                  <th colSpan="1">
+                    Détails
+                  </th>
                   {loggedUser.role !== "ETUDIANT" && <th colSpan="1">Valide</th>}
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -272,12 +274,12 @@ const Offres = () => {
                     <tr className="text-white" key={offre.id.toString()}>
                       <td colSpan="3">{offre.titre}</td>
                       <td colSpan="3">{offre.entreprise}</td>
-                      <td colSpan="1">
+                      <td colSpan="2">
                         <input
                           type="button"
                           onClick={() => onClickOffre(offre)}
                           value="Détails"
-                          className="p-1 btn-secondary"
+                          className="btn btn-secondary"
                         />
                       </td>
                     </tr>

@@ -1,9 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
-import { UserInfoContext } from "../../contexts/UserInfo";
+import React, { useContext, useState, useEffect } from "react"
+import { UserInfoContext } from "../../contexts/UserInfo"
+import { useHistory } from "react-router-dom"
 
 import '../../Css/FormInscriptionCSS.css'
 const AccountDetails = () => {
-  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+  const [loggedUser] = useContext(UserInfoContext)
+  const history = useHistory()
   const [fullUser, setFullUser] = useState({
     id: Number,
     prenom: String,
@@ -24,6 +26,7 @@ const AccountDetails = () => {
   });
 
   useEffect(() => {
+    if (!loggedUser.isLoggedIn) history.push("/login")
     if (loggedUser.isLoggedIn) {
       fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
         .then((res) => {

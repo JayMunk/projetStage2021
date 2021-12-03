@@ -6,7 +6,6 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from
 import CVService from '../../../services/CVService'
 import UserService from '../../../services/UserService'
 import '../../../Css/Dashboard.css'
-import Swal from 'sweetalert2'
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
@@ -14,39 +13,19 @@ const VoirCVState = () => {
     const [loggedUser] = useContext(UserInfoContext)
 
     const updateCvs = async () => {
-        //await CVService.getAllCVEtudiant(etudiant.id).then(data => { setCvs(data)  })
-        fetch(`http://localhost:9191/cv/etudiant/${etudiant.id}`)
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                setCvs(data)
-            })
+        const fetchCv = await CVService.getCvEtudiant(etudiant.id)
+        setCvs(fetchCv)
     }
 
     const deleteCV = async (cv) => {
-        //to do
-        //await CVService.deleteCV(cv).then(updateCvs())
-        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
-        await res.json().then(updateCvs())
+        const boolean = await CVService.deleteCv(cv.id)
+        if (boolean) {
+            updateCvs()
+        }
     }
 
     const download = async (cv) => {
-        //to do
-        await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
-            .then(res => {
-                if (res.ok) {
-                    saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
-                }
-                if (!res.ok) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur!',
-                        text: 'Le fichier est invalide ou indisponible pour l`instant.',
-                    })
-                    throw res
-                }
-            })
+        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
     }
 
     const getStatusIcon = (status) => {

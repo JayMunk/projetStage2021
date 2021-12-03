@@ -51,13 +51,9 @@ function App() {
               <Route exact path="/dropCv"><DropCv /></Route>
               <Route exact path="/gestion/cv"><VerificationCV /></Route>
               <Route exact path="/dashboard"><Dashboard /></Route>
-              {/* <Route exact path="/contrat"><Contrat /></Route> */}
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/rapports"><Rapports /></Route>
-              <Route exact path="/gestion/newContrat"><NewContrat /></Route>
-              <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
-              <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
               <Route exact path="/notification"><NotificationViewer /></Route>
               <Route exact path="/evaluation/etudiant"><EvaluationEtudiant /></Route>

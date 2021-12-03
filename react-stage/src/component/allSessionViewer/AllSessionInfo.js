@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect, useRef } from 'react'
 import SessionService from '../../services/SessionService'
 import AllSessionEtudiant from './AllSessionEtudiant'
@@ -7,6 +7,8 @@ import AllSessionOffre from './AllSessionOffre'
 import AllSessionSuperviseur from './AllSessionSuperviseur'
 import Swal from 'sweetalert2'
 import { Col, Row } from 'react-bootstrap'
+import { UserInfoContext } from '../../contexts/UserInfo'
+import { useHistory } from "react-router-dom"
 
 
 const AllSessionInfo = () => {
@@ -15,10 +17,11 @@ const AllSessionInfo = () => {
     const [reloadList, setReloadList] = useState(false)
     const [elementsPerPage, setElementsPerPage] = useState(10)
     const [currentSession, setCurrentSession] = useState({})
-
-
+    const [loggedUser] = useContext(UserInfoContext)
+    const history = useHistory()
 
     useEffect(async () => {
+        if (!loggedUser.isLoggedIn) history.push("/login")
         await getAllSessions()
         await getCurrentSession()
     }, [])

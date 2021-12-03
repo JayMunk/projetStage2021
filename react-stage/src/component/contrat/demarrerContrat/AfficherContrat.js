@@ -9,8 +9,9 @@ const AfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
     const history = useHistory()
 
-    if (!loggedUser.isLoggedIn) history.push("/login")
-
+    useEffect(() => {
+        if (!loggedUser.isLoggedIn) history.push("/login")
+    }, [])
 
     return (
         <body id="body">

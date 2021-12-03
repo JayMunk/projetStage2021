@@ -7,6 +7,7 @@ import CVService from '../../../services/CVService'
 import UserService from '../../../services/UserService'
 import '../../../Css/Dashboard.css'
 import Table from "react-bootstrap/Table"
+import Swal from 'sweetalert2'
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
@@ -26,7 +27,22 @@ const VoirCVState = () => {
     }
 
     const download = async (cv) => {
-        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+        fetch(`http://localhost:9191/cv/pdf/${cv.id}`).then(res => {
+            if (!res.ok) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Ce fichier est indisponible pour l'instant.",
+                });
+
+            }
+            else {
+                saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+            }
+
+        })
+
+
     }
 
     const getStatusIcon = (status) => {
@@ -77,7 +93,7 @@ const VoirCVState = () => {
                     <tbody>{cvList}</tbody>
                 </Table>
                 :
-                <p style={{ textAlign: "center" }}>Déposez votre cv <Link to="/dropCv" style={{ color: "blue" }}>ici</Link></p>
+                <h5 style={{ textAlign: "center", color: "yellow" }}>Déposez votre cv <Link to="/dropCv" style={{ color: "white", textDecoration: "underline" }}>ici</Link></h5>
             }
         </div>
     )

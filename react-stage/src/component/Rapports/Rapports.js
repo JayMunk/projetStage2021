@@ -26,37 +26,37 @@ const Rapports = () => {
             <h3 id="titleRapports" className="text-info">Pour voir la liste au complet ou pour plus de détails veuillez télécharger le pdf.</h3>
 
             <Row>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <OffresValides />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <OffresInvalides />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsInscrient />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <CvsPendingEtRejected />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsPasDeCv />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsPasEntrevue />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsEnAttenteEntrevue />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsEnAttenteReponseEntrevue />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsTrouveStage />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsPasEvaluationMoniteur />
                 </Col>
-                <Col lg="6" sm="10" className="mx-auto">
+                <Col lg="6" sm="10" className="mx-auto text-nowrap">
                     <EtudiantsPasEntrepreriseEvaluationSuperviseur />
                 </Col>
             </Row>

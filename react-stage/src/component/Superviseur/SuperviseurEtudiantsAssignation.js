@@ -96,7 +96,7 @@ const SuperviseurEtudiantsAssignation = () => {
 
   return (
     <div className="container text-center">
-      <h1 className="text-white mt-4">Gestion Superviseurs</h1>
+      <h1 className="mt-4 mb-4" style={{ color: "#DBB2FF" }}>Gestion Superviseurs</h1>
       {listSuperviseurs.length == 0 ? (
         <div>
           <hr></hr>
@@ -235,7 +235,7 @@ const SuperviseurEtudiantsAssignation = () => {
 
               {loggedUser.role == "GESTIONNAIRE" && [
                 listSelectedEtudiant.length == 0 &&
-                listAllEtudiant.length == 0 ? (
+                  listAllEtudiant.length == 0 ? (
                   <div>
                     <h3 className="text-center text-muted mt-4">
                       Il n'y a aucun étudiants sans superviseur

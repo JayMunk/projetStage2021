@@ -41,14 +41,16 @@ const EtudiantDashboard = () => {
         courriel: String
     })
 
-    useEffect(() => {
+    useEffect(async () => {
         if (loggedUser.isLoggedIn) {
-            UserService.getUserByEmail(loggedUser.courriel).then(data => {
-                setFullUser(data)
-                setSuperviseur(data.superviseur)
-                getContrat(data.courriel)
-            })
-
+            let data = await UserService.getUserByEmail(loggedUser.courriel)
+            if (data != undefined) {
+                UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                    setFullUser(data)
+                    setSuperviseur(data.superviseur)
+                    getContrat(data.courriel)
+                })
+            }
         }
     }, [])
 

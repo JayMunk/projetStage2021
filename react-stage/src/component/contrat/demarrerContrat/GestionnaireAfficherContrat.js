@@ -106,12 +106,22 @@ const GestionnaireAfficherContrat = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         setErrors(checkError(contrat))
+        console.log(contrat, "contrat")
         if (contrat.collegeEngagement != undefined) {
-            if (Object.keys(checkError(contrat)).length === 0 && !isAlreadyStarted(contrat)) {
-                const date = new Date()
-                contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
-                contrat.gestionnaireConfirmed = true
-                await ContratService.saveContrat(contrat)
+            if (!isAlreadyStarted(contrat)) {
+                if (Object.keys(checkError(contrat)).length === 0) {
+                    const date = new Date()
+                    contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0]
+                    contrat.gestionnaireConfirmed = true
+                    await ContratService.saveContrat(contrat)
+                }
+
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Vous avez déjà signer votre contrat."
+                })
             }
         } else {
             Swal.fire({

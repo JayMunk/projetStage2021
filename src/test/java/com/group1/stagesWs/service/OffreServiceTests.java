@@ -199,4 +199,49 @@ public class OffreServiceTests {
         true,
         true);
   }
+
+  @Test
+  void testGetAllOffresValide() {
+    // Arrange
+    Offre offre1 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    Offre offre2 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    Offre offre3 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    offre1.setValid(true);
+    offre2.setValid(true);
+    offre3.setValid(true);
+
+    offre3.setSession("AUT-2021");
+
+    List<Offre> listOffre = List.of(offre1, offre2, offre3);
+    when(offreRepository.findAllByIsValidTrue()).thenReturn(listOffre);
+
+    // Act
+    List<Offre> returned = service.getOffreValide();
+
+    // Assert
+    assertThat(returned.size())
+        .isEqualTo(3 - 1);
+  }
+
+  @Test
+  void testGetAllOffresInvalide() {
+    // Arrange
+    Offre offre1 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+    Offre offre2 = getOffre(); // Constructeur met leur session par defaut a la session actuelle
+
+    offre1.setValid(false);
+    offre2.setValid(false);
+
+    offre2.setSession("AUT-2021");
+
+    List<Offre> listOffre = List.of(offre1, offre2);
+    when(offreRepository.findAllByIsValidFalse()).thenReturn(listOffre);
+
+    // Act
+    List<Offre> returned = service.getOffreInvalide();
+
+    // Assert
+    assertThat(returned.size())
+        .isEqualTo(2 - 1);
+  }
 }

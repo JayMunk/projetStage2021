@@ -41,4 +41,9 @@ public class EntrevueController {
   public ResponseEntity<List<Entrevue>> getAllEntrevuesByMoniteur(@PathVariable("id") int id) {
     return new ResponseEntity<>(entrevueService.getAllEntrevueMoniteur(id), HttpStatus.OK);
   }
+
+  @GetMapping(path = "")
+  public ResponseEntity<List<Entrevue>> getAllEntrevuesSession() {
+    return new ResponseEntity<>(entrevueService.getAllEntrevuesSession(),HttpStatus.OK);
+  }
 }

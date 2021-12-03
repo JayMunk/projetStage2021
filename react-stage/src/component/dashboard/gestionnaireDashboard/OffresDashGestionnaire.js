@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
+import OffreService from "../../../services/OffreService"
+
 
 const OffresDashGestionnaire = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
@@ -8,17 +10,11 @@ const OffresDashGestionnaire = () => {
   const [offresVisible, setOffresVisible] = useState([]);
   const offresPerPage = 3;
 
-  useEffect(() => {
-    if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/offres`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((offres) => {
-          setOffres(offres);
-          setOffresVisible(offres.slice(0, offresPerPage));
-        });
-    }
+  useEffect(async () => {
+    const offresList = await OffreService.getAllOffres()
+    setOffres(offresList)
+    console.log(offresList, "offers")
+    setOffresVisible(offresList.slice(0, offresPerPage))
   }, []);
 
   const updateListeOffres = (pageNumber) => {
@@ -42,32 +38,40 @@ const OffresDashGestionnaire = () => {
   const offresList = offresVisible.map((offre) => (
     <tr key={offre.id.toString()}>
       <td>{offre.titre}</td>
-      <td>{offre.description}</td>
+      <td>{offre.dateDebut}</td>
+      <td>{offre.dateFin}</td>
+      <td>{offre.valid ? "Valid" : "Non valid "}</td>
+
+
     </tr>
   ));
 
   return (
     <>
-      <table>
+      <table className="tableDashboardGestionnaire">
         <tr>
-          <th colSpan="2">Offres</th>
+          <th colSpan="4">Offres</th>
         </tr>
-        <tr>
-          <td>Le nombre d'offres totales</td>
+        <tr className="totalTr">
+          <td colSpan="3">Le nombre d'offres totales</td>
           <td>{offres.length}</td>
         </tr>
         <tr>
           <th>Titre</th>
-          <th>Description</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Validité</th>
+
+
         </tr>
         <tbody>{offresList}</tbody>
         <tr>
-          <td className="hoverButton">
+          <td colSpan="2" className="hoverButton">
             <button onClick={previousPage} className="button">
               «
             </button>
           </td>
-          <td className="hoverButton">
+          <td colSpan="2" className="hoverButton">
             <button onClick={nextPage} className="button">
               »
             </button>

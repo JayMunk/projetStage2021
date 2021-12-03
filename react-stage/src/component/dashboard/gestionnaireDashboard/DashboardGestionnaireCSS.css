@@ -1,101 +1,52 @@
-/* table {
-  margin-top: 20px;
+.tableDashboardGestionnaire {
+  margin-left: auto; 
+  margin-right: auto;
   margin-bottom: 20px;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+  width: 800px;
 }
 
-.topLeft {
-  width: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin-top: 70px;
+
+.tableDashboardGestionnaire th {
+  background: gray;
 }
 
-.topLeft table {
-  width: 50%;
-}
-
-.topRight {
-  width: 50%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin-top: 70px;
-}
-
-.topRight table {
-  width: 50%;
-}
-
-.center {
-  width: 1000px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-}
-
-.bottomLeft {
-  width: 1100px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  margin-right: 10px;
-  margin-bottom: 50px;
-}
-
-.bottomLeft table {
-  width: 50%;
-}
-
-.bottomRight {
-  width: 1100px;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin-right: 10px;
-  margin-bottom: 50px;
-}
-
-.bottomRight table {
-  width: 50%;
-}
-
-table td,
-table th {
-  border: 1px solid #ddd;
+.tableDashboardGestionnaire,
+.tableDashboardGestionnaire td,
+.tableDashboardGestionnaire th {
+  border: 1px solid black;
   padding: 4px;
 }
 
-table tr:nth-child(odd) {
-  background-color: #ffffff;
+.tableDashboardGestionnaire tr:nth-child(odd) {
+  background-color: lightgray;
   color: black;
 }
-table tr:nth-child(even) {
-  background-color: #eeeeee;
+.tableDashboardGestionnaire tr:nth-child(even) {
+  background-color: #DBB2FF;
   color: black;
-}
+} 
 
-table tbody tr:hover {
+.tableDashboardGestionnaire tbody tr:hover {
   background-color: #23b6fd;
+} 
+
+
+.tableDashboardGestionnaire .button{
+  background-color: white;
+  width: 100%;
 }
 
-table th {
-  text-align: center;
-  background-color: #000000;
+.tableDashboardGestionnaire td {
+  width: 20%;
+}
+
+.hoverButton .button:hover {
+  background-color: black;
   color: white;
 }
 
-
-td {
-  width: 50%;
+.tableDashboardGestionnaire .totalTr {
+  background-color: #A4ADE9 !important;
 }
 
 
-.hoverButton:hover {
-  background-color: lightgray;
-} */

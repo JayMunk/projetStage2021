@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { Col, Row } from 'react-bootstrap';
 import OffreService from '../../services/OffreService';
 
 const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
@@ -46,10 +47,10 @@ const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPag
     ));
 
     return (
-        <>
-            <table>
+        <div>
+            <table className="table table-dark">
                 <tr>
-                    <th colSpan="2">Offres All Sessions</th>
+                    <th colSpan="3">Offres All Sessions</th>
                 </tr>
                 <tr>
                     <th>Titre</th>
@@ -57,20 +58,26 @@ const AllSessionOffre = ({ reloadList, getListForSpecificSession, elementsPerPag
                     <th>Session</th>
                 </tr>
                 <tbody>{offresList}</tbody>
-                <tr>
-                    <td className="hoverButton">
-                        <button onClick={previousPage} className="button">
-                            «
-                        </button>
-                    </td>
-                    <td className="hoverButton">
-                        <button onClick={nextPage} className="button">
-                            »
-                        </button>
-                    </td>
-                </tr>
             </table>
-        </>
+            {offresVisible.length == 0 &&
+                <h3 className="text-center text-warning">Aucune offre visible pour la sélection choisie</h3>
+            }
+            <Row className="mb-4">
+                <Col lg="5" sm="5" className="hoverButton">
+                    <button onClick={previousPage} className="btn bg-dark text-white">
+                        «
+                    </button>
+                </Col>
+                <Col lg="2" sm="2"></Col>
+                <Col lg="5" sm="5" className="hoverButton">
+                    <button onClick={nextPage} className="btn bg-dark text-white">
+                        »
+                    </button>
+                </Col>
+            </Row>
+            <br />
+
+        </div>
     );
 }
 

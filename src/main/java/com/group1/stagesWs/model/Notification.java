@@ -20,7 +20,7 @@ public class Notification implements Serializable {
   private String content;
   private NotifStatus
       status; // A CHANGER -Veux rendre le type un enum contenant tous les types de categories de
-              // notif.
+  // notif.
   private boolean isChecked;
 
   private String session;

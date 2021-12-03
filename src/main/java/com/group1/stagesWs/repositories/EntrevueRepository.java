@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EntrevueRepository extends JpaRepository<Entrevue, Integer> {
+
   List<Entrevue> findEntrevueByEtudiantId(int id);
 
   List<Entrevue> findEntrevueByMoniteurId(int id);

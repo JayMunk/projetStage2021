@@ -34,9 +34,11 @@ public class UserControllerTests {
 
   private final ObjectMapper mapper;
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private UserService userService;
+  @MockBean
+  private UserService userService;
 
   public UserControllerTests() {
     this.mapper = new ObjectMapper().findAndRegisterModules();

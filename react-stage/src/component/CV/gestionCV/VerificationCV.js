@@ -1,95 +1,93 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-import { UserInfoContext } from '../../../contexts/UserInfo';
-import CVService from '../../../services/CVService'
-import './VerificationCV.css'
+import React from "react";
+import { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+import { UserInfoContext } from "../../../contexts/UserInfo";
+import CVService from "../../../services/CVService";
+import VerificationCVList from "./VerificationCVList";
+import ViewCvPdf from "./ViewCvPdf";
 
 const VerificationCV = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
-    const [cv, setCV] = useState()
-    const [numPages, setNumPages] = useState(0)
-    const [page, setPage] = useState(1)
-    const [pdfScale, setPdfScale] = useState(1)
-    const { id } = useParams()
-    const history = useHistory()
+  const [cvList, setCVList] = useState([]);
+  const [currentCV, setCurrentCV] = useState(undefined);
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+  const history = useHistory();
 
-    useEffect(() => {
-        if (!loggedUser.isLoggedIn || loggedUser.role !== "GESTIONNAIRE") history.push("/login")
-
-        const getCV = async () => {
-            const cv = await CVService.getCV(id)
-            setCV(cv)
-        }
-        getCV()
-    }, [id, loggedUser, history])
-
-    const onDocumentLoad = ({ numPages }) => {
-        setNumPages(numPages)
-    }
-
-    const onNextPage = () => {
-        if (page >= numPages) return
-        setPage(current => current + 1)
-    }
-
-    const onPrevPage = () => {
-        if (page <= 1) return
-        setPage(current => current - 1)
-    }
-
-    const onAccept = async () => {
-        await CVService.acceptCV(cv)
-        history.push("/gestion/cv")
-    }
-
-    const onReject = async () => {
-        await CVService.rejectCV(cv)
-        history.push("/gestion/cv")
-    }
-
-    const onCancel = async () => {
-        history.push("/gestion/cv")
-    }
-
-    const renderPageControls = (
-        <div className="container">
-            <div className="row center">
-                <button className="btn btn-primary col-1 prevPage" onClick={onPrevPage}>&lt;</button>
-                <div className="col-2 pages">Page {page} of {numPages}</div>
-                <button className="btn btn-primary col-1 nextPage" onClick={onNextPage}>&gt;</button>
-            </div>
-        </div>
+  useEffect(() => {
+    if (
+      !loggedUser.isLoggedIn ||
+      (loggedUser.role !== "GESTIONNAIRE" && loggedUser !== "SUPERVISEUR")
     )
+      history.push("/login");
 
-    const renderControls = (
-        <>
-            <div className="col"></div>
-            <button className="btn btn-secondary btn-sm col-1" onClick={() => setPdfScale(scale => scale - 0.5)}>-</button>
-            <div className="col pages">{pdfScale * 100}%</div>
-            <button className="btn btn-secondary btn-sm col-1" onClick={() => setPdfScale(scale => scale + 0.5)}>+</button>
-            <button className="btn btn-danger col prevPage" onClick={onReject}>Rejeter</button>
-            <button className="btn btn-success col nextPage" onClick={onAccept}>Accepter</button>
-        </>
-    )
+    const getAllCVs = async () => {
+      const cvs = await CVService.getAllCVs();
+      setCVList(cvs);
+    };
+    getAllCVs();
+  }, [loggedUser, history]);
 
-    return (
-        <div className="dark h-100 pb-auto mb-auto">
-            {!cv ? '' :
-                <div>
-                    <div className="container">
-                        <div className="row center">
-                            <button className="btn btn-secondary col ml-0 mr-auto" onClick={onCancel}>Annuler</button>{renderControls}
-                        </div>
-                    </div>
-                    <Document file={`data:application/pdf;base64,${cv.data}`} onLoadSuccess={onDocumentLoad}>
-                        <Page pageNumber={page} scale={pdfScale} renderAnnotationLayer={false} />
-                    </Document>
-                    {numPages > 1 ? renderPageControls : ''}
-                </div>
-            }
-        </div>
-    )
-}
+  const replaceCvInList = (newCV) =>
+    setCVList(cvList.map((cv) => (cv.id === newCV.id ? newCV : cv)));
 
-export default VerificationCV
+  const onAccept = async () => {
+    const result = await CVService.acceptCV(currentCV);
+    if (!result.error) {
+      Swal.fire({
+        icon: "success",
+        title: "Votre évaluation a été envoyée.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      replaceCvInList(result);
+      onCancel();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Erreur, veuillez réessayer plus tard.",
+      });
+    }
+  };
+
+  const onReject = async () => {
+    const result = await CVService.rejectCV(currentCV);
+    if (!result.error) {
+      Swal.fire({
+        icon: "success",
+        title: "Votre évaluation a été envoyée.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      replaceCvInList(result);
+      onCancel();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Erreur, veuillez réessayer plus tard.",
+      });
+    }
+  };
+
+  const onCancel = async () => {
+    setCurrentCV(undefined);
+  };
+
+  const onClickCV = (id) => setCurrentCV(cvList.find((cv) => cv.id === id));
+
+  return (
+    <div>
+      {currentCV === undefined ? (
+        <VerificationCVList cvList={cvList} onClickCV={onClickCV} />
+      ) : (
+        <ViewCvPdf
+          cv={currentCV}
+          onAccept={onAccept}
+          onReject={onReject}
+          onCancel={onCancel}
+        />
+      )}
+    </div>
+  );
+};
+
+export default VerificationCV;

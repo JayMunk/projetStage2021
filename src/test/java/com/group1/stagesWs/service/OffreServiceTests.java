@@ -22,17 +22,24 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class OffreServiceTests {
-  @Mock private OffreRepository offreRepository;
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private OffreRepository offreRepository;
 
-  @Mock private MoniteurRepository moniteurRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @Mock private UserService userService;
+  @Mock
+  private MoniteurRepository moniteurRepository;
 
-  @Mock private NotificationService notificationService;
+  @Mock
+  private UserService userService;
 
-  @InjectMocks private OffreService service;
+  @Mock
+  private NotificationService notificationService;
+
+  @InjectMocks
+  private OffreService service;
 
   @Test
   void testGetAllOffres() {
@@ -62,7 +69,7 @@ public class OffreServiceTests {
         .get(0)
         .setSession(
             "HIVER-2021"); // Changement de la session a une sesion differente que la session
-                           // actuelle
+    // actuelle
     when(offreRepository.findAll()).thenReturn(expected);
 
     // Act

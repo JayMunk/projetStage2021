@@ -33,9 +33,11 @@ import org.springframework.test.web.servlet.MvcResult;
 @WebMvcTest(ContratController.class)
 public class ContratControllerTests {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private ContratService contratService;
+  @MockBean
+  private ContratService contratService;
 
   private static ObjectMapper mapper;
 
@@ -155,6 +157,38 @@ public class ContratControllerTests {
     // Act
     MvcResult result =
         mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com")).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+    assertThat(actual.size()).isEqualTo(expected.size());
+  }
+
+  @Test
+  void testMoniteurContratsToEvaluate() throws Exception {
+    // Arrange
+    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+    when(contratService.getMoniteurContratsToEvaluate(anyString())).thenReturn(expected);
+
+    // Act
+    MvcResult result =
+            mockMvc.perform(get("/contrats/moniteur/courriel/moniteur@example.com/toEvaluate")).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+    assertThat(actual.size()).isEqualTo(expected.size());
+  }
+
+  @Test
+  void testGetSuperviseurContratsToEvaluate() throws Exception {
+    // Arrange
+    List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+    when(contratService.getSuperviseurContratsToEvaluate(anyString())).thenReturn(expected);
+
+    // Act
+    MvcResult result =
+            mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com/toEvaluate")).andReturn();
 
     // Assert
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());

@@ -3,7 +3,7 @@ import { UserInfoContext } from "../../../contexts/UserInfo";
 import OffreService from "../../../services/OffreService"
 
 
-const Offres = () => {
+const OffresDashGestionnaire = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [offres, setOffres] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -82,4 +82,4 @@ const Offres = () => {
   );
 };
 
-export default Offres;
+export default OffresDashGestionnaire;

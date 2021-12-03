@@ -26,17 +26,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class NotificationServiceTests {
 
-  @Mock private EtudiantRepository etudiantRepository;
+  @Mock
+  private EtudiantRepository etudiantRepository;
 
-  @Mock MoniteurRepository moniteurRepository;
+  @Mock
+  MoniteurRepository moniteurRepository;
 
-  @Mock SuperviseurRepository superviseurRepository;
+  @Mock
+  SuperviseurRepository superviseurRepository;
 
-  @Mock GestionnaireRepository gestionnaireRepository;
+  @Mock
+  GestionnaireRepository gestionnaireRepository;
 
-  @Mock NotificationRepository notificationRepository;
+  @Mock
+  NotificationRepository notificationRepository;
 
-  @InjectMocks private NotificationService service;
+  @InjectMocks
+  private NotificationService service;
 
   @Test
   public void testSaveNotificationEtudiant() {

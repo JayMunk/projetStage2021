@@ -22,7 +22,7 @@ const VerificationCVList = ({ cvList, onClickCV }) => {
 
   return (
     <div className="container">
-      <h1 className="text-white">Liste des CV des étudiants</h1>
+      <h1 className="text-white text-center">Liste des CV des étudiants</h1>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -34,8 +34,10 @@ const VerificationCVList = ({ cvList, onClickCV }) => {
         </thead>
         <tbody>
           {cvList.length === 0 ? (
-            <tr>
-              <td colSpan="4">Aucun CV à afficher</td>
+            <tr className="text-center">
+              <td colSpan="4" className="text-warning">
+                Aucun CV à afficher
+              </td>
             </tr>
           ) : (
             cvList.map((cv) => (

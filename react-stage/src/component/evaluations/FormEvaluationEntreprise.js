@@ -105,7 +105,7 @@ const FormEvaluationEntreprise = ({
         className="btn btn-danger"
         onClick={onClickCancel}
       />
-      <h1 className="text-white">ÉVALUATION DU MILIEU DE STAGE</h1>
+      <h1 className="text-white text-center">ÉVALUATION DU MILIEU DE STAGE</h1>
       <form onSubmit={onSubmit}>
         <div className="border p-5">
           <h2>IDENTIFICATION DE L'ENTREPRISE</h2>
@@ -147,19 +147,17 @@ const FormEvaluationEntreprise = ({
           />
           <div className="row">
             <div className="col">
-              <label className="text-white col-auto">Stage numero: </label>
+              <label className="text-white col-3">Stage numero: </label>
             </div>
             <input
-              className="col-8 right"
+              className="col-auto"
               type="number"
               name="numeroStage"
               value={values.numeroStage}
               onChange={handleChange}
             />
           </div>
-          {errors.numeroStage && (
-            <p className="error right">{errors.numeroStage}</p>
-          )}
+          {errors.numeroStage && <p className="error">{errors.numeroStage}</p>}
         </div>
 
         <div className="border p-5">
@@ -302,12 +300,12 @@ const FormEvaluationEntreprise = ({
             )}
           </div>
           <div className="row mt-3">
-            <label className="col-auto text-white">
+            <label className="col-5 text-white">
               Ce milieu désire accueillir le même stagiaire pour un prochain
               stage:{" "}
             </label>
             <input
-              className="col-1 right"
+              className="col-auto"
               type="checkbox"
               id="garderStagiaire"
               name="garderStagiaire"
@@ -316,11 +314,11 @@ const FormEvaluationEntreprise = ({
             />
           </div>
           <div className="row">
-            <label className="col-auto text-white">
+            <label className="col-5 text-white">
               Ce milieu offre des quarts de travail variables:{" "}
             </label>
             <input
-              className="col-1 right"
+              className="col-auto"
               type="checkbox"
               id="variableShifts"
               name="variableShifts"
@@ -338,7 +336,7 @@ const FormEvaluationEntreprise = ({
           <input
             type="submit"
             value="Soumettre"
-            className="btn btn-primary col-auto center"
+            className="btn btn-primary col-auto ms-auto me-auto"
           />
         </div>
       </form>

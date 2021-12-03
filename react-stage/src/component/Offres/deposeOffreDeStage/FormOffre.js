@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react"
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import { useHistory } from "react-router-dom"
 import OffreService from '../../../services/OffreService'
+import UserService from "../../../services/UserService"
 import '../../../Css/FormContratOffre.css'
 
 const FormOffre = () => {
@@ -23,9 +24,14 @@ const FormOffre = () => {
     })
     const [errors, setErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
+    const [listMoniteurs, setListMoniteurs] = useState([])
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!loggedUser.isLoggedIn) history.push("/login")
+        if (loggedUser.role == "GESTIONNAIRE") {
+            setListMoniteurs(await UserService.getListAllMoniteurs())
+            values.valid = true
+        }
     }, [])
 
     const handleChange = e => {
@@ -48,6 +54,11 @@ const FormOffre = () => {
             await OffreService.saveOffre(values, loggedUser.courriel)
             history.push("/offres")
         }
+    }
+
+    const onChangeMoniteur = (e) => {
+        let moniteur = JSON.parse(e.target.value)
+        values.moniteur = moniteur
     }
 
     function checkError(values) {
@@ -105,6 +116,20 @@ const FormOffre = () => {
         <body id="body">
             <form className="form FormContratOffre" onSubmit={handleSubmit}>
                 <h1>Créez votre offre de stage dès maintenant!</h1>
+
+                {loggedUser.role == "GESTIONNAIRE" ?
+                    <div className="form-inputs">
+                        <label htmlFor="moniteur"
+                            className="form-label">
+                            Moniteur
+                        </label>
+                        <select onChange={onChangeMoniteur}>
+                            {listMoniteurs.map((moniteur) => (
+                                <option value={JSON.stringify(moniteur)}>{moniteur.prenom} {moniteur.nom}</option>
+                            ))}
+                        </select>
+                    </div>
+                    : null}
 
                 <div className="form-inputs">
                     <label htmlFor="titre"

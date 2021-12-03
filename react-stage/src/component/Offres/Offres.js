@@ -12,15 +12,12 @@ import "./PickList.css";
 import OffreService from "../../services/OffreService.js";
 import UserService from "../../services/UserService.js";
 import { MultiSelect } from "react-multi-select-component";
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
+import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CVService from "../../services/CVService";
-import { saveAs } from 'file-saver'
-
-
-
+import { saveAs } from "file-saver";
 
 const Offres = () => {
   const history = useHistory();
@@ -58,7 +55,7 @@ const Offres = () => {
         loggedUser.role === "MONITEUR"
       )
     ) {
-      history.push("/login")
+      history.push("/login");
     }
     const getOffres = async () => {
       let dbOffres;
@@ -87,7 +84,6 @@ const Offres = () => {
     };
     getListAllEtudiants();
   }, []);
-
 
   const getOptionsEtudiant = (listEtudiant) => {
     return listEtudiant.map((etudiant) => {
@@ -120,10 +116,10 @@ const Offres = () => {
     );
     if (offreApplied != null) {
       Swal.fire(
-        'Application Reçu',
+        "Application Reçu",
         `Vous avez appliqué à l'offre ${currentOffre.titre} de l'entreprise ${currentOffre.entreprise}`,
-        'success'
-      )
+        "success"
+      );
     }
   };
 
@@ -183,7 +179,7 @@ const Offres = () => {
         );
       }
     }
-  }
+  };
 
   const getBoolIcon = (bool) => {
     return bool ? (
@@ -194,65 +190,62 @@ const Offres = () => {
   };
 
   const getEtudiantCV = async (etudiant) => {
-    const listCVEtudiant = await CVService.getCvEtudiant(etudiant.id)
-    const defaultCV = getCVDefaut(listCVEtudiant)
+    const listCVEtudiant = await CVService.getCvEtudiant(etudiant.id);
+    const defaultCV = getCVDefaut(listCVEtudiant);
 
     if (defaultCV == undefined || listCVEtudiant.length == 0) {
-      console.log("aucun default cv ou list empty")
+      console.log("aucun default cv ou list empty");
       Swal.fire({
-        icon: 'error',
-        title: 'Erreur!',
+        icon: "error",
+        title: "Erreur!",
         text: "Cet étudiant n'a aucun cv disponible",
-      })
-      return
-
-    }
-    else if (defaultCV.status != "ACCEPTED") {
-      console.log("Cv not accepted")
+      });
+      return;
+    } else if (defaultCV.status != "ACCEPTED") {
+      console.log("Cv not accepted");
       Swal.fire({
-        icon: 'error',
-        title: 'Erreur!',
+        icon: "error",
+        title: "Erreur!",
         text: "Cet étudiant n'a aucun cv disponible",
-      })
-      return
-
+      });
+      return;
     }
-    downloadCV(defaultCV)
-  }
+    downloadCV(defaultCV);
+  };
 
   const getCVDefaut = (listCVEtudiant) => {
-    return listCVEtudiant.find(cv => cv.defaultCV)
-  }
+    return listCVEtudiant.find((cv) => cv.defaultCV);
+  };
 
   const downloadCV = async (cv) => {
-    await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
-      .then(res => {
-        console.log(res)
-        if (res.ok) {
-          saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
-        }
-        if (!res.ok) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Erreur!',
-            text: 'Le fichier est invalide ou indisponible pour l`instant.',
-          })
-          throw res
-        }
-      })
-  }
+    await fetch(`http://localhost:9191/cv/pdf/${cv.id}`).then((res) => {
+      console.log(res);
+      if (res.ok) {
+        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`);
+      }
+      if (!res.ok) {
+        Swal.fire({
+          icon: "error",
+          title: "Erreur!",
+          text: "Le fichier est invalide ou indisponible pour l`instant.",
+        });
+        throw res;
+      }
+    });
+  };
 
   return (
     <div className="container" style={{ textAlign: "center" }}>
-      <h1>Offres</h1>
-      {listOffres.length == 0 ?
+      <h1 className="text-white mt-4">Offres</h1>
+      {listOffres.length == 0 ? (
         <div>
-          <h3 className="text-center text-muted mt-4">Il n'y a aucunes offres</h3>
+          <h3 className="text-center text-warning mt-4">
+            Il n'y a aucunes offres
+          </h3>
         </div>
-        :
-
+      ) : (
         <Row className="mt-4">
-          <Col sm='12' lg='8' className="mx-auto">
+          <Col sm="12" lg="8" className="mx-auto">
             <table className="table border table-dark">
               <thead>
                 <tr>
@@ -285,60 +278,64 @@ const Offres = () => {
                     </tr>
                   ))
                   : listOffres.map((offre) => (
-                    <tr className="text-white" key={offre.id.toString()}>
-                      <td colSpan="3">{offre.titre}</td>
-                      <td colSpan="3">{offre.entreprise}</td>
-                      <td colSpan="1">
-                        {offre.valid ? (
-                          <AiOutlineCheckCircle color="green" />
-                        ) : (
-                          <AiOutlineCloseCircle color="red" />
-                        )}
-                      </td>
-                      <td colSpan="1">
-                        <input
-                          type="button"
-                          onClick={() => onClickOffre(offre)}
-                          value="Détails"
-                          className="p-1 btn-secondary"
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                      <tr className="text-white" key={offre.id.toString()}>
+                        <td colSpan="3">{offre.titre}</td>
+                        <td colSpan="3">{offre.entreprise}</td>
+                        <td colSpan="1">
+                          {offre.valid ? (
+                            <AiOutlineCheckCircle color="green" />
+                          ) : (
+                            <AiOutlineCloseCircle color="red" />
+                          )}
+                        </td>
+                        <td colSpan="1">
+                          <input
+                            type="button"
+                            onClick={() => onClickOffre(offre)}
+                            value="Détails"
+                            className="p-1 btn-secondary"
+                          />
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
             </table>
           </Col>
         </Row>
-      }
-      <ReactModal isOpen={showModal} ariaHideApp={false} style={{
-        overlay: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(100, 100, 100, 0.75)'
-        },
-        content: {
-          position: 'absolute',
-          top: '40px',
-          left: '40px',
-          right: '40px',
-          bottom: '40px',
-          border: '1px solid #ccc',
-          background: 'rgb(69, 69, 69)',
-          overflow: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          borderRadius: '4px',
-          outline: 'none',
-          padding: '20px'
-        }
-      }}>
-        {currentOffre &&
+      )}
+      <ReactModal
+        isOpen={showModal}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(100, 100, 100, 0.75)",
+          },
+          content: {
+            position: "absolute",
+            top: "40px",
+            left: "40px",
+            right: "40px",
+            bottom: "40px",
+            border: "1px solid #ccc",
+            background: "rgb(69, 69, 69)",
+            overflow: "auto",
+            WebkitOverflowScrolling: "touch",
+            borderRadius: "4px",
+            outline: "none",
+            padding: "20px",
+          },
+        }}
+      >
+        {currentOffre && (
           <div className="container text-center">
             <AiOutlineClose color="red" size="24px" onClick={onClickClose} />
             <Row className="mt-4">
-              <Col lg='4' sm='12' className="mx-auto">
+              <Col lg="4" sm="12" className="mx-auto">
                 <table className="table border">
                   <tbody>
                     <tr>
@@ -347,7 +344,9 @@ const Offres = () => {
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Entreprise</th>
-                      <td className="bg-secondary">{currentOffre.entreprise}</td>
+                      <td className="bg-secondary">
+                        {currentOffre.entreprise}
+                      </td>
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Adresse</th>
@@ -363,51 +362,70 @@ const Offres = () => {
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Durée Totale</th>
-                      <td className="bg-secondary">{currentOffre.nbTotalSemaine} semaines</td>
+                      <td className="bg-secondary">
+                        {currentOffre.nbTotalSemaine} semaines
+                      </td>
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Horaire Debut</th>
-                      <td className="bg-secondary">{currentOffre.horaireDebut}</td>
+                      <td className="bg-secondary">
+                        {currentOffre.horaireDebut}
+                      </td>
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Horaire Fin</th>
-                      <td className="bg-secondary">{currentOffre.horaireFin}</td>
+                      <td className="bg-secondary">
+                        {currentOffre.horaireFin}
+                      </td>
                     </tr>
                     <tr>
-                      <th className="bg-muted text-white">Totales Heures/Semaine</th>
-                      <td className="bg-secondary">{currentOffre.nbTotalHeuresParSemaine} heures</td>
+                      <th className="bg-muted text-white">
+                        Totales Heures/Semaine
+                      </th>
+                      <td className="bg-secondary">
+                        {currentOffre.nbTotalHeuresParSemaine} heures
+                      </td>
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Taux Horaires</th>
-                      <td className="bg-secondary">{currentOffre.tauxHoraire}$/h</td>
+                      <td className="bg-secondary">
+                        {currentOffre.tauxHoraire}$/h
+                      </td>
                     </tr>
                     <tr>
-                      <th className="bg-muted text-white" colSpan='2'>Description</th>
+                      <th className="bg-muted text-white" colSpan="2">
+                        Description
+                      </th>
                     </tr>
                     <tr>
-                      <td className="bg-secondary" colSpan='2'>{currentOffre.description}</td>
+                      <td className="bg-secondary" colSpan="2">
+                        {currentOffre.description}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </Col>
             </Row>
 
-
-            {loggedUser.role === "ETUDIANT" &&
+            {loggedUser.role === "ETUDIANT" && (
               <Row>
                 <Col sm="1" lg="5"></Col>
                 <Col sm="10" lg="2">
-                  <button className="btn btn-success btn-lg mt-4" onClick={() => appliquerOffre(currentOffre)}>Appliquer à l'offre</button>
+                  <button
+                    className="btn btn-success btn-lg mt-4"
+                    onClick={() => appliquerOffre(currentOffre)}
+                  >
+                    Appliquer à l'offre
+                  </button>
                 </Col>
                 <Col sm="1" lg="5"></Col>
               </Row>
-            }
-
+            )}
 
             {loggedUser.role === "GESTIONNAIRE" && (
               <div>
                 <Row>
-                  <Col lg='4' sm='12' className="mx-auto">
+                  <Col lg="4" sm="12" className="mx-auto">
                     <table className="table border">
                       <tbody>
                         <tr>
@@ -450,11 +468,15 @@ const Offres = () => {
                       <table className="table mt-4">
                         <tbody>
                           <tr>
-                            <th className="bg-muted text-white">Whitelisted Étudiants</th>
+                            <th className="bg-muted text-white">
+                              Whitelisted Étudiants
+                            </th>
                           </tr>
                           {listWhitelistedEtudiant.map((etudiant, index) => (
                             <tr>
-                              <td className="bg-secondary" key={index}>{etudiant.label}</td>
+                              <td className="bg-secondary" key={index}>
+                                {etudiant.label}
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -464,7 +486,12 @@ const Offres = () => {
                   <Row>
                     <Col sm="1" lg="5"></Col>
                     <Col sm="10" lg="2" className="mx-auto">
-                      <button className="btn btn-success btn-lg mt-4 btn-default wide-button" onClick={onClickSave}>SAVE</button>
+                      <button
+                        className="btn btn-success btn-lg mt-4 btn-default wide-button"
+                        onClick={onClickSave}
+                      >
+                        SAVE
+                      </button>
                     </Col>
                     <Col sm="1" lg="5"></Col>
                   </Row>
@@ -472,22 +499,19 @@ const Offres = () => {
               </div>
             )}
 
-
-
-            {(loggedUser.role === "MONITEUR" && currentOffre) &&
+            {loggedUser.role === "MONITEUR" && currentOffre && (
               <div>
-
                 <h2 className="text-center text-muted mt-4">Candidats</h2>
                 <Row>
-                  <Col lg='6' sm='12' className="mx-auto">
+                  <Col lg="6" sm="12" className="mx-auto">
                     <table className="table border table-dark">
                       <thead>
                         <tr>
-                          <th >Nom d'étudiant</th>
-                          <th >Courriel</th>
-                          <th >Permis</th>
-                          <th >Voiture</th>
-                          <th >CV</th>
+                          <th>Nom d'étudiant</th>
+                          <th>Courriel</th>
+                          <th>Permis</th>
+                          <th>Voiture</th>
+                          <th>CV</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -497,10 +521,19 @@ const Offres = () => {
                               <td className="text-white">
                                 {etudiant.prenom} {etudiant.nom}
                               </td>
-                              <td className="text-white">{etudiant.courriel}</td>
+                              <td className="text-white">
+                                {etudiant.courriel}
+                              </td>
                               <td>{getBoolIcon(etudiant.hasLicense)}</td>
                               <td>{getBoolIcon(etudiant.hasVoiture)}</td>
-                              <td><FontAwesomeIcon className="text-secondary" onClick={() => getEtudiantCV(etudiant)} icon={faFileDownload} size="2x" /></td>
+                              <td>
+                                <FontAwesomeIcon
+                                  className="text-secondary"
+                                  onClick={() => getEtudiantCV(etudiant)}
+                                  icon={faFileDownload}
+                                  size="2x"
+                                />
+                              </td>
                             </tr>
                           ))}
                       </tbody>
@@ -508,11 +541,11 @@ const Offres = () => {
                   </Col>
                 </Row>
               </div>
-            }
+            )}
           </div>
-        }
-      </ReactModal >
-    </div >
+        )}
+      </ReactModal>
+    </div>
   );
 };
 

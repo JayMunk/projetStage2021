@@ -5,8 +5,6 @@ const urlBase = 'http://localhost:9191/user'
 
 const UserService = {
 
-
-
     saveEtudiant: async (values) => {
         const res = await fetch(urlBase + '/etudiant',
             {
@@ -125,12 +123,6 @@ const UserService = {
         const data = await res.json()
         return data
 
-    },
-
-    getMoniteur: async (id) => {
-        //     //const res = await fetch(urlBase + '/moniteur/' + id)
-        //     //const data = await res.json()
-        //     //return data
     },
 
     getGestionnaires: async () => {

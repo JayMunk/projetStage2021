@@ -2,14 +2,14 @@ import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import Offres from '../../Offres/Offres'
 import VoirCVState from './VoirCVState'
-import './EtudiantDashboard.css'
 import ContratService from '../../../services/ContratService'
 import Entrevue from './Entrevue'
-import AfficherContrat from '../../contrat/demarrerContrat/AfficherContrat'
+import UserService from '../../../services/UserService'
+import '../../../Css/Dashboard.css'
 
 
 const EtudiantDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,
@@ -42,65 +42,62 @@ const EtudiantDashboard = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "compte")
-                    setFullUser(data)
-                    setSuperviseur(data.superviseur)
-                    //getMoniteur(data.id)
-                    getContrat(data.courriel)
-                })
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                setFullUser(data)
+                setSuperviseur(data.superviseur)
+                getContrat(data.courriel)
+            })
 
         }
-    }, []);
-    
+    }, [])
+
     const getContrat = async (courriel) => {
         const dbContrat = await ContratService.getContratsByEtudiantEmail(courriel)
         setMoniteur(dbContrat.moniteur)
         setContrat(dbContrat)
     }
 
-    console.log(loggedUser)
     return (
-        <>
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
             <div>
-                <h1>CV state</h1>
+                <h2>État de vos CV</h2>
                 <VoirCVState />
             </div>
-            <div>
-                <h1>Contact</h1>
-                <table>
-                    <tr>
-                        <th>Role</th>
-                        <th>Nom</th>
-                        <th>Courriel</th>
-                    </tr>
-                    {superviseur != null ?
-                        < tr >
-                            <td>Superviseur</td>
-                            <td>{superviseur.prenom} {superviseur.nom}</td>
-                            <td>{superviseur.courriel}</td>
-                        </tr>
-                        :
-                        null
-                    }
-                    {contrat != null ?
+            {superviseur != null || contrat != null ?
+                <div>
+                    <h2>Contact</h2>
+                    <table>
                         <tr>
-                            <td>Moniteur</td>
-                            <td>{moniteur.prenom} {moniteur.nom}</td>
-                            <td>{moniteur.courriel}</td>
+                            <th>Role</th>
+                            <th>Nom</th>
+                            <th>Courriel</th>
                         </tr>
-                        :
-                        null
-                    }
-                </table>
-            </div>
+                        {superviseur != null ?
+                            < tr >
+                                <td>Superviseur</td>
+                                <td>{superviseur.prenom} {superviseur.nom}</td>
+                                <td>{superviseur.courriel}</td>
+                            </tr>
+                            :
+                            null
+                        }
+                        {contrat != null ?
+                            <tr>
+                                <td>Moniteur</td>
+                                <td>{moniteur.prenom} {moniteur.nom}</td>
+                                <td>{moniteur.courriel}</td>
+                            </tr>
+                            :
+                            null
+                        }
+                    </table>
+                </div>
+                :
+                null
+            }
 
             <div>
                 {contrat == null ?
@@ -114,7 +111,7 @@ const EtudiantDashboard = () => {
                     null
                 }
             </div>
-        </>
+        </div>
     )
 }
 

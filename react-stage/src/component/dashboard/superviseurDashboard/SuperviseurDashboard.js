@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
-import './SuperviseurDashboard.css'
+import '../../../Css/Dashboard.css'
 
 const SuperviseurDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,
@@ -28,23 +28,16 @@ const SuperviseurDashboard = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
-                    getEtudiants(data.id)
-                    setFullUser(data)
-                })
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                getEtudiants(data.id)
+                setFullUser(data)
+            })
 
         }
-    }, []);
+    }, [])
 
     const getEtudiants = async (id) => {
-        const dbEtudiants =
-            await UserService.getListEtudiantSuperviseur(id)
-        console.log(dbEtudiants, "dbEtudiants")
+        const dbEtudiants = await UserService.getListEtudiantSuperviseur(id)
         setListEtudiants(dbEtudiants)
     }
 
@@ -52,16 +45,16 @@ const SuperviseurDashboard = () => {
         <tr key={etudiant.id.toString()}>
             <td>{etudiant.prenom} {etudiant.nom}</td>
             <td>{etudiant.courriel}</td>
-        </tr>);
+        </tr>)
 
     return (
-        <>
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
             {listEtudiants.length > 0 ?
                 <div>
-                    <h1>Liste étudiants</h1>
+                    <h2>Liste étudiants</h2>
                     <table>
                         <tr>
                             <th>Nom</th>
@@ -72,9 +65,9 @@ const SuperviseurDashboard = () => {
                     </table>
                 </div>
                 :
-                null
+                <p className="superviseurDashboard_P">Vous etes responsable d'aucun étudiant pour l'instant</p>
             }
-        </>
+        </div>
     )
 }
 

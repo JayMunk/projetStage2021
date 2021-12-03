@@ -1,15 +1,20 @@
 import React, { useContext } from 'react'
-import { UserInfoContext } from './../../../contexts/UserInfo';
-import GestionnaireAfficherContrat from './GestionnaireAfficherContrat';
-import EtudiantAfficherContrat from './EtudiantAfficherContrat';
-import MoniteurAfficherContrat from './MoniteurAfficherContrat';
+import { UserInfoContext } from './../../../contexts/UserInfo'
+import GestionnaireAfficherContrat from './GestionnaireAfficherContrat'
+import EtudiantAfficherContrat from './EtudiantAfficherContrat'
+import MoniteurAfficherContrat from './MoniteurAfficherContrat'
+import { useHistory } from "react-router-dom"
 
 const AfficherContrat = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
+    const history = useHistory()
+
+    if (!loggedUser.isLoggedIn) history.push("/login")
+
 
     return (
-        <>
-            {loggedUser.role === "ETUDIANT"?
+        <body id="body">
+            {loggedUser.role === "ETUDIANT" ?
                 <EtudiantAfficherContrat />
                 :
                 null
@@ -24,7 +29,7 @@ const AfficherContrat = () => {
                 :
                 null
             }
-        </>
+        </body>
 
     )
 }

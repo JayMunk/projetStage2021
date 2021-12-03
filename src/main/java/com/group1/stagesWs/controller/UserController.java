@@ -59,16 +59,6 @@ public class UserController {
         .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
   }
 
-  /*
-  IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
-      @GetMapping("/moniteur/{id}")
-      public ResponseEntity<User> findMoniteurByEtudiantId(@PathVariable("id") int id) {
-          return service.findMoniteurByEtudiantId(id)
-                  .map(moniteur1 -> ResponseEntity.status(HttpStatus.OK).body(moniteur1))
-                  .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-      }
-  */
-
   // Create Moniteur
   @PostMapping(path = "/moniteur")
   public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {
@@ -105,14 +95,6 @@ public class UserController {
   public ResponseEntity<List<Etudiant>> getAllEtudiants() {
     return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
   }
-
-  //    @GetMapping(path = "/superviseur/{idSuperviseur}/etudiants")
-  //    public ResponseEntity<List<Etudiant>>
-  // getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
-  //        logger.info("get - getAllEtudiantsForSuperviseur " + idSuperviseur);
-  //        return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur),
-  // HttpStatus.OK);
-  //    }
 
   @GetMapping(path = "/etudiants/allSession")
   public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {

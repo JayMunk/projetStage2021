@@ -114,9 +114,11 @@ public class CVService extends SessionManager<CV> {
   public List<CV> getCVPendingEtRejected() {
     List<CV> listPending = cvRepository.findCVByStatus(Status.PENDING);
     List<CV> listRejected = cvRepository.findCVByStatus(Status.REJECTED);
-    listPending.addAll(listRejected);
+    List<CV> both = new ArrayList<>();
+    both.addAll(listPending);
+    both.addAll(listRejected);
 
-    return listPending;
+    return both;
   }
 
   @Override

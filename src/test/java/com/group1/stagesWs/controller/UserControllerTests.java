@@ -2,6 +2,7 @@ package com.group1.stagesWs.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -406,6 +407,72 @@ public class UserControllerTests {
         mapper.readValue(result.getResponse().getContentAsString(), List.class);
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
     assertThat(actualGestionnaires.size()).isEqualTo(expected.size());
+  }
+
+  @Test
+  void testGetAllMoniteurs() throws Exception {
+    // Arrange
+    List<Moniteur> expected = List.of(getMoniteur(), getMoniteur(), getMoniteur());
+    when(userService.getAllMoniteurs()).thenReturn(expected);
+
+    // Act
+    MvcResult result = mockMvc.perform(get("/user/moniteurs")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(mapper.writeValueAsString(expected))).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+    assertThat(actual.size()).isEqualTo(expected.size());
+  }
+
+  @Test
+  void testGetAllMoniteursAllSession() throws Exception {
+    // Arrange
+    List<Moniteur> expected = List.of(getMoniteur(), getMoniteur(), getMoniteur());
+    when(userService.getAllMoniteursAllSession()).thenReturn(expected);
+
+    // Act
+    MvcResult result = mockMvc.perform(get("/user/moniteurs/allSession")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(expected))).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+    assertThat(actual.size()).isEqualTo(expected.size());
+  }
+
+  @Test
+  void testGetEtudiant() throws Exception {
+    // Arrange
+    Etudiant expected = getEtudiant();
+    expected.setId(1);
+    when(userService.getEtudiant(anyInt())).thenReturn(expected);
+
+    // Act
+    MvcResult result = mockMvc.perform(get("/user/etudiant/" + expected.getId())).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
+    assertThat(actual.getId()).isEqualTo(expected.getId());
+  }
+
+  @Test
+  void testGetMoniteur() throws Exception {
+    // Arrange
+    Moniteur expected = getMoniteur();
+    expected.setId(1);
+    when(userService.getMoniteur(anyInt())).thenReturn(expected);
+
+    // Act
+    MvcResult result = mockMvc.perform(get("/user/moniteur/" + expected.getId())).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), Moniteur.class);
+    assertThat(actual.getId()).isEqualTo(expected.getId());
   }
 
   private Etudiant getEtudiant() {

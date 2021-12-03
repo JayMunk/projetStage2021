@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RapportService<T> {
+public class RapportService {
 
   private final OffreService offreService;
   private final CVService cvService;
@@ -145,9 +145,7 @@ public class RapportService<T> {
 
   public List<Etudiant> getListEtudiantEnAttenteEntrevue() {
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevuesQuiArrive();
-    List<Etudiant> listEtudiantNoEntrevue =
-        listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
-    return listEtudiantNoEntrevue;
+    return listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
   }
 
   public byte[] getEtudiantEnAttenteEntrevue() throws Exception {
@@ -158,11 +156,8 @@ public class RapportService<T> {
   public List<Etudiant> getListEtudiantSansEtrenvue() {
     List<Etudiant> listEtudiant = userService.getAllEtudiants();
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevues();
-    Set<Etudiant> listEtudiantAvecEntrevue = new HashSet<>();
+    Set<Etudiant> listEtudiantAvecEntrevue = listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toSet());
 
-    for (Entrevue entrevue : listEntrevue) {
-      listEtudiantAvecEntrevue.add(entrevue.getEtudiant());
-    }
     listEtudiant.removeAll(listEtudiantAvecEntrevue);
     return listEtudiant;
   }
@@ -174,12 +169,10 @@ public class RapportService<T> {
 
   public List<Etudiant> getListEtudiantEnAttenteDeReponse() {
     List<Entrevue> listEntrevue = entrevueService.getAllEntrevuesPasse();
-    List<Etudiant> listEtudiantAttenteReponse =
-        listEntrevue.stream()
-            .filter(entrevue -> entrevue.getStatus().equals(Status.PENDING))
-            .map(Entrevue::getEtudiant)
-            .collect(Collectors.toList());
-    return listEtudiantAttenteReponse;
+    return listEntrevue.stream()
+        .filter(entrevue -> entrevue.getStatus().equals(Status.PENDING))
+        .map(Entrevue::getEtudiant)
+        .collect(Collectors.toList());
   }
 
   public byte[] getEtudiantEnAttenteReponse() throws Exception {
@@ -191,9 +184,7 @@ public class RapportService<T> {
 
   public List<Etudiant> getListEtudiantTrouveStage() {
     List<Entrevue> listEntrevue = entrevueService.getEntrevuesAccepted();
-    List<Etudiant> listEtudiantTrouveStage =
-        listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
-    return listEtudiantTrouveStage;
+    return listEntrevue.stream().map(Entrevue::getEtudiant).collect(Collectors.toList());
   }
 
   public byte[] getEtudiantTrouveStage() throws Exception {
@@ -209,11 +200,9 @@ public class RapportService<T> {
             .map(EvaluationEtudiant::getContrat)
             .map(Contrat::getEtudiant)
             .collect(Collectors.toList());
-    List<Etudiant> listStream =
-        listEtudiant.stream()
-            .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
-            .collect(Collectors.toList());
-    return listStream;
+    return listEtudiant.stream()
+        .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
+        .collect(Collectors.toList());
   }
 
 
@@ -230,11 +219,9 @@ public class RapportService<T> {
             .map(EvaluationEntreprise::getContrat)
             .map(Contrat::getEtudiant)
             .collect(Collectors.toList());
-    List<Etudiant> listStream =
-        listEtudiant.stream()
-            .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
-            .collect(Collectors.toList());
-    return listStream;
+    return listEtudiant.stream()
+        .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
+        .collect(Collectors.toList());
   }
 
   public byte[] getEtudiantsNoEntrepriseEvalueSuperviseur() throws Exception {

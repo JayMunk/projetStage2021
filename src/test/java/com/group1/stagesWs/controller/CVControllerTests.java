@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.model.CV;
@@ -189,6 +190,39 @@ public class CVControllerTests {
 
     // Act
     MvcResult result = mockMvc.perform(get("/cv/allSession")).andReturn();
+
+    // Assert
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(actual.size()).isEqualTo(3);
+  }
+
+  @Test
+  void testSaveCV() throws Exception {
+    // Arrange
+    CV expected = new CV();
+    expected.setId(1);
+    when(cvService.saveCV(any(CV.class))).thenReturn(Optional.of(expected));
+
+    // Act
+    MvcResult result = mockMvc.perform(post("/cv")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(new CV()))).andReturn();
+
+    // Assert
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+    var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
+    assertThat(actual.getId()).isGreaterThan(0);
+  }
+
+  @Test
+  void testGetAllCVbyEtudiant() throws Exception {
+    // Arrange
+    List<CV> expected = List.of(new CV(), new CV(), new CV());
+    when(cvService.getAllCVEtudiant(anyInt())).thenReturn(expected);
+
+    // Act
+    MvcResult result = mockMvc.perform(get("/cv/etudiant/1")).andReturn();
 
     // Assert
     var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);

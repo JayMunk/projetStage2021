@@ -182,6 +182,25 @@ public class CVServiceTests {
     assertThat(returnedList).hasSize(2);
   }
 
+  @Test
+  void testGetCVPendingEtRejected() {
+    // Arrange
+    CV rejected1 = getCV();
+    rejected1.setStatus(Status.REJECTED);
+    CV rejected2 = getCV();
+    rejected2.setStatus(Status.REJECTED);
+    List<CV> pending = List.of(getCV(), getCV());
+    List<CV> rejected = List.of(rejected1, rejected2);
+    when(cvRepository.findCVByStatus(Status.PENDING)).thenReturn(pending);
+    when(cvRepository.findCVByStatus(Status.REJECTED)).thenReturn(rejected);
+
+    // Act
+    List<CV> actual = cvService.getCVPendingEtRejected();
+
+    // Assert
+    assertThat(actual.size()).isEqualTo(pending.size() + rejected.size());
+  }
+
   private CV getCV() {
     CV cv = new CV();
     cv.setNom("cvTest.pdf");

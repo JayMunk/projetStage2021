@@ -356,8 +356,12 @@ const Offres = () => {
                       <td className="bg-secondary">{currentOffre.nbTotalSemaine} semaines</td>
                     </tr>
                     <tr>
-                      <th className="bg-muted text-white">Horaire</th>
-                      <td className="bg-secondary">{currentOffre.horaire}</td>
+                      <th className="bg-muted text-white">Horaire de début</th>
+                      <td className="bg-secondary">{currentOffre.horaireDebut}</td>
+                    </tr>
+                    <tr>
+                      <th className="bg-muted text-white">Horaire de fin</th>
+                      <td className="bg-secondary">{currentOffre.horaireFin}</td>
                     </tr>
                     <tr>
                       <th className="bg-muted text-white">Totales Heures/Semaine</th>

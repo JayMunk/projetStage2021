@@ -6,6 +6,7 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
 import Swal from "sweetalert2"
 import "@sweetalert2/theme-dark/dark.css"
 
+
 const EtudiantAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
     const [contrat, setContrat] = useState({})
@@ -19,17 +20,25 @@ const EtudiantAfficherContrat = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        if (!contrat.etudiantConfirmed) {
-            const date = new Date()
-            contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
-            contrat.etudiantConfirmed = true
-            const newContrat = await ContratService.saveContrat(contrat)
-            setContrat(newContrat)
+        if (contrat.collegeEngagement != undefined) {
+            if (!contrat.etudiantConfirmed) {
+                const date = new Date()
+                contrat.dateSignatureEtudiant = date.toISOString().split('T')[0]
+                contrat.etudiantConfirmed = true
+                const newContrat = await ContratService.saveContrat(contrat)
+                setContrat(newContrat)
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Vous avez déjà signer votre contrat."
+                })
+            }
         } else {
             Swal.fire({
                 icon: "error",
                 title: "Erreur!",
-                text: "Vous avez déjà signer votre contrat."
+                text: "Vous n'avez pas encore de contrat."
             })
         }
     }

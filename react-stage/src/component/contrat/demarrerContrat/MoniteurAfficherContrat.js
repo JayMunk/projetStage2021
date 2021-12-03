@@ -5,7 +5,7 @@ import '../../../Css/FormContratOffre.css'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
 import Swal from "sweetalert2"
 import "@sweetalert2/theme-dark/dark.css"
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
 
 const MoniteurAfficherContrat = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -17,8 +17,10 @@ const MoniteurAfficherContrat = () => {
     useEffect(async () => {
         let dbContrats
         dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
-        getOffres(dbContrats)
-        setListContrats(dbContrats)
+        if (dbContrats.length != 0) {
+            getOffres(dbContrats)
+            setListContrats(dbContrats)
+        }
     }, [])
 
     const getOffres = (listContrats) => {
@@ -82,17 +84,25 @@ const MoniteurAfficherContrat = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        if (!contrat.moniteurConfirmed) {
-            const date = new Date()
-            contrat.dateSignatureMoniteur = date.toISOString().split('T')[0]
-            contrat.moniteurConfirmed = true
-            const newContrat = await ContratService.saveContrat(contrat)
-            setContrat(newContrat)
+        if (contrat.collegeEngagement != undefined) {
+            if (!contrat.moniteurConfirmed) {
+                const date = new Date()
+                contrat.dateSignatureMoniteur = date.toISOString().split('T')[0]
+                contrat.moniteurConfirmed = true
+                const newContrat = await ContratService.saveContrat(contrat)
+                setContrat(newContrat)
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Vous avez déjà signer votre contrat."
+                })
+            }
         } else {
             Swal.fire({
                 icon: "error",
                 title: "Erreur!",
-                text: "Vous avez déjà signer votre contrat."
+                text: "Vous n'avez pas encore de contrat."
             })
         }
     }

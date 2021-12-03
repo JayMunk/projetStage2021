@@ -1,7 +1,5 @@
-import Swal from "sweetalert2";
-import "@sweetalert2/theme-dark/dark.css";
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>;
-
+import Swal from "sweetalert2"
+import "@sweetalert2/theme-dark/dark.css"
 
 const urlBase = "http://localhost:9191/offres"
 const OffreService = {

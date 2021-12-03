@@ -6,6 +6,7 @@ import ContratService from '../../../services/ContratService'
 import Entrevue from './Entrevue'
 import UserService from '../../../services/UserService'
 import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 
 const EtudiantDashboard = () => {
@@ -69,31 +70,35 @@ const EtudiantDashboard = () => {
             {superviseur != null || contrat != null ?
                 <div>
                     <h2>Contact</h2>
-                    <table>
-                        <tr>
-                            <th>Role</th>
-                            <th>Nom</th>
-                            <th>Courriel</th>
-                        </tr>
-                        {superviseur != null ?
-                            < tr >
-                                <td>Superviseur</td>
-                                <td>{superviseur.prenom} {superviseur.nom}</td>
-                                <td>{superviseur.courriel}</td>
-                            </tr>
-                            :
-                            null
-                        }
-                        {contrat != null ?
+                    <Table striped bordered hover variant="dark" className="DashboardTable">
+                        <thead>
                             <tr>
-                                <td>Moniteur</td>
-                                <td>{moniteur.prenom} {moniteur.nom}</td>
-                                <td>{moniteur.courriel}</td>
+                                <th>Role</th>
+                                <th>Nom</th>
+                                <th>Courriel</th>
                             </tr>
-                            :
-                            null
-                        }
-                    </table>
+                        </thead>
+                        <tbody>
+                            {superviseur != null ?
+                                <tr >
+                                    <td>Superviseur</td>
+                                    <td>{superviseur.prenom} {superviseur.nom}</td>
+                                    <td>{superviseur.courriel}</td>
+                                </tr>
+                                :
+                                null
+                            }
+                            {contrat != null ?
+                                <tr>
+                                    <td>Moniteur</td>
+                                    <td>{moniteur.prenom} {moniteur.nom}</td>
+                                    <td>{moniteur.courriel}</td>
+                                </tr>
+                                :
+                                null
+                            }
+                        </tbody>
+                    </Table>
                 </div>
                 :
                 null

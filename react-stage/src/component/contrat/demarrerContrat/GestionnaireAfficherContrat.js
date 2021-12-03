@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ContratService from '../../../services/ContratService'
 import '../../../Css/FormContratOffre.css'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
 
 const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
@@ -109,6 +110,14 @@ const GestionnaireAfficherContrat = () => {
         }
     }
 
+    const getBoolIcon = (bool) => {
+        return bool ? (
+            <AiOutlineCheckCircle color="green" />
+        ) : (
+            <AiOutlineCloseCircle color="red" />
+        )
+    }
+
     return (
         <form className="form" id="txtform" className="FormContratOffre" onSubmit={handleSubmit}>
             <h1>Démarrer contrat</h1>
@@ -165,7 +174,7 @@ const GestionnaireAfficherContrat = () => {
                 <label htmlFor="moniteurConfirmed" className="form-label">
                     Signature moniteur
                 </label>
-                <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.moniteurConfirmed)}</span>
             </div>
             {errors.moniteurConfirmed && <p className="error">{errors.moniteurConfirmed}</p>}
 
@@ -173,7 +182,7 @@ const GestionnaireAfficherContrat = () => {
                 <label htmlFor="etudiantConfirmed" className="form-label">
                     Signature étudiant
                 </label>
-                <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.etudiantConfirmed)}</span>
             </div>
             {errors.etudiantConfirmed && <p className="error">{errors.etudiantConfirmed}</p>}
 
@@ -181,7 +190,7 @@ const GestionnaireAfficherContrat = () => {
                 <label htmlFor="gestionnaireConfirmed" className="form-label">
                     Signature gestionnaire
                 </label>
-                <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
+                <span>{getBoolIcon(contrat.gestionnaireConfirmed)}</span>
             </div>
 
 

@@ -1,6 +1,8 @@
 import { React, useEffect, useState, useRef } from 'react'
 import EntrevueService from '../../../services/EntrevueService'
 import Swal from 'sweetalert2'
+import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 const FormEntrevue = ({ handleReloadList }) => {
     const [values, setValues] = useState({
@@ -108,7 +110,7 @@ const FormEntrevue = ({ handleReloadList }) => {
         <div>
             <h2>Créer une entrevue</h2>
             <form className="register-form" onSubmit={handleSubmit}>
-                <table>
+                <Table striped bordered hover variant="dark" className="DashboardTable">
                     <tr>
                         <th>Titre</th>
                         <th>Date</th>
@@ -169,7 +171,7 @@ const FormEntrevue = ({ handleReloadList }) => {
                             </button>
                         </td>
                     </tr>
-                </table>
+                </Table>
             </form>
 
 

@@ -5,6 +5,7 @@ import Offres from '../../Offres/Offres'
 import Entrevue from './Entrevue'
 import FormEntrevue from './FormEntrevue'
 import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 const MoniteurDashboard = () => {
     const [loggedUser] = useContext(UserInfoContext)
@@ -48,7 +49,7 @@ const MoniteurDashboard = () => {
     }
 
     const gestionnairesList = listGestionnaires.map((gestionnaire) =>
-        <tr key={gestionnaire.id.toString()}>
+        <tr className="text-white" key={gestionnaire.id.toString()}>
             <td>{gestionnaire.prenom} {gestionnaire.nom}</td>
             <td>{gestionnaire.courriel}</td>
         </tr>)
@@ -61,13 +62,17 @@ const MoniteurDashboard = () => {
 
             <div>
                 <h2>Contact Gestionnaire</h2>
-                <table>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Courriel</th>
-                    </tr>
-                    {gestionnairesList}
-                </table>
+                <Table striped bordered hover variant="dark" className="DashboardTable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Courriel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {gestionnairesList}
+                    </tbody>
+                </Table>
             </div>
             <Offres />
             <FormEntrevue handleReloadList={handleReloadList} />

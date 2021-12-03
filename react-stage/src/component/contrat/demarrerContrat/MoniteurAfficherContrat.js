@@ -102,7 +102,7 @@ const MoniteurAfficherContrat = () => {
             Swal.fire({
                 icon: "error",
                 title: "Erreur!",
-                text: "Vous avez pas encore de contrat."
+                text: "Vous n'avez pas encore de contrat."
             })
         }
     }

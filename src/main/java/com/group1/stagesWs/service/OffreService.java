@@ -99,16 +99,18 @@ public class OffreService extends SessionManager<Offre> {
     applicants.add(etudiant);
     offre.setApplicants(applicants);
 
-    notificationService.saveNotificationMoniteur(
-        new Notification(
-            "L'etudiant "
-                + etudiant.getPrenom()
-                + " "
-                + etudiant.getNom()
-                + " a applique a votre offre: "
-                + offre.getTitre(),
-            NotifStatus.ALERT),
-        offre.getMoniteur().getId());
+    if(offre.getMoniteur() != null) {
+      notificationService.saveNotificationMoniteur(
+          new Notification(
+              "L'etudiant "
+                  + etudiant.getPrenom()
+                  + " "
+                  + etudiant.getNom()
+                  + " a applique a votre offre: "
+                  + offre.getTitre(),
+              NotifStatus.ALERT),
+          offre.getMoniteur().getId());
+    }
     return Optional.of(offreRepository.save(offre));
   }
 

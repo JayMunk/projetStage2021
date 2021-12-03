@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfo";
+import CVService from "../../../services/CVService"
+
 
 const Cvs = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
@@ -9,16 +11,10 @@ const Cvs = () => {
   const [listRejectedCV, setListRejectedCV] = useState("0");
   const [cvs, setCVs] = useState([]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/cv`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((cvs) => {
-          console.log(cvs, "cvs");
-          setCVs(cvs);
-        });
+      const cvsList = await CVService.getAllCVs()
+      setCVs(cvsList)
     }
   }, []);
 
@@ -49,11 +45,11 @@ const Cvs = () => {
 
   return (
     <>
-      <table>
+      <table className="tableDashboardGestionnaire">
         <tr>
           <th colSpan="2">CV</th>
         </tr>
-        <tr>
+        <tr className="totalTr">
           <td>Le nombres de cvs totals</td>
           <td>{cvs.length}</td>
         </tr>

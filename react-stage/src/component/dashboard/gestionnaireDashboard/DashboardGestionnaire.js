@@ -1,17 +1,23 @@
-import React from "react";
+import { React, useEffect, useContext } from "react";
 import Cvs from "./Cvs";
 import Etudiants from "./Etudiants";
 import Moniteurs from "./Moniteurs";
 import Superviseurs from "./Superviseurs";
+import Entrevues from "./Entrevues";
+import Contrats from "./Contrats";
+import EvulationEntreprise from "./EvulationEntreprise";
+import EvluationEtudiant from "./EvluationEtudiant";
+import { UserInfoContext } from "../../../contexts/UserInfo";
+
 import "./DashboardGestionnaireCSS.css";
 import OffresDashGestionnaire from "./OffresDashGestionnaire";
 const DashboardGestionnaire = () => {
+  const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+
   return (
-    <body>
-      <div className="topLeft">
+    <body id="body">
+      <div id="centerDashboardGestionnaire">
         <Etudiants />
-      </div>
-      <div className="topRight">
         <Cvs />
       </div>
       <div className="center">
@@ -19,9 +25,11 @@ const DashboardGestionnaire = () => {
       </div>
       <div className="bottomLeft">
         <Moniteurs />
-      </div>
-      <div className="bottomRight">
         <Superviseurs />
+        <Entrevues />
+        <Contrats />
+        <EvulationEntreprise />
+        <EvluationEtudiant />
       </div>
     </body>
   );

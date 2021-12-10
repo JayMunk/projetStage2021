@@ -217,4 +217,10 @@ public class RapportControllerTests {
         var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(actual.size()).isEqualTo(expected.size());
     }
+
+//    @Test
+//    void testGetOffresValidPDF() throws Exception{
+//        //Arrange
+//        when(rapportService.getOffresValidPDF()).thenReturn(new byte[0]);
+//    }
 }

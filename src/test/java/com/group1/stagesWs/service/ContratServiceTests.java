@@ -2,6 +2,7 @@ package com.group1.stagesWs.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +35,10 @@ public class ContratServiceTests {
 
   @Mock
   private EvaluationService evaluationService;
-  
+
+  @Mock
+  private NotificationService notificationService;
+
   @InjectMocks
   private ContratService contratService;
 
@@ -89,6 +93,12 @@ public class ContratServiceTests {
     // Arrange
     Contrat expected = getContrat();
     when(contratRepository.save(any(Contrat.class))).thenReturn(expected);
+    when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt()))
+        .thenReturn(true);
+    when(notificationService.saveNotificationMoniteur(any(Notification.class), anyInt()))
+        .thenReturn(true);
+    when(notificationService.saveNotificationGestionnaire(any(Notification.class)))
+        .thenReturn(true);
 
     // Act
     Optional<Contrat> returned = contratService.saveContrat(expected);
@@ -111,7 +121,8 @@ public class ContratServiceTests {
     List<EvaluationEtudiant> evaluations = List.of(evaluation);
     List<Contrat> allContrats = List.of(evaluated, notEvaluated1, notEvaluated2);
     when(evaluationService.getAllCurrentEtudiantEvals()).thenReturn(evaluations);
-    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(allContrats);
+    when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString()))
+        .thenReturn(allContrats);
 
     // Act
     var actual = contratService.getMoniteurContratsToEvaluate("moniteur@example.com");
@@ -134,7 +145,8 @@ public class ContratServiceTests {
     List<EvaluationEntreprise> evaluations = List.of(evaluation);
     List<Contrat> allContrats = List.of(evaluated, notEvaluated1, notEvaluated2);
     when(evaluationService.getAllCurrentEntrepriseEvals()).thenReturn(evaluations);
-    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString())).thenReturn(allContrats);
+    when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString()))
+        .thenReturn(allContrats);
 
     // Act
     var actual = contratService.getSuperviseurContratsToEvaluate("moniteur@example.com");

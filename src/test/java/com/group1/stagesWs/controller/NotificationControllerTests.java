@@ -4,17 +4,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.NotifStatus;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Notification;
+import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.service.NotificationService;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -43,6 +47,22 @@ public class NotificationControllerTests {
   public NotificationControllerTests() {
     this.mapper = new ObjectMapper().findAndRegisterModules();
     this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
+
+  @Test
+  void testSaveNotification() throws Exception {
+    //Arrange
+    Notification expected = getNotification();
+    when(notificationService.saveNotification(any(Notification.class))).thenReturn(expected);
+
+    // Act
+    MvcResult result = mockMvc.perform(post("/notification")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(expected))).andReturn();
+
+    var actualNotification = mapper.readValue(result.getResponse().getContentAsString(), Notification.class);
+    assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(actualNotification).isEqualTo(expected);
   }
 
   @Test

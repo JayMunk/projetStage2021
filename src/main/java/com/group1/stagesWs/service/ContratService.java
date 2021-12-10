@@ -1,10 +1,13 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.NotifStatus;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.EvaluationEntreprise;
 import com.group1.stagesWs.model.EvaluationEtudiant;
+import com.group1.stagesWs.model.Notification;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.springframework.stereotype.Service;
@@ -18,19 +21,44 @@ public class ContratService extends SessionManager<Contrat> {
 
   private final ContratRepository contratRepository;
   private final EtudiantRepository etudiantRepository;
-
   private final EvaluationService evaluationService;
+
+  private final NotificationService notificationService;
 
   public ContratService(
       ContratRepository contratRepository,
       EtudiantRepository etudiantRepository,
-      EvaluationService evaluationService) {
+      EvaluationService evaluationService,
+      NotificationService notificationService) {
     this.contratRepository = contratRepository;
     this.etudiantRepository = etudiantRepository;
     this.evaluationService = evaluationService;
+    this.notificationService = notificationService;
   }
 
   public Optional<Contrat> saveContrat(Contrat contrat) {
+    Optional<Contrat> checkContrat = contratRepository.findById(contrat.getId());
+    if (checkContrat.isEmpty()) {
+      notificationService.saveNotificationEtudiant(new Notification(
+              "Vous devez signez le contrat de stage de l'offre " + contrat.getOffre().getTitre()
+                  + " de l'entreprise " + contrat.getOffre().getEntreprise() + " le plus tôt possible.",
+              NotifStatus.URGENT),
+          contrat.getEtudiant().getId());
+
+      notificationService.saveNotificationMoniteur(new Notification(
+              "Vous devez signez le contrat de " + contrat.getEtudiant().getPrenom() + " " + contrat
+                  .getEtudiant().getNom() + " de votre offre " + contrat.getOffre().getTitre()
+                  + " le plus tôt possible.",
+              NotifStatus.URGENT),
+          contrat.getMoniteur().getId());
+
+      notificationService.saveNotificationGestionnaire(new Notification(
+          "Vous devez signez le contrat de " + contrat.getEtudiant().getPrenom() + " " + contrat
+              .getEtudiant().getNom() + " de l'offre " + contrat.getOffre().getTitre()
+              + " avec l'entreprise " + contrat.getOffre().getEntreprise() +
+              " le plus tôt possible.",
+          NotifStatus.URGENT));
+    }
     return Optional.of(contratRepository.save(contrat));
   }
 

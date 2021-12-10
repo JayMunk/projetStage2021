@@ -1,6 +1,7 @@
 package com.group1.stagesWs.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -12,6 +13,7 @@ import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.OffreService;
 import com.group1.stagesWs.service.RapportService;
 import com.group1.stagesWs.service.UserService;
+import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -218,9 +221,137 @@ public class RapportControllerTests {
         assertThat(actual.size()).isEqualTo(expected.size());
     }
 
-//    @Test
-//    void testGetOffresValidPDF() throws Exception{
-//        //Arrange
-//        when(rapportService.getOffresValidPDF()).thenReturn(new byte[0]);
-//    }
+    @Test
+    void testGetOffresValidPDF() throws Exception{
+        //Arrange
+        when(rapportService.getOffresValidPDF()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/offresValide")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetOffresInvalidPDF() throws Exception{
+        //Arrange
+        when(rapportService.getOffresInvalidPDF()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/offresInvalid")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsInscrientPDF() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantsInscrientPDF()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsInscrient")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetCvPendingEtRejectedPDF() throws Exception{
+        //Arrange
+        when(rapportService.getCvPendingEtRejectedPDF()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/cvPendingRejected")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsNoCv() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantsNoCv()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsSansCv")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsSansEntrevue() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantsSansEntrevue()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsSansEntrevue")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsAttenteEntrevue() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantEnAttenteEntrevue()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsAttenteEntrevue")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+
+    @Test
+    void testGetEtudiantsEnAttenteReponse() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantEnAttenteReponse()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsAttenteReponse")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsTrouveStage() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantTrouveStage()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsTrouveStage")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsNoEvaluationMoniteur() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantsNoEvaluationMoniteur()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsNoEvaluationMoniteur")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testGetEtudiantsNoEntrepriseEvalueSuperviseur() throws Exception{
+        //Arrange
+        when(rapportService.getEtudiantsNoEntrepriseEvalueSuperviseur()).thenReturn(new byte[0]);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/rapport/pdf/etudiantsNoEntrepriseEvalueSuperviseur")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
 }
